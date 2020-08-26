@@ -158,13 +158,13 @@ let bondMovies = [
 
 app.use(morgan('common'));
 
+app.use('/', express.static('public'));
+
 // GET requests
 
 app.get('/', (req, res) => {
   res.send('Welcome to the James Bond 007 Movie Database');
 });
-
-app.use('/documentation', express.static('public'));
 
 app.get('/movies', (req, res) => {
   res.json(bondMovies);
