@@ -27,8 +27,9 @@
         <li>
           <a href="#intro">Introduction</a>
         </li>
-        <li>Data Available</li>
-        <li>Instructions</li>
+        <li>
+          <a href="#instructions">Instructions</a>
+        </li>
         <li>Terms and Conditions</li>
       </ul>
     </nav>
@@ -42,6 +43,195 @@
         from 1962 to present day, <br>
         every Bond movie at your fingertips.
       <p>This API brings together facts about every Bond movie.........TBC</p>
+    </section>
+    <hr>
+    <section>
+      <h2 id="instructions">Instructions</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Business Logic</th>
+            <th scope="col">URL</th>
+            <th scope="col">HTTP Method</th>
+            <th scope="col">Query Parameters</th>
+            <th scope="col">Request Format</th>
+            <th scope="col">Response Format</th>
+          </tr>
+          <tr>
+            <td>Get All Bond Movies</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>None – via URL only</td>
+            <td>JSON: Array of Objects, each object containing the following information on each movie in the database:<br>
+              [<br>
+               { title: 'Dr. No',<br>
+                year: '1962',<br>
+                genres: [ 'Action', 'Adventure', 'Thriller' ],<br>
+                director: { name: 'Terence Young', dob: '20 June 1915', pob: 'Shanghai, China', dod: '07 September 1994' },<br>
+                bond: { name:'Sean Connery', dob: '25 August 1930', pob: 'Edinburgh, Scotland', dod: '--' },<br>
+                plot: 'Bond searches for a missing colleague amid deliberate disruption of the American space program.',<br>
+                studio: 'United Artists',<br>
+                posterURL: 'http://www.sweepback.co.uk/bondMovies/img/007_Dr_No.jpg',<br>
+                songArtist: 'John Barry Orchestra' },<br>
+                etc etc until final movie, then <br>
+                ]
+              </td>
+          </tr>
+          <tr>
+            <td>Get all movies listed by title only</td>
+            <td>/movies/titles</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>None – via URL only</td>
+            <td>JSON : Single object containing list of movie names:<br>
+               [ "Dr. No", "From Russia With Love", "Goldfinger", etc, etc, "Skyfall", "Spectre" ]</td>
+          </tr>
+          <tr>
+            <td>Get One Movie by Title</td>
+            <td>/movies/title</td>
+            <td>GET</td>
+            <td>/title must match case and spelling of database</td>
+            <td>None – via URL only</td>
+            <td>JSON: Single object containing information on single movie, as per first example for ' Get All Bond Movies' .<br>
+             Fault message returned if no title match.</td>
+          </tr>
+          <tr>
+            <td>Get genres of specified Title</td>
+            <td>/movies/genres/title</td>
+            <td>GET</td>
+            <td>/title must match case and spelling of database</td>
+            <td>None – via URL only</td>
+            <td>Text response outlining assigned genres for selected movie:<br>
+               Example: According to IMDB.com, Casino Royale (1967) has been assigned the following genre or genres: Comedy.<br>
+               Fault message returned if no title match.</td>
+          </tr>
+          <tr>
+            <td>Get director information of specified Title</td>
+            <td>/movies/director /title</td>
+            <td>GET</td>
+            <td>/title must match case and spelling of database</td>
+            <td>None – via URL only</td>
+            <td>Text response detailing director for selected movie:<br>
+              Example: The director of "Spectre" is Sam Mendes, born on 01 August 1965 in Reading, England.</td>
+          </tr>
+          <tr>
+            <td>Get Bond actor information of specified Title</td>
+            <td>/movies/bond/title</td>
+            <td>GET</td>
+            <td>/title must match case and spelling of database</td>
+            <td>None – via URL only</td>
+            <td>Text response detailing Bond actor for selected movie:<br>
+              Example: The actor playing James Bond, 007 in "A View To A Kill" is Roger Moore, born on 14 October 1927 in Stockwell, England.</td>
+          </tr>
+          <tr>
+            <td>Get all Registered Users</td>
+            <td>/users</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>None – via URL only</td>
+            <td>JSON: Array of Objects, each object containing the<br>
+              following information on each user in the database (only 1 initially included in database):<br>
+              [<br>
+               { "id": 1,<br>
+                 "username": "haldw",<br>
+                 "password": "399699",<br>
+                 "email": "info@sweepback.co.uk",<br>
+                 "dob": "01 Jan 2000",<br>
+                 "favorites": [ "Spectre", "Goldfinger", "Thunderball" ]<br>
+               }<br>
+             ]</td>
+          </tr>
+          <tr>
+            <td>Get list of usernames of all registered users</td>
+            <td>/users/usernames</td>
+            <td>GET</td>
+            <td>--</td>
+            <td>None – via URL only</td>
+            <td>JSON : Single object containing list of all registered usernames:<br>
+              [<br>
+               "John",<br>
+               "GrahemM",<br>
+               "haldw",<br>
+              ]</td>
+          </tr>
+          <tr>
+            <td>Get single user's details by username</td>
+            <td>/users/username</td>
+            <td>GET</td>
+            <td>/username must match case and spelling of database</td>
+            <td>None – via URL only</td>
+            <td>JSON: Single object containing information on single user:<br>
+               {<br>
+                 "id": 1,<br>
+                 "username": "haldw",<br>
+                 "password": "399699",<br>
+                 "email": "info@sweepback.co.uk",<br>
+                 "dob": "01 Jan 2000",<br>
+                 "favorites": [<br>
+                    "Goldfinger",<br>
+                    "Thunderball",<br>
+                    "GoldenEye",<br>
+                    "Dr. No" ]<br>
+               }</td>
+          </tr>
+          <tr>
+            <td>Register new user</td>
+            <td>/users</td>
+            <td>POST</td>
+            <td>--</td>
+            <td>JSON request object in following format:<br>
+              {<br>
+                "username": "Navy",<br>
+                "password": "wetfeet",<br>
+                "email": "scurvy@gmail.com",<br>
+                "dob": "01 April 1546"<br>
+              }</td>
+            <td>JSON response object confirming information submitted,<br>
+              with randomised ID and empty favourites array:<br>
+             {<br>
+               "username": "Navy",<br>
+               "password": "wetfeet",<br>
+               "email": "scurvy@gmail.com",<br>
+               "dob": "01 April 1546"<br>
+               "id": "19339f6b-4dfb-47b8-97df-4f7f087e1931",<br>
+               "favorites": []<br>
+             }</td>
+          </tr>
+          <tr>
+            <td>Add user favorite</td>
+            <td>/users/username/title</td>
+            <td>POST</td>
+            <td>/username and /title must match case and spelling of database</td>
+            <td>None – via URL only</td>
+            <td>Text response detailing which movie has been added to favorites.<br>
+               Duplicate favorites are prevented:<br>
+               Example: haldw has added title "Octopussy" to his/her/their favorites collection.<br>
+               Example: haldw has already added title "Dr. No" to his/her/their favorites collection. Duplicate not added.</td>
+          </tr>
+          <tr>
+            <td>Remove user favorite</td>
+            <td>/users/username/title/td>
+            <td>DELETE</td>
+            <td>/username and /title must match case and spelling of database</td>
+            <td>None – via URL only</td>
+            <td>Text response detailing which movie has been removed from favorites.<br>
+              Missing favorites are flagged:<br>
+              Example: haldw has removed "Spectre" from his/her/their favorites collection.<br>
+              Example: haldw does not have title "Spectre" in his/her/their favorites collection.</td>
+          </tr>
+          <tr>
+            <td>Remove user by username</td>
+            <td>/users/username</td>
+            <td>DELETE</td>
+            <td>/username must match case and spelling of database</td>
+            <td>None – via URL only</td>
+            <td>Text response detailing that user has been removed from the database.<br>
+              Unidentified users are flagged:<br>
+              Example: Username "Navy" has been deleted from the database.<br>
+              Example: Username Navy does not exist. Please recheck Username to be deleted and try again.</td>
+          </tr>
+      </table>
     </section>
   </body>
 </html>
