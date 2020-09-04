@@ -65,15 +65,25 @@
             <td>None – via URL only</td>
             <td>JSON: Array of Objects, each object containing the following information on each movie in the database:<br>
               [<br>
-               { title: 'Dr. No',<br>
-                year: '1962',<br>
-                genres: [ 'Action', 'Adventure', 'Thriller' ],<br>
-                director: { name: 'Terence Young', dob: '20 June 1915', pob: 'Shanghai, China', dod: '07 September 1994' },<br>
-                bond: { name:'Sean Connery', dob: '25 August 1930', pob: 'Edinburgh, Scotland', dod: '--' },<br>
-                plot: 'Bond searches for a missing colleague amid deliberate disruption of the American space program.',<br>
-                studio: 'United Artists',<br>
-                posterURL: 'http://www.sweepback.co.uk/bondMovies/img/007_Dr_No.jpg',<br>
-                songArtist: 'John Barry Orchestra' },<br>
+               {
+                  "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),<br>
+                  "Title": "Dr. No",<br>
+                  "Year": "1962-01-01",<br>
+                  "Genres": [<br>
+                    ObjectId("5f509d2dcce013d48f955987"),<br>
+                    ObjectId("5f509fe2cce013d48f95598b"),<br>
+                    ObjectId("5f509e81cce013d48f955988")<br>
+                  ],<br>
+                  "Description": "Bond searches for a missing colleague amid deliberate disruption of the American space program.",<br>
+                  "Director": ObjectId("5f50c29ecf52f03ae2f58fe5"),<br>
+                  "BondActor": ObjectId("5f50c0dfcf52f03ae2f58fdf"),<br>
+                  "Heroine": "Honey Ryder",<br>
+                  "Villain": "Dr. No",<br>
+                  "Actors": ["Joseph Wiseman", "Ursula Andress", "Jack Lord", "Bernard Lee"],<br>
+                  "ImagePath": "img/007_Dr_No.jpg",<br>
+                  "SongArtist": "John Barry Orchestra",<br>
+                  "Featured": false<br>
+                },<br>
                 etc etc until final movie, then <br>
                 ]
               </td>
@@ -133,12 +143,12 @@
             <td>JSON: Array of Objects, each object containing the<br>
               following information on each user in the database (only 1 initially included in database):<br>
               [<br>
-               { "id": 1,<br>
-                 "username": "haldw",<br>
-                 "password": "399699",<br>
-                 "email": "info@sweepback.co.uk",<br>
-                 "dob": "01 Jan 2000",<br>
-                 "favorites": [ "Spectre", "Goldfinger", "Thunderball" ]<br>
+               { "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),<br>
+                 "Username": "Navy",<br>
+                 "Password": "wetfeet",<br>
+                 "Email": "scurvy@gmail.com",<br>
+                 "Birthday": "1978-10-12"<br>
+                 "FavoriteMovies": [ "Spectre", "Goldfinger", "Thunderball" ]<br>
                }<br>
              ]</td>
           </tr>
@@ -163,12 +173,12 @@
             <td>None – via URL only</td>
             <td>JSON: Single object containing information on single user:<br>
                {<br>
-                 "id": 1,<br>
-                 "username": "haldw",<br>
-                 "password": "399699",<br>
-                 "email": "info@sweepback.co.uk",<br>
-                 "dob": "01 Jan 2000",<br>
-                 "favorites": [<br>
+                 "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),<br>
+                 "Username": "Navy",<br>
+                 "Password": "wetfeet",<br>
+                 "Email": "scurvy@gmail.com",<br>
+                 "Birthday": "1978-10-12"<br>
+                 "FavoriteMovies": [<br>
                     "Goldfinger",<br>
                     "Thunderball",<br>
                     "GoldenEye",<br>
@@ -182,20 +192,20 @@
             <td>--</td>
             <td>JSON request object in following format:<br>
               {<br>
-                "username": "Navy",<br>
-                "password": "wetfeet",<br>
-                "email": "scurvy@gmail.com",<br>
-                "dob": "01 April 1546"<br>
+                "Username": "Navy",<br>
+                "Password": "wetfeet",<br>
+                "Email": "scurvy@gmail.com",<br>
+                "Birthday": "1978-10-12"<br>
               }</td>
             <td>JSON response object confirming information submitted,<br>
               with randomised ID and empty favourites array:<br>
              {<br>
-               "username": "Navy",<br>
-               "password": "wetfeet",<br>
-               "email": "scurvy@gmail.com",<br>
-               "dob": "01 April 1546"<br>
-               "id": "19339f6b-4dfb-47b8-97df-4f7f087e1931",<br>
-               "favorites": []<br>
+               "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),<br>
+               "Username": "Navy",<br>
+               "Password": "wetfeet",<br>
+               "Email": "scurvy@gmail.com",<br>
+               "Birthday": "1978-10-12"<br>
+               "FavoriteMovies": []<br>
              }</td>
           </tr>
           <tr>
