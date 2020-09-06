@@ -124,19 +124,41 @@ app.get('/users/:username', (req, res) => {
     }
   });
 
-// Register new user
+// Register new User
+/* Expected JSON format
+{
+  "ID": "Integer",
+  "Username": String,
+  "Password": String,
+  "Email": String,
+  "Birthday": "Date",
+  "FavoriteMovies": []
+} */
 app.post('/users', (req, res) => {
-  let newUser = req.body;
-
-  if (!newUser.username) {                 // if NO user.name, then error msg
-    const message = 'Missing Username in request body';
-    res.status(400).send(message);
-  } else {
-    newUser.id = uuid.v4();            // user allocated an ID
-    newUser.favorites = [];            // user appended an empty favorites array
-    users.push(newUser);               // user pushed to 'users' array
-    res.status(201).send(newUser);     // new details sent as response
-  }
+  Users.findOne({ Username: req.body.Username })        // Does Username already exist?
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday,
+            FavoriteMovies: []
+          })
+          .then((user) => {res.status(201).json(user)})
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+   .catch((error) => {
+      console.error (error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 // Add user favorite (only if a valid user, valid title, and not already a favorite)
