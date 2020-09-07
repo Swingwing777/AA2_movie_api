@@ -117,8 +117,33 @@
                Fault message returned if no title match.</td>
           </tr>
           <tr>
+            <td>Get all director information in database</td>
+            <td>/movies/directors/all</td>
+            <td>GET</td>
+            <td>None – via URL only</td>
+            <td>JSON: Array of Objects, each object containing the<br>
+              following example information on one director in the database:<br>
+              {<br>
+                "Birth": {<br>
+                   "Date": "2015-06-20T00:00:00.000Z",<br>
+                   "Place": "Shanghai, China"<br>
+                },<br>
+                "Death": {<br>
+                   "Date": "1994-09-07T00:00:00.000Z",<br>
+                   "Place": "Cannes, France"<br>
+                },<br>
+                "KnownFor": [<br>
+                   "Wait Until Dark (1967)",<br>
+                   "The Jigsaw Man (1983)"<br>
+                ],
+                "_id": "5f50c29ecf52f03ae2f58fe5",<br>
+                "Name": "Terence Young",<br>
+                "Bio": " Born in Shanghai and Cambridge-educated<br>
+              },<td>
+          </tr>
+          <tr>
             <td>Get director information of specified Title</td>
-            <td>/movies/director /title</td>
+            <td>/movies/director/title</td>
             <td>GET</td>
             <td>/title must match case and spelling of database</td>
             <td>None – via URL only</td>
@@ -167,9 +192,9 @@
           </tr>
           <tr>
             <td>Get single user's details by username</td>
-            <td>/users/username</td>
+            <td>/users/Username</td>
             <td>GET</td>
-            <td>/username must match case and spelling of database</td>
+            <td>/Username must match case and spelling of database</td>
             <td>None – via URL only</td>
             <td>JSON: Single object containing information on single user:<br>
                {<br>

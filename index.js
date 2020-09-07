@@ -8,6 +8,7 @@ const Directors = Models.Director;
 const Actors = Models.Actor;
 
 mongoose.connect('mongodb://localhost:27017/bondMovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.set('useFindAndModify', false);
 
 const express = require('express'),
   morgan = require('morgan'),
@@ -29,9 +30,21 @@ app.get('/', (req, res) => {
 });
 
 //GET all Bond movies as JSON
-app.get('/movies/all', (req, res) => {
+/*app.get('/movies/all', (req, res) => {
   res.status(200)
   res.json(bondMovies);
+});*/
+
+//GET list of all movies
+app.get('/movies/all', (req, res) => {
+  BondMovies.find()               // Promise
+    .then((bondMovies) => {
+      res.status(201).json(bondMovies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 //GET all Bond movies - title only by JSON
@@ -70,8 +83,20 @@ app.get('/movies/genres/:title', (req, res) => {
   }
 });
 
+//GET all directors
+app.get('/movies/directors/all', (req, res) => {
+  Directors.find()               // Promise
+    .then((directors) => {
+      res.status(201).json(directors);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
 //GET director information for specific title
-app.get('/movies/director/:title', (req, res) => {
+app.get('/movies/directors/:title', (req, res) => {
   let movie = bondMovies.find((movie) =>
     { return movie.title === req.params.title});
 
@@ -96,8 +121,14 @@ app.get('/movies/bond/:title', (req, res) => {
 
 //GET list of all users
 app.get('/users', (req, res) => {
-  res.status(200)
-  res.json(users);
+  Users.find()                       // Promise
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 //GET all usernames by JSON
@@ -111,34 +142,28 @@ app.get('/users/usernames', (req, res) => {
 });
 
 //GET single user by username
-app.get('/users/:username', (req, res) => {
-  let user = users.find((user) =>
-    { return user.username === req.params.username });
-
-    if (user) {
-      res.status(200)
-      res.json(users.find((user) =>
-        { return user.username === req.params.username }));
+// Get a user by username
+app.get('/users/:Username', (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+  .then((user) => {
+    if (!user) {
+      return res.status(400).send('User with name "' + req.params.Username + '" not found');
     } else {
-      res.status(404).send('Requested username "' + req.params.username + '" was not found.  Please try again.')
+    res.json(user);
     }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
   });
+});
 
-// Register new User
-/* Expected JSON format
-{
-  "ID": "Integer",
-  "Username": String,
-  "Password": String,
-  "Email": String,
-  "Birthday": "Date",
-  "FavoriteMovies": []
-} */
+// Register new User - JSON Format expected
 app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })        // Does Username already exist?
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + 'already exists');
+        return res.status(400).send(req.body.Username + ' already exists');
       } else {
         Users
           .create({
@@ -161,73 +186,121 @@ app.post('/users', (req, res) => {
     });
 });
 
-// Add user favorite (only if a valid user, valid title, and not already a favorite)
-app.post('/users/:username/:title', (req, res) => {
-  let user = users.find((user) =>                                 // Does user exist in database?
-    { return user.username === req.params.username});
+// Add a movie by ID to a user's list of favorites
+app.post('/users/:Username/:BondMovieID', (req, res) => {
+  Users.findOne({Username: req.params.Username})       // Promise
+  .then((user) => {
 
-  if (user) {
-    let movie = bondMovies.find((movie) =>                        // Does movie exist in database?
-      { return movie.title === req.params.title});
+    if (!user) {                               // Check user exists
+      return res.status(400).send('User with name "' + req.params.Username + '" not found');
 
-    if (movie) {
-      let pos = user.favorites.indexOf(req.params.title);         // Movie exists, but has it already been added to favorites?
-
-        if (pos >= 0) {                                           // Already added - do not duplicate
-          res.status(302).send(req.params.username + ' has already added title "' + req.params.title + '" to his/her/their favorites collection.  Duplicate not added.');
-        } else {                                                  // Not already added
-          user.favorites.push(movie.title);
-          res.status(202).send(req.params.username + ' has added title "' + req.params.title + '" to his/her/their favorites collection.');
-        }
-    } else {                                                      // Movie does not exist in database
-      res.status(404).send('Requested title "' + req.params.title + '" was not found.  Please check Title and try again.');
+    } else {
+      Users.findOneAndUpdate({ Username: req.params.Username }, {
+        $push: { FavoriteMovies: req.params.BondMovieID }
+      },
+      { new: true })                          // To return updated document
+      .then ((updatedUser) => {
+        res.json(updatedUser)
+      })
+      .catch((err) => {
+        console.error (err);
+        res.status(500).send('Error: ' + err);
+      })
     }
-  } else {                                                        // User does not exist in database
-      res.status(404).send('Username ' + req.params.username + ' was not found. Please check Username and try again.');
-  }
+  });
 });
 
-// Remove user favorite
-app.delete('/users/:username/:title', (req, res) => {
-  let user = users.find((user) =>
-    { return user.username === req.params.username});
+// Remove a movie by ID from a user's list of favorites (inlcuding any duplicates)
+app.delete('/users/:Username/:BondMovieID', (req, res) => {
+  Users.findOne({Username: req.params.Username})             // Promise
+  .then((user) => {
 
-  if (user) {
-    let movie = bondMovies.find((movie) =>                        // Does movie exist in database?
-      { return movie.title === req.params.title});
+    if (!user) {                                    // Check user exists
+      return res.status(400).send('User with name "' + req.params.Username + '" not found');
 
-    if (movie) {                                                  // If movie in database, does it exist in user favorites?
-      let pos = user.favorites.indexOf(req.params.title);
-
-        if (pos >= 0) {                                           // If movie in favorites, then remove
-          let removedItem = user.favorites.splice(pos, 1);
-          res.status(202).send(req.params.username + ' has removed title "' + req.params.title + '" from his/her/their favorites collection.');
-
-        } else {                                                  // If movie not in favorites
-          res.status(302).send(req.params.username + ' does not have title "' + req.params.title + '" in his/her/their favorites collection.');
-        }
-    } else {                                                      // Movie not in database
-      res.status(404).send('Title "' + req.params.title + '" was not found.  Please check Title and try again.');
+    } else {
+      Users.findOneAndUpdate({ Username: req.params.Username }, {
+        $pull: { FavoriteMovies: req.params.BondMovieID }
+      },
+      { new: true })                                // To return updated document
+      .then ((updatedUser) => {
+        res.json(updatedUser)
+      })
+      .catch((err) => {                             // Final catch-all
+        console.error (err);
+        res.status(500).send('Error: ' + err);
+      })
     }
-  } else {                                                        // User not in database
-    res.status(404).send('Username ' + req.params.username + ' was not found. Please check Username and try again.');
-  }
+  });
+});
+
+
+// Update user by username - JSON format expected
+/* {
+  "Username": "String",
+  "Password": "String",
+  "Email": "String",
+  "Birthday": "Date",
+} */
+app.put('/users/:Username', (req, res) => {
+  Users.findOne({Username: req.params.Username})       // Promise
+  .then((user) => {
+    if (!user) {
+      return res.status(400).send('User with name "' + req.params.Username + '" not found');
+    } else {
+      Users.findOneAndUpdate({Username: req.params.Username}, { $set:
+        {
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
+        }
+      },
+      { new: true })
+      .then ((updatedUser) => {
+        res.json(updatedUser);
+      })
+      .catch((err) => {                            // Final catch-all
+        console.error (error);
+        res.status(500).send('Error: ' + err);
+      });
+    }
+  })
 });
 
 // DELETE user
-app.delete('/users/:username', (req, res) => {
-  let user = users.find((user) =>
-    { return user.username === req.params.username });
-
-  if (user) {       // if student exists
-    users = users.filter((obj) => { return obj.username !== req.params.username });
-    res.status(201).send('Username "' + req.params.username + '" has been deleted from the database.');
-  } else {
-    res.status(404).send('Username ' + req.params.username + ' does not exist.  Please recheck Username to be deleted and try again.');
-  }
+app.delete('/users/:Username', (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.Username + ' was not found');
+      } else {
+        res.status(200).send(req.params.Username + ' was deleted.');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
-app.use((err, req, res, next) => {
+// Delete a user by UserID
+app.delete('/users/:UserID', (req, res) => {
+  Users.findOneAndRemove({ UserID: req.params.UserID })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.UserID + ' was not found');
+      } else {
+        res.status(200).send(req.params.UserID + ' was deleted.');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+app.use((err, req, res, next) => {                    // Application catch-all
   console.error(err.stack);
   res.status(500).send('Sorry, an error has been encountered');
 });
