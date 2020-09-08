@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 app.use(morgan('common'));
 
-app.use('/', express.static('public'));
+app.use(express.static('public'));
 
 // Welcome message
 app.get('/', (req, res) => {
@@ -41,13 +41,13 @@ app.get('/movies/all', (req, res) => {
     });
 });
 
-// GET list of all movie titles
+//GET list of all movie titles
 app.get('/movies/titles', (req, res) => {
   Movies.find()               // Promise
     .then((movies) => {
       const listOfTitles = [];
       movies.map(movie => {
-        listOfTitles.push(movie.Title);
+        listOfTitles.push(movie.Title);   //Note capitalised Title
       })
     res.status(200)
     res.json(listOfTitles);
@@ -57,6 +57,8 @@ app.get('/movies/titles', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });
+
+
 
 // GET single Bond movie by Title
 app.get('/movies/:Title', (req, res) => {
@@ -88,35 +90,12 @@ app.get('/genre/:Name', (req, res) => {
 
 // GET JSON of genres IDs for specific title
 app.get('/movies/genres/:Title', (req, res) => {
-  Movies.findOne({Title: req.params.Title})  // Promise
+  Movies.findOne({Title: req.params.Title}).populate("Genres")  // Promise
   .then((movie) => {
     if (!movie) {
       return res.status(400).send('Title "' + req.params.Title + '" not found');
     } else {
       res.json(movie.Genres)
-    }
-  })
-  .catch((err) => {                          // Final catch-all
-    console.error (err);
-    res.status(500).send('Error: ' + err);
-  });
-});
-
-// GET JSON of genre objects for specific title - EXPERIMENTAL / Not Documented
-app.get('/movies/genres/exp/:Title', (req, res) => {
-  Movies.findOne({Title: req.params.Title})  // Promise
-  .then((movie) => {
-    if (!movie) {
-      return res.status(400).send('Title "' + req.params.Title + '" not found');
-    } else {
-      Genres.findById(movie.Genres)
-      .then((genres) => {
-        res.json(genres);
-      })
-      .catch((err) => {
-        console.error (err);
-        res.status(500).send('Error: ' + err);
-      })
     }
   })
   .catch((err) => {                          // Final catch-all
@@ -313,7 +292,7 @@ app.post('/users/:Username/:movieID', (req, res) => {
   });
 });
 
-// Remove a movie by ID from a user's list of favorites (inlcuding any duplicates)
+// Remove a movie by ID from a user's list of favorites (including any duplicates)
 app.delete('/users/:Username/:movieID', (req, res) => {
   Users.findOne({Username: req.params.Username})             // Promise
   .then((user) => {
