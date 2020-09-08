@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 
 // GET all movies as JSON
 app.get('/movies/all', (req, res) => {
-  Movies.find()               // Promise
+  Movies.find().populate('Genres', 'Name')               // Promise
     .then((movies) => {
       res.status(201).json(movies);
     })
@@ -56,7 +56,7 @@ app.get('/movies/titles', (req, res) => {
 
 // GET single Bond movie by Title
 app.get('/movies/:Title', (req, res) => {
-  Movies.findOne({Title: req.params.Title}).populate("Genres")     // Promise
+  Movies.findOne({Title: req.params.Title}).populate('Genres', 'Name')     // Promise
     .then((movie) => {
     if (!movie) {
       return res.status(400).send('Movie with Title "' + req.params.Title + '" not found');
@@ -84,7 +84,7 @@ app.get('/genre/:Name', (req, res) => {
 
 // GET JSON of genres IDs for specific title
 app.get('/movies/genres/:Title', (req, res) => {
-  Movies.findOne({Title: req.params.Title}).populate("Genres")  // Promise
+  Movies.findOne({Title: req.params.Title}).populate('Genres')  // Promise
   .then((movie) => {
     if (!movie) {
       return res.status(400).send('Title "' + req.params.Title + '" not found');
@@ -191,7 +191,7 @@ app.get('/movies/bond/:Title', (req, res) => {
 
 // GET list of all users
 app.get('/users', (req, res) => {
-  Users.find().populate("FavoriteMovies")                // Promise
+  Users.find().populate('FavoriteMovies', 'Title')                // Promise
     .then((users) => {
       res.status(201).json(users);
     })
@@ -221,7 +221,7 @@ app.get('/users/usernames', (req, res) => {
 // GET single user by username
 app.get('/users/:Username', (req, res) => {
   Users.findOne({ Username: req.params.Username })
-  .populate("FavoriteMovies")
+  .populate('FavoriteMovies', 'Title')
   .then((user) => {
     if (!user) {
       return res.status(400).send('User with name "' + req.params.Username + '" not found');
