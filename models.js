@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let bondMovieSchema = mongoose.Schema({
+let movieSchema = mongoose.Schema({
   Title: {type: String, required: true},
   Year: Date,
   Genres: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Genre'}],
@@ -20,7 +20,7 @@ let userSchema = mongoose.Schema({
   Password: {type: String, required: true},
   Email: {type: String, required: true},
   Birthday: Date,
-  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BondMovie'}]
+  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'movie'}]
 });
 
 let genreSchema = mongoose.Schema({
@@ -56,13 +56,13 @@ let actorSchema = mongoose.Schema({
   KnownFor: [String]
 });
 
-let BondMovie = mongoose.model('BondMovie', bondMovieSchema);
+let Movie = mongoose.model('Movie', movieSchema);
 let User = mongoose.model('User', userSchema);
 let Genre = mongoose.model('Genre', genreSchema);
 let Director = mongoose.model('Director', directorSchema);
 let Actor = mongoose.model('Actor', actorSchema);
 
-module.exports.BondMovie = BondMovie;
+module.exports.Movie = Movie;
 module.exports.User = User;
 module.exports.Genre = Genre;
 module.exports.Director = Director;
