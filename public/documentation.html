@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bond Movies API | Documentation</title>
     <link rel="shortcut icon" href="bond_3.ico">
-	 	<link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" type="text/css" href="normalize.css">
 	  <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
   <body>
@@ -37,7 +37,7 @@
     <section>
       <h2 id="intro">Introduction</h2>
       <p>Welcome to the 007: Bond Movies Database.</p>
-      <p>
+      <p style="line-height: 1.6em;">
         Meet Agent James Bond, 007, Licensed to Kill.<br>
         From impressarios Albert R Broccoli and Harry Saltzman,<br>
         from 1962 to present day, <br>
@@ -50,384 +50,558 @@
       <table>
         <thead>
           <tr>
-            <th scope="col">Business Logic</th>
+            <th scope="col">Information Required</th>
             <th scope="col">URL</th>
             <th scope="col">HTTP Method</th>
             <th scope="col">Query Parameters</th>
-            <th scope="col">Request Format</th>
-            <th scope="col">Response Format</th>
+            <th class="c1" scope="col">Request Format</th>
+            <th class="c2" scope="col">Response Format</th>
           </tr>
           <tr>
             <td>Get All Bond Movies</td>
-            <td>/movies</td>
+            <td>
+              <pre class="url">
+/movies       </pre>
+            </td>
             <td>GET</td>
             <td>--</td>
-            <td>None – via URL only</td>
-            <td>JSON: Array of Objects, each object containing the following information on each movie in the database:<br>
-              [<br>
-               {
-                  "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),<br>
-                  "Title": "Dr. No",<br>
-                  "Year": "1962-01-01",<br>
-                  "Genres": [<br>
-                    ObjectId("5f509d2dcce013d48f955987"),<br>
-                    ObjectId("5f509fe2cce013d48f95598b"),<br>
-                    ObjectId("5f509e81cce013d48f955988")<br>
-                  ],<br>
-                  "Description": "Bond searches for a missing colleague amid deliberate disruption of the American space program.",<br>
-                  "Director": ObjectId("5f50c29ecf52f03ae2f58fe5"),<br>
-                  "BondActor": ObjectId("5f50c0dfcf52f03ae2f58fdf"),<br>
-                  "Heroine": "Honey Ryder",<br>
-                  "Villain": "Dr. No",<br>
-                  "Actors": ["Joseph Wiseman", "Ursula Andress", "Jack Lord", "Bernard Lee"],<br>
-                  "ImagePath": "img/007_Dr_No.jpg",<br>
-                  "SongArtist": "John Barry Orchestra",<br>
-                  "Featured": false<br>
-                },<br>
-                etc etc until final movie, then <br>
-                ]
-              </td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Array of Objects, each object containing the following information on each movie in the database:
+              <pre>
+[
+  {
+    "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),
+    "Title": "Dr. No",
+    "Year": "1962-01-01",
+    "Genres":[
+      {
+        "_id": "5f509d2dcce013d48f955987",
+        "Name": "Action"
+      },
+      etc etc,
+    ],
+    "Description": "Bond searches for a missing ......",
+    "Director": ObjectId("5f50c29ecf52f03ae2f58fe5"),
+    "BondActor": ObjectId("5f50c0dfcf52f03ae2f58fdf"),
+    "Heroine": "Honey Ryder",
+    "Villain": "Dr. No",
+    "Actors": [
+      "Joseph Wiseman",
+      "Ursula Andress",
+      "Jack Lord",
+      "Bernard Lee"
+    ],
+    "ImagePath": "img/007_Dr_No.jpg",
+    "SongArtist": "John Barry Orchestra",
+    "Featured": false
+  },
+    etc etc until final movie, then
+]</pre>
+            </td>
           </tr>
           <tr>
             <td>Get all movies listed by title only</td>
-            <td>/movies/titles</td>
+            <td>
+              <pre class="url">
+/movies
+/titles     </pre>
+            </td>
             <td>GET</td>
             <td>--</td>
-            <td>None – via URL only</td>
-            <td>JSON : Single object containing list of movie names:<br>
-               [ "Dr. No", "From Russia With Love", "Goldfinger", etc, etc, "Skyfall", "Spectre" ]</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON : Array of objects containing list of movie names (and asscoiated _ids):
+              <pre>
+[
+  {
+    "_id": "5f521621b9afdffb2219a096",
+    "Title": "Dr. No",
+  },
+  {
+    "_id": "5f521621b9afdffb2219a096",
+    "Title": "From Russia With Love"
+  },
+  etc etc
+]
+              </pre>
+            </td>
           </tr>
           <tr>
             <td>Get One Movie by Title</td>
-            <td>/movies/Title</td>
+            <td>
+              <pre class="url">
+/movies
+/<em style="color: #d11313; font-family: consolas;">Title</em></pre>
+            </td>
             <td>GET</td>
-            <td>/Title must match case and spelling of database</td>
-            <td>None – via URL only</td>
-            <td>JSON: Single object containing information on single movie, as per first example for ' Get All Bond Movies' .<br>
+            <td>/<em style="color: #d11313; font-family: consolas;">Title</em> must match case and spelling of database</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Single object containing information on single movie, as per first example for ' Get All Bond Movies' .<br>
              Fault message returned if no title match.</td>
           </tr>
           <tr>
-            <td>Get JSON of genres of specified Title</td>
-            <td>/movies/genres/Title</td>
-            <td>GET</td>
-            <td>/Title must match case and spelling of database</td>
-            <td>None – via URL only</td>
-            <td>Text response outlining assigned genres for selected movie:<br>
-               Example: According to IMDB.com, Casino Royale (1967) has been assigned the following genre or genres: Comedy.<br>
-               Fault message returned if no title match.</td>
-          </tr>
-          <tr>
             <td>Get all director information in database</td>
-            <td>/movies/directors/all</td>
+            <td>
+              <pre class="url">
+/movies
+/directors
+/all          </pre>
+            </td>
             <td>GET</td>
             <td>--</td>
-            <td>None – via URL only</td>
-            <td>JSON: Array of Objects, each object containing the<br>
-              following example information on one director in the database:<br>
-              {<br>
-                "Birth": {<br>
-                   "Date": "2015-06-20T00:00:00.000Z",<br>
-                   "Place": "Shanghai, China"<br>
-                },<br>
-                "Death": {<br>
-                   "Date": "1994-09-07T00:00:00.000Z",<br>
-                   "Place": "Cannes, France"<br>
-                },<br>
-                "KnownFor": [<br>
-                   "Wait Until Dark (1967)",<br>
-                   "The Jigsaw Man (1983)"<br>
-                ],
-                "_id": "5f50c29ecf52f03ae2f58fe5",<br>
-                "Name": "Terence Young",<br>
-                "Bio": " Born in Shanghai and Cambridge-educated<br>
-              },</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Array of Objects, each object containing the<br>
+              following example information on one director in the database:
+              <pre>
+{
+  "Birth": {
+    "Date": "2015-06-20T00:00:00.000Z",
+    "Place": "Shanghai, China"
+  },
+  "Death": {
+    "Date": "1994-09-07T00:00:00.000Z",
+    "Place": "Cannes, France"
+  },
+  "KnownFor": [
+    "Wait Until Dark (1967)",
+    "The Jigsaw Man (1983)"
+  ],
+  "_id": "5f50c29ecf52f03ae2f58fe5",
+  "Name": "Terence Young",
+  "Bio": " Born in Shanghai and....."
+},           </pre>
+            </td>
           </tr>
           <tr>
             <td>Get all directors in database by name only</td>
-            <td>/directors/names</td>
+            <td>
+              <pre class="url">
+/directors
+/names        </pre>
+            </td>
             <td>GET</td>
             <td>--</td>
-            <td>None – via URL only</td>
-            <td>JSON: Array of directors' names:<br>
-                [<br>
-                  "Name 1", <br>
-                  "Name 2", <br>
-                  "Name 3", <br>
-                  etc etc <br>
-                ]</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Array of objects with directors' names (and _ids):
+              <pre>
+[
+  {
+    "_id": "5f50c29ecf52f03ae2f58fe5",
+    "Name": "Terence Young",
+  },
+  {
+    "_id": "5f50c29ecf52f03ae2f58fe6",
+    "Name": "Guy Hamilton"
+  },
+  etc etc
+]             </pre>
+            </td>
           </tr>
           <tr>
-            <td>Get director information of specified Title</td>
-            <td>/movies/director/Title</td>
+            <td >Get director information of specified Title</td>
+            <td>
+              <pre class="url">
+/movies
+/director
+/<em style="color: #d11313; font-family: consolas;">Title</em></pre>
+            </td>
             <td>GET</td>
-            <td>/Title must match full spelling, spacing and case of database<br>
+            <td>/<em style="color: #d11313; font-family: consolas;">Title</em> must match full spelling, spacing and case of database<br>
             eg Live and Let Die</td>
-            <td>None – via URL only</td>
-            <td>JSON: Object with director's full details:<br>
-              {<br>
-              "Birth": {<br>
-                "Date": "YYYY-MM-DD",<br>
-                "Place": "Paris, France",<br>
-              },<br>
-              "Death": {<br>
-                "Date": "YYYY-MM-DD",<br>
-                "Place": "Majorca, Spain",<br>
-              },<br>
-              "KnownFor": [<br>
-                "The Colditz Story (1955)",<br>
-              ],<br>
-              "_id": "5f50c2adcf52f03ae2f58fe6",<br>
-              "Name": "Guy Hamilton",<br>
-              "Bio": " Born in Paris France....."<br>
-            }</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Object with director's full details:
+              <pre>
+{
+  "Birth": {
+    "Date": "YYYY-MM-DD",
+    "Place": "Paris, France",
+  },
+  "Death": {
+    "Date": "YYYY-MM-DD",
+    "Place": "Majorca, Spain",
+  },
+  "KnownFor": [
+    "The Colditz Story (1955)",
+  ],
+  "_id": "5f50c2adcf52f03ae2f58fe6",
+  "Name": "Guy Hamilton",
+  "Bio": " Born in Paris France....."
+}             </pre>
+            </td>
           </tr>
           <tr>
             <td>Get director information by Name</td>
-            <td>/director/Name</td>
+            <td>
+              <pre class="url">
+/director
+/<em style="color: #d11313; font-family: consolas;">Name</em></pre>
+            </td>
             <td>GET</td>
-            <td>/Name must match full name spelling and case of database<br>
+            <td>/<em style="color: #d11313; font-family: consolas;">Name</em> must match full name spelling and case of database<br>
             eg Guy Hamilton</td>
-            <td>None – via URL only</td>
-            <td>JSON: Object with director's full details:<br>
-              {<br>
-              "Birth": {<br>
-                "Date": "YYYY-MM-DD",<br>
-                "Place": "Paris, France",<br>
-              },<br>
-              "Death": {<br>
-                "Date": "YYYY-MM-DD",<br>
-                "Place": "Majorca, Spain",<br>
-              },<br>
-              "KnownFor": [<br>
-                "The Colditz Story (1955)",<br>
-              ],<br>
-              "_id": "5f50c2adcf52f03ae2f58fe6",<br>
-              "Name": "Guy Hamilton",<br>
-              "Bio": " Born in Paris France....."<br>
-            }</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Object with director's full details:
+              <pre>
+{
+  "Birth": {
+    "Date": "YYYY-MM-DD",
+    "Place": "Paris, France",
+  },
+  "Death": {
+    "Date": "YYYY-MM-DD",
+    "Place": "Majorca, Spain",
+  },
+  "KnownFor": [
+    "The Colditz Story (1955)",
+  ],
+  "_id": "5f50c2adcf52f03ae2f58fe6",
+  "Name": "Guy Hamilton",
+  "Bio": " Born in Paris France....."
+}             </pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Get all Bond actors in database by name only</td>
+            <td>
+              <pre class="url">
+/bonds
+/names        </pre>
+            </td>
+            <td>GET</td>
+            <td>--</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Array of objects with Bond actors' names (and _ids):
+              <pre>
+[
+  {
+    "_id": "5f50c0dfcf52f03ae2f58fdf",
+    "Name": "Sean Connery",
+  },
+  {
+    "_id": "5f50c0dfcf52f03ae2f58fe0",
+    "Name": "Roger Moore"
+  },
+  etc etc
+]             </pre>
+            </td>
           </tr>
           <tr>
             <td>Get Bond actor information of specified Title</td>
-            <td>/movies/bond/Title</td>
+            <td>
+              <pre class="url">
+/movies
+/bond
+/<em style="color: #d11313; font-family: consolas;">Title</em></pre>
+            </td>
             <td>GET</td>
-            <td>/Title must match full spelling, spacing and case of database<br>
+            <td>/<em style="color: #d11313; font-family: consolas;">Title</em> must match full spelling, spacing and case of database<br>
             eg Live and Let Die</td>
-            <td>None – via URL only</td>
-            <td>JSON: Object with Bond actor's full details:<br>
-              {<br>
-              "Birth": {<br>
-                "Date": "YYYY-MM-DD",<br>
-                "Place": "Stockwell",<br>
-              },<br>
-              "Death": {<br>
-                "Date": "YYYY-MM-DD",<br>
-                "Place": "Switzerland",<br>
-              },<br>
-              "KnownFor": [<br>
-                "That Lucky Touch (1975)",<br>
-              ],<br>
-              "_id": "5f50c0f5cf52f03ae2f58fe0",<br>
-              "Name": "Roger Moore",<br>
-              "Bio": " Born in Stockwell, England, Roger Moore ....."<br>
-            }</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Object with Bond actor's full details:
+              <pre>
+{
+  "Birth": {
+    "Date": "YYYY-MM-DD",
+    "Place": "Stockwell",
+  },
+  "Death": {
+    "Date": "YYYY-MM-DD",
+    "Place": "Switzerland",
+  },
+  "KnownFor": [
+    "That Lucky Touch (1975)",
+  ],
+  "_id": "5f50c0f5cf52f03ae2f58fe0",
+  "Name": "Roger Moore",
+  "Bio": " Born in Stockwell, Roger Moore ....."
+}             </pre>
+            </td>
           </tr>
           <tr>
             <td>Get Bond actor information by Name</td>
-            <td>/bond/Name</td>
+            <td>
+              <pre class="url">
+/bond
+/<em style="color: #d11313; font-family: consolas;">Name</em></pre>
+            </td>
             <td>GET</td>
-            <td>/Name must match full name spelling and case of database<br>
+            <td>/<em style="color: #d11313; font-family: consolas;">Name</em> must match full name spelling and case of database<br>
             eg Roger Moore</td>
-            <td>None – via URL only</td>
-            <td>JSON: Object with Bond actor's full details:<br>
-              {<br>
-              "Birth": {<br>
-                "Date": "YYYY-MM-DD",<br>
-                "Place": "Stockwell, England",<br>
-              },<br>
-              "Death": {<br>
-                "Date": "YYYY-MM-DD",<br>
-                "Place": "Switzerland",<br>
-              },<br>
-              "KnownFor": [<br>
-                "That Lucky Touch (1975)",<br>
-              ],<br>
-              "_id": "5f50c0f5cf52f03ae2f58fe0",<br>
-              "Name": "Roger Moore",<br>
-              "Bio": " Born in Stockwell, England, Roger Moore ....."<br>
-            }</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Object with Bond actor's full details:
+            <pre>
+{
+  "Birth": {
+    "Date": "YYYY-MM-DD",
+    "Place": "Stockwell, England",
+  },
+  "Death": {
+    "Date": "YYYY-MM-DD",
+    "Place": "Switzerland",
+  },
+  "KnownFor": [
+    "That Lucky Touch (1975)",
+  ],
+  "_id": "5f50c0f5cf52f03ae2f58fe0",
+  "Name": "Roger Moore",
+  "Bio": " Born in Stockwell, Roger Moore ....."
+}             </pre>
+            </td>
           </tr>
           <tr>
             <td>Get Genres for a given title</td>
-            <td>/movies/genres/Title</td>
+            <td>
+              <pre class="url">
+/movies
+/genres
+/<em style="color: #d11313; font-family: consolas;">Title</em></pre>
+            </td>
             <td>GET</td>
-            <td>/Title must match spelling, spacing and case of database<br>
+            <td>/<em style="color: #d11313; font-family: consolas;">Title</em> must match spelling, spacing and case of database<br>
             eg Live and Let Die</td>
-            <td>None – via URL only</td>
-            <td>JSON: Array with GenreIDs of applicable genres:<br>
-              [<br>
-                "5f509d2dcce013d48f955987",<br>
-                "5f509fe2cce013d48f95598b",<br>
-                "5f509e81cce013d48f955988"<br>
-              ]</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Array of Genre objects:
+            <pre>
+[
+  {
+    "_id": "5f509d2dcce013d48f955987",
+    "Name": "Action",
+    "Description": "Action is ....."
+  },
+  {
+    "_id": "5f509fe2cce013d48f95598b",
+    "Name": "Thriller",
+    "Description": "Thrillers are ....."
+  },
+  {
+    "_id": "5f509e81cce013d48f955988",
+    "Name": "Adventure",
+    "Description": " Adventure films are ....."
+  }
+]             </pre>
+            </td>
           </tr>
           <tr>
             <td>Get Genre information for given genre name</td>
-            <td>/genre/Name</td>
+            <td>
+              <pre class="url">
+/genre
+/<em style="color: #d11313; font-family: consolas;">Name</em></pre>
+            </td>
             <td>GET</td>
-            <td>/Name must match spelling, spacing and case of database<br>
-            eg Adventure, not adventure</td>
-            <td>None – via URL only</td>
-            <td>JSON: Object with Genre details:<br>
-              [<br>
-                 "_id": "5f509e81cce013d48f955988",<br>
-                 "Name": "Adventure",<br>
-                 "Description": " Adventure films are a genre of..."<br>
-              ]</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">Name</em> must match spelling, spacing and case of database<br>
+            eg <em style="color: green; font-family: consolas;">Adventure</em>, not <em style="color: red; font-family: consolas;">adventure</em></td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Object with Genre details:
+              <pre>
+[
+  "_id": "5f509e81cce013d48f955988",
+  "Name": "Adventure",
+  "Description": " Adventure films are a genre of..."
+]             </pre>
+            </td>
           </tr>
           <tr>
             <td>Get JSON of full details for all users</td>
-            <td>/users</td>
+            <td>
+              <pre class="url">
+/users        </pre>
+            </td>
             <td>GET</td>
             <td>--</td>
-            <td>None – via URL only</td>
-            <td>JSON: JSON Array containing one object of information per user:<br>
-               [<br>
-                 {<br>
-                   "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),<br>
-                   "Username": "Navy",<br>
-                   "Password": "wetfeet",<br>
-                   "Email": "scurvy@gmail.com",<br>
-                   "Birthday": "1978-10-12"<br>
-                   "FavoriteMovies": [<br>
-                      "Goldfinger",<br>
-                      "Thunderball",<br>
-                      "GoldenEye",<br>
-                      "Dr. No" ]<br>
-                 },<br>
-                 { etc etc for each user }<br>
-               ]</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Array containing one object of information per user:
+              <pre>
+[
+  {
+    "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),
+    "Username": "Navy",
+    "Password": "wetfeet",
+    "Email": "scurvy@gmail.com",
+    "Birthday": "1978-10-12"
+    "FavoriteMovies": [
+      "Goldfinger",
+      "Thunderball",
+      "GoldenEye",
+      "Dr. No"
+    ]
+  },
+  { etc etc for each user }
+]            </pre>
+           </td>
           </tr>
           <tr>
             <td>Get list of usernames</td>
-            <td>/users/usernames</td>
+            <td>
+              <pre class="url">
+/users
+/usernames    </pre>
+            </td>
             <td>GET</td>
             <td>--</td>
-            <td>None – via URL only</td>
-            <td>JSON : Single object containing list of all registered usernames:<br>
-              [<br>
-               "John",<br>
-               "GrahemM",<br>
-               "haldw",<br>
-              ]</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Single object containing list of all registered usernames:
+              <pre>
+[
+ "John",
+ "GrahemM",
+ "haldw",
+]             </pre>
+            </td>
           </tr>
           <tr>
             <td>Get single user's details by username</td>
-            <td>/users/Username</td>
+            <td>
+              <pre class="url">
+/users
+/<em style="color: #d11313; font-family: consolas;">Username</em></pre>
+            </td>
             <td>GET</td>
-            <td>/Username must match case and spelling of database</td>
-            <td>None – via URL only</td>
-            <td>JSON: Single object containing information on single user:<br>
-               {<br>
-                 "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),<br>
-                 "Username": "Navy",<br>
-                 "Password": "wetfeet",<br>
-                 "Email": "scurvy@gmail.com",<br>
-                 "Birthday": "1978-10-12"<br>
-                 "FavoriteMovies": [<br>
-                    "Goldfinger",<br>
-                    "Thunderball",<br>
-                    "GoldenEye",<br>
-                    "Dr. No" ]<br>
-               }</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">Username</em> must match case and spelling of database</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">JSON: Single object containing information on single user:
+              <pre>
+{
+ "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),
+ "Username": "Navy",
+ "Password": "wetfeet",
+ "Email": "scurvy@gmail.com",
+ "Birthday": "1978-10-12",
+ "FavoriteMovies": [
+   "Goldfinger",
+   "Thunderball",
+   "GoldenEye",
+   "Dr. No"
+ ]
+}             </pre>
+            </td>
           </tr>
           <tr>
             <td>Register new user</td>
-            <td>/users</td>
+            <td>
+              <pre>
+/users        </pre>
+            </td>
             <td>POST</td>
             <td>--</td>
-            <td>JSON request object in following format:<br>
-              {<br>
-                "Username": "Navy",<br>
-                "Password": "wetfeet",<br>
-                "Email": "scurvy@gmail.com",<br>
-                "Birthday": "1978-10-12"<br>
-              }</td>
-            <td>JSON response object confirming information submitted,<br>
-              with randomised ID and empty favourites array:<br>
-             {<br>
-               "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),<br>
-               "Username": "Navy",<br>
-               "Password": "wetfeet",<br>
-               "Email": "scurvy@gmail.com",<br>
-               "Birthday": "1978-10-12"<br>
-               "FavoriteMovies": []<br>
-             }</td>
+            <td class="c1">JSON request object in following format:
+              <pre>
+{
+ "Username": "Navy",
+ "Password": "wetfeet",
+ "Email": "scurvy@gmail.com",
+ "Birthday": "1978-10-12"
+}             </pre>
+            </td>
+            <td class="c2">JSON response object confirming information submitted,<br>
+              with randomised ID and empty favourites array:
+              <pre>
+{
+ "_id": ObjectID("xxxxxxxxxxxx"),
+ "Username": "Navy",
+ "Password": "wetfeet",
+ "Email": "scurvy@gmail.com",
+ "Birthday": "1978-10-12",
+ "FavoriteMovies": []
+}             </pre>
+            </td>
           </tr>
           <tr>
             <td>Update user by Username</td>
-            <td>/users/Username</td>
+            <td>
+              <pre class="url">
+/users
+/<em style="color: #d11313; font-family: consolas;">Username</em></pre>
+            </td>
             <td>PUT</td>
-            <td>--</td>
-            <td>JSON request object in following format with new details:<br>
-              {<br>
-                "Username": "Navy",<br>
-                "Password": "wetfeet",<br>
-                "Email": "scurvy@gmail.com",<br>
-                "Birthday": "1978-10-12"<br>
-              }</td>
-            <td>JSON response object confirming information submitted,<br>
-              {<br>
-                "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),<br>
-                "Username": "Navy",<br>
-                "Password": "wetfeet",<br>
-                "Email": "scurvy@gmail.com",<br>
-                "Birthday": "1978-10-12"<br>
-                "FavoriteMovies": []<br>
-             }</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">Username</em> must match spelling, spacing and case of database</td>
+            <td class="c1">JSON request object in following format with new details:
+              <pre>
+{
+  "Username": "Navy",
+  "Password": "wetfeet",
+  "Email": "scurvy@gmail.com",
+  "Birthday": "1978-10-12"
+}             </pre>
+            </td>
+            <td class="c2">JSON response object confirming information submitted,
+              <pre>
+{
+  "_id": ObjectID("xxxxxxxxxxxxx"),
+  "Username": "Navy",
+  "Password": "wetfeet",
+  "Email": "scurvy@gmail.com",
+  "Birthday": "1978-10-12",
+  "FavoriteMovies": []
+}             </pre>
+            </td>
           </tr>
           <tr>
             <td>Add user favorite</td>
-            <td>/users/username/title</td>
+            <td>
+              <pre class="url">
+/users
+/<em style="color: #d11313; font-family: consolas;">Username</em>
+/<em style="color: #d11313; font-family: consolas;">Title</em></pre>
+            </td>
             <td>POST</td>
-            <td>/username and /title must match case and spelling of database</td>
-            <td>None – via URL only</td>
-            <td>Text response detailing which movie has been added to favorites.<br>
-               Duplicate favorites are prevented:<br>
-               Example: haldw has added title "Octopussy" to his/her/their favorites collection.<br>
-               Example: haldw has already added title "Dr. No" to his/her/their favorites collection. Duplicate not added.</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">Username</em> and /<em style="color: #d11313; font-family: consolas;">Title</em> must match case and spelling of database</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">
+              <p>Text response detailing which movie has been added to favorites.<br>
+               Duplicate favorites are prevented. Examples:</p>
+              <p class="console"> haldw has added title "Octopussy"<br>
+                  to his/her/their favorites collection.</p>
+              <p class="console">haldw has already added title "Dr. No"<br>
+                  to his/her/their favorites collection. Duplicate not added.</p></td>
           </tr>
           <tr>
             <td>Remove user favorite</td>
-            <td>/users/username/title/td>
+            <td>
+              <pre class="url">
+/users/<em style="color: #d11313; font-family: consolas;">Username</em>
+/<em style="color: #d11313; font-family: consolas;">Title</em></pre>
+            </td>
             <td>DELETE</td>
-            <td>/username and /title must match case and spelling of database</td>
-            <td>None – via URL only</td>
-            <td>Text response detailing which movie has been removed from favorites.<br>
-              Missing favorites are flagged:<br>
-              Example: haldw has removed "Spectre" from his/her/their favorites collection.<br>
-              Example: haldw does not have title "Spectre" in his/her/their favorites collection.</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">Username</em> and /<em style="color: #d11313; font-family: consolas;">title</em> must match case and spelling of database</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">
+              <p>Text response detailing which movie has been removed from favorites.<br>
+              Missing favorites are flagged. Examples:</p>
+              <p class="console">haldw has removed "Spectre"<br>
+                 from his/her/their favorites collection.</p>
+              <p class="console">haldw does not have title "Spectre"<br>
+                 in his/her/their favorites collection.</p></td>
           </tr>
           <tr>
             <td>Remove user by username</td>
-            <td>/users/username</td>
+            <td>
+              <pre class="url">
+/users
+/<em style="color: #d11313; font-family: consolas;">Username</em></pre>
+            </td>
             <td>DELETE</td>
-            <td>/username must match case and spelling of database</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">username</em> must match case and spelling of database</td>
             <td>None – via URL only</td>
-            <td>Text response detailing that user has been removed from the database.<br>
-              Unidentified users are flagged:<br>
-              Example: Username "Navy" was deleted.<br>
-              Example: Username "Navy" was not found.</td>
+            <td>
+              <p>Text response detailing that user has been removed from the database.<br>
+              Unidentified users are flagged. Examples:</p>
+              <p class="console"> Username "Navy" was deleted.</p><br>
+              <p class="console"> Username "Navy" was not found.</p></td>
           </tr>
           <tr>
             <td>Remove user by ID</td>
-            <td>/ident/id</td>
+            <td>
+              <pre class="url">
+/ident/<em style="color: #d11313; font-family: consolas;">id</em></pre>
+            </td>
             <td>DELETE</td>
-            <td>/id must match database</td>
-            <td>None – via URL only</td>
-            <td>Text response detailing that user has been removed from the database.<br>
-              Unidentified users are flagged:<br>
-              Example: User with ID: 5f570121cef86914be0c8d87 was deleted.<br>
-              Example: User with ID: 5f570121cef86914be0c8d87 was not found.</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">id</em> must match database</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">
+              <p>Text response detailing that user has been removed from the database.<br>
+              Unidentified users are flagged.  Examples:</p>
+              <p class="console"> User with ID: 5f570121cef86914be0c8d87 was deleted.</p>
+              <p class="console"> User with ID: 5f570121cef86914be0c8d87 was not found.</p></td>
           </tr>
       </table>
     </section>

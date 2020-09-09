@@ -1,11 +1,13 @@
 body {
   font-family: sans-serif;
-  line-height: 1.6em;
+  line-height: 1.2em;
+  font-size: 16px;
+  max-width: 1200px;
 }
 
 table {
-  table-layout: auto;
-  width: 80%;
+  table-layout:fixed;
+  width: 100%;
   border: 1px solid black;
   border-collapse: collapse;
   border-spacing: 0;
@@ -13,6 +15,46 @@ table {
 
 th,
 td {
+  width: 18%;
   border: 1px solid black;
-  padding: 5px;
+  padding: 3px;
+  font-size: 14px;
+  text-align: center;
+  text-overflow: ellipsis;
+}
+
+th.c1,
+td.c1 {
+  width: 50%;
+}
+
+th.c2 {
+  width: 70%
+}
+
+td.c2 {
+  width: 70%;
+  text-align: left;
+}
+
+pre {
+  color: #1335a8;
+  background-color: #f0f1f5;
+  text-align: left;
+  line-height: 1.3em;
+  font-size: 14px;
+}
+
+pre.url {
+  color: #1335a8;
+  background-color: #f0f1f5;
+  line-height: 1.1em;
+  font-size: 16px;
+}
+
+.console {
+  color: #1335a8;
+  font-family: consolas;
+  text-align: left;
+  background-color: #f0f1f5;
 }
