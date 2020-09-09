@@ -32,6 +32,8 @@ app.get('/', (req, res) => {
 // GET all movies as JSON
 app.get('/movies/all', (req, res) => {
   Movies.find().populate('Genres', 'Name')
+    .populate('Director', 'Name')
+    .populate('BondActor', 'Name')
     .then((movies) => {
       res.status(201).json(movies);
     })
@@ -56,7 +58,10 @@ app.get('/movies/titles', (req, res) => {
 
 // GET single Bond movie by Title
 app.get('/movies/:Title', (req, res) => {
-  Movies.findOne({Title: req.params.Title}).populate('Genres', 'Name')     // Promise
+  Movies.findOne({Title: req.params.Title})
+    .populate('Genres', 'Name')
+    .populate('Director', 'Name')
+    .populate('BondActor', 'Name')     
     .then((movie) => {
     if (!movie) {
       return res.status(400).send('Movie with Title "' + req.params.Title + '" not found');
