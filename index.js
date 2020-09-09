@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 
 // GET all movies as JSON
 app.get('/movies/all', (req, res) => {
-  Movies.find().populate('Genres', 'Name')               // Promise
+  Movies.find().populate('Genres', 'Name')
     .then((movies) => {
       res.status(201).json(movies);
     })
@@ -112,14 +112,9 @@ app.get('/directors/all', (req, res) => {
 
 // GET list of directors by name only
 app.get('/directors/names', (req, res) => {
-  Directors.find()               // Promise
+  Directors.find({}, "Name")               // Promise
     .then((directors) => {
-      const listOfDirectors = [];
-      directors.map(director => {
-        listOfDirectors.push(director.Name);   //Note capitalised
-      })
-    res.status(200)
-    res.json(listOfDirectors);
+      res.status(200).json(directors);     // Only Director names returned
     })
     .catch((err) => {
       console.error(err);
@@ -151,6 +146,31 @@ app.get('/director/:Name', (req, res) => {
   Directors.findOne( { Name: req.params.Name})        // Promise
     .then((director) => {
       res.json(director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+// GET list of Bonds by name only
+app.get('/bonds/names', (req, res) => {
+  Actors.find({}, 'Name')
+    .then((actors) => {
+      //will return only the titles
+    res.status(200).json(actors);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+// GET list of Bonds by name only
+app.get('/bonds/names', (req, res) => {
+  Actors.find({}, "Name")               // Promise
+    .then((actors) => {
+      res.status(200).json(actors);     // Only Actor names returned
     })
     .catch((err) => {
       console.error(err);
