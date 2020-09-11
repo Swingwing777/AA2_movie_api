@@ -233,14 +233,9 @@ app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) =
 
 //GET list of all Usernames by JSON
 app.get('/users/usernames', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.find()                                        // Promise
+  Users.find({}, 'Username')
     .then((users) => {
-      const listOfUsers = [];
-      users.map(user => {
-        listOfUsers.push(user.Username);       //Note capitalised
-      })
-    res.status(200)
-    res.json(listOfUsers);
+      res.status(200).json(users);
     })
     .catch((err) => {
       console.error(err);
