@@ -24,6 +24,23 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
+const cors = require('cors');
+
+let allowedOrigins = ['*'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+
+    // If specified origin not on 'allowed' list
+    if(allowedOrigins.indexOf(origin) === -1){
+      let message = 'The CORS policy for this app does not allow access from origin ' + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
+
 app.use(morgan('common'));
 
 app.use(express.static('public'));
