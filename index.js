@@ -452,6 +452,7 @@ app.use((err, req, res, next) => {
 });
 
 //listen for requests
-app.listen(8080, () => {
-  console.log('The James Bond 007 database is listening on Port 8080.');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+  console.log('The James Bond 007 database is listening on Port ' + port);
 });
