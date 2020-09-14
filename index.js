@@ -26,6 +26,8 @@ require('./passport');
 
 const cors = require('cors');
 
+const { check, validationResult } = require('express-validator');
+
 let allowedOrigins = ['*'];
 
 app.use(cors({
@@ -278,8 +280,21 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 });
 
 // Register new User - JSON Format expected
-app.post('/users', (req, res) => {
-  let hashedPassword = Users.hashedPassword(req.body.Password);
+app.post('/users',
+  [
+    check('Username', 'Username is required.').isLength({min: 5}),
+    check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required.').not().isEmpty(),
+    check('Email', 'Email does not appear valid.').isEmail()
+  ], (req, res) => {
+
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {                  // Double-negative = if errors exist!
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })        // Does Username already exist?
     .then((user) => {
       if (user) {
@@ -356,22 +371,32 @@ app.delete('/users/:Username/:movieID', passport.authenticate('jwt', { session: 
 
 
 // Update user by username - JSON format expected
-/* {
-  "Username": "String",
-  "Password": "String",
-  "Email": "String",
-  "Birthday": "Date",
-} */
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.findOne({Username: req.params.Username})       // Promise
-  .then((user) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
+  [
+    check('Username', 'Username is required.').isLength({min: 5}),
+    check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required.').not().isEmpty(),
+    check('Email', 'Email does not appear valid.').isEmail()
+  ], (req, res) => {
+
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {                  // Double-negative = if errors exist!
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    Users.findOne({Username: req.params.Username})       // Promise
+    .then((user) => {
+
     if (!user) {
       return res.status(400).send('User with name "' + req.params.Username + '" not found');
+
     } else {
       Users.findOneAndUpdate({Username: req.params.Username}, { $set:
         {
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         }
