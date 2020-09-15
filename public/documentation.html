@@ -582,13 +582,17 @@
             <td>POST</td>
             <td>/<em style="color: #d11313; font-family: consolas;">Username</em> and /<em style="color: #d11313; font-family: consolas;">Title</em> must match case and spelling of database</td>
             <td class="c1">None – via URL only</td>
-            <td class="c2">
-              <p>Text response detailing which movie has been added to favorites.<br>
-               Duplicate favorites are prevented. Examples:</p>
-              <p class="console"> haldw has added title "Octopussy"<br>
-                  to his/her/their favorites collection.</p>
-              <p class="console">haldw has already added title "Dr. No"<br>
-                  to his/her/their favorites collection. Duplicate not added.</p></td>
+            <td class="c2">JSON response object confirming information submitted,
+              <pre>
+{
+  "_id": ObjectID("xxxxxxxxxxxxx"),
+  "Username": "Navy",
+  "Password": "wetfeet",
+  "Email": "scurvy@gmail.com",
+  "Birthday": "1978-10-12",
+  "FavoriteMovies": []
+}             </pre>
+            </td>
           </tr>
 
 <!--  //////////////// Add User favorite by Movie database ID ///////////////  -->
@@ -598,19 +602,23 @@
               <pre class="url">
 /users
 /<em style="color: #d11313; font-family: consolas;">Username</em>
-/MovieID
-/<em style="color: #d11313; font-family: consolas;">id</em></pre>
+/movieID
+/<em style="color: #d11313; font-family: consolas;">Id</em></pre>
             </td>
             <td>POST</td>
-            <td>/<em style="color: #d11313; font-family: consolas;">Username</em> must match case and spelling of database. /<em style="color: #d11313; font-family: consolas;">id</em> must match id in database</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">Username</em> must match case and spelling of database. /<em style="color: #d11313; font-family: consolas;">Id</em> must match id in database</td>
             <td class="c1">None – via URL only</td>
-            <td class="c2">
-              <p>Text response detailing which movie has been added to favorites.<br>
-               Duplicate favorites are prevented. Examples:</p>
-              <p class="console"> haldw has added Movie ID XXX<br>
-                  to his/her/their favorites collection.</p>
-              <p class="console">haldw has already added Movie ID XXX<br>
-                  to his/her/their favorites collection. Duplicate not added.</p></td>
+            <td class="c2">JSON response object confirming information submitted,
+              <pre>
+{
+  "_id": ObjectID("xxxxxxxxxxxxx"),
+  "Username": "Navy",
+  "Password": "wetfeet",
+  "Email": "scurvy@gmail.com",
+  "Birthday": "1978-10-12",
+  "FavoriteMovies": [5f50e462cf52f03ae2f59008]
+}             </pre>
+            </td>
           </tr>
 
 <!--  //////////////// Remove User favorite by Title ///////////////  -->
@@ -625,13 +633,17 @@
             <td>DELETE</td>
             <td>/<em style="color: #d11313; font-family: consolas;">Username</em> and /<em style="color: #d11313; font-family: consolas;">title</em> must match case and spelling of database</td>
             <td class="c1">None – via URL only</td>
-            <td class="c2">
-              <p>Text response detailing which movie has been removed from favorites.<br>
-              Missing favorites are flagged. Examples:</p>
-              <p class="console">haldw has removed "Spectre"<br>
-                 from his/her/their favorites collection.</p>
-              <p class="console">haldw does not have title "Spectre"<br>
-                 in his/her/their favorites collection.</p></td>
+            <td class="c2">JSON response object confirming information submitted,
+              <pre>
+{
+  "_id": ObjectID("xxxxxxxxxxxxx"),
+  "Username": "Navy",
+  "Password": "wetfeet",
+  "Email": "scurvy@gmail.com",
+  "Birthday": "1978-10-12",
+  "FavoriteMovies": []
+}             </pre>
+            </td>
           </tr>
 
 <!--  //////////////// Remove User favorite by Movie database ID ///////////////  -->
@@ -641,19 +653,23 @@
               <pre class="url">
 /users
 /<em style="color: #d11313; font-family: consolas;">Username</em>
-/MovieID
-/<em style="color: #d11313; font-family: consolas;">id</em></pre>
+/movieID
+/<em style="color: #d11313; font-family: consolas;">Id</em></pre>
             </td>
             <td>DELETE</td>
-            <td>/<em style="color: #d11313; font-family: consolas;">Username</em> must match case and spelling of database. /<em style="color: #d11313; font-family: consolas;">id</em> must match id in database</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">Username</em> must match case and spelling of database. /<em style="color: #d11313; font-family: consolas;">Id</em> must match id in database</td>
             <td class="c1">None – via URL only</td>
-            <td class="c2">
-              <p>Text response detailing which movie has been removed from favorites.<br>
-              Missing favorites are flagged. Examples:</p>
-              <p class="console">haldw has removed Movie ID XXX<br>
-                 from his/her/their favorites collection.</p>
-              <p class="console">haldw does not have Movie ID XXX<br>
-                 in his/her/their favorites collection.</p></td>
+            <td class="c2">JSON response object confirming information submitted,
+              <pre>
+{
+  "_id": ObjectID("xxxxxxxxxxxxx"),
+  "Username": "Navy",
+  "Password": "wetfeet",
+  "Email": "scurvy@gmail.com",
+  "Birthday": "1978-10-12",
+  "FavoriteMovies": []
+}             </pre>
+            </td>
           </tr>
 
 <!--  //////////////// Remove User by Username ///////////////  -->
