@@ -57,6 +57,8 @@
             <th class="c1" scope="col">Request Format</th>
             <th class="c2" scope="col">Response Format</th>
           </tr>
+
+<!--  /////////////// Get All Bond Movies ///////////////  -->
           <tr>
             <td>Get All Bond Movies</td>
             <td>
@@ -99,6 +101,8 @@
 ]</pre>
             </td>
           </tr>
+
+<!--  //////////// Get all movies listed by title only ////////// -->
           <tr>
             <td>Get all movies listed by title only</td>
             <td>
@@ -125,6 +129,8 @@
               </pre>
             </td>
           </tr>
+
+<!-- ////////////  Get one movie by title  //////////////// -->
           <tr>
             <td>Get One Movie by Title</td>
             <td>
@@ -138,6 +144,8 @@
             <td class="c2">JSON: Single object containing information on single movie, as per first example for ' Get All Bond Movies' .<br>
              Fault message returned if no title match.</td>
           </tr>
+
+<!--   Get all directors information  -->
           <tr>
             <td>Get all director information in database</td>
             <td>
@@ -171,6 +179,8 @@
 },           </pre>
             </td>
           </tr>
+
+<!--   //////////////// Get all directors listed by name only /////////////////-->
           <tr>
             <td>Get all directors in database by name only</td>
             <td>
@@ -196,6 +206,8 @@
 ]             </pre>
             </td>
           </tr>
+
+<!--   /////////////// Get director for specified title ////////////// -->
           <tr>
             <td >Get director information of specified Title</td>
             <td>
@@ -228,6 +240,8 @@
 }             </pre>
             </td>
           </tr>
+
+<!--  //////////////// Get director information by Name ////////////// -->
           <tr>
             <td>Get director information by Name</td>
             <td>
@@ -259,6 +273,8 @@
 }             </pre>
             </td>
           </tr>
+
+<!--  //////////////// get all Bond actors in database ///////////////  -->
           <tr>
             <td>Get all Bond actors in database by name only</td>
             <td>
@@ -284,6 +300,8 @@
 ]             </pre>
             </td>
           </tr>
+
+<!--  //////////////// get Bond actor information for specific title ///////////////  -->
           <tr>
             <td>Get Bond actor information of specified Title</td>
             <td>
@@ -316,6 +334,8 @@
 }             </pre>
             </td>
           </tr>
+
+<!--  //////////////// get Bond actor by Name ///////////////  -->
           <tr>
             <td>Get Bond actor information by Name</td>
             <td>
@@ -347,8 +367,10 @@
 }             </pre>
             </td>
           </tr>
+
+  <!--  //////////////// get genres list for specific title  ///////////////  -->
           <tr>
-            <td>Get Genres for a given title</td>
+            <td>Get Genres list for a specific title</td>
             <td>
               <pre class="url">
 /movies
@@ -380,8 +402,10 @@
 ]             </pre>
             </td>
           </tr>
+
+<!--  //////////////// Get genre description  ///////////////  -->
           <tr>
-            <td>Get Genre information for given genre name</td>
+            <td>Get Genre description of given genre</td>
             <td>
               <pre class="url">
 /genre
@@ -400,6 +424,8 @@
 ]             </pre>
             </td>
           </tr>
+
+<!--  //////////////// Get JSON of all users' information ///////////////  -->
           <tr>
             <td>Get JSON of full details for all users</td>
             <td>
@@ -429,6 +455,8 @@
 ]            </pre>
            </td>
           </tr>
+
+<!--  //////////////// Get list of all usernames ///////////////  -->
           <tr>
             <td>Get list of usernames</td>
             <td>
@@ -448,6 +476,8 @@
 ]             </pre>
             </td>
           </tr>
+
+<!--  //////////////// Get JSON of single user's details ///////////////  -->
           <tr>
             <td>Get single user's details by username</td>
             <td>
@@ -475,6 +505,8 @@
 }             </pre>
             </td>
           </tr>
+
+<!--  //////////////// Register New user ///////////////  -->
           <tr>
             <td>Register new user</td>
             <td>
@@ -505,6 +537,8 @@
 }             </pre>
             </td>
           </tr>
+
+<!--  //////////////// Update user ///////////////  -->
           <tr>
             <td>Update user by Username</td>
             <td>
@@ -535,8 +569,10 @@
 }             </pre>
             </td>
           </tr>
+
+<!--  //////////////// Add User favorite by Title ///////////////  -->
           <tr>
-            <td>Add user favorite</td>
+            <td>Add user favorite by Title</td>
             <td>
               <pre class="url">
 /users
@@ -554,11 +590,36 @@
               <p class="console">haldw has already added title "Dr. No"<br>
                   to his/her/their favorites collection. Duplicate not added.</p></td>
           </tr>
+
+<!--  //////////////// Add User favorite by Movie database ID ///////////////  -->
           <tr>
-            <td>Remove user favorite</td>
+            <td>Add user favorite by Movie ID</td>
             <td>
               <pre class="url">
-/users/<em style="color: #d11313; font-family: consolas;">Username</em>
+/users
+/<em style="color: #d11313; font-family: consolas;">Username</em>
+/MovieID
+/<em style="color: #d11313; font-family: consolas;">id</em></pre>
+            </td>
+            <td>POST</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">Username</em> must match case and spelling of database. /<em style="color: #d11313; font-family: consolas;">id</em> must match id in database</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">
+              <p>Text response detailing which movie has been added to favorites.<br>
+               Duplicate favorites are prevented. Examples:</p>
+              <p class="console"> haldw has added Movie ID XXX<br>
+                  to his/her/their favorites collection.</p>
+              <p class="console">haldw has already added Movie ID XXX<br>
+                  to his/her/their favorites collection. Duplicate not added.</p></td>
+          </tr>
+
+<!--  //////////////// Remove User favorite by Title ///////////////  -->
+          <tr>
+            <td>Remove user favorite by Title</td>
+            <td>
+              <pre class="url">
+/users
+/<em style="color: #d11313; font-family: consolas;">Username</em>
 /<em style="color: #d11313; font-family: consolas;">Title</em></pre>
             </td>
             <td>DELETE</td>
@@ -572,6 +633,30 @@
               <p class="console">haldw does not have title "Spectre"<br>
                  in his/her/their favorites collection.</p></td>
           </tr>
+
+<!--  //////////////// Remove User favorite by Movie database ID ///////////////  -->
+          <tr>
+            <td>Remove user favorite by Title</td>
+            <td>
+              <pre class="url">
+/users
+/<em style="color: #d11313; font-family: consolas;">Username</em>
+/MovieID
+/<em style="color: #d11313; font-family: consolas;">id</em></pre>
+            </td>
+            <td>DELETE</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">Username</em> must match case and spelling of database. /<em style="color: #d11313; font-family: consolas;">id</em> must match id in database</td>
+            <td class="c1">None – via URL only</td>
+            <td class="c2">
+              <p>Text response detailing which movie has been removed from favorites.<br>
+              Missing favorites are flagged. Examples:</p>
+              <p class="console">haldw has removed Movie ID XXX<br>
+                 from his/her/their favorites collection.</p>
+              <p class="console">haldw does not have Movie ID XXX<br>
+                 in his/her/their favorites collection.</p></td>
+          </tr>
+
+<!--  //////////////// Remove User by Username ///////////////  -->
           <tr>
             <td>Remove user by username</td>
             <td>
@@ -588,14 +673,17 @@
               <p class="console"> Username "Navy" was deleted.</p><br>
               <p class="console"> Username "Navy" was not found.</p></td>
           </tr>
+
+<!--  //////////////// Remove User by ID ///////////////  -->
           <tr>
             <td>Remove user by ID</td>
             <td>
               <pre class="url">
-/ident/<em style="color: #d11313; font-family: consolas;">id</em></pre>
+/ident
+/<em style="color: #d11313; font-family: consolas;">id</em></pre>
             </td>
             <td>DELETE</td>
-            <td>/<em style="color: #d11313; font-family: consolas;">id</em> must match database</td>
+            <td>/<em style="color: #d11313; font-family: consolas;">id</em> must match id in database</td>
             <td class="c1">None – via URL only</td>
             <td class="c2">
               <p>Text response detailing that user has been removed from the database.<br>
