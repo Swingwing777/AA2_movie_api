@@ -355,7 +355,7 @@ app.post('/users/:Username/:Title', passport.authenticate('jwt', { session: fals
       return res.status(400).send('Title "' + req.params.Title + '" not found');
     } else {
       let newFavorite = movie._id;
-      Users.findOne({Username: req.params.Username})       // Promise
+      Users.findOne({Username: req.params.Username})
        .then((user) => {
 
         if (!user) {                               // Check user exists
