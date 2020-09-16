@@ -3,6 +3,8 @@ const passport = require('passport'),
   Models = require('./models.js'),
   passportJWT = require('passport-jwt');
 
+require('dotenv').config()
+
 let Users = Models.User,
   JWTStrategy = passportJWT.Strategy,
   ExtractJWT = passportJWT.ExtractJwt;
@@ -45,3 +47,5 @@ passport.use(new JWTStrategy({
       return callback(error)
     });
 }));
+
+require('dotenv').config()

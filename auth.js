@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const jwtSecret = process.env.MY_SECRET;    // This must match passport.js file
 
 const jwt = require('jsonwebtoken'),
