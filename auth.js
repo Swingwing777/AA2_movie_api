@@ -29,6 +29,7 @@ module.exports = (router) => {
         if (error) {
           res.send(error);
         }
+        user.Password= ""  // This blanks the user password in the JSON response.
         let token = generateJWTToken(user.toJSON());
         return res.json({ user, token });
       });

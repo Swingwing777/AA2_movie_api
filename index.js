@@ -311,7 +311,9 @@ app.post('/users',
             Birthday: req.body.Birthday,
             FavoriteMovies: []
           })
-          .then((user) => {res.status(201).json(user)})
+          .then((user) => {
+            user.Password= ""  // This blanks the user password in the JSON response.
+            res.status(201).json(user)})
         .catch((error) => {
           console.error(error);
           res.status(500).send('Error: ' + error);
@@ -338,6 +340,7 @@ app.post('/users/:Username/movieID/:Id', passport.authenticate('jwt', { session:
       },
       { new: true })                          // To return updated document
       .then ((updatedUser) => {
+        user.Password= ""  // This blanks the user password in the JSON response.
         res.json(updatedUser)
       })
       .catch((err) => {
@@ -369,6 +372,7 @@ app.post('/users/:Username/:Title', passport.authenticate('jwt', { session: fals
           },
           { new: true })                          // To return updated document
           .then ((updatedUser) => {
+            user.Password= ""  // This blanks the user password in the JSON response.
             res.json(updatedUser)
           })
           .catch((err) => {
@@ -395,6 +399,7 @@ app.delete('/users/:Username/movieID/:Id', passport.authenticate('jwt', { sessio
       },
       { new: true })                                // To return updated document
       .then ((updatedUser) => {
+        user.Password= ""  // This blanks the user password in the JSON response.
         res.json(updatedUser)
       })
       .catch((err) => {                             // Final catch-all
@@ -426,6 +431,7 @@ app.delete('/users/:Username/:Title', passport.authenticate('jwt', { session: fa
           },
           { new: true })                          // To return updated document
           .then ((updatedUser) => {
+            user.Password= ""  // This blanks the user password in the JSON response.
             res.json(updatedUser)
           })
           .catch((err) => {
@@ -471,6 +477,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
       },
       { new: true })
       .then ((updatedUser) => {
+        user.Password= ""  // This blanks the user password in the JSON response.
         res.json(updatedUser);
       })
       .catch((err) => {                            // Final catch-all
