@@ -300,32 +300,32 @@ app.post('/users',
 
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })        // Does Username already exist?
-    .then((user) => {
-      if (user) {
-        return res.status(400).send(req.body.Username + ' already exists');
-      } else {
-        Users
-          .create({
-            Username: req.body.Username,
-            Password: hashedPassword,
-            Email: req.body.Email,
-            Birthday: req.body.Birthday,
-            FavoriteMovies: []
-          })
-          .then((user) => {
-            user.Password = ""  // This blanks the user password in the JSON response.
-            res.status(201).json(user)})
+  .then((user) => {
+    if (user) {
+      return res.status(400).send(req.body.Username + ' already exists');
+    } else {
+      Users
+      .create({
+        Username: req.body.Username,
+        Password: hashedPassword,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday,
+        FavoriteMovies: []
+      })
+      .then((user) => {
+        user.Password = ""  // This blanks the user password in the JSON response.
+        res.status(201).json(user)})
         .catch((error) => {
           console.error(error);
           res.status(500).send('Error: ' + error);
         })
       }
     })
-   .catch((error) => {
+    .catch((error) => {
       console.error (error);
       res.status(500).send('Error: ' + error);
     });
-});
+  });
 
 // POST movie by ID to a user's list of favorites
 app.post('/users/:Username/movieID/:Id', passport.authenticate('jwt', { session: false }), (req, res) => {
