@@ -245,6 +245,7 @@ app.get('/movies/bond/:Title', passport.authenticate('jwt', { session: false }),
 app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.find().populate('FavoriteMovies', 'Title')                // Promise
     .then((users) => {
+      users.Password = ""  // This blanks the user password in the JSON response.
       res.status(201).json(users);
     })
     .catch((err) => {
@@ -273,7 +274,8 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
     if (!user) {
       return res.status(400).send('User with name "' + req.params.Username + '" not found');
     } else {
-    res.json(user);
+      user.Password = ""  // This blanks the user password in the JSON response.
+      res.json(user);
     }
   })
   .catch((err) => {
@@ -312,7 +314,7 @@ app.post('/users',
             FavoriteMovies: []
           })
           .then((user) => {
-            user.Password= ""  // This blanks the user password in the JSON response.
+            user.Password = ""  // This blanks the user password in the JSON response.
             res.status(201).json(user)})
         .catch((error) => {
           console.error(error);
@@ -340,7 +342,7 @@ app.post('/users/:Username/movieID/:Id', passport.authenticate('jwt', { session:
       },
       { new: true })                          // To return updated document
       .then ((updatedUser) => {
-        user.Password= ""  // This blanks the user password in the JSON response.
+        updatedUser.Password = ""  // This blanks the user password in the JSON response.
         res.json(updatedUser)
       })
       .catch((err) => {
@@ -372,7 +374,7 @@ app.post('/users/:Username/:Title', passport.authenticate('jwt', { session: fals
           },
           { new: true })                          // To return updated document
           .then ((updatedUser) => {
-            user.Password= ""  // This blanks the user password in the JSON response.
+            updatedUser.Password = ""  // This blanks the user password in the JSON response.
             res.json(updatedUser)
           })
           .catch((err) => {
@@ -399,7 +401,7 @@ app.delete('/users/:Username/movieID/:Id', passport.authenticate('jwt', { sessio
       },
       { new: true })                                // To return updated document
       .then ((updatedUser) => {
-        user.Password= ""  // This blanks the user password in the JSON response.
+        updatedUser.Password = ""  // This blanks the user password in the JSON response.
         res.json(updatedUser)
       })
       .catch((err) => {                             // Final catch-all
@@ -431,7 +433,7 @@ app.delete('/users/:Username/:Title', passport.authenticate('jwt', { session: fa
           },
           { new: true })                          // To return updated document
           .then ((updatedUser) => {
-            user.Password= ""  // This blanks the user password in the JSON response.
+            updatedUser.Password = ""  // This blanks the user password in the JSON response.
             res.json(updatedUser)
           })
           .catch((err) => {
@@ -477,7 +479,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
       },
       { new: true })
       .then ((updatedUser) => {
-        user.Password= ""  // This blanks the user password in the JSON response.
+        updatedUser.Password = ""  // This blanks the user password in the JSON response.
         res.json(updatedUser);
       })
       .catch((err) => {                            // Final catch-all
