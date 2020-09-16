@@ -1,4 +1,4 @@
-const jwtSecret = 'Tornado';    // This must match passport.js file
+const jwtSecret = process.env.MY_SECRET;    // This must match passport.js file
 
 const jwt = require('jsonwebtoken'),
   passport = require('passport');
