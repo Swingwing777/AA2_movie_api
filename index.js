@@ -129,7 +129,7 @@ app.get('/movies/genres/:Title', passport.authenticate('jwt', { session: false }
 });
 
 // GET all directors
-app.get('/directors/all', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/directors', passport.authenticate('jwt', { session: false }), (req, res) => {
   Directors.find()               // Promise
     .then((directors) => {
       res.status(201).json(directors);
