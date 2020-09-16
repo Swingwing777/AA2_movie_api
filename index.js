@@ -241,11 +241,10 @@ app.get('/movies/bond/:Title', passport.authenticate('jwt', { session: false }),
   });
 });
 
-// GET list of all users
+// GET list of all User details by JSON
 app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.find().populate('FavoriteMovies', 'Title')                // Promise
+  Users.find({}, '-Password').populate('FavoriteMovies', 'Title')                // Promise
     .then((users) => {
-      users.Password = ""  // This blanks the user password in the JSON response.
       res.status(201).json(users);
     })
     .catch((err) => {
