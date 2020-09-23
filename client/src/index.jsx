@@ -1,22 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { MainView } from './components/main-view/main-view';
+
 // Import statement to indicate the need to bundle `./index.scss`
 import './index.scss';
 
 // Main component (will eventually use all the others)
 class BondMovieApp extends React.Component {
   render() {
-    return (
-      <div className="bond-movie">
-        <div>Good morning</div>
-      </div>
-    );
+    return <MainView />;
   }
 }
-<div>
-  {1 + 2 === 4 ? 'Math is broken' : 'Math is awesome'}
-</div>
 
 // Finds the root of the app
 const container = document.getElementsByClassName('app-container')[0];

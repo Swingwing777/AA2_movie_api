@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
 });
 
 //  GET all movies as JSON
-app.get('/movies', /*passport.authenticate('jwt', { session: false })*/, (req, res) => {
+app.get('/movies', /*passport.authenticate('jwt', { session: false })*/(req, res) => {
   Movies.find().populate('Genres', 'Name')
     .populate('Director', 'Name')
     .populate('BondActor', 'Name')
@@ -534,8 +534,3 @@ const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0', () => {
   console.log('The James Bond 007 database is listening on Port ' + port);
 });
-
-var foo = myObject.foo;
-var bar = myObject.bar;
-myObject = { foo: 42, bar: true }
-const { foo, bar } = myObject;
