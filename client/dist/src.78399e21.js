@@ -30111,6 +30111,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+//import { MovieCard } from '../movie-card/movie-card';
+//import { MovieView } from '../movie-view/movie-view';
 var MainView = /*#__PURE__*/function (_React$Component) {
   _inherits(MainView, _React$Component);
 
@@ -30131,7 +30133,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios.default.get('bond-movie-api.herokuapp.com/movies>').then(function (response) {
+      _axios.default.get('https://bond-movie-api.herokuapp.com/movies').then(function (response) {
         // Assign the result to the state
         _this2.setState({
           movies: response.data
@@ -30143,9 +30145,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      // State causes Error if state not iniitialised
-      // State Option 1 - before the data is loaded
-      var movies = this.state.movies; // State Option 2 - before the movies have loaded
+      // If the state isn't initialized, this will throw on runtime
+      // before the data is initially loaded
+      var movies = this.state.movies; // Before the movies have been loaded
 
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
@@ -30326,7 +30328,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42899" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43765" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

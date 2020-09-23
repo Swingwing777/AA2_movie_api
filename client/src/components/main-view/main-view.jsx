@@ -1,15 +1,19 @@
-import React from 'react';       
+import React from 'react';
 import axios from 'axios';
 
+//import { MovieCard } from '../movie-card/movie-card';
+//import { MovieView } from '../movie-view/movie-view';
+
 export class MainView extends React.Component {
+
   constructor() {
     super();
 
     this.state = {};
   }
 
-   componentDidMount() {
-    axios.get('bond-movie-api.herokuapp.com/movies>')
+  componentDidMount() {
+    axios.get('https://bond-movie-api.herokuapp.com/movies')
       .then(response => {
         // Assign the result to the state
         this.setState({
@@ -19,15 +23,15 @@ export class MainView extends React.Component {
       .catch(function (error) {
         console.log(error);
       });
-  } 
+  }
 
   render() {
-    // State causes Error if state not iniitialised
-    // State Option 1 - before the data is loaded
+    // If the state isn't initialized, this will throw on runtime
+    // before the data is initially loaded
     const { movies } = this.state;
 
-    // State Option 2 - before the movies have loaded
-    if (!movies) return <div className = "main-view"/>;
+    // Before the movies have been loaded
+    if (!movies) return <div className="main-view" />;
 
     return (
       <div className="main-view">
@@ -36,7 +40,7 @@ export class MainView extends React.Component {
         ))}
       </div>
     );
-  } 
+  }
 }
 
 
