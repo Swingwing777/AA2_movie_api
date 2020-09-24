@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-//import { MovieCard } from '../movie-card/movie-card';
+import { MovieCard } from '../movie-card/movie-card';
 //import { MovieView } from '../movie-view/movie-view';
 
 export class MainView extends React.Component {
@@ -28,6 +28,8 @@ export class MainView extends React.Component {
   render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
+
+
     const { movies } = this.state;
 
     // Before the movies have been loaded
