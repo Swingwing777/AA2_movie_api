@@ -2,47 +2,48 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 let movieSchema = mongoose.Schema({
-  Title: {type: String, required: true},
+  Title: { type: String, required: true },
   Year: Date,
-  Genres: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Genre'}],
-  Description: {type: String, required: true},
-  Director: {type: mongoose.Schema.Types.ObjectId, ref: 'Director'},
-  BondActor: {type: mongoose.Schema.Types.ObjectId, ref: 'Actor'},
-  Heroine: {type: String, required: true},
-  Villain: {type: String, required: true},
+  Genres: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Genre' }],
+  Description: { type: String, required: true },
+  Director: { type: mongoose.Schema.Types.ObjectId, ref: 'Director' },
+  BondActor: { type: mongoose.Schema.Types.ObjectId, ref: 'Actor' },
+  Heroine: { type: String, required: true },
+  Villain: { type: String, required: true },
   Actors: [String],
   ImagePath: String,
+  ThumbNail: String,
   SongArtist: String,
   Featured: Boolean
 });
 
 let userSchema = mongoose.Schema({
-  Username: {type: String, required: true},
-  Password: {type: String, required: true},
-  Email: {type: String, required: true},
+  Username: { type: String, required: true },
+  Password: { type: String, required: true },
+  Email: { type: String, required: true },
   Birthday: Date,
-  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
+  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
 });
 
 userSchema.statics.hashPassword = (password) => {
   return bcrypt.hashSync(password, 10);
 };
 
-userSchema.methods.validatePassword = function(password) {  // Do not use arrow funciton for 'instance methods'
+userSchema.methods.validatePassword = function (password) {  // Do not use arrow funciton for 'instance methods'
   return bcrypt.compareSync(password, this.Password);
 };
 
 let genreSchema = mongoose.Schema({
-  Name: {type: String, required: true},
-  Description: {type: String, required: true},
+  Name: { type: String, required: true },
+  Description: { type: String, required: true },
 });
 
 let directorSchema = mongoose.Schema({
-  Name: {type: String, required: true},
-  Bio: {type: String, required: true},
+  Name: { type: String, required: true },
+  Bio: { type: String, required: true },
   Birth: {
     Date: Date,
-    Place: {type: String, required: true}
+    Place: { type: String, required: true }
   },
   Death: {
     Date: Date,
@@ -52,11 +53,11 @@ let directorSchema = mongoose.Schema({
 });
 
 let actorSchema = mongoose.Schema({
-  Name: {type: String, required: true},
-  Bio: {type: String, required: true},
+  Name: { type: String, required: true },
+  Bio: { type: String, required: true },
   Birth: {
     Date: Date,
-    Place: {type: String, required: true}
+    Place: { type: String, required: true }
   },
   Death: {
     Date: Date,
