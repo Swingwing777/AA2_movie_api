@@ -35,7 +35,7 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies } = this.state;
+    const { movies, selectedMovie } = this.state;
 
     // Before the movies have been loaded
     if (!movies) return <div className="main-view" />;
@@ -52,5 +52,4 @@ export class MainView extends React.Component {
     );
   }
 }
-
 
