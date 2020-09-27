@@ -13,7 +13,7 @@ export class MovieView extends React.Component {
 
   toggleMainView = () => this.setState(prevState => ({
     showMainView:
-      !prevState.showMainView
+      !prevState.showMainView     // this forces showMainView to flip value.
   }))
 
   render() {
@@ -22,7 +22,7 @@ export class MovieView extends React.Component {
 
     if (!movie) return null;
 
-    if (showMainView) {           // additional conditional step}
+    if (showMainView) {               // additional conditional step based on toggled this.state
       return <MainView />;
     }
 
