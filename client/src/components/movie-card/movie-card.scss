@@ -1,6 +1,9 @@
 $blur-color: #d4eeff;
 $main-text: white;
+$button-text: white;
 $background: black; 
+$highlight: rgb(209, 209, 209);
+$shadow: rgb(46, 46, 46);
 $button: #0071ba;
 $buttonHL: #b8e2fc;
 $buttonLL: #003657;
@@ -15,10 +18,19 @@ body {
   max-width: 80%;
 }
 
-.formButton,
-.formButton:hover,
-.formButtton:active {
+.thumbNail {
+  box-shadow: 
+  1px 0 1px $highlight inset,
+  0px 2px 1px $highlight inset,
+  2px 0 2px $shadow,
+  0px 2px 2px $shadow
+}
+
+.buttonDetails,
+.buttonDetails:hover,
+.buttonDetails:active {
   background-color: $button;
+  color: $button-text;
   box-shadow: 
   1px 0 1px $buttonHL inset,
   0px 2px 1px $buttonHL inset,
@@ -26,10 +38,10 @@ body {
   0px 2px 2px $buttonLL inset;
 }
 
-.formButton:hover {
+.buttonDetails:hover {
   filter: brightness(75%);
 }
 
-.formButton:active {
+.buttonDetails:active {
   filter: brightness(50%);
 }
