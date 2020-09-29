@@ -2,10 +2,10 @@ import React from 'react';
 import axios from 'axios';
 
 import { LoginView } from '../login-view/login-view';
-import { RegistrationView } from '../registration-view/registration-view';
+// import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
-import CardDeck from 'react-bootstrap/CardDeck';
+import { Row } from 'react-bootstrap';
 import './main-view.scss';
 
 export class MainView extends React.Component {
@@ -18,6 +18,7 @@ export class MainView extends React.Component {
       selectedMovie: null,
       user: null
     };
+    this.backToMain = this.backToMain.bind(this)  // to bind '.this' to constructor()
   }
 
   componentDidMount() {
@@ -45,6 +46,10 @@ export class MainView extends React.Component {
     });
   }
 
+  backToMain() {                           // called by toggleMainView() method in MovieView
+    this.setState({ selectedMovie: null })    
+  }
+
   render() {
     const { movies, selectedMovie, user } = this.state;
 
@@ -57,14 +62,14 @@ export class MainView extends React.Component {
 
     return (
       <div className="main-view">
-        <CardDeck className='d-flex flex-wrap'>
+        <Row p-2>
           {selectedMovie
-            ? <MovieView movie={selectedMovie} />
+            ? <MovieView movie={selectedMovie} backToMain={this.backToMain} />
             : movies.map(movie => (
               <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
             ))
           }
-        </CardDeck>
+        </Row>
       </div>
     );
   }

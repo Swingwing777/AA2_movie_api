@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainView } from '../main-view/main-view';
+// import { MainView } from '../main-view/main-view';
 import PropTypes from 'prop-types';
 import './movie-view.scss';
 
@@ -7,26 +7,18 @@ export class MovieView extends React.Component {
 
   constructor() {
     super();
-
-    this.state = {
-      showMainView: false
-    };
+    this.state = {}
+    this.toggleMainView = this.toggleMainView.bind(this)  // to bind '.this' to constructor()
   }
 
-  toggleMainView = () => this.setState(prevState => ({
-    showMainView:
-      !prevState.showMainView     // this forces showMainView to flip value.
-  }))
+  toggleMainView() {
+    this.props.backToMain()       // backToMain() refers to MainView method to change state of MainView
+  }
 
   render() {
     const { movie } = this.props;
-    const { showMainView } = this.state;
-
+    //console.log(this.props)
     if (!movie) return null;
-
-    if (showMainView) {               // additional conditional step based on toggled this.state
-      return <MainView />;
-    }
 
     return (
       <div className="movie-view">
@@ -52,7 +44,7 @@ export class MovieView extends React.Component {
           <span className="value">{movie.Director.Name}</span>
         </div>
         <div className="back-movies">
-          <button onClick={this.toggleMainView}>Back to Menu</button>
+          <button onClick={this.toggleMainView}>Main Menu</button>
         </div>
 
       </div>)
