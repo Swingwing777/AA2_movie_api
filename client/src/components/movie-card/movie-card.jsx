@@ -9,12 +9,12 @@ export class MovieCard extends React.Component {
     const { movie, onClick } = this.props;
 
     return (
-      <Card style={{ width: '15em' }} className='text-center movie-card'>
+      <Card style={{ width: '15em' }} className='m-3 text-center movie-card'>
         <Card.Img variant="top" src={movie.ImagePath} className='thumbNail' />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Description}</Card.Text>
-          <Button className='m-auto formButton' onClick={() => onClick(movie)} variant="link">Open</Button>
+          <Button className='m-auto formButton' onClick={() => onClick(movie)} variant="link">More Details</Button>
         </Card.Body>
       </Card>
     );
