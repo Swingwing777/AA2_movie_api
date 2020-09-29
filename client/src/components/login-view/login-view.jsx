@@ -4,7 +4,6 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import './login-view.scss';
 import { RegistrationView } from '../registration-view/registration-view';
 
@@ -12,17 +11,23 @@ export function LoginView(props) {
   const [Username, setUsername] = useState('');
   const [Password, setPassword] = useState('');
 
-  const registerUser = () => {
-    console.log('New User Required');
-    return <RegistrationView />;
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(Username, Password);
     // Send a request to the server for authentication then call props.onLoggedIn(username)
     props.onLoggedIn(Username);
   };
+
+  const registerUser = (e) => {
+    e.preventDefault();
+    console.log('new-user');
+
+    setUsername('New');
+    props.onLoggedIn(Username);
+    console.log(props);
+  };
+
+  if (Username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 
   return (
     <Container className='formwrapper' fluid='md'>
