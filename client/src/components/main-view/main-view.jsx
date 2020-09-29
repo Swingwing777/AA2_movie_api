@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { LoginView } from '../login-view/login-view';
 // import { RegistrationView } from '../registration-view/registration-view';
+import PropTypes from 'prop-types';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { Row } from 'react-bootstrap';
@@ -40,14 +41,14 @@ export class MainView extends React.Component {
     });
   }
 
-  onLoggedIn(user) {
+  onLoggedIn(user) {                // parameter from LoginView handleSubmit
     this.setState({
       user
     });
   }
 
   backToMain() {                           // called by toggleMainView() method in MovieView
-    this.setState({ selectedMovie: null })    
+    this.setState({ selectedMovie: null })
   }
 
   render() {
@@ -55,14 +56,12 @@ export class MainView extends React.Component {
 
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
-    //if (!user) return <RegistrationView />;
-
     // Before the movies have been loaded
     if (!movies) return <div className="main-view" />;
 
     return (
       <div className="main-view">
-        <Row p-2>
+        <Row className='p-2 justify-content-center'>
           {selectedMovie
             ? <MovieView movie={selectedMovie} backToMain={this.backToMain} />
             : movies.map(movie => (
@@ -75,3 +74,18 @@ export class MainView extends React.Component {
   }
 }
 
+MovieView.propTypes = {
+  movie: PropTypes.shape({
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    BondActor: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+    }).isRequired,
+    Director: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+    }).isRequired,
+    Heroine: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string.isRequired,
+    ThumbNail: PropTypes.string.isRequired
+  }).isRequired
+};
