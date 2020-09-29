@@ -1,0 +1,35 @@
+$blur-color: #d4eeff;
+$main-text: white;
+$background: black; 
+$button: #0071ba;
+$buttonHL: #b8e2fc;
+$buttonLL: #003657;
+
+body {
+  background-color: $background;
+  background-image: url(../../../../public/img/6BWTransFade.png);
+}
+
+.container {
+  padding: 10px;
+  max-width: 80%;
+}
+
+.formButton,
+.formButton:hover,
+.formButtton:active {
+  background-color: $button;
+  box-shadow: 
+  1px 0 1px $buttonHL inset,
+  0px 2px 1px $buttonHL inset,
+  2px 0 2px $buttonLL inset,
+  0px 2px 2px $buttonLL inset;
+}
+
+.formButton:hover {
+  filter: brightness(75%);
+}
+
+.formButton:active {
+  filter: brightness(50%);
+}

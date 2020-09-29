@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import './movie-card.scss';
 
 export class MovieCard extends React.Component {
   render() {
     const { movie, onClick } = this.props;
 
     return (
-      <div onClick={() => onClick(movie)} className="movie-card">
-        <img className="movie-thumb" src={movie.ThumbNail} />
-        <div>{movie.Title}</div>
-      </div>
+      <Card style={{ width: '15em' }} className='text-center movie-card'>
+        <Card.Img variant="top" src={movie.ImagePath} className='thumbNail' />
+        <Card.Body>
+          <Card.Title>{movie.Title}</Card.Title>
+          <Card.Text>{movie.Description}</Card.Text>
+          <Button className='m-auto formButton' onClick={() => onClick(movie)} variant="link">Open</Button>
+        </Card.Body>
+      </Card>
     );
   }
 }
@@ -18,7 +25,7 @@ MovieCard.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
-    ThumbNail: PropTypes.string.isRequired
+    ImagePath: PropTypes.string.isRequired
   }).isRequired,
   onClick: PropTypes.func.isRequired
 };
