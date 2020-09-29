@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { LoginView } from '../login-view/login-view';
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+import { Form, Container, Col, Button } from 'react-bootstrap';
 import './registration-view.scss';
-
-
 
 export function RegistrationView(props) {
   const [Username, setUsername] = useState('');
@@ -15,12 +10,18 @@ export function RegistrationView(props) {
   const [Email, setEmail] = useState('');
   const [Birthday, setBirthday] = useState('');
 
-  const handleSubmit = (e) => {
+  const registerUser = (e) => {
     e.preventDefault();
     console.log(Username, Password, Email, Birthday);
-    // Send a request to the server for authentication then call props.onLoggedIn(username)
-    return <LoginView />
   };
+
+  const loginUser = (e) => {
+    e.preventDefault();
+    setUsername('Registered');
+    props.onLoggedIn(Username);
+  };
+
+  if (Username === 'Registered') return <LoginView onLoggedIn={user => this.handleSubmit(user)} />;
 
   return (
     <Container className='formwrapper' fluid='md'>
@@ -72,13 +73,15 @@ export function RegistrationView(props) {
         </Form.Row>
 
         <Form.Row className='d-flex flex-md-row justify-content-center'>
-          <Button as={Col} xs={1} className='px-2 mr-2 formButton' variant='primary' type='submit' onClick={handleSubmit} >
+          <Button as={Col} xs={1} className='px-2 mr-2 formButton' variant='primary' type='submit' onClick={registerUser} >
             Submit
         </Button>
 
-          <Form.Group as={Col} xs='auto' id="formGridCheckbox">
-            <Form.Check className='px-4 formLabel' type="checkbox" label="I am not a robot" />
-          </Form.Group>
+        </Form.Row>
+        <Form.Row className='py-3 d-flex justify-content-center'>
+          <Button as={Col} xs={1} className='formButton' variant='primary' type='submit' onClick={loginUser} >
+            Return to Login
+          </Button>
         </Form.Row>
       </Form >
     </Container>
@@ -86,10 +89,9 @@ export function RegistrationView(props) {
 }
 
 RegistrationView.propTypes = {
-  user: PropTypes.shape({
-    Username: PropTypes.string,
-    Password: PropTypes.string,
-    Email: PropTypes.string,
-    Birthday: PropTypes.date
-  })
-}
+  Username: PropTypes.string,
+  Password: PropTypes.string,
+  Email: PropTypes.string,
+  Birthday: PropTypes.string,
+  onClick: PropTypes.func
+};
