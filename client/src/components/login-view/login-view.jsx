@@ -17,13 +17,20 @@ export function LoginView(props) {
     props.onLoggedIn(username)
   };
 
-  const registerUser = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('new-user');
-
-    setUsername('New');
-    props.onLoggedIn(username);  // this 
-    console.log(props);
+    /* Send a request to the server for authentication */
+    axios.post('https://bond-movie-api.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    })
+      .then(response => {
+        const data = response.data;
+        props.onLoggedIn(data);
+      })
+      .catch(e => {
+        console.log('no such user')
+      });
   };
 
   if (username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
