@@ -31,20 +31,20 @@ const cors = require('cors');
 
 const { check, validationResult } = require('express-validator');
 
-let allowedOrigins = ['*', 'https://localhost:1234', 'http://localhost:1234'];   // This is ordinarily bad practise, and would better off be a specific domain (such as )
+// let allowedOrigins = ['*', 'https://localhost:1234', 'http://localhost:1234'];   // This is ordinarily bad practise, and would better off be a specific domain (such as )
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (!origin) return callback(null, true);
 
-    // If specified origin not on 'allowed' list
-    if (allowedOrigins.indexOf(origin) === -1) {
-      let message = 'The CORS policy for this app does not allow access from origin ' + origin;
-      return callback(new Error(message), false);
-    }
-    return callback(null, true);
-  }
-}));
+//     // If specified origin not on 'allowed' list
+//     if (allowedOrigins.indexOf(origin) === -1) {
+//       let message = 'The CORS policy for this app does not allow access from origin ' + origin;
+//       return callback(new Error(message), false);
+//     }
+//     return callback(null, true);
+//   }
+// }));
 
 app.use(morgan('common'));
 
