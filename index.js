@@ -31,7 +31,7 @@ const cors = require('cors');
 
 const { check, validationResult } = require('express-validator');
 
-let allowedOrigins = ['http://localhost:1234', 'http://localhost:8080', '*'];   // This is ordinarily bad practise, and would better off be a specific domain (such as )
+let allowedOrigins = ['*'];   // This is ordinarily bad practise, and would better off be a specific domain (such as )
 
 app.use(cors({
   origin: (origin, callback) => {
