@@ -6,23 +6,15 @@ import './login-view.scss';
 import { RegistrationView } from '../registration-view/registration-view';
 
 export function LoginView(props) {
-  const [Username, setUsername] = useState('');
-  const [Password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(username, password);
     /* Send a request to the server for authentication */
-    axios.post('https://bond-movie-api.herokuapp.com/login', {
-      Username: Username,
-      Password: Password
-    })
-      .then(response => {
-        const data = response.data;
-        props.onLoggedIn(data);
-      })
-      .catch(e => {
-        console.log('no such user')
-      });
+    /* then call props.onLoggedIn(username) */
+    props.onLoggedIn(username)
   };
 
   const registerUser = (e) => {
@@ -30,11 +22,11 @@ export function LoginView(props) {
     console.log('new-user');
 
     setUsername('New');
-    props.onLoggedIn(Username);  // this 
+    props.onLoggedIn(username);  // this 
     console.log(props);
   };
 
-  if (Username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
+  if (username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 
   return (
     <Container className='formwrapper' fluid='md'>
@@ -44,7 +36,7 @@ export function LoginView(props) {
             <Form.Label className='p-md-3 formLabel'>Username</Form.Label>
             <Form.Control
               type='text'
-              value={Username}
+              value={username}
               onChange={e => setUsername(e.target.value)}
               placeholder='Enter Username'
             />
@@ -54,7 +46,7 @@ export function LoginView(props) {
             <Form.Label className='p-md-3 formLabel'>Password</Form.Label>
             <Form.Control
               type='password'
-              value={Password}
+              value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder='Enter Password' />
           </Form.Group>

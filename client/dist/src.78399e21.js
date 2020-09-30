@@ -46030,36 +46030,36 @@ function RegistrationView(props) {
 
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
-      Username = _useState2[0],
+      username = _useState2[0],
       setUsername = _useState2[1];
 
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      Password = _useState4[0],
+      password = _useState4[0],
       setPassword = _useState4[1];
 
   var _useState5 = (0, _react.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      Email = _useState6[0],
+      email = _useState6[0],
       setEmail = _useState6[1];
 
   var _useState7 = (0, _react.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      Birthday = _useState8[0],
+      birthday = _useState8[0],
       setBirthday = _useState8[1];
 
   var registerUser = function registerUser(e) {
     e.preventDefault();
-    console.log(Username, Password, Email, Birthday);
+    console.log(username, password, email, birthday);
   };
 
   var loginUser = function loginUser(e) {
     e.preventDefault();
     setUsername('Registered');
-    props.onLoggedIn(Username);
+    props.onLoggedIn(username);
   };
 
-  if (Username === 'Registered') return _react.default.createElement(_loginView.LoginView, {
+  if (username === 'Registered') return _react.default.createElement(_loginView.LoginView, {
     onLoggedIn: function onLoggedIn(user) {
       return _this.handleSubmit(user);
     }
@@ -46084,7 +46084,7 @@ function RegistrationView(props) {
     className: "formLabel"
   }, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "text",
-    value: Username,
+    value: username,
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     },
@@ -46097,7 +46097,7 @@ function RegistrationView(props) {
     className: "formLabel"
   }, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "password",
-    value: Password,
+    value: password,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     },
@@ -46112,7 +46112,7 @@ function RegistrationView(props) {
     className: "formLabel"
   }, "Email"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "email",
-    value: Email,
+    value: email,
     onChange: function onChange(e) {
       return setEmail(e.target.value);
     },
@@ -46127,7 +46127,7 @@ function RegistrationView(props) {
     className: "formLabel"
   }, "Birthday"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "date",
-    value: Birthday,
+    value: birthday,
     onChange: function onChange(e) {
       return setBirthday(e.target.value);
     },
@@ -46203,39 +46203,34 @@ function LoginView(props) {
 
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
-      Username = _useState2[0],
+      username = _useState2[0],
       setUsername = _useState2[1];
 
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      Password = _useState4[0],
+      password = _useState4[0],
       setPassword = _useState4[1];
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
+    console.log(username, password);
     /* Send a request to the server for authentication */
 
-    _axios.default.post('https://bond-movie-api.herokuapp.com/login', {
-      Username: Username,
-      Password: Password
-    }).then(function (response) {
-      var data = response.data;
-      props.onLoggedIn(data);
-    }).catch(function (e) {
-      console.log('no such user');
-    });
+    /* then call props.onLoggedIn(username) */
+
+    props.onLoggedIn(username);
   };
 
   var registerUser = function registerUser(e) {
     e.preventDefault();
     console.log('new-user');
     setUsername('New');
-    props.onLoggedIn(Username); // this 
+    props.onLoggedIn(username); // this 
 
     console.log(props);
   };
 
-  if (Username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
+  if (username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
     onLoggedIn: function onLoggedIn(user) {
       return _this.registerUser(user);
     }
@@ -46254,7 +46249,7 @@ function LoginView(props) {
     className: "p-md-3 formLabel"
   }, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "text",
-    value: Username,
+    value: username,
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     },
@@ -46266,7 +46261,7 @@ function LoginView(props) {
     className: "p-md-3 formLabel"
   }, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "password",
-    value: Password,
+    value: password,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     },
@@ -46814,7 +46809,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46473" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36973" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
