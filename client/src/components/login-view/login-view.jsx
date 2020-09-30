@@ -9,42 +9,35 @@ import './login-view.scss';
 import { RegistrationView } from '../registration-view/registration-view';
 
 export function LoginView(props) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [Username, setUsername] = useState('');
+  const [Password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    // Send to the server for authentication then call props.onLoggedIn(username)
-    props.onLoggedIn(username);
+    /* Send a request to the server for authentication */
+    axios.post('https://bond-movie-api.herokuapp.com/login', {
+      Username: Username,
+      Password: Password
+    })
+      .then(response => {
+        const data = response.data;
+        props.onLoggedIn(data);
+      })
+      .catch(e => {
+        console.log('no luck')
+      });
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   /* Send a request to the server for authentication */
-  //   axios.post('https://bond-movie-api.herokuapp.com/login', {
-  //     Username: username,
-  //     Password: password
-  //   })
-  //     .then(response => {
-  //       const data = response.data;
-  //       props.onLoggedIn(data);
-  //     })
-  //     .catch(e => {
-  //       console.log('no such user yet')
-  //     });
-  // };
 
   const registerUser = (e) => {
     e.preventDefault();
     console.log('new-user');
 
     setUsername('New');
-    props.onLoggedIn(username);  // this 
+    props.onLoggedIn(Username);  // this 
     console.log(props);
   };
 
-  if (username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
+  if (Username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 
   return (
     <Container className='formwrapper' fluid='md'>
@@ -54,7 +47,7 @@ export function LoginView(props) {
             <Form.Label className='p-md-3 formLabel'>Username</Form.Label>
             <Form.Control
               type='text'
-              value={username}
+              value={Username}
               onChange={e => setUsername(e.target.value)}
               placeholder='Enter Username'
             />
@@ -64,7 +57,7 @@ export function LoginView(props) {
             <Form.Label className='p-md-3 formLabel'>Password</Form.Label>
             <Form.Control
               type='password'
-              value={password}
+              value={Password}
               onChange={e => setPassword(e.target.value)}
               placeholder='Enter Password' />
           </Form.Group>

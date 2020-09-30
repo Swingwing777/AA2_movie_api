@@ -46030,36 +46030,36 @@ function RegistrationView(props) {
 
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
-      username = _useState2[0],
+      Username = _useState2[0],
       setUsername = _useState2[1];
 
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      password = _useState4[0],
+      Password = _useState4[0],
       setPassword = _useState4[1];
 
   var _useState5 = (0, _react.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      email = _useState6[0],
+      Email = _useState6[0],
       setEmail = _useState6[1];
 
   var _useState7 = (0, _react.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      birthday = _useState8[0],
+      Birthday = _useState8[0],
       setBirthday = _useState8[1];
 
   var registerUser = function registerUser(e) {
     e.preventDefault();
-    console.log(username, password, email, birthday);
+    console.log(Username, Password, Email, Birthday);
   };
 
   var loginUser = function loginUser(e) {
     e.preventDefault();
     setUsername('Registered');
-    props.onLoggedIn(username);
+    props.onLoggedIn(Username);
   };
 
-  if (username === 'Registered') return _react.default.createElement(_loginView.LoginView, {
+  if (Username === 'Registered') return _react.default.createElement(_loginView.LoginView, {
     onLoggedIn: function onLoggedIn(user) {
       return _this.handleSubmit(user);
     }
@@ -46084,7 +46084,7 @@ function RegistrationView(props) {
     className: "formLabel"
   }, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "text",
-    value: username,
+    value: Username,
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     },
@@ -46097,7 +46097,7 @@ function RegistrationView(props) {
     className: "formLabel"
   }, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "password",
-    value: password,
+    value: Password,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     },
@@ -46112,7 +46112,7 @@ function RegistrationView(props) {
     className: "formLabel"
   }, "Email"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "email",
-    value: email,
+    value: Email,
     onChange: function onChange(e) {
       return setEmail(e.target.value);
     },
@@ -46127,7 +46127,7 @@ function RegistrationView(props) {
     className: "formLabel"
   }, "Birthday"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "date",
-    value: birthday,
+    value: Birthday,
     onChange: function onChange(e) {
       return setBirthday(e.target.value);
     },
@@ -46209,16 +46209,17 @@ function LoginView(props) {
 
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
-      username = _useState2[0],
+      Username = _useState2[0],
       setUsername = _useState2[1];
 
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      password = _useState4[0],
+      Password = _useState4[0],
       setPassword = _useState4[1];
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
+<<<<<<< HEAD
     console.log(username, password); // Send to the server for authentication then call props.onLoggedIn(username)
 
     props.onLoggedIn(username);
@@ -46238,17 +46239,31 @@ function LoginView(props) {
   //     });
   // };
 
+=======
+    /* Send a request to the server for authentication */
+
+    _axios.default.post('https://bond-movie-api.herokuapp.com/login', {
+      Username: Username,
+      Password: Password
+    }).then(function (response) {
+      var data = response.data;
+      props.onLoggedIn(data);
+    }).catch(function (e) {
+      console.log('no such user');
+    });
+  };
+>>>>>>> parent of 6eddcd7... Working version - no Axios login authentication
 
   var registerUser = function registerUser(e) {
     e.preventDefault();
     console.log('new-user');
     setUsername('New');
-    props.onLoggedIn(username); // this 
+    props.onLoggedIn(Username); // this 
 
     console.log(props);
   };
 
-  if (username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
+  if (Username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
     onLoggedIn: function onLoggedIn(user) {
       return _this.registerUser(user);
     }
@@ -46267,7 +46282,7 @@ function LoginView(props) {
     className: "p-md-3 formLabel"
   }, "Username"), _react.default.createElement(_Form.default.Control, {
     type: "text",
-    value: username,
+    value: Username,
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     },
@@ -46279,7 +46294,7 @@ function LoginView(props) {
     className: "p-md-3 formLabel"
   }, "Password"), _react.default.createElement(_Form.default.Control, {
     type: "password",
-    value: password,
+    value: Password,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     },
@@ -46827,7 +46842,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + "33023" + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46473" + '/');
+>>>>>>> parent of 6eddcd7... Working version - no Axios login authentication
 
   ws.onmessage = function (event) {
     checkedAssets = {};

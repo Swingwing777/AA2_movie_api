@@ -5,23 +5,23 @@ import { Form, Container, Col, Button } from 'react-bootstrap';
 import './registration-view.scss';
 
 export function RegistrationView(props) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [Username, setUsername] = useState('');
+  const [Password, setPassword] = useState('');
+  const [Email, setEmail] = useState('');
+  const [Birthday, setBirthday] = useState('');
 
   const registerUser = (e) => {
     e.preventDefault();
-    console.log(username, password, email, birthday);
+    console.log(Username, Password, Email, Birthday);
   };
 
   const loginUser = (e) => {
     e.preventDefault();
     setUsername('Registered');
-    props.onLoggedIn(username);
+    props.onLoggedIn(Username);
   };
 
-  if (username === 'Registered') return <LoginView onLoggedIn={user => this.handleSubmit(user)} />;
+  if (Username === 'Registered') return <LoginView onLoggedIn={user => this.handleSubmit(user)} />;
 
   return (
     <Container className='formwrapper' fluid='md'>
@@ -35,7 +35,7 @@ export function RegistrationView(props) {
             <Form.Label className='formLabel'>Username</Form.Label>
             <Form.Control
               type='text'
-              value={username}
+              value={Username}
               onChange={e => setUsername(e.target.value)}
               placeholder='Enter Username'
             />
@@ -45,7 +45,7 @@ export function RegistrationView(props) {
             <Form.Label className='formLabel'>Password</Form.Label>
             <Form.Control
               type='password'
-              value={password}
+              value={Password}
               onChange={e => setPassword(e.target.value)}
               placeholder='Enter Password' />
           </Form.Group>
@@ -56,7 +56,7 @@ export function RegistrationView(props) {
             <Form.Label className='formLabel'>Email</Form.Label>
             <Form.Control
               type='email'
-              value={email}
+              value={Email}
               onChange={e => setEmail(e.target.value)}
               placeholder='Enter Email' />
             <Form.Text className='formPromise'>We will never share your details</Form.Text>
@@ -66,7 +66,7 @@ export function RegistrationView(props) {
             <Form.Label className='formLabel'>Birthday</Form.Label>
             <Form.Control
               type='date'
-              value={birthday}
+              value={Birthday}
               onChange={e => setBirthday(e.target.value)}
               placeholder='Enter Birthday' />
           </Form.Group>
