@@ -13,7 +13,6 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-<<<<<<< HEAD
     /* Send a request to the server for authentication */
     axios.post('https://bond-movie-api.herokuapp.com/login', {
       Username: username,
@@ -24,13 +23,8 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch(e => {
-        console.log('no such user')
+        console.log('no such user yet')
       });
-=======
-    console.log(Username, Password);
-    // Send a request to the server for authentication then call props.onLoggedIn(username)
-    props.onLoggedIn(Username);
->>>>>>> parent of b7cd184... Axios added to LoginView
   };
 
   const registerUser = (e) => {
@@ -38,11 +32,7 @@ export function LoginView(props) {
     console.log('new-user');
 
     setUsername('New');
-<<<<<<< HEAD
     props.onLoggedIn(username);  // this 
-=======
-    props.onLoggedIn(Username);
->>>>>>> parent of b7cd184... Axios added to LoginView
     console.log(props);
   };
 
