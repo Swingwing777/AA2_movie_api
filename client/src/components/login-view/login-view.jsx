@@ -14,19 +14,26 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    /* Send a request to the server for authentication */
-    axios.post('https://bond-movie-api.herokuapp.com/login', {
-      Username: username,
-      Password: password
-    })
-      .then(response => {
-        const data = response.data;
-        props.onLoggedIn(data);
-      })
-      .catch(e => {
-        console.log('no such user yet')
-      });
+    console.log(username, password);
+    // Send to the server for authentication then call props.onLoggedIn(username)
+    props.onLoggedIn(username);
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   /* Send a request to the server for authentication */
+  //   axios.post('https://bond-movie-api.herokuapp.com/login', {
+  //     Username: username,
+  //     Password: password
+  //   })
+  //     .then(response => {
+  //       const data = response.data;
+  //       props.onLoggedIn(data);
+  //     })
+  //     .catch(e => {
+  //       console.log('no such user yet')
+  //     });
+  // };
 
   const registerUser = (e) => {
     e.preventDefault();

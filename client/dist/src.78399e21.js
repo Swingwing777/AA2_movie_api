@@ -46219,18 +46219,25 @@ function LoginView(props) {
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    /* Send a request to the server for authentication */
+    console.log(username, password); // Send to the server for authentication then call props.onLoggedIn(username)
 
-    _axios.default.post('https://bond-movie-api.herokuapp.com/login', {
-      Username: username,
-      Password: password
-    }).then(function (response) {
-      var data = response.data;
-      props.onLoggedIn(data);
-    }).catch(function (e) {
-      console.log('no such user yet');
-    });
-  };
+    props.onLoggedIn(username);
+  }; // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   /* Send a request to the server for authentication */
+  //   axios.post('https://bond-movie-api.herokuapp.com/login', {
+  //     Username: username,
+  //     Password: password
+  //   })
+  //     .then(response => {
+  //       const data = response.data;
+  //       props.onLoggedIn(data);
+  //     })
+  //     .catch(e => {
+  //       console.log('no such user yet')
+  //     });
+  // };
+
 
   var registerUser = function registerUser(e) {
     e.preventDefault();
@@ -46820,7 +46827,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33525" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33023" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
