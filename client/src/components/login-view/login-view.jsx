@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Form, Container, Button, Col } from 'react-bootstrap';
 import './login-view.scss';
@@ -10,10 +11,26 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(Username, Password);
-    // Send to the server for authentication then call props.onLoggedIn(username)
-    props.onLoggedIn(Username);
+    /* Send a request to the server for authentication */
+    axios.post('https://bond-movie-api.herokuapp.com/login', {
+      Username: Username,
+      Password: Password
+    })
+      .then(response => {
+        const data = response.data;
+        props.onLoggedIn(data);
+      })
+      .catch(e => {
+        console.log('There is no such user')
+      });
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(Username, Password);
+  //   // Send to the server for authentication then call props.onLoggedIn(username)
+  //   props.onLoggedIn(Username);
+  // };
 
   const registerUser = (e) => {
     e.preventDefault();

@@ -23,7 +23,23 @@ export class MainView extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://bond-movie-api.herokuapp.com/movies')
+    axios.get('https://bond-movie-api.herokuapp.com/movies')
+      .then(response => {
+        // Assign the result to the state
+        this.setState({
+          movies: response.data
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  // new method
+  getMovies(token) {
+    axios.get('https://bond-movie-api.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(response => {
         // Assign the result to the state
         this.setState({
@@ -41,10 +57,15 @@ export class MainView extends React.Component {
     });
   }
 
-  onLoggedIn(user) {                // parameter from LoginView handleSubmit
+  onLoggedIn(authData) {                // parameter from LoginView handleSubmit
+    console.log(authData);
     this.setState({
-      user
+      user: authData.user.Username
     });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
   }
 
   backToMain() {                           // called by toggleMainView() method in MovieView

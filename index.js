@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
 });
 
 //  GET all movies as JSON
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find().populate('Genres', 'Name')
     .populate('Director', 'Name')
     .populate('BondActor', 'Name')
