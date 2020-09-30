@@ -31,7 +31,7 @@ const cors = require('cors');
 
 const { check, validationResult } = require('express-validator');
 
-let allowedOrigins = ['*'];   // This is ordinarily bad practise, and would better off be a specific domain (such as )
+let allowedOrigins = ['*', 'https://localhost:1234', 'http://localhost:1234'];   // This is ordinarily bad practise, and would better off be a specific domain (such as )
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
 });
 
 //  GET all movies as JSON
-app.get('/movies', /*passport.authenticate('jwt', { session: false })*/(req, res) => {
+app.get('/movies', (req, res) => {
   Movies.find().populate('Genres', 'Name')
     .populate('Director', 'Name')
     .populate('BondActor', 'Name')
