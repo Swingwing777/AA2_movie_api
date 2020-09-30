@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import { LoginView } from '../login-view/login-view';
-// import { RegistrationView } from '../registration-view/registration-view';
-import PropTypes from 'prop-types';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { Row } from 'react-bootstrap';
@@ -23,17 +22,14 @@ export class MainView extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('https://bond-movie-api.herokuapp.com/movies')
-      .then(response => {
-        // Assign the result to the state
-        this.setState({
-          movies: response.data
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    let accessToken = localStorage.getItem('token');
+  if (accessToken !== null) {
+    this.setState({
+      user: localStorage.getItem('user')
+    });
+    this.getMovies(accessToken);
   }
+}
 
   // new method
   getMovies(token) {
