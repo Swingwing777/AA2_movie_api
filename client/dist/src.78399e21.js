@@ -46219,18 +46219,25 @@ function LoginView(props) {
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    /* Send a request to the server for authentication */
+    console.log(Username, Password); // Send to the server for authentication then call props.onLoggedIn(username)
 
-    _axios.default.post('https://bond-movie-api.herokuapp.com/login', {
-      Username: Username,
-      Password: Password
-    }).then(function (response) {
-      var data = response.data;
-      props.onLoggedIn(data);
-    }).catch(function (e) {
-      console.log('no luck');
-    });
-  };
+    props.onLoggedIn(Username);
+  }; // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   /* Send a request to the server for authentication */
+  //   axios.post('https://bond-movie-api.herokuapp.com/login', {
+  //     Username: Username,
+  //     Password: Password
+  //   })
+  //     .then(response => {
+  //       const data = response.data;
+  //       props.onLoggedIn(data);
+  //     })
+  //     .catch(e => {
+  //       console.log('no luck')
+  //     });
+  // };
+
 
   var registerUser = function registerUser(e) {
     e.preventDefault();
@@ -46638,7 +46645,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios.default.get('https://bond-movie-api.herokuapp.com/movies').then(function (response) {
+      _axios.default.get('http://bond-movie-api.herokuapp.com/movies').then(function (response) {
         // Assign the result to the state
         _this2.setState({
           movies: response.data
@@ -46820,7 +46827,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39521" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35387" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

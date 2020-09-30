@@ -23,7 +23,7 @@ export class MainView extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('https://bond-movie-api.herokuapp.com/movies')
+    axios.get('http://bond-movie-api.herokuapp.com/movies')
       .then(response => {
         // Assign the result to the state
         this.setState({
