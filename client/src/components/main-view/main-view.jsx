@@ -33,8 +33,8 @@ export class MainView extends React.Component {
 
   // new method
   getMovies(token) {
-    axios.get('https://bond-movie-api.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}` }
+    axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {   //https://cors-anywhere.herokuapp.com
+      headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
     })
       .then(response => {
         // Assign the result to the state
