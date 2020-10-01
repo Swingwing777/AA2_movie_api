@@ -46203,21 +46203,21 @@ function LoginView(props) {
 
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
-      Username = _useState2[0],
+      username = _useState2[0],
       setUsername = _useState2[1];
 
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      Password = _useState4[0],
+      password = _useState4[0],
       setPassword = _useState4[1];
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     /* Send a request to the server for authentication */
 
-    _axios.default.post('https://bond-movie-api.herokuapp.com/login', {
-      Username: Username,
-      Password: Password
+    _axios.default.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
+      Username: username,
+      Password: password
     }).then(function (response) {
       var data = response.data;
       props.onLoggedIn(data);
@@ -46236,11 +46236,11 @@ function LoginView(props) {
     e.preventDefault();
     console.log('new-user');
     setUsername('New');
-    props.onLoggedIn(Username);
+    props.onLoggedIn(username);
     console.log(props);
   };
 
-  if (Username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
+  if (username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
     onLoggedIn: function onLoggedIn(user) {
       return _this.registerUser(user);
     }
@@ -46259,11 +46259,12 @@ function LoginView(props) {
     className: "p-md-3 formLabel"
   }, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "text",
-    value: Username,
+    value: username,
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     },
-    placeholder: "Enter Username"
+    placeholder: "Enter Username",
+    required: true
   })), _react.default.createElement(_reactBootstrap.Form.Group, {
     className: "p-md-3",
     controlId: "formPassword"
@@ -46271,11 +46272,12 @@ function LoginView(props) {
     className: "p-md-3 formLabel"
   }, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
     type: "password",
-    value: Password,
+    value: password,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     },
-    placeholder: "Enter Password"
+    placeholder: "Enter Password",
+    required: true
   }))), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "py-3 d-flex justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Button, {
@@ -46296,6 +46298,10 @@ function LoginView(props) {
     onClick: registerUser
   }, "Register New User"))));
 }
+/* using .required for PropTypes before login is pointless,
+as it flags warnings for entries that have not 
+yet been made by the user */
+
 
 LoginView.propTypes = {
   Username: _propTypes.default.string,
@@ -46650,9 +46656,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function getMovies(token) {
       var _this2 = this;
 
-      _axios.default.get('https://bond-movie-api.herokuapp.com/movies', {
+      _axios.default.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
+        //https://cors-anywhere.herokuapp.com
         headers: {
-          Authorization: "Bearer ".concat(token)
+          Authorization: "Bearer ".concat(token) //Access-Control-Allows-Origin: *
+
         }
       }).then(function (response) {
         // Assign the result to the state
@@ -46840,7 +46848,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33567" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39895" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
