@@ -25,13 +25,6 @@ export function LoginView(props) {
       });
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log(Username, Password);
-  //   // Send to the server for authentication then call props.onLoggedIn(username)
-  //   props.onLoggedIn(Username);
-  // };
-
   const registerUser = (e) => {
     e.preventDefault();
     console.log('new-user');
