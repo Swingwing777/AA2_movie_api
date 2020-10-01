@@ -6,15 +6,15 @@ import './login-view.scss';
 import { RegistrationView } from '../registration-view/registration-view';
 
 export function LoginView(props) {
-  const [Username, setUsername] = useState('');
-  const [Password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     /* Send a request to the server for authentication */
-    axios.post('https://bond-movie-api.herokuapp.com/login', {
-      Username: Username,
-      Password: Password
+    axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
+      Username: username,
+      Password: password
     })
       .then(response => {
         const data = response.data;
@@ -37,11 +37,11 @@ export function LoginView(props) {
     console.log('new-user');
 
     setUsername('New');
-    props.onLoggedIn(Username);
+    props.onLoggedIn(username);
     console.log(props);
   };
 
-  if (Username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
+  if (username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 
   return (
     <Container className='formwrapper' fluid='md'>
@@ -51,9 +51,10 @@ export function LoginView(props) {
             <Form.Label className='p-md-3 formLabel'>Username</Form.Label>
             <Form.Control
               type='text'
-              value={Username}
+              value={username}
               onChange={e => setUsername(e.target.value)}
               placeholder='Enter Username'
+              required
             />
           </Form.Group>
 
@@ -61,9 +62,10 @@ export function LoginView(props) {
             <Form.Label className='p-md-3 formLabel'>Password</Form.Label>
             <Form.Control
               type='password'
-              value={Password}
+              value={password}
               onChange={e => setPassword(e.target.value)}
-              placeholder='Enter Password' />
+              placeholder='Enter Password'
+              required />
           </Form.Group>
         </Form.Row>
 
@@ -82,6 +84,9 @@ export function LoginView(props) {
   );
 }
 
+/* using .required for PropTypes before login is pointless,
+as it flags warnings for entries that have not 
+yet been made by the user */
 LoginView.propTypes = {
   Username: PropTypes.string,
   Password: PropTypes.string
