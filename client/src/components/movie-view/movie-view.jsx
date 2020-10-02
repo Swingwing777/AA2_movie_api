@@ -1,8 +1,6 @@
 import React from 'react';
-// import { MainView } from '../main-view/main-view';
 import PropTypes from 'prop-types';
 import { Container, Button, Row, Col } from 'react-bootstrap';
-// import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 import './movie-view.scss';
