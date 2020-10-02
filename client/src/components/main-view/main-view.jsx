@@ -19,7 +19,7 @@ export class MainView extends React.Component {
     this.state = {
       movies: null,
       // genres: null,
-      actors: null,
+      // bonds: null,
       // directors: null,
       user: null
     };
@@ -41,30 +41,13 @@ export class MainView extends React.Component {
       });
   }
 
-  // new method to get Bond Actors
-  getActors(token) {
-    axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/actors', {   //https://cors-anywhere.herokuapp.com
-      headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
-    })
-      .then(response => {
-        // Assign the result to the state
-        this.setState({
-          actors: response.data
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       this.setState({
         user: localStorage.getItem('user')
       });
-      this.getActors(accessToken);
-
+      this.getMovies(accessToken);
     }
   }
 
@@ -77,7 +60,6 @@ export class MainView extends React.Component {
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
-    this.getActors(authData.token);
   }
 
   render() {
@@ -88,14 +70,16 @@ export class MainView extends React.Component {
     if (!movies) return <div className="main-view" />;
 
     return (
-      <Row className='p-2 justify-content-center'>
-        <Router>
-          <div className="main-view">
+
+      <Router>
+        <div className="main-view">
+          <Row className='p-2 justify-content-center'>
             <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m} />)} />
             <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-          </div>
-        </Router>
-      </Row>
+          </Row>
+        </div>
+      </Router>
+
     );
   }
 }
