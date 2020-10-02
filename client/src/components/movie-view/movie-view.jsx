@@ -2,6 +2,8 @@ import React from 'react';
 // import { MainView } from '../main-view/main-view';
 import PropTypes from 'prop-types';
 import { Container, Button, Row, Col } from 'react-bootstrap';
+// import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import './movie-view.scss';
 
@@ -69,11 +71,16 @@ export class MovieView extends React.Component {
               <span className='label'>{'Title Song by:\u00A0\u00A0'}</span>
               <span className='value'>{movie.SongArtist}</span>
             </Row>
+
             <Row className='mt-5'>
-              <Button className='goBackMain' onClick={this.toggleMainView}>Return to Main Menu</Button>
+              <Link to={`/`}>
+                <Button className='goBackMain' variant="link">Return to Main Menu</Button>
+              </Link>
             </Row>
           </Col>
         </Row>
+
+
         {/* <Link to={`/directors/${movie.Director.Name}`}>
           <Button variant="link">Director</Button>
         </Link>
