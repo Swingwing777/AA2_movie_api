@@ -2,9 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+// import { RegistrationView } from '../registration-view/registration-view';   // ?
 import { Row } from 'react-bootstrap';
 import './main-view.scss';
 
@@ -15,23 +18,14 @@ export class MainView extends React.Component {
 
     this.state = {
       movies: null,
-      selectedMovie: null,
+      // genres: null,
+      actors: null,
+      // directors: null,
       user: null
     };
-    this.backToMain = this.backToMain.bind(this)  // to bind '.this' to constructor()
   }
 
-  componentDidMount() {
-    let accessToken = localStorage.getItem('token');
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
-      this.getMovies(accessToken);
-    }
-  }
-
-  // new method
+  // new method to get movies
   getMovies(token) {
     axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {   //https://cors-anywhere.herokuapp.com
       headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
@@ -47,13 +41,34 @@ export class MainView extends React.Component {
       });
   }
 
-  onMovieClick(movie) {
-    this.setState({
-      selectedMovie: movie
-    });
+  // new method to get Bond Actors
+  getActors(token) {
+    axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/actors', {   //https://cors-anywhere.herokuapp.com
+      headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
+    })
+      .then(response => {
+        // Assign the result to the state
+        this.setState({
+          actors: response.data
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
-  onLoggedIn(authData) {                // parameter from LoginView handleSubmit
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
+      });
+      this.getActors(accessToken);
+
+    }
+  }
+
+  onLoggedIn(authData) {
     console.log(authData);
     this.setState({
       user: authData.user.Username
@@ -62,31 +77,25 @@ export class MainView extends React.Component {
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
-  }
-
-  backToMain() {                           // called by toggleMainView() method in MovieView
-    this.setState({ selectedMovie: null })
+    this.getActors(authData.token);
   }
 
   render() {
-    const { movies, selectedMovie, user } = this.state;
+    const { movies, user } = this.state;
 
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
-    // Before the movies have been loaded
     if (!movies) return <div className="main-view" />;
 
     return (
-      <div className="main-view">
-        <Row className='p-2 justify-content-center'>
-          {selectedMovie
-            ? <MovieView movie={selectedMovie} backToMain={this.backToMain} />
-            : movies.map(movie => (
-              <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
-            ))
-          }
-        </Row>
-      </div>
+      <Row className='p-2 justify-content-center'>
+        <Router>
+          <div className="main-view">
+            <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m} />)} />
+            <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+          </div>
+        </Router>
+      </Row>
     );
   }
 }
@@ -106,3 +115,4 @@ MovieView.propTypes = {
     ThumbNail: PropTypes.string.isRequired
   }).isRequired
 };
+

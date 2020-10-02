@@ -187,7 +187,7 @@ app.get('/director/:Name', passport.authenticate('jwt', { session: false }), (re
 
 // GET list of all Bonds
 app.get('/bonds', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Actors.find({}, 'Name')
+  Actors.find()
     .then((actors) => {
       //will return only the titles
       res.status(200).json(actors);
