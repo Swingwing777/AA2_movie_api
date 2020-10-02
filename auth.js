@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config()      // For local testing with environment vars- not needed for Heroku
 
 const jwtSecret = process.env.MY_SECRET;    // This must match passport.js file
 

@@ -3,7 +3,7 @@ const passport = require('passport'),
   Models = require('./models.js'),
   passportJWT = require('passport-jwt');
 
-require('dotenv').config()
+require('dotenv').config()  // For local testing with environment vars- not needed for Heroku
 
 let Users = Models.User,
   JWTStrategy = passportJWT.Strategy,
