@@ -185,8 +185,8 @@ app.get('/director/:Name', passport.authenticate('jwt', { session: false }), (re
     });
 });
 
-// GET list of Bonds by name only
-app.get('/bonds/names', passport.authenticate('jwt', { session: false }), (req, res) => {
+// GET list of all Bonds
+app.get('/bonds', passport.authenticate('jwt', { session: false }), (req, res) => {
   Actors.find({}, 'Name')
     .then((actors) => {
       //will return only the titles
