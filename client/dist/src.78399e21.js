@@ -49472,6 +49472,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _reactBootstrap = require("react-bootstrap");
 
+var _reactRouterDom = require("react-router-dom");
+
 require("./movie-view.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -49589,10 +49591,12 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "value"
       }, movie.SongArtist)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
+      }, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goBackMain",
-        onClick: this.toggleMainView
-      }, "Return to Main Menu")))));
+        variant: "link"
+      }, "Return to Main Menu"))))));
     }
   }]);
 
@@ -49615,7 +49619,7 @@ MovieView.propTypes = {
     ThumbNail: _propTypes.default.string.isRequired
   }).isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./movie-view.scss":"components/movie-view/movie-view.scss"}],"components/main-view/main-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-view.scss":"components/movie-view/movie-view.scss"}],"components/main-view/main-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -49684,7 +49688,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       movies: null,
       // genres: null,
-      actors: null,
+      // bonds: null,
       // directors: null,
       user: null
     };
@@ -49711,27 +49715,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }).catch(function (error) {
         console.log(error);
       });
-    } // new method to get Bond Actors
-
-  }, {
-    key: "getActors",
-    value: function getActors(token) {
-      var _this3 = this;
-
-      _axios.default.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/actors', {
-        //https://cors-anywhere.herokuapp.com
-        headers: {
-          Authorization: "Bearer ".concat(token) //Access-Control-Allows-Origin: *
-
-        }
-      }).then(function (response) {
-        // Assign the result to the state
-        _this3.setState({
-          actors: response.data
-        });
-      }).catch(function (error) {
-        console.log(error);
-      });
     }
   }, {
     key: "componentDidMount",
@@ -49742,7 +49725,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         this.setState({
           user: localStorage.getItem('user')
         });
-        this.getActors(accessToken);
+        this.getMovies(accessToken);
       }
     }
   }, {
@@ -49755,28 +49738,27 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
-      this.getActors(authData.token);
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       var _this$state = this.state,
           movies = _this$state.movies,
           user = _this$state.user;
       if (!user) return _react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
-          return _this4.onLoggedIn(user);
+          return _this3.onLoggedIn(user);
         }
       });
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return _react.default.createElement(_reactBootstrap.Row, {
-        className: "p-2 justify-content-center"
-      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
+      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
+      }, _react.default.createElement(_reactBootstrap.Row, {
+        className: "p-2 justify-content-center"
       }, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/",
@@ -49915,7 +49897,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34517" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33423" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -7,6 +7,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+// import { GenreView } from '../genre-view/genre-view';
+// import { DirectorView } from '../director-view/director-view';
+// import { BondView } from '../bond-view/bond-view';
+// import { ProfileView } from '../profile-view/profile-view';
 // import { RegistrationView } from '../registration-view/registration-view';   // ?
 import { Row } from 'react-bootstrap';
 import './main-view.scss';
@@ -76,6 +80,11 @@ export class MainView extends React.Component {
           <Row className='p-2 justify-content-center'>
             <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m} />)} />
             <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+            <Route exact path="/" render={/* Welcome */} />
+            <Route exact path="/movies/bond/:Title" render={/* BondView */} />
+            <Route exact path="/movies/genres/:Title" render={/* GenreView*/} />
+            <Route exact path="/movies/director/:Title" render={/* DirectorView */} />
+            <Route exact path="/users/:Username" render={/* ProfileView */} />
           </Row>
         </div>
       </Router>
