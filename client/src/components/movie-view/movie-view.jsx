@@ -11,12 +11,12 @@ export class MovieView extends React.Component {
   constructor() {
     super();
     this.state = {}
-    this.toggleMainView = this.toggleMainView.bind(this)  // to bind '.this' to constructor()
+    //this.toggleMainView = this.toggleMainView.bind(this)  // to bind '.this' to constructor()
   }
 
-  toggleMainView() {
-    this.props.backToMain()       // backToMain() refers to MainView method to change state of MainView
-  }
+  // toggleMainView() {
+  //   this.props.backToMain()       // backToMain() refers to MainView method to change state of MainView
+  // }
 
   render() {
     const { movie } = this.props;

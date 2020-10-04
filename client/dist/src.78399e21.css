@@ -177,6 +177,146 @@ body {
 .formButton:active {
   filter: brightness(50%);
 }
+body {
+  background-color: black;
+  background-image: url(/6BWTransFade.fd57f77e.png);
+}
+
+.container {
+  padding: 10px;
+  max-width: 80%;
+}
+
+.formLabel,
+.formPromise {
+  color: white;
+  font-size: larger;
+  text-shadow: 2px 2px 4px #d4eeff;
+}
+
+.formPromise {
+  font-style: italic;
+}
+
+.formButton,
+.formButton:hover,
+.formButtton:active {
+  background-color: #0071ba;
+  box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
+}
+
+.formButton:hover {
+  filter: brightness(75%);
+}
+
+.formButton:active {
+  filter: brightness(50%);
+}
+body {
+  background-color: black;
+  background-image: url(/6BWTransFade.fd57f77e.png);
+}
+
+.container {
+  padding: 10px;
+  max-width: 80%;
+}
+
+.formLabel,
+.formPromise {
+  color: white;
+  font-size: larger;
+  text-shadow: 2px 2px 4px #d4eeff;
+}
+
+.formPromise {
+  font-style: italic;
+}
+
+.formButton,
+.formButton:hover,
+.formButtton:active {
+  background-color: #0071ba;
+  box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
+}
+
+.formButton:hover {
+  filter: brightness(75%);
+}
+
+.formButton:active {
+  filter: brightness(50%);
+}
+body {
+  background-color: black;
+  background-image: url(/6BWTransFade.fd57f77e.png);
+}
+
+.container {
+  padding: 10px;
+  max-width: 80%;
+}
+
+.formLabel,
+.formPromise {
+  color: white;
+  font-size: larger;
+  text-shadow: 2px 2px 4px #d4eeff;
+}
+
+.formPromise {
+  font-style: italic;
+}
+
+.formButton,
+.formButton:hover,
+.formButtton:active {
+  background-color: #0071ba;
+  box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
+}
+
+.formButton:hover {
+  filter: brightness(75%);
+}
+
+.formButton:active {
+  filter: brightness(50%);
+}
+body {
+  background-color: black;
+  background-image: url(/6BWTransFade.fd57f77e.png);
+}
+
+.container {
+  padding: 10px;
+  max-width: 80%;
+}
+
+.formLabel,
+.formPromise {
+  color: white;
+  font-size: larger;
+  text-shadow: 2px 2px 4px #d4eeff;
+}
+
+.formPromise {
+  font-style: italic;
+}
+
+.formButton,
+.formButton:hover,
+.formButtton:active {
+  background-color: #0071ba;
+  box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
+}
+
+.formButton:hover {
+  filter: brightness(75%);
+}
+
+.formButton:active {
+  filter: brightness(50%);
+}
 .my-flix {
   color: steelblue;
 }

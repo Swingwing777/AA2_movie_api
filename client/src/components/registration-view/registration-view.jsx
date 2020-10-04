@@ -4,6 +4,8 @@ import { LoginView } from '../login-view/login-view';
 import { Form, Container, Col, Button } from 'react-bootstrap';
 import './registration-view.scss';
 
+
+
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -12,7 +14,20 @@ export function RegistrationView(props) {
 
   const registerUser = (e) => {
     e.preventDefault();
-    console.log(username, password, email, birthday);
+    axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    })
+      .then(response => {
+        const data = response.data;
+        props.onLoggedIn(data);
+        console.log(username, password, email, birthday);
+      })
+      .catch(e => {
+        console.log('Please check and try again')
+      });
   };
 
   const loginUser = (e) => {
