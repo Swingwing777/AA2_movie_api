@@ -26,57 +26,59 @@ export class MovieView extends React.Component {
     return (
       <Container className='' >
         <Row className='movie-view'>
-          <Col xs={5}>
-            <img className='movie-poster' src={movie.ImagePath} />
-          </Col>
-          <Col>
-            <Row >
-              <span className='labelh1'>{'Title:\u00A0\u00A0'}</span>
-              <span className='valueh1'>{movie.Title}</span>
-            </Row>
-            <Row className='mt-2'>
-              <span className='label'>{'Release Year:\u00A0\u00A0'} </span>
-              <span className='value'>{movie.Year}</span>
-            </Row>
-            <Row className='mt-2'>
-              <span className='label'>{'Plot Summary:\u00A0\u00A0'}</span>
-              <span className='value'>{'\u00A0\u00A0'}{movie.Description}</span>
-            </Row>
-            <Row className='mt-2'>
-              <span className='label'>{'Genre:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Genres[0].Name}</span>
-            </Row>
-            <Row className='mt-2'>
-              <span className='label'>{'Agent 007 played by:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.BondActor.Name}</span>
-            </Row>
-            <Row className='mt-2'>
-              <span className='label'>{'Heroine:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Heroine}</span>
-            </Row>
-            <Row className='mt-2'>
-              <span className='label'>{'Villain:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Villain}</span>
-            </Row>
-            {/* <Row className='movie-support'>
+          <Row>
+            <Col xs={5}>
+              <img className='movie-poster' src={movie.ImagePath} />
+            </Col>
+            <Col>
+              <Row >
+                <span className='labelh1'>{'Title:\u00A0\u00A0'}</span>
+                <span className='valueh1'>{movie.Title}</span>
+              </Row>
+              <Row className='mt-2'>
+                <span className='label'>{'Release Year:\u00A0\u00A0'} </span>
+                <span className='value'>{movie.Year}</span>
+              </Row>
+              <Row className='mt-2'>
+                <span className='label'>{'Plot Summary:\u00A0\u00A0'}</span>
+                <span className='value'>{'\u00A0\u00A0'}{movie.Description}</span>
+              </Row>
+              <Row className='mt-2'>
+                <span className='label'>{'Genre:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.Genres[0].Name}</span>
+              </Row>
+              <Row className='mt-2'>
+                <span className='label'>{'Agent 007 played by:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.BondActor.Name}</span>
+              </Row>
+              <Row className='mt-2'>
+                <span className='label'>{'Heroine:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.Heroine}</span>
+              </Row>
+              <Row className='mt-2'>
+                <span className='label'>{'Villain:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.Villain}</span>
+              </Row>
+              {/* <Row className='movie-support'>
               <span className='label'>{'Supporting Actors:\u00A0\u00A0'}</span>
               <span className='value'>{movie.Actors}</span>
             </Row> */}
-            <Row className='mt-2'>
-              <span className='label'>{'Director:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Director.Name}</span>
-            </Row>
-            <Row className='mt-2'>
-              <span className='label'>{'Title Song by:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.SongArtist}</span>
-            </Row>
+              <Row className='mt-2'>
+                <span className='label'>{'Director:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.Director.Name}</span>
+              </Row>
+              <Row className='mt-2'>
+                <span className='label'>{'Title Song by:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.SongArtist}</span>
+              </Row>
 
-            <Row className='mt-5'>
-              <Link to={`/`}>
-                <Button className='goBackMain' variant="link">Return to Main Menu</Button>
-              </Link>
-            </Row>
-          </Col>
+              <Row className='mt-5'>
+                <Link to={`/`}>
+                  <Button className='goBackMain' variant="link">Return to Main Menu</Button>
+                </Link>
+              </Row>
+            </Col>
+          </Row>
         </Row>
 
 
