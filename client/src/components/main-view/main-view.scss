@@ -1,5 +1,6 @@
 $blur-color: #d4eeff;
 $main-text: white;
+$button-text: white;
 $background: black; 
 $button: #0071ba;
 $buttonHL: #b8e2fc;
@@ -43,4 +44,17 @@ body {
 
 .formButton:active {
   filter: brightness(50%);
+}
+
+.goUser
+.goUser:hover,
+.goUser:active  {
+  background-color: $button;
+  color: $button-text;
+  width: 140px;
+  box-shadow: 
+  1px 0 1px $buttonHL inset,
+  0px 2px 1px $buttonHL inset,
+  2px 0 2px $buttonLL inset,
+  0px 2px 2px $buttonLL inset;
 }

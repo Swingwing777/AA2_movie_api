@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Button, Col } from 'react-bootstrap';
+import { Container, Button, Col, Row } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
 
@@ -15,7 +15,7 @@ export class BondView extends React.Component {
 
     render() {
         const { movie } = this.props;
-        //console.log(this.props)
+        console.log(this.props)
         if (!movie) return null;
 
         return (
@@ -51,7 +51,7 @@ export class BondView extends React.Component {
                         </Row>
                         <Row className='mt-2'>
                             <span className='label'>{'Known for:\u00A0\u00A0'}</span>
-                            <span className='value'>{movie.BondActor.KnownFor[0]}</span>
+                            <span className='value'>{movie.BondActor.KnownFor}</span>
                         </Row>
 
                         <Row className='mt-5'>
@@ -78,9 +78,20 @@ export class BondView extends React.Component {
             </Container >
         )
     }
-}
-}
+};
 
 BondView.propTypes = {
-
+    BondActor: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Bio: PropTypes.string.isRequired,
+        Birth: PropTypes.shape({
+            Date: PropTypes.string.isRequired,
+            Place: PropTypes.string.isRequired
+        }).isRequired,
+        Death: PropTypes.shape({
+            Date: PropTypes.string,
+            Place: PropTypes.string
+        }).isRequired,
+        KnownFor: PropTypes.shape([]).isRequired
+    }).isRequired
 };

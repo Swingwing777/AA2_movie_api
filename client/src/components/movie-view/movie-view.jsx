@@ -26,7 +26,7 @@ export class MovieView extends React.Component {
     return (
       <Container className='' >
         <Row className='movie-view'>
-          <Row>
+          <Row className='d-flex'>
             <Col xs={5}>
               <img className='movie-poster' src={movie.ImagePath} />
             </Col>
@@ -59,10 +59,10 @@ export class MovieView extends React.Component {
                 <span className='label'>{'Villain:\u00A0\u00A0'}</span>
                 <span className='value'>{movie.Villain}</span>
               </Row>
-              {/* <Row className='movie-support'>
-              <span className='label'>{'Supporting Actors:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Actors}</span>
-            </Row> */}
+              <Row className='movie-support'>
+                <span className='label'>{'Supporting Actors:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.Actors}</span>
+              </Row>
               <Row className='mt-2'>
                 <span className='label'>{'Director:\u00A0\u00A0'}</span>
                 <span className='value'>{movie.Director.Name}</span>
@@ -75,6 +75,21 @@ export class MovieView extends React.Component {
               <Row className='mt-5'>
                 <Link to={`/`}>
                   <Button className='goBackMain' variant="link">Return to Main Menu</Button>
+                </Link>
+              </Row>
+              <Row className='mt-5'>
+                <Link to={`/actors/${movie.BondActor.Name}`}>
+                  <Button className='goBond' variant="link">James Bond details</Button>
+                </Link>
+              </Row>
+              <Row className='mt-5'>
+                <Link to={`/director/${movie.Director.Name}`}>
+                  <Button className='goDirector' variant="link">Director details</Button>
+                </Link>
+              </Row>
+              <Row className='mt-5'>
+                <Link to={`/genres/${movie.Genres[0].Name}`}>
+                  <Button className='goGenre' variant="link">Genre details</Button>
                 </Link>
               </Row>
             </Col>

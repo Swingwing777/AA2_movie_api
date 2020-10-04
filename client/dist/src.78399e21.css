@@ -129,9 +129,19 @@ body {
 
 .goBackMain,
 .goBackMain:hover,
-.goBackMain:active {
+.goBackMain:active,
+.goBond,
+.goBond:hover,
+.goBond:active,
+.goGenre,
+.goGenre:hover,
+.goGenre:active,
+.goDirector,
+.goDirector:hover,
+.goDirector:active {
   background-color: #0071ba;
   color: white;
+  width: 140px;
   box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
 }
 
@@ -316,6 +326,14 @@ body {
 
 .formButton:active {
   filter: brightness(50%);
+}
+
+.goUser .goUser:hover,
+.goUser:active {
+  background-color: #0071ba;
+  color: white;
+  width: 140px;
+  box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
 }
 .my-flix {
   color: steelblue;

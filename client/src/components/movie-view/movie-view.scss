@@ -44,9 +44,19 @@ body {
 
 .goBackMain,
 .goBackMain:hover,
-.goBackMain:active {
+.goBackMain:active,
+.goBond,
+.goBond:hover,
+.goBond:active,
+.goGenre,
+.goGenre:hover,
+.goGenre:active,
+.goDirector,
+.goDirector:hover,
+.goDirector:active  {
   background-color: $button;
   color: $button-text;
+  width: 140px;
   box-shadow: 
   1px 0 1px $buttonHL inset,
   0px 2px 1px $buttonHL inset,
