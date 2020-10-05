@@ -15,6 +15,7 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { Container, Row, Button, Col } from 'react-bootstrap';
 import './main-view.scss';
 
+import { Link } from "react-router-dom";
 
 export class MainView extends React.Component {
 
@@ -35,7 +36,7 @@ export class MainView extends React.Component {
       .then(response => {
         console.log(response.data);
         // Assign the result to the state
-        this.props.setMovies(reponse.data);
+        // this.props.setMovies(response.data);  not a function
         this.setState({
           movies: response.data
         });
@@ -45,26 +46,24 @@ export class MainView extends React.Component {
       });
   }
 
-<<<<<<< HEAD
-  getUser(token) {
-    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${localStorage.setItem('user')}`, {   //https://cors-anywhere.herokuapp.com
-      headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
-    })
-      .then(response => {
-        console.log(response.data);
-        // Assign the result to the state
-        this.props.setUserProfile(response.data)
-        this.setState({
-          user: response.data
-        });
-      })
-      .catch(function (error) {
-        alert('Sorry, there has been an error');
-      });
-  }
+  // getUser(token) {
+  //   axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${localStorage.getItem('user')}`, {   //https://cors-anywhere.herokuapp.com
+  //     headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
+  //   })
+  //     .then(response => {
+  //       console.log(response.data);
+  //       // Assign the result to the state
+  //       //this.props.setUserProfile(response.data)
+  //       this.setState({
+  //         user: response.data
+  //       });
+  //     })
+  //     .catch(function (error) {
+  //       alert('Sorry, there has been an error');
+  //     });
+  // }
 
-=======
->>>>>>> parent of 305f59d... Cease work backup
+
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
@@ -72,7 +71,7 @@ export class MainView extends React.Component {
         user: localStorage.getItem('user')
       });
       this.getMovies(accessToken);
-      this.getUser(accessToken);
+      // this.getUser(accessToken);
     }
   }
 
@@ -85,7 +84,7 @@ export class MainView extends React.Component {
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
-    this.getUser(authData.token);
+    //this.getUser(authData.token);
   }
 
   logoutUser = (e) => {
@@ -101,7 +100,8 @@ export class MainView extends React.Component {
 
   render() {
     const { movies, user } = this.state;
-    const { movies, user } = this.state;
+
+    console.log(user)
 
     if (!movies) return <div className="main-view" />;
 
@@ -110,9 +110,11 @@ export class MainView extends React.Component {
       <Container>
         <Row className='d-flex p-2 justify-content-around'>
           <span className='label'>Welcome to the Bond Movies Database</span>
-          {/* <Link to={`/users/${user}`}>
-            <Button className='goUser' variant="link">View User Profile</Button>
-          </Link> */}
+          <Router>
+            <Link to={`/users/${user}`}>
+              <Button className='goUser' variant="link">Username: {user}</Button>
+            </Link>
+          </Router>
           <Button as={Col} xs={1} className='logOutButton mx-3' variant='primary' type='submit' onClick={user => this.logoutUser(user)} >
             Logout
           </Button>
@@ -150,7 +152,7 @@ export class MainView extends React.Component {
 
               <Route exact path="/users/:Username" render={({ match }) => {
                 if (!user) return <div className="main-view" />;
-                return <ProfileView user={users.find(u => u.Username === match.params.username)} />
+                return <ProfileView user={users.find(u => u.Username === match.params.username).User} />
               }
               } />
             </Row>
@@ -178,12 +180,12 @@ MainView.propTypes = {
     ThumbNail: PropTypes.string.isRequired
   }),
 
-  user: PropTypes.shape({
-    Username: PropTypes.string.isRequired,
-    Password: PropTypes.string.isRequired,
-    Email: PropTypes.string.isRequired,
-    Birthday: PropTypes.date.isRequired
-  })
+  // user: PropTypes.shape({
+  //   Username: PropTypes.string.isRequired,
+  //   Password: PropTypes.string.isRequired,
+  //   Email: PropTypes.string.isRequired,
+  //   Birthday: PropTypes.date.isRequired
+  // })
 };
 
 

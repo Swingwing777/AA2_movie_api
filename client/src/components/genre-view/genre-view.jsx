@@ -56,9 +56,8 @@ export class GenreView extends React.Component {
                                 <Button className='goBackMovie' variant="link">Return to Movie View</Button>
                             </Link>
                         </Row>
-<<<<<<< HEAD
                         {/*New Back Button */}
-                        <Row className='mt-5'>                                        
+                        <Row className='mt-5'>
                             <Link to='' onClick={() => history.back()}>
                             </Link>
                         </Row>
@@ -68,8 +67,6 @@ export class GenreView extends React.Component {
                                 <Button className='goSameGenre' variant="link">Movies with same genre</Button>
                             </Link>
                         </Row>
-=======
->>>>>>> parent of 305f59d... Cease work backup
                     </Col>
                 </Row>
 
