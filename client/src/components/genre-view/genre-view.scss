@@ -1,35 +1,40 @@
 $blur-color: #d4eeff;
 $main-text: white;
+$button-text: white;
 $background: black; 
 $button: #0071ba;
 $buttonHL: #b8e2fc;
 $buttonLL: #003657;
 
-body {
-  background-color: $background;
-  background-image: url(../../../../public/img/6BWTransFade.png);
-}
+// body {
+//   background-color: $background;
+//   background-image: url(../../../../public/img/6BWTransFade.png);
+// }
 
 .container {
   padding: 10px;
   max-width: 80%;
 }
 
-.formLabel,
-.formPromise {
+.label,
+.value {
+  font-size: medium;
   color: $main-text;
-  font-size: larger;
-  text-shadow: 2px 2px 4px $blur-color;
+  text-shadow: 2px 2px 3px black;
 }
 
-.formPromise {
-  font-style: italic;
-}
+.titleh1 {
+  color: $main-text;
+  font-size: x-large;
+  }
 
-.formButton,
-.formButton:hover,
-.formButtton:active {
+
+.goBackMovie,
+.goBackMovie:hover,
+.goBackMovie:active {
   background-color: $button;
+  color: $button-text;
+  width: 200px;
   box-shadow: 
   1px 0 1px $buttonHL inset,
   0px 2px 1px $buttonHL inset,
@@ -37,10 +42,10 @@ body {
   0px 2px 2px $buttonLL inset;
 }
 
-.formButton:hover {
+.goBackMovie:hover {
   filter: brightness(75%);
 }
 
-.formButton:active {
+.goBackMovie:active {
   filter: brightness(50%);
 }
