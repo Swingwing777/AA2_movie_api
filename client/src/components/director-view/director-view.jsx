@@ -20,36 +20,34 @@ export class DirectorView extends React.Component {
         if (!director) return null;
 
         return (
-            <Container className='' >
-                <Row className='director-view'>
+            <Container className='container' >
+                <Row className='director-view d-flex'>
                     <Col xs={5}>
                         <img className='dirImage' src={director.Image} />
 
                         <Row >
-                            <span className='labelh1'>{`Director:\u00A0\u00A0`}</span>
-                            <span className='valueh1'>{director.Name}</span>
+                            <span className='titleh1 mt-3'>{director.Name}</span>
                         </Row>
-                        <Row className='mt-2'>
-                            <span className='label'>{'Biography:\u00A0\u00A0'} </span>
+                        <Row className='mt-3'>
                             <span className='value'>{director.Bio}</span>
                         </Row>
-                        <Row className='mt-2'>
+                        <Row className='mt-3'>
                             <span className='label'>{'Date of Birth:\u00A0\u00A0'} </span>
                             <span className='value'>{director.Birth.Date}</span>
                         </Row>
-                        <Row className='mt-2'>
+                        <Row className='mt-3'>
                             <span className='label'>{'Place of Birth:\u00A0\u00A0'}</span>
                             <span className='value'>{director.Birth.Place}</span>
                         </Row>
-                        <Row className='mt-2'>
+                        <Row className='mt-3'>
                             <span className='label'>{'Date of Death:\u00A0\u00A0'}</span>
                             <span className='value'>{director.Death.Date}</span>
                         </Row>
-                        <Row className='mt-2'>
+                        <Row className='mt-3'>
                             <span className='label'>{'Place of Death:\u00A0\u00A0'}</span>
                             <span className='value'>{director.Death.Place}</span>
                         </Row>
-                        <Row className='mt-2'>
+                        <Row className='mt-3'>
                             <span className='label'>{'Known for:\u00A0\u00A0'}</span>
                             <span className='value'>{director.KnownFor}</span>
                         </Row>

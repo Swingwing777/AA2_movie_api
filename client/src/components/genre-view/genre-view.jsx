@@ -15,7 +15,7 @@ export class GenreView extends React.Component {
     }
 
     render() {
-        const { movie, genre } = this.props;
+        const { genre } = this.props;
         console.log(this.props)
         if (!genre) return null;
 
@@ -24,28 +24,25 @@ export class GenreView extends React.Component {
                 <Row className='genre-view'>
                     <Col>
                         <Row >
-                            <span className='labelh1'>According to IMDB.com, the following genres apply:</span>
+                            <span className='titleh1 mt-3'>According to IMDB.com, the following genres apply:</span>
                         </Row>
                         <Row className='mt-3'>
-                            <span className='valueh1'>{genre[0].Name}</span>
-                            <span className='labelh1'>{':'}</span>
+                            <span className='titleh1 genreName'>{genre[0].Name}{':'}</span>
                         </Row>
                         <Row className='mt-2'>
-                            <span className='value'>{genre[0].Description}</span>
+                            <span className='value genreDescribe'>{genre[0].Description}</span>
                         </Row>
                         <Row className='mt-3'>
-                            <span className='valueh1'>{genre[1].Name}</span>
-                            <span className='labelh1'>{':'}</span>
+                            <span className='titleh1 genreName'>{genre[1].Name}{':'}</span>
                         </Row>
                         <Row className='mt-2'>
-                            <span className='value'>{genre[1].Description}</span>
+                            <span className='value genreDescribe'>{genre[1].Description}</span>
                         </Row>
                         <Row className='mt-3'>
-                            <span className='valueh1'>{genre[2].Name}</span>
-                            <span className='labelh1'>{':'}</span>
+                            <span className='titleh1 genreName'>{genre[2].Name}{':'}</span>
                         </Row>
                         <Row className='mt-2'>
-                            <span className='value'>{genre[2].Description}</span>
+                            <span className='value genreDescribe'>{genre[2].Description}</span>
                         </Row>
 
                         <Row className='mt-5'>
@@ -77,20 +74,4 @@ export class GenreView extends React.Component {
 GenreView.propTypes = {
     Name: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-GenreView.propTypes = {
-
 };

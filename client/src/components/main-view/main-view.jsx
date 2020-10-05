@@ -72,6 +72,12 @@ export class MainView extends React.Component {
     return (
 
       <Container>
+        <Row className='currentUser p-2'>
+          <span className='label'>Welcome</span>
+          {/* <Link to={`/users/${user}`}>
+            <Button className='goUser' variant="link">View User Profile</Button>
+          </Link> */}
+        </Row>
         <Router>
           <div className="main-view">
             <Row className='p-2 justify-content-center'>
@@ -110,12 +116,7 @@ export class MainView extends React.Component {
             </Row>
           </div>
         </Router>
-        {/* <Row className='currentUser p-2 justify-content-center'>
-          <span className='label'>{user} </span>
-          <Link to={`/users/:Username`}>
-            <Button className='goUser' variant="link">View User Profile</Button>
-          </Link>
-        </Row> */}
+
       </Container>
 
     );
