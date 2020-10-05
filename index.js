@@ -102,11 +102,11 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
     });
 });
 
-//  GET all movies of speciified genre as JSON, by name only
+//  GET all movies of speciified genre as JSON
 app.get('/movies/:genre', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Movies.find({ Genre: req.params.Genre }).populate('Genre', 'Name')
-    .populate('Director', 'Name')
-    .populate('BondActor', 'Name')
+  Movies.find({ Genre: req.params.Genre }).populate('Genre')
+    .populate('Director')
+    .populate('BondActor')
     .then((movies) => {
       res.status(201).json(movies);
     })
