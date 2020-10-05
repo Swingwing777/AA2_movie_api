@@ -104,7 +104,7 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
 
 //  GET all movies of specified genre as JSON
 app.get('/movies/genres/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Movies.find({ Genre: { Name: req.params.Name } }).populate('Genre')
+  Movies.find({ Genre: { 'Name': req.params.Name } }).populate('Genre')
     .populate('Director')
     .populate('BondActor')
     .then((movies) => {
