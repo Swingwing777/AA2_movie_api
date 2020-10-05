@@ -13,6 +13,22 @@ export class DirectorView extends React.Component {
         this.state = {}
     }
 
+    getMovies(token) {
+        axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies/', {   //https://cors-anywhere.herokuapp.com
+            headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
+        })
+            .then(response => {
+                console.log(response.data);
+                // Assign the result to the state
+                this.setState({
+                    movies: response.data
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     render() {
         const { director } = this.props;
         console.log(this.props)

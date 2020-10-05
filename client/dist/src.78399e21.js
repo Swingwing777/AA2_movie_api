@@ -49567,7 +49567,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "label"
       }, "Genre:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.Genres[0].Name + ",\xA0" + movie.Genres[1].Name + ",\xA0" + movie.Genres[2].Name)), _react.default.createElement(_reactBootstrap.Row, {
+      }, movie.Genre.Name)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
@@ -49621,7 +49621,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }, "Director details"))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3"
       }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/genres/".concat(movie.Title, "/").concat(movie.Genres[0].Name)
+        to: "/genres/".concat(movie.Title, "/").concat(movie.Genre.Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goGenre",
         variant: "link"
@@ -49861,9 +49861,31 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
     _this.state = {};
     return _this;
-  }
+  } // new method to get movies
+
 
   _createClass(GenreView, [{
+    key: "getMovies",
+    value: function getMovies(token) {
+      var _this2 = this;
+
+      axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
+        //https://cors-anywhere.herokuapp.com
+        headers: {
+          Authorization: "Bearer ".concat(token) //Access-Control-Allows-Origin: *
+
+        }
+      }).then(function (response) {
+        console.log(response.data); // Assign the result to the state
+
+        _this2.setState({
+          movies: response.data
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var genre = this.props.genre;
@@ -49879,27 +49901,11 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
         className: "mt-3"
       }, _react.default.createElement("span", {
         className: "titleh1 genreName"
-      }, genre[0].Name, ':')), _react.default.createElement(_reactBootstrap.Row, {
+      }, genre.Name, ':')), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "value genreDescribe"
-      }, genre[0].Description)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
-      }, _react.default.createElement("span", {
-        className: "titleh1 genreName"
-      }, genre[1].Name, ':')), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
-      }, _react.default.createElement("span", {
-        className: "value genreDescribe"
-      }, genre[1].Description)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
-      }, _react.default.createElement("span", {
-        className: "titleh1 genreName"
-      }, genre[2].Name, ':')), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
-      }, _react.default.createElement("span", {
-        className: "value genreDescribe"
-      }, genre[2].Description)), _react.default.createElement(_reactBootstrap.Row, {
+      }, genre.Description)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
@@ -50411,8 +50417,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           });
           return _react.default.createElement(_genreView.GenreView, {
             genre: movies.find(function (m) {
-              return m.Genres[0].Name === match.params.name;
-            }).Genres
+              return m.Genre.Name === match.params.name;
+            }).Genre
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -50546,7 +50552,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38193" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45875" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
