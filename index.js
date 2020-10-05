@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 
 //  GET all movies as JSON
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Movies.find().populate('Genres')
+  Movies.find().populate('Genre')
     .populate('Director')
     .populate('BondActor')
     .then((movies) => {
@@ -86,7 +86,7 @@ app.get('/movies/titles', passport.authenticate('jwt', { session: false }), (req
 // GET single Bond movie by Title
 app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({ Title: req.params.Title })
-    .populate('Genres', 'Name')
+    .populate('Genre', 'Name')
     .populate('Director', 'Name')
     .populate('BondActor', 'Name')
     .then((movie) => {
@@ -102,11 +102,13 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
     });
 });
 
-// GET genre information by name
-app.get('/genre/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Genres.findOne({ Name: req.params.Name })        // Promise
-    .then((genre) => {
-      res.json(genre);
+//  GET all movies of speciified genre as JSON, by name only
+app.get('/movies/:genre', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Movies.find({ Genre: req.params.Genre }).populate('Genre', 'Name')
+    .populate('Director', 'Name')
+    .populate('BondActor', 'Name')
+    .then((movies) => {
+      res.status(201).json(movies);
     })
     .catch((err) => {
       console.error(err);
@@ -114,17 +116,13 @@ app.get('/genre/:Name', passport.authenticate('jwt', { session: false }), (req, 
     });
 });
 
-// GET JSON of genres IDs for specific title
-app.get('/movies/genres/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Movies.findOne({ Title: req.params.Title }).populate('Genres')  // Promise
-    .then((movie) => {
-      if (!movie) {
-        return res.status(400).send('Title "' + req.params.Title + '" not found');
-      } else {
-        res.json(movie.Genres)
-      }
+// GET genre information by name
+app.get('/genre/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Genres.findOne({ Name: req.params.Name })        // Promise
+    .then((genre) => {
+      res.json(genre);
     })
-    .catch((err) => {                          // Final catch-all
+    .catch((err) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
     });

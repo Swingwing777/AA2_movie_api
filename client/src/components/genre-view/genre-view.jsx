@@ -14,6 +14,24 @@ export class GenreView extends React.Component {
         this.state = {}
     }
 
+    // new method to get movies
+    getMovies(token) {
+        axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {   //https://cors-anywhere.herokuapp.com
+            headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
+        })
+            .then(response => {
+                console.log(response.data);
+                // Assign the result to the state
+                this.setState({
+                    movies: response.data
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+
     render() {
         const { genre } = this.props;
         console.log(this.props)
@@ -27,22 +45,10 @@ export class GenreView extends React.Component {
                             <span className='titleh1 mt-3'>According to IMDB.com, the following genres apply:</span>
                         </Row>
                         <Row className='mt-3'>
-                            <span className='titleh1 genreName'>{genre[0].Name}{':'}</span>
+                            <span className='titleh1 genreName'>{genre.Name}{':'}</span>
                         </Row>
                         <Row className='mt-2'>
-                            <span className='value genreDescribe'>{genre[0].Description}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='titleh1 genreName'>{genre[1].Name}{':'}</span>
-                        </Row>
-                        <Row className='mt-2'>
-                            <span className='value genreDescribe'>{genre[1].Description}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='titleh1 genreName'>{genre[2].Name}{':'}</span>
-                        </Row>
-                        <Row className='mt-2'>
-                            <span className='value genreDescribe'>{genre[2].Description}</span>
+                            <span className='value genreDescribe'>{genre.Description}</span>
                         </Row>
 
                         <Row className='mt-5'>

@@ -409,42 +409,6 @@
           </td>
         </tr>
 
-        <!--  //////////////// get genres list for specific title  ///////////////  -->
-        <tr>
-          <td>Get Genres list for a specific title</td>
-          <td>
-            <pre class="url">
-/movies
-/genres
-/<em style="color: #d11313; font-family: consolas;">Title</em></pre>
-          </td>
-          <td>GET</td>
-          <td>/<em style="color: #d11313; font-family: consolas;">Title</em> must match spelling, spacing and case of
-            database<br>
-            eg Live and Let Die</td>
-          <td class="c1">None – via URL only</td>
-          <td class="c2">JSON: Array of Genre objects:
-            <pre>
-[
-  {
-    "_id": "5f509d2dcce013d48f955987",
-    "Name": "Action",
-    "Description": "Action is ....."
-  },
-  {
-    "_id": "5f509fe2cce013d48f95598b",
-    "Name": "Thriller",
-    "Description": "Thrillers are ....."
-  },
-  {
-    "_id": "5f509e81cce013d48f955988",
-    "Name": "Adventure",
-    "Description": " Adventure films are ....."
-  }
-]             </pre>
-          </td>
-        </tr>
-
         <!--  //////////////// Get genre description  ///////////////  -->
         <tr>
           <td>Get Genre description of given genre</td>
