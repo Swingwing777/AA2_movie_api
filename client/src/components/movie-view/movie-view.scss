@@ -27,14 +27,18 @@ body {
 .movie-poster {
   width: 80%;
   height: auto;
-  box-shadow: 2px 2px 3px black;
+  box-shadow: 1px 1px 3px black;
 }
 
 .label,
 .value {
   font-size: medium;
   color: $main-text;
-  text-shadow: 2px 2px 3px black;
+  text-shadow: 1px 1px 3px black;
+}
+
+.logOutButton {
+  visibility: hidden;
 }
 
 .titleh1 {
@@ -57,7 +61,8 @@ body {
 .goDirector:active  {
   background-color: $button;
   color: $button-text;
-  width: 200px;
+  font-size: smaller;
+  width: 160px;
   box-shadow: 
   1px 0 1px $buttonHL inset,
   0px 2px 1px $buttonHL inset,

@@ -29,6 +29,10 @@ export class MovieView extends React.Component {
             <Row >
               <span className='titleh1 mt-3'>{movie.Title}</span>
             </Row>
+            <Row className='mt-3'>
+              <span className='label'>{'Director:\u00A0\u00A0'}</span>
+              <span className='value'>{movie.Director.Name}</span>
+            </Row>
             <Row className='mt-4'>
               <span className='label'>{'Release Year:\u00A0\u00A0'} </span>
               <span className='value'>{movie.Year}</span>
@@ -57,30 +61,25 @@ export class MovieView extends React.Component {
               <span className='value'>{movie.Actors}</span>
             </Row>
             <Row className='mt-3'>
-              <span className='label'>{'Director:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Director.Name}</span>
-            </Row>
-            <Row className='mt-3'>
               <span className='label'>{'Title Song by:\u00A0\u00A0'}</span>
               <span className='value'>{movie.SongArtist}</span>
             </Row>
-
-            <Row className='mt-5'>
+            <Row className='mt-3'>
               <Link to={`/`}>
                 <Button className='goBackMain' variant="link">Return to Main Menu</Button>
               </Link>
             </Row>
-            <Row className='mt-5'>
+            <Row className='mt-3'>
               <Link to={`/actors/${movie.Title}/${movie.BondActor.Name}`}>
                 <Button className='goBond' variant="link">James Bond details</Button>
               </Link>
             </Row>
-            <Row className='mt-5'>
+            <Row className='mt-3'>
               <Link to={`/directors/${movie.Title}/${movie.Director.Name}`}>
                 <Button className='goDirector' variant="link">Director details</Button>
               </Link>
             </Row>
-            <Row className='mt-5'>
+            <Row className='mt-3'>
               <Link to={`/genres/${movie.Title}/${movie.Genres[0].Name}`}>
                 <Button className='goGenre' variant="link">Genre details</Button>
               </Link>

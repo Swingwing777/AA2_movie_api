@@ -12,8 +12,9 @@ import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { RegistrationView } from '../registration-view/registration-view';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Button, Col } from 'react-bootstrap';
 import './main-view.scss';
+
 
 export class MainView extends React.Component {
 
@@ -64,6 +65,17 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
+  logoutUser = (e) => {
+    e.preventDefault();
+    console.log('Logged out');
+    this.setState({
+      user: null
+    });
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+
   render() {
     const { movies, user } = this.state;
 
@@ -72,11 +84,15 @@ export class MainView extends React.Component {
     return (
 
       <Container>
-        <Row className='currentUser p-2'>
-          <span className='label'>Welcome</span>
+        <Row className='d-flex p-2 justify-content-around'>
+          <span className='label'>Welcome to the Bond Movies Database</span>
           {/* <Link to={`/users/${user}`}>
             <Button className='goUser' variant="link">View User Profile</Button>
           </Link> */}
+          <Button as={Col} xs={1} className='logOutButton mx-3' variant='primary' type='submit' onClick={user => this.logoutUser(user)} >
+            Logout
+          </Button>
+
         </Row>
         <Router>
           <div className="main-view">

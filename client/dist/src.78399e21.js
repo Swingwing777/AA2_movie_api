@@ -49058,6 +49058,8 @@ exports.RegistrationView = RegistrationView;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _loginView = require("../login-view/login-view");
@@ -49065,6 +49067,8 @@ var _loginView = require("../login-view/login-view");
 var _reactBootstrap = require("react-bootstrap");
 
 require("./registration-view.scss");
+
+var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49109,7 +49113,8 @@ function RegistrationView(props) {
 
   var registerUser = function registerUser(e) {
     e.preventDefault();
-    axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
+
+    _axios.default.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
       Username: username,
       Password: password,
       Email: email,
@@ -49121,13 +49126,12 @@ function RegistrationView(props) {
     }).catch(function (e) {
       console.log('Please check and try again');
     });
-  };
+  }; // const loginUser = (e) => {
+  //   e.preventDefault();
+  //   setUsername('Registered');
+  //   props.onLoggedIn(username);
+  // };
 
-  var loginUser = function loginUser(e) {
-    e.preventDefault();
-    setUsername('Registered');
-    props.onLoggedIn(username);
-  };
 
   if (username === 'Registered') return _react.default.createElement(_loginView.LoginView, {
     onLoggedIn: function onLoggedIn(user) {
@@ -49135,24 +49139,23 @@ function RegistrationView(props) {
     }
   });
   return _react.default.createElement(_reactBootstrap.Container, {
-    className: "formwrapper",
-    fluid: "md"
+    className: "formwrapper"
   }, _react.default.createElement(_reactBootstrap.Form, {
     className: "p-md-3"
   }, _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "d-flex flex-md-row justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
     size: "lg",
-    className: "formLabel"
+    className: "formTitle"
   }, "Please Register")), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "d-flex flex-md-row justify-content-center"
+    className: "justify-content-center mt-3"
   }, _react.default.createElement(_reactBootstrap.Form.Group, {
     as: _reactBootstrap.Col,
-    xs: 3,
     controlId: "formGridUsername"
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
     className: "formLabel"
   }, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "entryField",
     type: "text",
     value: username,
     onChange: function onChange(e) {
@@ -49161,11 +49164,11 @@ function RegistrationView(props) {
     placeholder: "Enter Username"
   })), _react.default.createElement(_reactBootstrap.Form.Group, {
     as: _reactBootstrap.Col,
-    xs: 3,
     controlId: "formGridPassword"
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
     className: "formLabel"
   }, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "entryField",
     type: "password",
     value: password,
     onChange: function onChange(e) {
@@ -49176,51 +49179,47 @@ function RegistrationView(props) {
     className: "d-flex flex-md-row justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Form.Group, {
     as: _reactBootstrap.Col,
-    xs: 3,
     controlId: "formGridEmail"
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
     className: "formLabel"
   }, "Email"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "entryField",
     type: "email",
     value: email,
     onChange: function onChange(e) {
       return setEmail(e.target.value);
     },
     placeholder: "Enter Email"
-  }), _react.default.createElement(_reactBootstrap.Form.Text, {
-    className: "formPromise"
-  }, "We will never share your details")), _react.default.createElement(_reactBootstrap.Form.Group, {
+  })), _react.default.createElement(_reactBootstrap.Form.Group, {
     as: _reactBootstrap.Col,
-    xs: 3,
     controlId: "formBirthday"
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
     className: "formLabel"
   }, "Birthday"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "entryField",
     type: "date",
     value: birthday,
     onChange: function onChange(e) {
       return setBirthday(e.target.value);
     },
     placeholder: "Enter Birthday"
-  }))), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "d-flex flex-md-row justify-content-center"
+  }))), _react.default.createElement(_reactBootstrap.Row, {
+    className: "formPromise"
+  }, "We will never share your details"), _react.default.createElement(_reactBootstrap.Form.Row, {
+    className: "justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Button, {
-    as: _reactBootstrap.Col,
-    xs: 1,
-    className: "px-2 mr-2 formButton",
+    className: "formButton mt-3",
     variant: "primary",
     type: "submit",
     onClick: registerUser
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "py-3 d-flex justify-content-center"
+    className: "justify-content-center"
+  }, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/"
   }, _react.default.createElement(_reactBootstrap.Button, {
-    as: _reactBootstrap.Col,
-    xs: 1,
-    className: "formButton",
-    variant: "primary",
-    type: "submit",
-    onClick: loginUser
-  }, "Return to Login"))));
+    className: "formButton mt-3",
+    variant: "link"
+  }, "Return to Login")))));
 }
 
 RegistrationView.propTypes = {
@@ -49230,7 +49229,7 @@ RegistrationView.propTypes = {
   Birthday: _propTypes.default.string,
   onClick: _propTypes.default.func
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../login-view/login-view":"components/login-view/login-view.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./registration-view.scss":"components/registration-view/registration-view.scss"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../login-view/login-view":"components/login-view/login-view.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./registration-view.scss":"components/registration-view/registration-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49249,6 +49248,8 @@ var _reactBootstrap = require("react-bootstrap");
 require("./login-view.scss");
 
 var _registrationView = require("../registration-view/registration-view");
+
+var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49294,15 +49295,14 @@ function LoginView(props) {
     }).catch(function (e) {
       console.log('There is no such user');
     });
-  };
+  }; // const registerUser = (e) => {
+  //   e.preventDefault();
+  //   console.log('new-user');
+  //   // setUsername('New');
+  //   // props.onLoggedIn(username);
+  //   // console.log(props);
+  // };
 
-  var registerUser = function registerUser(e) {
-    e.preventDefault();
-    console.log('new-user');
-    setUsername('New');
-    props.onLoggedIn(username);
-    console.log(props);
-  };
 
   if (username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
     onLoggedIn: function onLoggedIn(user) {
@@ -49310,18 +49310,23 @@ function LoginView(props) {
     }
   });
   return _react.default.createElement(_reactBootstrap.Container, {
-    className: "formwrapper",
-    fluid: "md"
+    className: "formwrapper"
   }, _react.default.createElement(_reactBootstrap.Form, {
     className: "p-md-3"
   }, _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "d-flex flex-md-row justify-content-center"
+  }, _react.default.createElement(_reactBootstrap.Form.Label, {
+    size: "lg",
+    className: "formTitle"
+  }, "Please Login")), _react.default.createElement(_reactBootstrap.Form.Row, {
+    className: "justify-content-center mt-3"
   }, _react.default.createElement(_reactBootstrap.Form.Group, {
-    className: "p-md-3",
+    as: _reactBootstrap.Col,
     controlId: "formUsername"
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
-    className: "p-md-3 formLabel"
+    className: "formLabel"
   }, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "entryField",
     type: "text",
     value: username,
     onChange: function onChange(e) {
@@ -49330,11 +49335,12 @@ function LoginView(props) {
     placeholder: "Enter Username",
     required: true
   })), _react.default.createElement(_reactBootstrap.Form.Group, {
-    className: "p-md-3",
+    as: _reactBootstrap.Col,
     controlId: "formPassword"
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
-    className: "p-md-3 formLabel"
+    className: "formLabel"
   }, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "entryField",
     type: "password",
     value: password,
     onChange: function onChange(e) {
@@ -49343,24 +49349,20 @@ function LoginView(props) {
     placeholder: "Enter Password",
     required: true
   }))), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "py-3 d-flex justify-content-center"
+    className: "justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Button, {
-    as: _reactBootstrap.Col,
-    xs: 1,
-    className: "formButton",
+    className: "formButton mt-3",
     variant: "primary",
     type: "submit",
     onClick: handleSubmit
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "py-3 d-flex justify-content-center"
+    className: "justify-content-center"
+  }, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/register"
   }, _react.default.createElement(_reactBootstrap.Button, {
-    as: _reactBootstrap.Col,
-    xs: 1,
-    className: "formButton",
-    variant: "primary",
-    type: "submit",
-    onClick: registerUser
-  }, "Register New User"))));
+    className: "formButton mt-3",
+    variant: "link"
+  }, "Register User")))));
 }
 /* using .required for PropTypes before login is pointless,
 as it flags warnings for entries that have not 
@@ -49371,7 +49373,7 @@ LoginView.propTypes = {
   Username: _propTypes.default.string,
   Password: _propTypes.default.string
 };
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./login-view.scss":"components/login-view/login-view.scss","../registration-view/registration-view":"components/registration-view/registration-view.jsx"}],"components/movie-card/movie-card.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./login-view.scss":"components/login-view/login-view.scss","../registration-view/registration-view":"components/registration-view/registration-view.jsx","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-card/movie-card.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -49535,101 +49537,95 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       return _react.default.createElement(_reactBootstrap.Container, {
         className: ""
       }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "movie-view"
-      }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "d-flex"
+        className: "movie-view d-flex"
       }, _react.default.createElement(_reactBootstrap.Col, {
         xs: 5
       }, _react.default.createElement("img", {
         className: "movie-poster",
         src: movie.ImagePath
       })), _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
-        className: "labelh1"
-      }, "Title:\xA0\xA0"), _react.default.createElement("span", {
-        className: "valueh1"
+        className: "titleh1 mt-3"
       }, movie.Title)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Release Year:\xA0\xA0", " "), _react.default.createElement("span", {
-        className: "value"
-      }, movie.Year)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Plot Summary:\xA0\xA0"), _react.default.createElement("span", {
-        className: "value"
-      }, "\xA0\xA0", movie.Description)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Genre:\xA0\xA0"), _react.default.createElement("span", {
-        className: "value"
-      }, movie.Genres[0].Name)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Agent 007 played by:\xA0\xA0"), _react.default.createElement("span", {
-        className: "value"
-      }, movie.BondActor.Name)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Heroine:\xA0\xA0"), _react.default.createElement("span", {
-        className: "value"
-      }, movie.Heroine)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Villain:\xA0\xA0"), _react.default.createElement("span", {
-        className: "value"
-      }, movie.Villain)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "movie-support"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Supporting Actors:\xA0\xA0"), _react.default.createElement("span", {
-        className: "value"
-      }, movie.Actors)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Director:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
       }, movie.Director.Name)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-4"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Release Year:\xA0\xA0", " "), _react.default.createElement("span", {
+        className: "value"
+      }, movie.Year)), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Plot Summary:\xA0\xA0", movie.Description)), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Genre:\xA0\xA0"), _react.default.createElement("span", {
+        className: "value"
+      }, movie.Genres[0].Name + ",\xA0" + movie.Genres[1].Name + ",\xA0" + movie.Genres[2].Name)), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Bond:\xA0\xA0"), _react.default.createElement("span", {
+        className: "value"
+      }, movie.BondActor.Name)), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Heroine:\xA0\xA0"), _react.default.createElement("span", {
+        className: "value"
+      }, movie.Heroine)), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Villain:\xA0\xA0"), _react.default.createElement("span", {
+        className: "value"
+      }, movie.Villain)), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Supporting Cast:\xA0\xA0"), _react.default.createElement("span", {
+        className: "value"
+      }, movie.Actors)), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Title Song by:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
       }, movie.SongArtist)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-5"
+        className: "mt-3"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goBackMain",
         variant: "link"
       }, "Return to Main Menu"))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-5"
+        className: "mt-3"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/actors/".concat(movie.Title, "/").concat(movie.BondActor.Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goBond",
         variant: "link"
       }, "James Bond details"))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-5"
+        className: "mt-3"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/directors/".concat(movie.Title, "/").concat(movie.Director.Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goDirector",
         variant: "link"
       }, "Director details"))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-5"
+        className: "mt-3"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/genres/".concat(movie.Title, "/").concat(movie.Genres[0].Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goGenre",
         variant: "link"
-      }, "Genre details")))))));
+      }, "Genre details"))))));
     }
   }]);
 
@@ -49657,7 +49653,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/bond-view/bond-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/bond-view/bond-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49726,52 +49722,46 @@ var BondView = /*#__PURE__*/function (_React$Component) {
       console.log(bondactor);
       if (!bondactor) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
-        className: ""
+        className: "container"
       }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "bond-view"
-      }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "d-flex"
+        className: "bond-view d-flex"
       }, _react.default.createElement(_reactBootstrap.Col, {
         xs: 5
       }, _react.default.createElement("img", {
         className: "bondImage",
         src: bondactor.Image
-      })), _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
-        className: "labelh1"
-      }, "Bond played by:\xA0\xA0"), _react.default.createElement("span", {
-        className: "valueh1"
+      }), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
+        className: "titleh1 mt-3"
       }, bondactor.Name)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
-        className: "label"
-      }, "Biography:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
       }, bondactor.Bio)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Birth:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
       }, bondactor.Birth.Date)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Birth:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
       }, bondactor.Birth.Place)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
       }, bondactor.Death.Date)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
       }, bondactor.Death.Place)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Known for:\xA0\xA0"), _react.default.createElement("span", {
@@ -49783,7 +49773,7 @@ var BondView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goBackMovie",
         variant: "link"
-      }, "Return to Movie View")))))));
+      }, "Return to Movie View"))))));
     }
   }]);
 
@@ -49812,7 +49802,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/genre-view/genre-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/genre-view/genre-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49876,9 +49866,7 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
   _createClass(GenreView, [{
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          movie = _this$props.movie,
-          genre = _this$props.genre;
+      var genre = this.props.genre;
       console.log(this.props);
       if (!genre) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
@@ -49886,37 +49874,31 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "genre-view"
       }, _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
-        className: "labelh1"
+        className: "titleh1 mt-3"
       }, "According to IMDB.com, the following genres apply:")), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3"
       }, _react.default.createElement("span", {
-        className: "valueh1"
-      }, genre[0].Name), _react.default.createElement("span", {
-        className: "labelh1"
-      }, ':')), _react.default.createElement(_reactBootstrap.Row, {
+        className: "titleh1 genreName"
+      }, genre[0].Name, ':')), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
-        className: "value"
+        className: "value genreDescribe"
       }, genre[0].Description)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3"
       }, _react.default.createElement("span", {
-        className: "valueh1"
-      }, genre[1].Name), _react.default.createElement("span", {
-        className: "labelh1"
-      }, ':')), _react.default.createElement(_reactBootstrap.Row, {
+        className: "titleh1 genreName"
+      }, genre[1].Name, ':')), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
-        className: "value"
+        className: "value genreDescribe"
       }, genre[1].Description)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3"
       }, _react.default.createElement("span", {
-        className: "valueh1"
-      }, genre[2].Name), _react.default.createElement("span", {
-        className: "labelh1"
-      }, ':')), _react.default.createElement(_reactBootstrap.Row, {
+        className: "titleh1 genreName"
+      }, genre[2].Name, ':')), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
-        className: "value"
+        className: "value genreDescribe"
       }, genre[2].Description)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
@@ -49937,13 +49919,12 @@ GenreView.propTypes = {
   Name: _propTypes.default.string.isRequired,
   Description: _propTypes.default.string.isRequired
 };
-GenreView.propTypes = {};
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./genre-view.scss":"components/genre-view/genre-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/director-view/director-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50012,50 +49993,46 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
       console.log(director.Name);
       if (!director) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
-        className: ""
+        className: "container"
       }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "director-view"
+        className: "director-view d-flex"
       }, _react.default.createElement(_reactBootstrap.Col, {
         xs: 5
       }, _react.default.createElement("img", {
         className: "dirImage",
         src: director.Image
       }), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
-        className: "labelh1"
-      }, "Director:\xA0\xA0'"), _react.default.createElement("span", {
-        className: "valueh1"
+        className: "titleh1 mt-3"
       }, director.Name)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
-        className: "label"
-      }, "Biography:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
       }, director.Bio)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Birth:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
       }, director.Birth.Date)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Birth:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
       }, director.Birth.Place)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
       }, director.Death.Date)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
       }, director.Death.Place)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
+        className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Known for:\xA0\xA0"), _react.default.createElement("span", {
@@ -50272,6 +50249,19 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, MainView);
 
     _this = _super.call(this);
+
+    _this.logoutUser = function (e) {
+      e.preventDefault();
+      console.log('Logged out');
+
+      _this.setState({
+        user: null
+      });
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+    };
+
     _this.state = {
       movies: [],
       user: null
@@ -50335,7 +50325,20 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
+      return _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
+        className: "d-flex p-2 justify-content-around"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Welcome to the Bond Movies Database"), _react.default.createElement(_reactBootstrap.Button, {
+        as: _reactBootstrap.Col,
+        xs: 1,
+        className: "logOutButton mx-3",
+        variant: "primary",
+        type: "submit",
+        onClick: function onClick(user) {
+          return _this3.logoutUser(user);
+        }
+      }, "Logout")), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "p-2 justify-content-center"
@@ -50543,7 +50546,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44855" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38193" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

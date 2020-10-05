@@ -20,17 +20,24 @@ body {
 .formPromise {
   color: $main-text;
   font-size: larger;
-  text-shadow: 2px 2px 4px $blur-color;
+  text-shadow: 1px 1px 3px $blur-color;
 }
 
 .formPromise {
   font-style: italic;
 }
 
-.formButton,
-.formButton:hover,
-.formButtton:active {
+.logOutButton {
+  visibility: visible;
+}
+
+.logOutButton,
+.logOutButton:hover,
+.logOutButton:active {
   background-color: $button;
+  color: $button-text;
+  font-size: smaller;
+  width: 160px;
   box-shadow: 
   1px 0 1px $buttonHL inset,
   0px 2px 1px $buttonHL inset,
@@ -38,11 +45,11 @@ body {
   0px 2px 2px $buttonLL inset;
 }
 
-.formButton:hover {
+.logOutButton:hover {
   filter: brightness(75%);
 }
 
-.formButton:active {
+.logOutButton:active {
   filter: brightness(50%);
 }
 
