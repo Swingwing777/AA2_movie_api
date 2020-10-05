@@ -36,6 +36,7 @@ export class MainView extends React.Component {
       .then(response => {
         console.log(response.data);
         // Assign the result to the state
+        this.props.setMovies(reponse.data);
         this.setState({
           movies: response.data
         });
@@ -45,19 +46,20 @@ export class MainView extends React.Component {
       });
   }
 
-  getUser(user, token) {
-    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}}`, {   //https://cors-anywhere.herokuapp.com
+  getUser(token) {
+    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${localStorage.setItem('user')}`, {   //https://cors-anywhere.herokuapp.com
       headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
     })
       .then(response => {
         console.log(response.data);
         // Assign the result to the state
+        this.props.setUserProfile(response.data)
         this.setState({
           user: response.data
         });
       })
       .catch(function (error) {
-        console.log(error);
+        alert('Sorry, there has been an error');
       });
   }
 
@@ -68,6 +70,7 @@ export class MainView extends React.Component {
         user: localStorage.getItem('user')
       });
       this.getMovies(accessToken);
+      this.getUser(accessToken);
     }
   }
 
@@ -80,6 +83,7 @@ export class MainView extends React.Component {
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
+    this.getUser(authData.token);
   }
 
   logoutUser = (e) => {
@@ -94,6 +98,7 @@ export class MainView extends React.Component {
   }
 
   render() {
+    const { movies, user } = this.state;
     const { movies, user } = this.state;
 
     if (!movies) return <div className="main-view" />;
@@ -178,6 +183,15 @@ MainView.propTypes = {
     Heroine: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired,
     ThumbNail: PropTypes.string.isRequired
+  }),
+
+  user: PropTypes.shape({
+    Username: PropTypes.string.isRequired,
+    Password: PropTypes.string.isRequired,
+    Email: PropTypes.string.isRequired,
+    Birthday: PropTypes.date.isRequired
   })
 };
+
+
 
