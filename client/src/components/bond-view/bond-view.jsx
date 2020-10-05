@@ -14,54 +14,56 @@ export class BondView extends React.Component {
     }
 
     render() {
-        const { movie } = this.props;
+        const { bondactor } = this.props;
         console.log(this.props)
-        if (!movie) return null;
+        console.log(bondactor)
+        if (!bondactor) return null;
 
         return (
             <Container className='' >
                 <Row className='bond-view'>
-                    <Col xs={5}>
-                        <img className='bondImage' src={movie.BondActor.Image} />
-                    </Col>
-                    <Col>
-                        <Row >
-                            <span className='labelh1'>{'Bond played by:\u00A0\u00A0'}</span>
-                            <span className='valueh1'>{movie.BondActor.Name}</span>
-                        </Row>
-                        <Row className='mt-2'>
-                            <span className='label'>{'Biography:\u00A0\u00A0'} </span>
-                            <span className='value'>{movie.BondActor.Bio}</span>
-                        </Row>
-                        <Row className='mt-2'>
-                            <span className='label'>{'Date of Birth:\u00A0\u00A0'} </span>
-                            <span className='value'>{movie.BondActor.Birth.Date}</span>
-                        </Row>
-                        <Row className='mt-2'>
-                            <span className='label'>{'Place of Birth:\u00A0\u00A0'}</span>
-                            <span className='value'>{movie.BondActor.Birth.Place}</span>
-                        </Row>
-                        <Row className='mt-2'>
-                            <span className='label'>{'Date of Death:\u00A0\u00A0'}</span>
-                            <span className='value'>{movie.BondActor.Death.Date}</span>
-                        </Row>
-                        <Row className='mt-2'>
-                            <span className='label'>{'Place of Death:\u00A0\u00A0'}</span>
-                            <span className='value'>{movie.BondActor.Death.Place}</span>
-                        </Row>
-                        <Row className='mt-2'>
-                            <span className='label'>{'Known for:\u00A0\u00A0'}</span>
-                            <span className='value'>{movie.BondActor.KnownFor}</span>
-                        </Row>
+                    <Row className='d-flex'>
+                        <Col xs={5}>
+                            <img className='bondImage' src={bondactor.Image} />
+                        </Col>
+                        <Col>
+                            <Row >
+                                <span className='labelh1'>{'Bond played by:\u00A0\u00A0'}</span>
+                                <span className='valueh1'>{bondactor.Name}</span>
+                            </Row>
+                            <Row className='mt-2'>
+                                <span className='label'>{'Biography:\u00A0\u00A0'} </span>
+                                <span className='value'>{bondactor.Bio}</span>
+                            </Row>
+                            <Row className='mt-2'>
+                                <span className='label'>{'Date of Birth:\u00A0\u00A0'} </span>
+                                <span className='value'>{bondactor.Birth.Date}</span>
+                            </Row>
+                            <Row className='mt-2'>
+                                <span className='label'>{'Place of Birth:\u00A0\u00A0'}</span>
+                                <span className='value'>{bondactor.Birth.Place}</span>
+                            </Row>
+                            <Row className='mt-2'>
+                                <span className='label'>{'Date of Death:\u00A0\u00A0'}</span>
+                                <span className='value'>{bondactor.Death.Date}</span>
+                            </Row>
+                            <Row className='mt-2'>
+                                <span className='label'>{'Place of Death:\u00A0\u00A0'}</span>
+                                <span className='value'>{bondactor.Death.Place}</span>
+                            </Row>
+                            <Row className='mt-2'>
+                                <span className='label'>{'Known for:\u00A0\u00A0'}</span>
+                                <span className='value'>{bondactor.KnownFor}</span>
+                            </Row>
 
-                        <Row className='mt-5'>
-                            <Link to={`/movies/:movieId`}>
-                                <Button className='goBackMovie' variant="link">Return to Movie View</Button>
-                            </Link>
-                        </Row>
-                    </Col>
+                            <Row className='mt-5'>
+                                <Link to={`/`}>
+                                    <Button className='goBackMovie' variant="link">Return to Movie View</Button>
+                                </Link>
+                            </Row>
+                        </Col>
+                    </Row>
                 </Row>
-
 
                 {/* <Link to={`/directors/${movie.Director.Name}`}>
           <Button variant="link">Director</Button>
@@ -81,7 +83,7 @@ export class BondView extends React.Component {
 };
 
 BondView.propTypes = {
-    BondActor: PropTypes.shape({
+    bondactor: PropTypes.shape({
         Name: PropTypes.string.isRequired,
         Bio: PropTypes.string.isRequired,
         Birth: PropTypes.shape({
@@ -92,6 +94,6 @@ BondView.propTypes = {
             Date: PropTypes.string,
             Place: PropTypes.string
         }).isRequired,
-        KnownFor: PropTypes.shape([]).isRequired
+        KnownFor: PropTypes.array.required
     }).isRequired
 };

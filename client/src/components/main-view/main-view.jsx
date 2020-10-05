@@ -84,21 +84,21 @@ export class MainView extends React.Component {
               <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
               {/* <Route exact path="/" render={Welcome} /> */}
 
-              <Route path="/actors/:name" render={({ match }) => {
+              <Route exact path="/actors/:movie/:name" render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
                 return <BondView bondactor={movies.find(m => m.BondActor.Name === match.params.name).BondActor} />
               }
               } />
 
-              <Route path="/directors/:name" render={({ match }) => {
+              <Route exact path="/directors/:movie/:name" render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
                 return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
               }
               } />
 
-              <Route exact path="/genres/:name" render={({ match }) => {
+              <Route exact path="/genres/:movie/:name" render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
-                return <GenreView genre={movies.find(m => m.Genres.Name === match.params.name).Genres} />
+                return <GenreView genre={movies.find(m => m.Genres[0].Name === match.params.name).Genres} />
               }
               } />
 

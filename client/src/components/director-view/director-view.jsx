@@ -14,48 +14,48 @@ export class DirectorView extends React.Component {
     }
 
     render() {
-        const { movie } = this.props;
+        const { director } = this.props;
         console.log(this.props)
-        if (!movie) return null;
+        console.log(director.Name)
+        if (!director) return null;
 
         return (
             <Container className='' >
                 <Row className='director-view'>
                     <Col xs={5}>
-                        <img className='dirImage' src={movie.Director.Image} />
-                    </Col>
-                    <Col>
+                        <img className='dirImage' src={director.Image} />
+
                         <Row >
-                            <span className='labelh1'>{`{movie.Title} + '\u00A0directed by:\u00A0\u00A0'`}</span>
-                            <span className='valueh1'>{movie.Director.Name}</span>
+                            <span className='labelh1'>{`Director:\u00A0\u00A0`}</span>
+                            <span className='valueh1'>{director.Name}</span>
                         </Row>
                         <Row className='mt-2'>
                             <span className='label'>{'Biography:\u00A0\u00A0'} </span>
-                            <span className='value'>{movie.Director.Bio}</span>
+                            <span className='value'>{director.Bio}</span>
                         </Row>
                         <Row className='mt-2'>
                             <span className='label'>{'Date of Birth:\u00A0\u00A0'} </span>
-                            <span className='value'>{movie.Director.Birth.Date}</span>
+                            <span className='value'>{director.Birth.Date}</span>
                         </Row>
                         <Row className='mt-2'>
                             <span className='label'>{'Place of Birth:\u00A0\u00A0'}</span>
-                            <span className='value'>{movie.Director.Birth.Place}</span>
+                            <span className='value'>{director.Birth.Place}</span>
                         </Row>
                         <Row className='mt-2'>
                             <span className='label'>{'Date of Death:\u00A0\u00A0'}</span>
-                            <span className='value'>{movie.Director.Death.Date}</span>
+                            <span className='value'>{director.Death.Date}</span>
                         </Row>
                         <Row className='mt-2'>
                             <span className='label'>{'Place of Death:\u00A0\u00A0'}</span>
-                            <span className='value'>{movie.Director.Death.Place}</span>
+                            <span className='value'>{director.Death.Place}</span>
                         </Row>
                         <Row className='mt-2'>
                             <span className='label'>{'Known for:\u00A0\u00A0'}</span>
-                            <span className='value'>{movie.Director.KnownFor}</span>
+                            <span className='value'>{director.KnownFor}</span>
                         </Row>
 
                         <Row className='mt-5'>
-                            <Link to={`/movies/:movieId`}>
+                            <Link to={`/`}>
                                 <Button className='goBackMovie' variant="link">Return to Movie View</Button>
                             </Link>
                         </Row>
@@ -81,7 +81,7 @@ export class DirectorView extends React.Component {
 };
 
 DirectorView.propTypes = {
-    Director: PropTypes.shape({
+    director: PropTypes.shape({
         Name: PropTypes.string.isRequired,
         Bio: PropTypes.string.isRequired,
         Birth: PropTypes.shape({
@@ -92,6 +92,6 @@ DirectorView.propTypes = {
             Date: PropTypes.string,
             Place: PropTypes.string
         }).isRequired,
-        KnownFor: PropTypes.shape([]).isRequired
+        KnownFor: PropTypes.array.isRequired
     }).isRequired
 };

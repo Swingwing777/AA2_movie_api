@@ -49522,19 +49522,15 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, MovieView);
 
     _this = _super.call(this);
-    _this.state = {}; //this.toggleMainView = this.toggleMainView.bind(this)  // to bind '.this' to constructor()
-
+    _this.state = {};
     return _this;
-  } // toggleMainView() {
-  //   this.props.backToMain()       // backToMain() refers to MainView method to change state of MainView
-  // }
-
+  }
 
   _createClass(MovieView, [{
     key: "render",
     value: function render() {
-      var movie = this.props.movie; //console.log(this.props)
-
+      var movie = this.props.movie;
+      console.log(this.props);
       if (!movie) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
         className: ""
@@ -49615,21 +49611,21 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }, "Return to Main Menu"))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/actors/".concat(movie.BondActor.Name)
+        to: "/actors/".concat(movie.Title, "/").concat(movie.BondActor.Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goBond",
         variant: "link"
       }, "James Bond details"))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/director/".concat(movie.Director.Name)
+        to: "/directors/".concat(movie.Title, "/").concat(movie.Director.Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goDirector",
         variant: "link"
       }, "Director details"))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/genres/".concat(movie.Genres[0].Name)
+        to: "/genres/".concat(movie.Title, "/").concat(movie.Genres[0].Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goGenre",
         variant: "link"
@@ -49725,66 +49721,69 @@ var BondView = /*#__PURE__*/function (_React$Component) {
   _createClass(BondView, [{
     key: "render",
     value: function render() {
-      var movie = this.props.movie;
+      var bondactor = this.props.bondactor;
       console.log(this.props);
-      if (!movie) return null;
+      console.log(bondactor);
+      if (!bondactor) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
         className: ""
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "bond-view"
+      }, _react.default.createElement(_reactBootstrap.Row, {
+        className: "d-flex"
       }, _react.default.createElement(_reactBootstrap.Col, {
         xs: 5
       }, _react.default.createElement("img", {
         className: "bondImage",
-        src: movie.BondActor.Image
+        src: bondactor.Image
       })), _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
         className: "labelh1"
       }, "Bond played by:\xA0\xA0"), _react.default.createElement("span", {
         className: "valueh1"
-      }, movie.BondActor.Name)), _react.default.createElement(_reactBootstrap.Row, {
+      }, bondactor.Name)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Biography:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
-      }, movie.BondActor.Bio)), _react.default.createElement(_reactBootstrap.Row, {
+      }, bondactor.Bio)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Birth:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
-      }, movie.BondActor.Birth.Date)), _react.default.createElement(_reactBootstrap.Row, {
+      }, bondactor.Birth.Date)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Birth:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.BondActor.Birth.Place)), _react.default.createElement(_reactBootstrap.Row, {
+      }, bondactor.Birth.Place)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.BondActor.Death.Date)), _react.default.createElement(_reactBootstrap.Row, {
+      }, bondactor.Death.Date)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.BondActor.Death.Place)), _react.default.createElement(_reactBootstrap.Row, {
+      }, bondactor.Death.Place)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Known for:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.BondActor.KnownFor)), _react.default.createElement(_reactBootstrap.Row, {
+      }, bondactor.KnownFor)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/movies/:movieId"
+        to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goBackMovie",
         variant: "link"
-      }, "Return to Movie View"))))));
+      }, "Return to Movie View")))))));
     }
   }]);
 
@@ -49794,7 +49793,7 @@ var BondView = /*#__PURE__*/function (_React$Component) {
 exports.BondView = BondView;
 ;
 BondView.propTypes = {
-  BondActor: _propTypes.default.shape({
+  bondactor: _propTypes.default.shape({
     Name: _propTypes.default.string.isRequired,
     Bio: _propTypes.default.string.isRequired,
     Birth: _propTypes.default.shape({
@@ -49805,7 +49804,7 @@ BondView.propTypes = {
       Date: _propTypes.default.string,
       Place: _propTypes.default.string
     }).isRequired,
-    KnownFor: _propTypes.default.shape([]).isRequired
+    KnownFor: _propTypes.default.array.required
   }).isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./bond-view.scss":"components/bond-view/bond-view.scss"}],"components/genre-view/genre-view.scss":[function(require,module,exports) {
@@ -49877,27 +49876,51 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
   _createClass(GenreView, [{
     key: "render",
     value: function render() {
-      var movie = this.props.movie;
+      var _this$props = this.props,
+          movie = _this$props.movie,
+          genre = _this$props.genre;
       console.log(this.props);
-      if (!movie) return null;
+      if (!genre) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
         className: ""
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "genre-view"
       }, _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
         className: "labelh1"
-      }, "Genre:\xA0\xA0"), _react.default.createElement("span", {
+      }, "According to IMDB.com, the following genres apply:")), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3"
+      }, _react.default.createElement("span", {
         className: "valueh1"
-      }, movie.Genre[0].Name)), _react.default.createElement(_reactBootstrap.Row, {
+      }, genre[0].Name), _react.default.createElement("span", {
+        className: "labelh1"
+      }, ':')), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
-        className: "label"
-      }, "Description:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Genre[0].Description)), _react.default.createElement(_reactBootstrap.Row, {
+      }, genre[0].Description)), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3"
+      }, _react.default.createElement("span", {
+        className: "valueh1"
+      }, genre[1].Name), _react.default.createElement("span", {
+        className: "labelh1"
+      }, ':')), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-2"
+      }, _react.default.createElement("span", {
+        className: "value"
+      }, genre[1].Description)), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3"
+      }, _react.default.createElement("span", {
+        className: "valueh1"
+      }, genre[2].Name), _react.default.createElement("span", {
+        className: "labelh1"
+      }, ':')), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-2"
+      }, _react.default.createElement("span", {
+        className: "value"
+      }, genre[2].Description)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/movies/:movieId"
+        to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goBackMovie",
         variant: "link"
@@ -49984,9 +50007,10 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
   _createClass(DirectorView, [{
     key: "render",
     value: function render() {
-      var movie = this.props.movie;
+      var director = this.props.director;
       console.log(this.props);
-      if (!movie) return null;
+      console.log(director.Name);
+      if (!director) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
         className: ""
       }, _react.default.createElement(_reactBootstrap.Row, {
@@ -49995,51 +50019,51 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
         xs: 5
       }, _react.default.createElement("img", {
         className: "dirImage",
-        src: movie.Director.Image
-      })), _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
+        src: director.Image
+      }), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
         className: "labelh1"
-      }, "{movie.Title} + '\xA0directed by:\xA0\xA0'"), _react.default.createElement("span", {
+      }, "Director:\xA0\xA0'"), _react.default.createElement("span", {
         className: "valueh1"
-      }, movie.Director.Name)), _react.default.createElement(_reactBootstrap.Row, {
+      }, director.Name)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Biography:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Bio)), _react.default.createElement(_reactBootstrap.Row, {
+      }, director.Bio)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Birth:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Birth.Date)), _react.default.createElement(_reactBootstrap.Row, {
+      }, director.Birth.Date)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Birth:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Birth.Place)), _react.default.createElement(_reactBootstrap.Row, {
+      }, director.Birth.Place)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Death.Date)), _react.default.createElement(_reactBootstrap.Row, {
+      }, director.Death.Date)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Death.Place)), _react.default.createElement(_reactBootstrap.Row, {
+      }, director.Death.Place)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Known for:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.KnownFor)), _react.default.createElement(_reactBootstrap.Row, {
+      }, director.KnownFor)), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/movies/:movieId"
+        to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goBackMovie",
         variant: "link"
@@ -50053,7 +50077,7 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
 exports.DirectorView = DirectorView;
 ;
 DirectorView.propTypes = {
-  Director: _propTypes.default.shape({
+  director: _propTypes.default.shape({
     Name: _propTypes.default.string.isRequired,
     Bio: _propTypes.default.string.isRequired,
     Birth: _propTypes.default.shape({
@@ -50064,7 +50088,7 @@ DirectorView.propTypes = {
       Date: _propTypes.default.string,
       Place: _propTypes.default.string
     }).isRequired,
-    KnownFor: _propTypes.default.shape([]).isRequired
+    KnownFor: _propTypes.default.array.isRequired
   }).isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./director-view.scss":"components/director-view/director-view.scss"}],"components/profile-view/profile-view.scss":[function(require,module,exports) {
@@ -50347,7 +50371,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/actors/:name",
+        exact: true,
+        path: "/actors/:movie/:name",
         render: function render(_ref2) {
           var match = _ref2.match;
           if (!movies) return _react.default.createElement("div", {
@@ -50360,7 +50385,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/directors/:name",
+        exact: true,
+        path: "/directors/:movie/:name",
         render: function render(_ref3) {
           var match = _ref3.match;
           if (!movies) return _react.default.createElement("div", {
@@ -50374,7 +50400,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
-        path: "/genres/:name",
+        path: "/genres/:movie/:name",
         render: function render(_ref4) {
           var match = _ref4.match;
           if (!movies) return _react.default.createElement("div", {
@@ -50382,7 +50408,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           });
           return _react.default.createElement(_genreView.GenreView, {
             genre: movies.find(function (m) {
-              return m.Genres.Name === match.params.name;
+              return m.Genres[0].Name === match.params.name;
             }).Genres
           });
         }
@@ -50517,7 +50543,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42049" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44855" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

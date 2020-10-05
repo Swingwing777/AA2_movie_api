@@ -11,16 +11,11 @@ export class MovieView extends React.Component {
   constructor() {
     super();
     this.state = {}
-    //this.toggleMainView = this.toggleMainView.bind(this)  // to bind '.this' to constructor()
   }
-
-  // toggleMainView() {
-  //   this.props.backToMain()       // backToMain() refers to MainView method to change state of MainView
-  // }
 
   render() {
     const { movie } = this.props;
-    //console.log(this.props)
+    console.log(this.props)
     if (!movie) return null;
 
     return (
@@ -78,17 +73,17 @@ export class MovieView extends React.Component {
                 </Link>
               </Row>
               <Row className='mt-5'>
-                <Link to={`/actors/${movie.BondActor.Name}`}>
+                <Link to={`/actors/${movie.Title}/${movie.BondActor.Name}`}>
                   <Button className='goBond' variant="link">James Bond details</Button>
                 </Link>
               </Row>
               <Row className='mt-5'>
-                <Link to={`/director/${movie.Director.Name}`}>
+                <Link to={`/directors/${movie.Title}/${movie.Director.Name}`}>
                   <Button className='goDirector' variant="link">Director details</Button>
                 </Link>
               </Row>
               <Row className='mt-5'>
-                <Link to={`/genres/${movie.Genres[0].Name}`}>
+                <Link to={`/genres/${movie.Title}/${movie.Genres[0].Name}`}>
                   <Button className='goGenre' variant="link">Genre details</Button>
                 </Link>
               </Row>
