@@ -5,6 +5,8 @@ import { Form, Container, Button, Col } from 'react-bootstrap';
 import './login-view.scss';
 import { RegistrationView } from '../registration-view/registration-view';
 
+import { Link } from "react-router-dom";
+
 export function LoginView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -25,24 +27,29 @@ export function LoginView(props) {
       });
   };
 
-  const registerUser = (e) => {
-    e.preventDefault();
-    console.log('new-user');
+  // const registerUser = (e) => {
+  //   e.preventDefault();
+  //   console.log('new-user');
 
-    setUsername('New');
-    props.onLoggedIn(username);
-    console.log(props);
-  };
+  //   // setUsername('New');
+  //   // props.onLoggedIn(username);
+  //   // console.log(props);
+  // };
 
   if (username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 
   return (
-    <Container className='formwrapper' fluid='md'>
+    <Container className='formwrapper'>
       <Form className='p-md-3'>
         <Form.Row className='d-flex flex-md-row justify-content-center'>
-          <Form.Group className='p-md-3' controlId='formUsername'>
-            <Form.Label className='p-md-3 formLabel'>Username</Form.Label>
+          <Form.Label size='lg' className='formTitle'>Please Login</Form.Label>
+        </Form.Row>
+
+        <Form.Row className='justify-content-center mt-3'>
+          <Form.Group as={Col} controlId='formUsername'>
+            <Form.Label className='formLabel'>Username</Form.Label>
             <Form.Control
+              className='entryField'
               type='text'
               value={username}
               onChange={e => setUsername(e.target.value)}
@@ -51,9 +58,10 @@ export function LoginView(props) {
             />
           </Form.Group>
 
-          <Form.Group className='p-md-3' controlId='formPassword'>
-            <Form.Label className='p-md-3 formLabel'>Password</Form.Label>
+          <Form.Group as={Col} controlId='formPassword'>
+            <Form.Label className='formLabel'>Password</Form.Label>
             <Form.Control
+              className='entryField'
               type='password'
               value={password}
               onChange={e => setPassword(e.target.value)}
@@ -62,15 +70,15 @@ export function LoginView(props) {
           </Form.Group>
         </Form.Row>
 
-        <Form.Row className='py-3 d-flex justify-content-center'>
-          <Button as={Col} xs={1} className='formButton' variant='primary' type='submit' onClick={handleSubmit} >
+        <Form.Row className='justify-content-center'>
+          <Button className='formButton mt-3' variant='primary' type='submit' onClick={handleSubmit} >
             Submit
           </Button>
         </Form.Row>
-        <Form.Row className='py-3 d-flex justify-content-center'>
-          <Button as={Col} xs={1} className='formButton' variant='primary' type='submit' onClick={registerUser} >
-            Register New User
-          </Button>
+        <Form.Row className='justify-content-center'>
+          <Link to={`/register`}>
+            <Button className='formButton mt-3' variant="link">Register User</Button>
+          </Link>
         </Form.Row>
       </Form>
     </Container>

@@ -1,5 +1,6 @@
 $blur-color: #d4eeff;
 $main-text: white;
+$placeHolder:rgb(75, 103, 139);
 $background: black; 
 $button: #0071ba;
 $buttonHL: #b8e2fc;
@@ -16,20 +17,38 @@ body {
 }
 
 .formLabel,
-.formPromise {
+.formTitle {
   color: $main-text;
-  font-size: larger;
-  text-shadow: 2px 2px 4px $blur-color;
+  font-size: x-large;
+  text-shadow: 1px 1px 3px $blur-color;
+}
+
+.entryField {
+  color: $placeHolder;
+  font-size: smaller;
+}
+
+.formTitle {
+  font-size: xx-large
 }
 
 .formPromise {
+  color: $main-text;
+  font-size: medium;
   font-style: italic;
+  text-shadow: 1px 1px 3px $blur-color;
+}
+
+.logOutButton {
+  visibility: hidden;
 }
 
 .formButton,
 .formButton:hover,
 .formButtton:active {
   background-color: $button;
+  width: 160px;
+  color: $main-text;
   box-shadow: 
   1px 0 1px $buttonHL inset,
   0px 2px 1px $buttonHL inset,
