@@ -21,20 +21,12 @@ export function LoginView(props) {
       .then(response => {
         const data = response.data;
         props.onLoggedIn(data);
+        props.getUser(data)
       })
       .catch(e => {
         console.log('There is no such user')
       });
   };
-
-  // const registerUser = (e) => {
-  //   e.preventDefault();
-  //   console.log('new-user');
-
-  //   // setUsername('New');
-  //   // props.onLoggedIn(username);
-  //   // console.log(props);
-  // };
 
   if (username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 

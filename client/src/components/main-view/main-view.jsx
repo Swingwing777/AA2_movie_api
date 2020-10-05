@@ -15,6 +15,7 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { Container, Row, Button, Col } from 'react-bootstrap';
 import './main-view.scss';
 
+import { Link } from "react-router-dom";
 
 export class MainView extends React.Component {
 
@@ -37,6 +38,22 @@ export class MainView extends React.Component {
         // Assign the result to the state
         this.setState({
           movies: response.data
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  getUser(user, token) {
+    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}}`, {   //https://cors-anywhere.herokuapp.com
+      headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
+    })
+      .then(response => {
+        console.log(response.data);
+        // Assign the result to the state
+        this.setState({
+          user: response.data
         });
       })
       .catch(function (error) {
@@ -86,9 +103,11 @@ export class MainView extends React.Component {
       <Container>
         <Row className='d-flex p-2 justify-content-around'>
           <span className='label'>Welcome to the Bond Movies Database</span>
-          {/* <Link to={`/users/${user}`}>
-            <Button className='goUser' variant="link">View User Profile</Button>
-          </Link> */}
+          <Router>
+            <Link to={`/users/${user}`}>
+              <Button className='goUser' variant="link">Username: {user}</Button>
+            </Link>
+          </Router>
           <Button as={Col} xs={1} className='logOutButton mx-3' variant='primary' type='submit' onClick={user => this.logoutUser(user)} >
             Logout
           </Button>
@@ -104,7 +123,7 @@ export class MainView extends React.Component {
               } />
               <Route path="/register" render={() => <RegistrationView />} />
               <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-              {/* <Route exact path="/" render={Welcome} /> */}
+
 
               <Route exact path="/actors/:movie/:name" render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
@@ -124,11 +143,18 @@ export class MainView extends React.Component {
               }
               } />
 
-              <Route exact path="/users/:Username" render={({ match }) => {
-                if (!user) return <div className="main-view" />;
-                return <ProfileView user={users.find(u => u.Username === match.params.username)} />
+              <Route exact path="/movies/genre/:name" render={() => {
+                if (!movies) return <div className="main-view" />;
+                return movies.map(m => <MovieCard key={m._id} movie={m} />)
               }
               } />
+
+              <Route exact path="/users/:username" render={() => {
+                this.getUser(user)
+                return <ProfileView user={user} />
+              }
+              } />
+
             </Row>
           </div>
         </Router>

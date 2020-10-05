@@ -31,12 +31,6 @@ export function RegistrationView(props) {
       });
   };
 
-  // const loginUser = (e) => {
-  //   e.preventDefault();
-  //   setUsername('Registered');
-  //   props.onLoggedIn(username);
-  // };
-
   if (username === 'Registered') return <LoginView onLoggedIn={user => this.handleSubmit(user)} />;
 
   return (

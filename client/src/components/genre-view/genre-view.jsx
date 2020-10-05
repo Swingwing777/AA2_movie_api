@@ -14,24 +14,6 @@ export class GenreView extends React.Component {
         this.state = {}
     }
 
-    // // new method to get movies
-    // getMovies(token) {
-    //     axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {   //https://cors-anywhere.herokuapp.com
-    //         headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
-    //     })
-    //         .then(response => {
-    //             console.log(response.data);
-    //             // Assign the result to the state
-    //             this.setState({
-    //                 movies: response.data
-    //             });
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
-
-
     render() {
         const { genre } = this.props;
         console.log(this.props)
@@ -56,6 +38,11 @@ export class GenreView extends React.Component {
                                 <Button className='goBackMovie' variant="link">Return to Movie View</Button>
                             </Link>
                         </Row>
+                        <Row className='mt-5'>
+                            <Link to={`/movies/genre/${genre.Name}`}>
+                                <Button className='goSameGenre' variant="link">Movies with same genre</Button>
+                            </Link>
+                        </Row>
                     </Col>
                 </Row>
 
@@ -78,6 +65,8 @@ export class GenreView extends React.Component {
 };
 
 GenreView.propTypes = {
-    Name: PropTypes.string.isRequired,
-    Description: PropTypes.string.isRequired
+    genre: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Description: PropTypes.string.isRequired
+    }).isRequired
 };
