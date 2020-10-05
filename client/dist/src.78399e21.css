@@ -363,9 +363,6 @@ body {
   visibility: visible;
 }
 
-.goUser,
-.goUser:hover,
-.goUser:active,
 .logOutButton,
 .logOutButton:hover,
 .logOutButton:active {
@@ -376,14 +373,20 @@ body {
   box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
 }
 
-.goUser:hover,
 .logOutButton:hover {
   filter: brightness(75%);
 }
 
-.goUser:active,
 .logOutButton:active {
   filter: brightness(50%);
+}
+
+.goUser .goUser:hover,
+.goUser:active {
+  background-color: #0071ba;
+  color: white;
+  width: 140px;
+  box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
 }
 .my-flix {
   color: steelblue;

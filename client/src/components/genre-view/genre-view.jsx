@@ -14,6 +14,24 @@ export class GenreView extends React.Component {
         this.state = {}
     }
 
+    // // new method to get movies
+    // getMovies(token) {
+    //     axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {   //https://cors-anywhere.herokuapp.com
+    //         headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
+    //     })
+    //         .then(response => {
+    //             console.log(response.data);
+    //             // Assign the result to the state
+    //             this.setState({
+    //                 movies: response.data
+    //             });
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }
+
+
     render() {
         const { genre } = this.props;
         console.log(this.props)
@@ -38,6 +56,7 @@ export class GenreView extends React.Component {
                                 <Button className='goBackMovie' variant="link">Return to Movie View</Button>
                             </Link>
                         </Row>
+<<<<<<< HEAD
                         {/*New Back Button */}
                         <Row className='mt-5'>                                        
                             <Link to='' onClick={() => history.back()}>
@@ -49,6 +68,8 @@ export class GenreView extends React.Component {
                                 <Button className='goSameGenre' variant="link">Movies with same genre</Button>
                             </Link>
                         </Row>
+=======
+>>>>>>> parent of 305f59d... Cease work backup
                     </Col>
                 </Row>
 
@@ -71,8 +92,6 @@ export class GenreView extends React.Component {
 };
 
 GenreView.propTypes = {
-    genre: PropTypes.shape({
-        Name: PropTypes.string.isRequired,
-        Description: PropTypes.string.isRequired
-    }).isRequired
+    Name: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired
 };

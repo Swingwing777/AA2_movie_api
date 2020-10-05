@@ -72,7 +72,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
 
 //  GET list of all movie titles
 app.get('/movies/titles', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Movies.find({}, "Title").sort({ Year: 1 })
+  Movies.find({}, "Title")
     .then((movies) => {
       //will return only the titles
       res.status(200).json(movies);

@@ -10,9 +10,7 @@ export class ProfileView extends React.Component {
 
     constructor() {
         super();
-        this.state = {
-            user: user
-        }
+        this.state = {}
     }
 
     render() {
@@ -26,15 +24,11 @@ export class ProfileView extends React.Component {
                     <Col>
                         <Row >
                             <span className='labelh1'>{'Username:\u00A0\u00A0'}</span>
-                            <span className='valueh1'>{user.Username}</span>
+                            <span className='valueh1'>{movie.User[0].Name}</span>
                         </Row>
                         <Row className='mt-2'>
                             <span className='label'>{'Email:\u00A0\u00A0'} </span>
-                            <span className='value'>{user.Email}</span>
-                        </Row>
-                        <Row className='mt-2'>
-                            <span className='label'>{'Birthday:\u00A0\u00A0'} </span>
-                            <span className='value'>{user.Birthday}</span>
+                            <span className='value'>{movie.User[0].Email}</span>
                         </Row>
                         <Row className='mt-5'>
                             <Link to={`/`}>

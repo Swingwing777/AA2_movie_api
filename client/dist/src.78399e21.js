@@ -49292,11 +49292,17 @@ function LoginView(props) {
     }).then(function (response) {
       var data = response.data;
       props.onLoggedIn(data);
-      props.getUser(data);
     }).catch(function (e) {
       console.log('There is no such user');
     });
-  };
+  }; // const registerUser = (e) => {
+  //   e.preventDefault();
+  //   console.log('new-user');
+  //   // setUsername('New');
+  //   // props.onLoggedIn(username);
+  //   // console.log(props);
+  // };
+
 
   if (username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
     onLoggedIn: function onLoggedIn(user) {
@@ -49855,9 +49861,31 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
     _this.state = {};
     return _this;
-  }
+  } // new method to get movies
+
 
   _createClass(GenreView, [{
+    key: "getMovies",
+    value: function getMovies(token) {
+      var _this2 = this;
+
+      axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
+        //https://cors-anywhere.herokuapp.com
+        headers: {
+          Authorization: "Bearer ".concat(token) //Access-Control-Allows-Origin: *
+
+        }
+      }).then(function (response) {
+        console.log(response.data); // Assign the result to the state
+
+        _this2.setState({
+          movies: response.data
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var genre = this.props.genre;
@@ -49884,14 +49912,7 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goBackMovie",
         variant: "link"
-      }, "Return to Movie View"))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-5"
-      }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/movies/genre/".concat(genre.Name)
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goSameGenre",
-        variant: "link"
-      }, "Movies with same genre"))))));
+      }, "Return to Movie View"))))));
     }
   }]);
 
@@ -49901,10 +49922,8 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
 exports.GenreView = GenreView;
 ;
 GenreView.propTypes = {
-  genre: _propTypes.default.shape({
-    Name: _propTypes.default.string.isRequired,
-    Description: _propTypes.default.string.isRequired
-  }).isRequired
+  Name: _propTypes.default.string.isRequired,
+  Description: _propTypes.default.string.isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./genre-view.scss":"components/genre-view/genre-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/director-view/director-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -49973,27 +49992,6 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(DirectorView, [{
-    key: "getMovies",
-    value: function getMovies(token) {
-      var _this2 = this;
-
-      axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies/', {
-        //https://cors-anywhere.herokuapp.com
-        headers: {
-          Authorization: "Bearer ".concat(token) //Access-Control-Allows-Origin: *
-
-        }
-      }).then(function (response) {
-        console.log(response.data); // Assign the result to the state
-
-        _this2.setState({
-          movies: response.data
-        });
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
       var director = this.props.director;
@@ -50140,9 +50138,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ProfileView);
 
     _this = _super.call(this);
-    _this.state = {
-      user: user
-    };
+    _this.state = {};
     return _this;
   }
 
@@ -50160,19 +50156,13 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "labelh1"
       }, "Username:\xA0\xA0"), _react.default.createElement("span", {
         className: "valueh1"
-      }, user.Username)), _react.default.createElement(Row, {
+      }, movie.User[0].Name)), _react.default.createElement(Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Email:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
-      }, user.Email)), _react.default.createElement(Row, {
-        className: "mt-2"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Birthday:\xA0\xA0", " "), _react.default.createElement("span", {
-        className: "value"
-      }, user.Birthday)), _react.default.createElement(Row, {
+      }, movie.User[0].Email)), _react.default.createElement(Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
@@ -50308,27 +50298,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
-    key: "getUser",
-    value: function getUser(user, token) {
-      var _this3 = this;
-
-      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "}"), {
-        //https://cors-anywhere.herokuapp.com
-        headers: {
-          Authorization: "Bearer ".concat(token) //Access-Control-Allows-Origin: *
-
-        }
-      }).then(function (response) {
-        console.log(response.data); // Assign the result to the state
-
-        _this3.setState({
-          user: response.data
-        });
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
-  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var accessToken = localStorage.getItem('token');
@@ -50350,12 +50319,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
-      console.log(user);
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       var _this$state = this.state,
           movies = _this$state.movies,
@@ -50367,19 +50335,14 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         className: "d-flex p-2 justify-content-around"
       }, _react.default.createElement("span", {
         className: "label"
-      }, "Welcome to the Bond Movies Database"), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/users/".concat(user)
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goUser",
-        variant: "link"
-      }, "Username: ", user))), _react.default.createElement(_reactBootstrap.Button, {
+      }, "Welcome to the Bond Movies Database"), _react.default.createElement(_reactBootstrap.Button, {
         as: _reactBootstrap.Col,
         xs: 1,
         className: "logOutButton mx-3",
         variant: "primary",
         type: "submit",
         onClick: function onClick(user) {
-          return _this4.logoutUser(user);
+          return _this3.logoutUser(user);
         }
       }, "Logout")), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
@@ -50391,7 +50354,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         render: function render() {
           if (!user) return _react.default.createElement(_loginView.LoginView, {
             onLoggedIn: function onLoggedIn(user) {
-              return _this4.onLoggedIn(user);
+              return _this3.onLoggedIn(user);
             }
           });
           return movies.map(function (m) {
@@ -50460,26 +50423,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
-        path: "/movies/genre/:name",
-        render: function render() {
-          if (!movies) return _react.default.createElement("div", {
+        path: "/users/:Username",
+        render: function render(_ref5) {
+          var match = _ref5.match;
+          if (!user) return _react.default.createElement("div", {
             className: "main-view"
           });
-          return movies.map(function (m) {
-            return _react.default.createElement(_movieCard.MovieCard, {
-              key: m._id,
-              movie: m
-            });
-          });
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/users/:username",
-        render: function render() {
-          _this4.getUser(user);
-
           return _react.default.createElement(_profileView.ProfileView, {
-            user: user
+            user: users.find(function (u) {
+              return u.Username === match.params.username;
+            })
           });
         }
       })))));
@@ -50599,7 +50552,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44447" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45875" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

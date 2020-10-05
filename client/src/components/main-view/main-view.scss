@@ -31,9 +31,6 @@ body {
   visibility: visible;
 }
 
-.goUser,
-.goUser:hover,
-.goUser:active,
 .logOutButton,
 .logOutButton:hover,
 .logOutButton:active {
@@ -48,12 +45,23 @@ body {
   0px 2px 2px $buttonLL inset;
 }
 
-.goUser:hover,
 .logOutButton:hover {
   filter: brightness(75%);
 }
 
-.goUser:active,
 .logOutButton:active {
   filter: brightness(50%);
+}
+
+.goUser
+.goUser:hover,
+.goUser:active  {
+  background-color: $button;
+  color: $button-text;
+  width: 140px;
+  box-shadow: 
+  1px 0 1px $buttonHL inset,
+  0px 2px 1px $buttonHL inset,
+  2px 0 2px $buttonLL inset,
+  0px 2px 2px $buttonLL inset;
 }
