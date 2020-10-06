@@ -65,7 +65,7 @@ export class DirectorView extends React.Component {
                         </Row>
                         <Row className='mt-3'>
                             <span className='label'>{'Known for:\u00A0\u00A0'}</span>
-                            <span className='value'>{director.KnownFor}</span>
+                            <span className='value'>{director.KnownFor.join(',  ')}</span>
                         </Row>
 
                         <Row className='mt-5'>

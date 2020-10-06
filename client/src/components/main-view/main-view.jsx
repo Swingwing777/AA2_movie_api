@@ -46,32 +46,36 @@ export class MainView extends React.Component {
       });
   }
 
-  // getUser(token) {
-  //   axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${localStorage.getItem('user')}`, {   //https://cors-anywhere.herokuapp.com
-  //     headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
-  //   })
-  //     .then(response => {
-  //       console.log(response.data);
-  //       // Assign the result to the state
-  //       //this.props.setUserProfile(response.data)
-  //       this.setState({
-  //         user: response.data
-  //       });
-  //     })
-  //     .catch(function (error) {
-  //       alert('Sorry, there has been an error');
-  //     });
-  // }
+  getUser(user, token) {
+    //let user = localstorage.getItem('user')
+    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {   //https://cors-anywhere.herokuapp.com
+      headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
+    })
+      .then(response => {
+        console.log(response.data);
+        // Assign the result to the state
+        //this.props.setUserProfile(response.data)
+        this.setState({
+          userProfile: response.data
+        });
+      })
+      .catch(function (error) {
+        alert('Sorry, there has been an error');
+      });
+  }
 
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
     if (accessToken !== null) {
       this.setState({
         user: localStorage.getItem('user')
       });
-      this.getMovies(accessToken);
-      // this.getUser(accessToken);
+
+      // If user and access token are present, can call getMovies & getUser methods.
+      // this.getMovies(accessToken);
+      // this.getUser(user, accessToken);
     }
   }
 
@@ -84,7 +88,7 @@ export class MainView extends React.Component {
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
-    //this.getUser(authData.token);
+    this.getUser(user, authData.token);
   }
 
   logoutUser = (e) => {
@@ -112,12 +116,14 @@ export class MainView extends React.Component {
           <span className='label'>Welcome to the Bond Movies Database</span>
           <Router>
             <Link to={`/users/${user}`}>
-              <Button className='goUser' variant="link">Username: {user}</Button>
+              <Button className='goUser mx-3 mt-3' variant="link">Username: {user}</Button>
+            </Link>
+
+            <Link to={`/`}>
+              <Button className='logOutButton mx-3 mt-3' variant='link' type='submit' onClick={user => this.logoutUser(user)} >
+                Logout</Button>
             </Link>
           </Router>
-          <Button as={Col} xs={1} className='logOutButton mx-3' variant='primary' type='submit' onClick={user => this.logoutUser(user)} >
-            Logout
-          </Button>
 
         </Row>
         <Router>

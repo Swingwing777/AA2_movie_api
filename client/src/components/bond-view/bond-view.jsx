@@ -50,7 +50,7 @@ export class BondView extends React.Component {
                         </Row>
                         <Row className='mt-3'>
                             <span className='label'>{'Known for:\u00A0\u00A0'}</span>
-                            <span className='value'>{bondactor.KnownFor}</span>
+                            <span className='value'>{bondactor.KnownFor.join(',  ')}</span>
                         </Row>
 
                         <Row className='mt-5'>

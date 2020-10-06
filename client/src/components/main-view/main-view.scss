@@ -33,7 +33,7 @@ body {
 
 .goUser,
 .goUser:hover,
-.goUser:active 
+.goUser:active, 
 .logOutButton,
 .logOutButton:hover,
 .logOutButton:active {
@@ -49,11 +49,11 @@ body {
 }
 
 .goUser:hover,
-.goUser:active,
 .logOutButton:hover {
   filter: brightness(75%);
 }
 
+.goUser:active,
 .logOutButton:active {
   filter: brightness(50%);
 }

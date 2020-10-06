@@ -58,7 +58,7 @@ export class MovieView extends React.Component {
             </Row>
             <Row className='mt-3'>
               <span className='label'>{'Supporting Cast:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Actors}</span>
+              <span className='value'>{movie.Actors.join(', ')}</span>
             </Row>
             <Row className='mt-3'>
               <span className='label'>{'Title Song by:\u00A0\u00A0'}</span>

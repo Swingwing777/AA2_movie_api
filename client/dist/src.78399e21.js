@@ -49591,7 +49591,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "label"
       }, "Supporting Cast:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.Actors)), _react.default.createElement(_reactBootstrap.Row, {
+      }, movie.Actors.join(', '))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3"
       }, _react.default.createElement("span", {
         className: "label"
@@ -49766,7 +49766,7 @@ var BondView = /*#__PURE__*/function (_React$Component) {
         className: "label"
       }, "Known for:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, bondactor.KnownFor)), _react.default.createElement(_reactBootstrap.Row, {
+      }, bondactor.KnownFor.join(',  '))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
@@ -49930,8 +49930,10 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
 exports.GenreView = GenreView;
 ;
 GenreView.propTypes = {
-  Name: _propTypes.default.string.isRequired,
-  Description: _propTypes.default.string.isRequired
+  genre: _propTypes.default.shape({
+    Name: _propTypes.default.string.isRequired,
+    Description: _propTypes.default.string.isRequired
+  }).isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./genre-view.scss":"components/genre-view/genre-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/director-view/director-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -50072,7 +50074,7 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
         className: "label"
       }, "Known for:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, director.KnownFor)), _react.default.createElement(_reactBootstrap.Row, {
+      }, director.KnownFor.join(',  '))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
@@ -50326,33 +50328,43 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }).catch(function (error) {
         console.log(error);
       });
-    } // getUser(token) {
-    //   axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${localStorage.getItem('user')}`, {   //https://cors-anywhere.herokuapp.com
-    //     headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
-    //   })
-    //     .then(response => {
-    //       console.log(response.data);
-    //       // Assign the result to the state
-    //       //this.props.setUserProfile(response.data)
-    //       this.setState({
-    //         user: response.data
-    //       });
-    //     })
-    //     .catch(function (error) {
-    //       alert('Sorry, there has been an error');
-    //     });
-    // }
+    }
+  }, {
+    key: "getUser",
+    value: function getUser(user, token) {
+      var _this3 = this;
 
+      //let user = localstorage.getItem('user')
+      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+        //https://cors-anywhere.herokuapp.com
+        headers: {
+          Authorization: "Bearer ".concat(token) //Access-Control-Allows-Origin: *
+
+        }
+      }).then(function (response) {
+        console.log(response.data); // Assign the result to the state
+        //this.props.setUserProfile(response.data)
+
+        _this3.setState({
+          userProfile: response.data
+        });
+      }).catch(function (error) {
+        alert('Sorry, there has been an error');
+      });
+    }
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var accessToken = localStorage.getItem('token');
+      var user = localStorage.getItem('user');
 
       if (accessToken !== null) {
         this.setState({
           user: localStorage.getItem('user')
-        });
-        this.getMovies(accessToken); // this.getUser(accessToken);
+        }); // If user and access token are present, can call getMovies & getUser methods.
+
+        this.getMovies(accessToken);
+        this.getUser(user, accessToken);
       }
     }
   }, {
@@ -50363,13 +50375,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         user: authData.user.Username
       });
       localStorage.setItem('token', authData.token);
-      localStorage.setItem('user', authData.user.Username);
-      this.getMovies(authData.token); //this.getUser(authData.token);
+      localStorage.setItem('user', authData.user.Username); // this.getMovies(authData.token);
+      // this.getUser(user, authData.token);
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var _this$state = this.state,
           movies = _this$state.movies,
@@ -50385,18 +50397,18 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, "Welcome to the Bond Movies Database"), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
         to: "/users/".concat(user)
       }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goUser",
+        className: "goUser mx-3 mt-3",
         variant: "link"
-      }, "Username: ", user))), _react.default.createElement(_reactBootstrap.Button, {
-        as: _reactBootstrap.Col,
-        xs: 1,
-        className: "logOutButton mx-3",
-        variant: "primary",
+      }, "Username: ", user)), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement(_reactBootstrap.Button, {
+        className: "logOutButton mx-3 mt-3",
+        variant: "link",
         type: "submit",
         onClick: function onClick(user) {
-          return _this3.logoutUser(user);
+          return _this4.logoutUser(user);
         }
-      }, "Logout")), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
+      }, "Logout")))), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
         className: "main-view"
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "p-2 justify-content-center"
@@ -50406,7 +50418,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         render: function render() {
           if (!user) return _react.default.createElement(_loginView.LoginView, {
             onLoggedIn: function onLoggedIn(user) {
-              return _this3.onLoggedIn(user);
+              return _this4.onLoggedIn(user);
             }
           });
           return movies.map(function (m) {
@@ -50610,7 +50622,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39949" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46053" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
