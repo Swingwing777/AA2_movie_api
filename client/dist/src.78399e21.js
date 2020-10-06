@@ -49446,10 +49446,12 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
         variant: "top",
         src: movie.ImagePath,
         className: "thumbNail"
-      }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_reactRouterDom.Link, {
+      }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/movies/".concat(movie._id)
+      }, _react.default.createElement(_Card.default.Title, null, movie.Title)), _react.default.createElement(_Card.default.Text, null, movie.Description.substring(0, 70))), _react.default.createElement(_Card.default.Footer, null, _react.default.createElement(_reactRouterDom.Link, {
         to: "/movies/".concat(movie._id)
       }, _react.default.createElement(_Button.default, {
-        className: "m-auto buttonDetails",
+        className: "m-auto goDetail",
         variant: "link"
       }, "More Details"))));
     }
@@ -49602,30 +49604,26 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goBackMain",
+        className: "goFacts m-3",
         variant: "link"
-      }, "Return to Main Menu"))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
-      }, _react.default.createElement(_reactRouterDom.Link, {
+      }, "Main Menu")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/actors/".concat(movie.Title, "/").concat(movie.BondActor.Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goBond",
+        className: "goFacts m-3",
         variant: "link"
-      }, "James Bond details"))), _react.default.createElement(_reactBootstrap.Row, {
+      }, "James Bond"))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/directors/".concat(movie.Title, "/").concat(movie.Director.Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goDirector",
+        className: "goFacts m-3",
         variant: "link"
-      }, "Director details"))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
-      }, _react.default.createElement(_reactRouterDom.Link, {
+      }, "Director")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/genres/".concat(movie.Title, "/").concat(movie.Genre.Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goGenre",
+        className: "goFacts m-3",
         variant: "link"
-      }, "Genre details"))))));
+      }, "Genre"))))));
     }
   }]);
 
@@ -49717,63 +49715,114 @@ var BondView = /*#__PURE__*/function (_React$Component) {
   _createClass(BondView, [{
     key: "render",
     value: function render() {
-      var bondactor = this.props.bondactor;
-      console.log(this.props);
-      console.log(bondactor);
+      var _this$props = this.props,
+          bondactor = _this$props.bondactor,
+          movies = _this$props.movies; // console.log(this.props)
+
       if (!bondactor) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
-        className: "container"
+        className: "d-flex justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "bond-view d-flex"
-      }, _react.default.createElement(_reactBootstrap.Col, {
-        xs: 5
-      }, _react.default.createElement("img", {
+        className: "p-2 justify-content-center"
+      }, _react.default.createElement(_reactBootstrap.Card, {
+        style: {
+          width: 'fit-content(70%)'
+        },
+        className: "m-3 h-160 text-center movie-card"
+      }, _react.default.createElement(_reactBootstrap.Card.Body, {
+        className: "cardBody p-1"
+      }, _react.default.createElement(_reactBootstrap.Card.Img, {
+        variant: "top",
         className: "bondImage",
         src: bondactor.Image
-      }), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
+      }), _react.default.createElement(_reactBootstrap.Card.Title, {
         className: "titleh1 mt-3"
-      }, bondactor.Name)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, bondactor.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "value m-3"
       }, _react.default.createElement("span", {
         className: "value"
-      }, bondactor.Bio)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, bondactor.Bio)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Birth:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
-      }, bondactor.Birth.Date)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, bondactor.Birth.Date)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left m-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Birth:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, bondactor.Birth.Place)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, bondactor.Birth.Place)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left m-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, bondactor.Death.Date)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, bondactor.Death.Date)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left m-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, bondactor.Death.Place)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, bondactor.Death.Place)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Known for:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, bondactor.KnownFor.join(',  '))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-5"
+      }, bondactor.KnownFor.join(',  ')))), _react.default.createElement(_reactBootstrap.Card.Footer, {
+        className: "cardFoot border-top-0"
+      }, _react.default.createElement(_reactBootstrap.Row, {
+        className: "d-flex flex-md-row justify-content-center"
       }, _react.default.createElement(_reactRouterDom.Link, {
+        to: "",
+        onClick: function onClick() {
+          return history.back();
+        }
+      }, _react.default.createElement(_reactBootstrap.Button, {
+        className: "m-2 goMovie2",
+        variant: "link"
+      }, "Movie")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goBackMovie",
+        className: "m-2 goMain2",
         variant: "link"
-      }, "Return to Movie View"))))));
+      }, "Main"))))), _react.default.createElement(_reactBootstrap.Container, {
+        className: "flex-shrink-md"
+      }, _react.default.createElement("h1", {
+        className: "titleh1 mt-4"
+      }, "Bond movies starring ", bondactor.Name), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("div", {
+        className: "d-flex row m-2"
+      }, movies.map(function (movie) {
+        if (movie.BondActor.Name === bondactor.Name) {
+          return _react.default.createElement("div", {
+            key: movie._id
+          }, _react.default.createElement(_reactBootstrap.Card, {
+            style: {
+              width: '10em'
+            },
+            className: "mt-3 m-2 p-2 text-center movie-card h-100"
+          }, _react.default.createElement(_reactBootstrap.Card.Img, {
+            variant: "top",
+            src: movie.ImagePath,
+            className: "thumbNail m-auto"
+          }), _react.default.createElement(_reactBootstrap.Card.Body, {
+            className: "cardBody p-0"
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(movie._id)
+          }, _react.default.createElement(_reactBootstrap.Card.Title, {
+            className: "titleh2 p-1"
+          }, movie.Title))), _react.default.createElement(_reactBootstrap.Card.Footer, {
+            className: "cardFoot border-top-0 d-flex justify-content-center"
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(movie._id)
+          }, _react.default.createElement(_reactBootstrap.Button, {
+            variant: "link",
+            className: "goDetail2"
+          }, "Read more")))));
+        }
+      }))))));
     }
   }]);
 
@@ -49861,66 +49910,87 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
     _this.state = {};
     return _this;
-  } // // new method to get movies
-  // getMovies(token) {
-  //     axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {   //https://cors-anywhere.herokuapp.com
-  //         headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
-  //     })
-  //         .then(response => {
-  //             console.log(response.data);
-  //             // Assign the result to the state
-  //             this.setState({
-  //                 movies: response.data
-  //             });
-  //         })
-  //         .catch(function (error) {
-  //             console.log(error);
-  //         });
-  // }
-
+  }
 
   _createClass(GenreView, [{
     key: "render",
     value: function render() {
-      var genre = this.props.genre;
+      var _this$props = this.props,
+          genre = _this$props.genre,
+          movies = _this$props.movies;
       console.log(this.props);
       if (!genre) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
-        className: ""
+        className: "d-flex justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "genre-view"
-      }, _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
+        className: "p-2 justify-content-center"
+      }, _react.default.createElement(_reactBootstrap.Card, {
+        style: {
+          width: 'fit-content(70%)'
+        },
+        className: "m-3 h-160 text-center movie-card"
+      }, _react.default.createElement(_reactBootstrap.Card.Body, {
+        className: "cardBody p-1"
+      }, _react.default.createElement(_reactBootstrap.Card.Title, {
         className: "titleh1 mt-3"
-      }, "According to IMDB.com, the following genres apply:")), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "value m-3"
       }, _react.default.createElement("span", {
-        className: "titleh1 genreName"
-      }, genre.Name, ':')), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-2"
-      }, _react.default.createElement("span", {
-        className: "value genreDescribe"
-      }, genre.Description)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-5"
-      }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goBackMovie",
-        variant: "link"
-      }, "Return to Movie View"))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-5"
+        className: "value"
+      }, genre.Description))), _react.default.createElement(_reactBootstrap.Card.Footer, {
+        className: "cardFoot border-top-0"
+      }, _react.default.createElement(_reactBootstrap.Row, {
+        className: "d-flex flex-md-row justify-content-center"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "",
         onClick: function onClick() {
           return history.back();
         }
-      })), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-5"
-      }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/movies/genre/".concat(genre.Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goSameGenre",
+        className: "goMovie1 m-2",
         variant: "link"
-      }, "Movies with same genre"))))));
+      }, "Movie")), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement(_reactBootstrap.Button, {
+        className: "goMain1 m-2",
+        variant: "link"
+      }, "Main"))))), _react.default.createElement(_reactBootstrap.Container, {
+        className: "flex-shrink-md"
+      }, _react.default.createElement("h1", {
+        className: "titleh1 mt-4"
+      }, genre.Name, " movies"), _react.default.createElement(_reactBootstrap.Row, {
+        className: "p-2"
+      }, _react.default.createElement("div", {
+        className: "d-flex row m-2"
+      }, movies.map(function (movie) {
+        if (movie.Genre.Name === genre.Name) {
+          return _react.default.createElement("div", {
+            key: movie._id
+          }, _react.default.createElement(_reactBootstrap.Card, {
+            style: {
+              width: '10em'
+            },
+            className: "mt-3 m-2 p-2 text-center movie-card h-100"
+          }, _react.default.createElement(_reactBootstrap.Card.Img, {
+            variant: "top",
+            src: movie.ImagePath,
+            className: "thumbNail m-auto"
+          }), _react.default.createElement(_reactBootstrap.Card.Body, {
+            className: "cardBody p-0"
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(movie._id)
+          }, _react.default.createElement(_reactBootstrap.Card.Title, {
+            className: "titleh2 p-1"
+          }, movie.Title))), _react.default.createElement(_reactBootstrap.Card.Footer, {
+            className: "cardFoot border-top-0 d-flex justify-content-center"
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(movie._id)
+          }, _react.default.createElement(_reactBootstrap.Button, {
+            variant: "link",
+            className: "goDetail1"
+          }, "Read more")))));
+        }
+      }))))));
     }
   }]);
 
@@ -50002,86 +50072,116 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(DirectorView, [{
-    key: "getMovies",
-    value: function getMovies(token) {
-      var _this2 = this;
-
-      axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies/', {
-        //https://cors-anywhere.herokuapp.com
-        headers: {
-          Authorization: "Bearer ".concat(token) //Access-Control-Allows-Origin: *
-
-        }
-      }).then(function (response) {
-        console.log(response.data); // Assign the result to the state
-
-        _this2.setState({
-          movies: response.data
-        });
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var director = this.props.director;
-      console.log(this.props);
-      console.log(director.Name);
+      var _this$props = this.props,
+          director = _this$props.director,
+          movies = _this$props.movies; // console.log(this.props)
+
       if (!director) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
-        className: "container"
+        className: "d-flex justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "director-view d-flex"
-      }, _react.default.createElement(_reactBootstrap.Col, {
-        xs: 5
-      }, _react.default.createElement("img", {
+        className: "p-2 justify-content-center"
+      }, _react.default.createElement(_reactBootstrap.Card, {
+        style: {
+          width: 'fit-content(70%)'
+        },
+        className: "m-3 h-160 text-center movie-card"
+      }, _react.default.createElement(_reactBootstrap.Card.Body, {
+        className: "cardBody p-1"
+      }, _react.default.createElement(_reactBootstrap.Card.Img, {
+        variant: "top",
         className: "dirImage",
         src: director.Image
-      }), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
+      }), _react.default.createElement(_reactBootstrap.Card.Title, {
         className: "titleh1 mt-3"
-      }, director.Name)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, director.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "value m-3"
       }, _react.default.createElement("span", {
         className: "value"
-      }, director.Bio)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, director.Bio)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Birth:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
-      }, director.Birth.Date)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, director.Birth.Date)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left m-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Birth:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, director.Birth.Place)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, director.Birth.Place)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left m-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Date of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, director.Death.Date)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, director.Death.Date)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left m-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Place of Death:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, director.Death.Place)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, director.Death.Place)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Known for:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, director.KnownFor.join(',  '))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-5"
+      }, director.KnownFor.join(',  ')))), _react.default.createElement(_reactBootstrap.Card.Footer, {
+        className: "cardFoot border-top-0"
+      }, _react.default.createElement(_reactBootstrap.Row, {
+        className: "d-flex flex-md-row justify-content-center"
       }, _react.default.createElement(_reactRouterDom.Link, {
+        to: "",
+        onClick: function onClick() {
+          return history.back();
+        }
+      }, _react.default.createElement(_reactBootstrap.Button, {
+        className: "m-2 goMovie3",
+        variant: "link"
+      }, "Movie")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goBackMovie",
+        className: "m-2 goMain3",
         variant: "link"
-      }, "Return to Movie View"))))));
+      }, "Main"))))), _react.default.createElement(_reactBootstrap.Container, {
+        className: "flex-shrink-md"
+      }, _react.default.createElement("h1", {
+        className: "titleh1 mt-4"
+      }, "Bond movies directed by ", director.Name), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("div", {
+        className: "d-flex row m-2"
+      }, movies.map(function (movie) {
+        if (movie.Director.Name === director.Name) {
+          return _react.default.createElement("div", {
+            key: movie._id
+          }, _react.default.createElement(_reactBootstrap.Card, {
+            style: {
+              width: '10em'
+            },
+            className: "mt-3 m-2 p-2 text-center movie-card h-100"
+          }, _react.default.createElement(_reactBootstrap.Card.Img, {
+            variant: "top",
+            src: movie.ImagePath,
+            className: "thumbNail m-auto"
+          }), _react.default.createElement(_reactBootstrap.Card.Body, {
+            className: "cardBody p-0"
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(movie._id)
+          }, _react.default.createElement(_reactBootstrap.Card.Title, {
+            className: "titleh2 p-1"
+          }, movie.Title))), _react.default.createElement(_reactBootstrap.Card.Footer, {
+            className: "cardFoot border-top-0 d-flex justify-content-center"
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(movie._id)
+          }, _react.default.createElement(_reactBootstrap.Button, {
+            variant: "link",
+            className: "goDetail3"
+          }, "Read more")))));
+        }
+      }))))));
     }
   }]);
 
@@ -50102,7 +50202,7 @@ DirectorView.propTypes = {
       Date: _propTypes.default.string,
       Place: _propTypes.default.string
     }).isRequired,
-    KnownFor: _propTypes.default.array.isRequired
+    KnownFor: _propTypes.default.array.required
   }).isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./director-view.scss":"components/director-view/director-view.scss"}],"components/profile-view/profile-view.scss":[function(require,module,exports) {
@@ -50187,13 +50287,17 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "labelh1"
       }, "Username:\xA0\xA0"), _react.default.createElement("span", {
         className: "valueh1"
-      }, movie.User[0].Name)), _react.default.createElement(Row, {
+      }, movie.User.Name)), _react.default.createElement(Row, {
         className: "mt-2"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Email:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
-      }, movie.User[0].Email)), _react.default.createElement(Row, {
+      }, movie.User.Email)), _react.default.createElement(Row, null, _react.default.createElement("span", {
+        className: "labelh1"
+      }, "Birthday:\xA0\xA0"), _react.default.createElement("span", {
+        className: "valueh1"
+      }, movie.User.Birthday)), _react.default.createElement(Row, {
         className: "mt-5"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
@@ -50375,8 +50479,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         user: authData.user.Username
       });
       localStorage.setItem('token', authData.token);
-      localStorage.setItem('user', authData.user.Username); // this.getMovies(authData.token);
-      // this.getUser(user, authData.token);
+      localStorage.setItem('user', authData.user.Username);
+      this.getMovies(authData.token);
+      this.getUser(user, authData.token);
     }
   }, {
     key: "render",
@@ -50397,7 +50502,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, "Welcome to the Bond Movies Database"), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
         to: "/users/".concat(user)
       }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goUser mx-3 mt-3",
+        className: "goUserProf mx-3 mt-3",
         variant: "link"
       }, "Username: ", user)), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
@@ -50454,7 +50559,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           return _react.default.createElement(_bondView.BondView, {
             bondactor: movies.find(function (m) {
               return m.BondActor.Name === match.params.name;
-            }).BondActor
+            }).BondActor,
+            movies: movies
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -50468,7 +50574,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           return _react.default.createElement(_directorView.DirectorView, {
             director: movies.find(function (m) {
               return m.Director.Name === match.params.name;
-            }).Director
+            }).Director,
+            movies: movies
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -50482,21 +50589,29 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           return _react.default.createElement(_genreView.GenreView, {
             genre: movies.find(function (m) {
               return m.Genre.Name === match.params.name;
-            }).Genre
+            }).Genre,
+            movies: movies
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/users/:Username",
-        render: function render(_ref5) {
-          var match = _ref5.match;
-          if (!user) return _react.default.createElement("div", {
+        render: function render() {
+          if (!userProfile) return _react.default.createElement("div", {
             className: "main-view"
           });
           return _react.default.createElement(_profileView.ProfileView, {
-            user: users.find(function (u) {
-              return u.Username === match.params.username;
-            }).User
+            userProfile: userProfile,
+            user: user,
+            movies: movies
+          });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/update/:Username",
+        render: function render() {
+          return _react.default.createElement(UpdateView, {
+            user: user
           });
         }
       })))));
@@ -50622,7 +50737,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46053" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41089" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

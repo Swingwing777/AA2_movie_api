@@ -37,28 +37,14 @@ body {
   text-shadow: 1px 1px 3px black;
 }
 
-.logOutButton {
-  visibility: hidden;
-}
-
 .titleh1 {
   color: $main-text;
   font-size: x-large;
   }
 
-
-.goBackMain,
-.goBackMain:hover,
-.goBackMain:active,
-.goBond,
-.goBond:hover,
-.goBond:active,
-.goGenre,
-.goGenre:hover,
-.goGenre:active,
-.goDirector,
-.goDirector:hover,
-.goDirector:active  {
+.goFacts,
+.goFacts:hover,
+.goFacts:active {
   background-color: $button;
   color: $button-text;
   font-size: smaller;
@@ -70,10 +56,10 @@ body {
   0px 2px 2px $buttonLL inset;
 }
 
-.goBackMain:hover {
+.goFacts:hover {
   filter: brightness(75%);
 }
 
-.goBackMain:active {
+.goFacts:active {
   filter: brightness(50%);
 }

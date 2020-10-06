@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Button, Col, Row } from 'react-bootstrap';
+import { Container, Button, Card, Row } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
 
@@ -13,83 +13,89 @@ export class DirectorView extends React.Component {
         this.state = {}
     }
 
-    getMovies(token) {
-        axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies/', {   //https://cors-anywhere.herokuapp.com
-            headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
-        })
-            .then(response => {
-                console.log(response.data);
-                // Assign the result to the state
-                this.setState({
-                    movies: response.data
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
     render() {
-        const { director } = this.props;
-        console.log(this.props)
-        console.log(director.Name)
+        const { director, movies } = this.props;
+        // console.log(this.props)
         if (!director) return null;
 
         return (
-            <Container className='container' >
-                <Row className='director-view d-flex'>
-                    <Col xs={5}>
-                        <img className='dirImage' src={director.Image} />
 
-                        <Row >
-                            <span className='titleh1 mt-3'>{director.Name}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='value'>{director.Bio}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='label'>{'Date of Birth:\u00A0\u00A0'} </span>
-                            <span className='value'>{director.Birth.Date}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='label'>{'Place of Birth:\u00A0\u00A0'}</span>
-                            <span className='value'>{director.Birth.Place}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='label'>{'Date of Death:\u00A0\u00A0'}</span>
-                            <span className='value'>{director.Death.Date}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='label'>{'Place of Death:\u00A0\u00A0'}</span>
-                            <span className='value'>{director.Death.Place}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='label'>{'Known for:\u00A0\u00A0'}</span>
-                            <span className='value'>{director.KnownFor.join(',  ')}</span>
-                        </Row>
+            <Container className='d-flex justify-content-center' >
+                <Row className='p-2 justify-content-center'>
+                    <Card style={{ width: 'fit-content(70%)' }} className='m-3 h-160 text-center movie-card'>
+                        <Card.Body className='cardBody p-1'>
+                            <Card.Img variant="top" className='dirImage' src={director.Image} />
+                            <Card.Title className='titleh1 mt-3'>{director.Name}</Card.Title>
+                            <Card.Text className='value m-3'>
 
-                        <Row className='mt-5'>
-                            <Link to={`/`}>
-                                <Button className='goBackMovie' variant="link">Return to Movie View</Button>
-                            </Link>
+                                <span className='value'>{director.Bio}</span>
+                            </Card.Text>
+                            <Card.Text className='text-left mt-4 m-2'>
+                                <span className='label'>{'Date of Birth:\u00A0\u00A0'} </span>
+                                <span className='value'>{director.Birth.Date}</span>
+                            </Card.Text>
+                            <Card.Text className='text-left m-2'>
+                                <span className='label'>{'Place of Birth:\u00A0\u00A0'}</span>
+                                <span className='value'>{director.Birth.Place}</span>
+                            </Card.Text>
+                            <Card.Text className='text-left m-2'>
+                                <span className='label'>{'Date of Death:\u00A0\u00A0'}</span>
+                                <span className='value'>{director.Death.Date}</span>
+                            </Card.Text>
+                            <Card.Text className='text-left m-2'>
+                                <span className='label'>{'Place of Death:\u00A0\u00A0'}</span>
+                                <span className='value'>{director.Death.Place}</span>
+                            </Card.Text>
+                            <Card.Text className='text-left mt-4 m-2'>
+                                <span className='label'>{'Known for:\u00A0\u00A0'}</span>
+                                <span className='value'>{director.KnownFor.join(',  ')}</span>
+                            </Card.Text>
+                        </Card.Body>
+                        <Card.Footer className="cardFoot border-top-0">
+                            <Row className='d-flex flex-md-row justify-content-center'>
+                                <Link to="" onClick={() => history.back()}>
+                                    <Button className='m-2 goMovie3' variant="link">Movie</Button>
+                                </Link>
+
+                                <Link to={`/`}>
+                                    <Button className='m-2 goMain3' variant="link">Main</Button>
+                                </Link>
+                            </Row>
+                        </Card.Footer>
+                    </Card>
+
+                    <Container className='flex-shrink-md'>
+
+                        <h1 className='titleh1 mt-4'>Bond movies directed by {director.Name}</h1>
+                        <Row>
+                            <div className='d-flex row m-2'>
+                                {movies.map(movie => {
+                                    if (movie.Director.Name === director.Name) {
+                                        return (
+                                            <div key={movie._id}>
+                                                <Card style={{ width: '10em' }} className="mt-3 m-2 p-2 text-center movie-card h-100">
+                                                    <Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
+                                                    <Card.Body className='cardBody p-0'>
+                                                        <Link to={`/movies/${movie._id}`}>
+                                                            <Card.Title className='titleh2 p-1'>{movie.Title}</Card.Title>
+                                                        </Link>
+                                                    </Card.Body>
+                                                    <Card.Footer className='cardFoot border-top-0 d-flex justify-content-center'>
+                                                        <Link to={`/movies/${movie._id}`}>
+                                                            <Button variant='link' className='goDetail3'>Read more</Button>
+                                                        </Link>
+                                                    </Card.Footer>
+                                                </Card>
+                                            </div>
+                                        );
+                                    }
+                                })}
+                            </div>
                         </Row>
-                    </Col>
+                    </Container>
                 </Row>
+            </Container>
 
-
-                {/* <Link to={`/directors/${movie.Director.Name}`}>
-          <Button variant="link">Director</Button>
-        </Link>
-
-        <Link to={`/genres/${movie.Genre.Name}`}>
-          <Button variant="link">Genre</Button>
-        </Link> */}
-
-                {/* <Link to={`/movies/${movie.BondActor.Name}`}>
-          <Button variant="link">Bond</Button>
-        </Link> */}
-
-            </Container >
         )
     }
 };
@@ -106,6 +112,6 @@ DirectorView.propTypes = {
             Date: PropTypes.string,
             Place: PropTypes.string
         }).isRequired,
-        KnownFor: PropTypes.array.isRequired
+        KnownFor: PropTypes.array.required
     }).isRequired
 };

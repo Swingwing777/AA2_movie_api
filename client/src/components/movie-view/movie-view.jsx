@@ -66,22 +66,18 @@ export class MovieView extends React.Component {
             </Row>
             <Row className='mt-3'>
               <Link to={`/`}>
-                <Button className='goBackMain' variant="link">Return to Main Menu</Button>
+                <Button className='goFacts m-3' variant="link">Main Menu</Button>
               </Link>
-            </Row>
-            <Row className='mt-3'>
               <Link to={`/actors/${movie.Title}/${movie.BondActor.Name}`}>
-                <Button className='goBond' variant="link">James Bond details</Button>
+                <Button className='goFacts m-3' variant="link">James Bond</Button>
               </Link>
             </Row>
             <Row className='mt-3'>
               <Link to={`/directors/${movie.Title}/${movie.Director.Name}`}>
-                <Button className='goDirector' variant="link">Director details</Button>
+                <Button className='goFacts m-3' variant="link">Director</Button>
               </Link>
-            </Row>
-            <Row className='mt-3'>
               <Link to={`/genres/${movie.Title}/${movie.Genre.Name}`}>
-                <Button className='goGenre' variant="link">Genre details</Button>
+                <Button className='goFacts m-3' variant="link">Genre</Button>
               </Link>
             </Row>
           </Col>

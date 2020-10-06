@@ -74,8 +74,8 @@ export class MainView extends React.Component {
       });
 
       // If user and access token are present, can call getMovies & getUser methods.
-      // this.getMovies(accessToken);
-      // this.getUser(user, accessToken);
+      this.getMovies(accessToken);
+      this.getUser(user, accessToken);
     }
   }
 
@@ -116,7 +116,7 @@ export class MainView extends React.Component {
           <span className='label'>Welcome to the Bond Movies Database</span>
           <Router>
             <Link to={`/users/${user}`}>
-              <Button className='goUser mx-3 mt-3' variant="link">Username: {user}</Button>
+              <Button className='goUserProf mx-3 mt-3' variant="link">Username: {user}</Button>
             </Link>
 
             <Link to={`/`}>
@@ -135,32 +135,35 @@ export class MainView extends React.Component {
               }
               } />
               <Route path="/register" render={() => <RegistrationView />} />
-              <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+
+              <Route path="/movies/:movieId" render={({ match }) =>
+                <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
               {/* <Route exact path="/" render={Welcome} /> */}
 
               <Route exact path="/actors/:movie/:name" render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
-                return <BondView bondactor={movies.find(m => m.BondActor.Name === match.params.name).BondActor} />
+                return <BondView bondactor={movies.find(m => m.BondActor.Name === match.params.name).BondActor} movies={movies} />
               }
               } />
 
               <Route exact path="/directors/:movie/:name" render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
-                return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
+                return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} movies={movies} />
               }
               } />
 
               <Route exact path="/genres/:movie/:name" render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
-                return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} />
+                return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} movies={movies} />
               }
               } />
 
-              <Route exact path="/users/:Username" render={({ match }) => {
-                if (!user) return <div className="main-view" />;
-                return <ProfileView user={users.find(u => u.Username === match.params.username).User} />
+              <Route exact path="/users/:Username" render={() => {
+                if (!userProfile) return <div className="main-view" />;
+                return <ProfileView userProfile={userProfile} user={user} movies={movies} />
               }
               } />
+              <Route exact path="/update/:Username" render={() => <UpdateView user={user} />} />
             </Row>
           </div>
         </Router>

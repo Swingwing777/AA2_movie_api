@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Button, Col, Row } from 'react-bootstrap';
+import { Container, Button, Card, Row } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
 
@@ -14,67 +14,88 @@ export class BondView extends React.Component {
     }
 
     render() {
-        const { bondactor } = this.props;
-        console.log(this.props)
-        console.log(bondactor)
+        const { bondactor, movies } = this.props;
+        // console.log(this.props)
         if (!bondactor) return null;
 
         return (
-            <Container className='container' >
-                <Row className='bond-view d-flex'>
 
-                    <Col xs={5}>
-                        <img className='bondImage' src={bondactor.Image} />
+            <Container className='d-flex justify-content-center' >
+                <Row className='p-2 justify-content-center'>
+                    <Card style={{ width: 'fit-content(70%)' }} className='m-3 h-160 text-center movie-card'>
+                        <Card.Body className='cardBody p-1'>
+                            <Card.Img variant="top" className='bondImage' src={bondactor.Image} />
+                            <Card.Title className='titleh1 mt-3'>{bondactor.Name}</Card.Title>
+                            <Card.Text className='value m-3'>
 
-                        <Row >
-                            <span className='titleh1 mt-3'>{bondactor.Name}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='value'>{bondactor.Bio}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='label'>{'Date of Birth:\u00A0\u00A0'} </span>
-                            <span className='value'>{bondactor.Birth.Date}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='label'>{'Place of Birth:\u00A0\u00A0'}</span>
-                            <span className='value'>{bondactor.Birth.Place}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='label'>{'Date of Death:\u00A0\u00A0'}</span>
-                            <span className='value'>{bondactor.Death.Date}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='label'>{'Place of Death:\u00A0\u00A0'}</span>
-                            <span className='value'>{bondactor.Death.Place}</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='label'>{'Known for:\u00A0\u00A0'}</span>
-                            <span className='value'>{bondactor.KnownFor.join(',  ')}</span>
-                        </Row>
+                                <span className='value'>{bondactor.Bio}</span>
+                            </Card.Text>
+                            <Card.Text className='text-left mt-4 m-2'>
+                                <span className='label'>{'Date of Birth:\u00A0\u00A0'} </span>
+                                <span className='value'>{bondactor.Birth.Date}</span>
+                            </Card.Text>
+                            <Card.Text className='text-left m-2'>
+                                <span className='label'>{'Place of Birth:\u00A0\u00A0'}</span>
+                                <span className='value'>{bondactor.Birth.Place}</span>
+                            </Card.Text>
+                            <Card.Text className='text-left m-2'>
+                                <span className='label'>{'Date of Death:\u00A0\u00A0'}</span>
+                                <span className='value'>{bondactor.Death.Date}</span>
+                            </Card.Text>
+                            <Card.Text className='text-left m-2'>
+                                <span className='label'>{'Place of Death:\u00A0\u00A0'}</span>
+                                <span className='value'>{bondactor.Death.Place}</span>
+                            </Card.Text>
+                            <Card.Text className='text-left mt-4 m-2'>
+                                <span className='label'>{'Known for:\u00A0\u00A0'}</span>
+                                <span className='value'>{bondactor.KnownFor.join(',  ')}</span>
+                            </Card.Text>
+                        </Card.Body>
+                        <Card.Footer className="cardFoot border-top-0">
+                            <Row className='d-flex flex-md-row justify-content-center'>
+                                <Link to="" onClick={() => history.back()}>
+                                    <Button className='m-2 goMovie2' variant="link">Movie</Button>
+                                </Link>
 
-                        <Row className='mt-5'>
-                            <Link to={`/`}>
-                                <Button className='goBackMovie' variant="link">Return to Movie View</Button>
-                            </Link>
-                        </Row>
-                    </Col>
+                                <Link to={`/`}>
+                                    <Button className='m-2 goMain2' variant="link">Main</Button>
+                                </Link>
+                            </Row>
+                        </Card.Footer>
+                    </Card>
 
+                    <Container className='flex-shrink-md'>
+
+                        <h1 className='titleh1 mt-4'>Bond movies starring {bondactor.Name}</h1>
+                        <Row>
+                            <div className='d-flex row m-2'>
+                                {movies.map(movie => {
+                                    if (movie.BondActor.Name === bondactor.Name) {
+                                        return (
+                                            <div key={movie._id}>
+                                                <Card style={{ width: '10em' }} className="mt-3 m-2 p-2 text-center movie-card h-100">
+                                                    <Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
+                                                    <Card.Body className='cardBody p-0'>
+                                                        <Link to={`/movies/${movie._id}`}>
+                                                            <Card.Title className='titleh2 p-1'>{movie.Title}</Card.Title>
+                                                        </Link>
+                                                    </Card.Body>
+                                                    <Card.Footer className='cardFoot border-top-0 d-flex justify-content-center'>
+                                                        <Link to={`/movies/${movie._id}`}>
+                                                            <Button variant='link' className='goDetail2'>Read more</Button>
+                                                        </Link>
+                                                    </Card.Footer>
+                                                </Card>
+                                            </div>
+                                        );
+                                    }
+                                })}
+                            </div>
+                        </Row>
+                    </Container>
                 </Row>
+            </Container>
 
-                {/* <Link to={`/directors/${movie.Director.Name}`}>
-          <Button variant="link">Director</Button>
-        </Link>
-
-        <Link to={`/genres/${movie.Genre.Name}`}>
-          <Button variant="link">Genre</Button>
-        </Link> */}
-
-                {/* <Link to={`/movies/${movie.BondActor.Name}`}>
-          <Button variant="link">Bond</Button>
-        </Link> */}
-
-            </Container >
         )
     }
 };

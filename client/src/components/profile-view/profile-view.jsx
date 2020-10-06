@@ -24,11 +24,15 @@ export class ProfileView extends React.Component {
                     <Col>
                         <Row >
                             <span className='labelh1'>{'Username:\u00A0\u00A0'}</span>
-                            <span className='valueh1'>{movie.User[0].Name}</span>
+                            <span className='valueh1'>{movie.User.Name}</span>
                         </Row>
                         <Row className='mt-2'>
                             <span className='label'>{'Email:\u00A0\u00A0'} </span>
-                            <span className='value'>{movie.User[0].Email}</span>
+                            <span className='value'>{movie.User.Email}</span>
+                        </Row>
+                        <Row >
+                            <span className='labelh1'>{'Birthday:\u00A0\u00A0'}</span>
+                            <span className='valueh1'>{movie.User.Birthday}</span>
                         </Row>
                         <Row className='mt-5'>
                             <Link to={`/`}>

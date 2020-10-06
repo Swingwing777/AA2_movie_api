@@ -31,10 +31,6 @@ body {
   text-shadow: 1px 1px 3px #d4eeff;
 }
 
-.logOutButton {
-  visibility: hidden;
-}
-
 .formButton,
 .formButton:hover,
 .formButtton:active {
@@ -71,10 +67,6 @@ body {
 .entryField {
   color: #4b678b;
   font-size: smaller;
-}
-
-.logOutButton {
-  visibility: hidden;
 }
 
 .formTitle {
@@ -114,23 +106,29 @@ body {
   max-width: 80%;
 }
 
+.cardBody,
+.cardFoot {
+  background-color: #151f25;
+}
+
 .thumbNail {
   box-shadow: 1px 0 1px #d1d1d1 inset, 0px 2px 1px #d1d1d1 inset, 2px 0 2px #2e2e2e, 0px 2px 2px #2e2e2e;
 }
 
-.buttonDetails,
-.buttonDetails:hover,
-.buttonDetails:active {
+.goDetail,
+.goDetail:hover,
+.goDetail:active {
   background-color: #0071ba;
   color: white;
+  width: 80%;
   box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
 }
 
-.buttonDetails:hover {
+.goDetail:hover {
   filter: brightness(75%);
 }
 
-.buttonDetails:active {
+.goDetail:active {
   filter: brightness(50%);
 }
 body {
@@ -157,27 +155,14 @@ body {
   text-shadow: 1px 1px 3px black;
 }
 
-.logOutButton {
-  visibility: hidden;
-}
-
 .titleh1 {
   color: white;
   font-size: x-large;
 }
 
-.goBackMain,
-.goBackMain:hover,
-.goBackMain:active,
-.goBond,
-.goBond:hover,
-.goBond:active,
-.goGenre,
-.goGenre:hover,
-.goGenre:active,
-.goDirector,
-.goDirector:hover,
-.goDirector:active {
+.goFacts,
+.goFacts:hover,
+.goFacts:active {
   background-color: #0071ba;
   color: white;
   font-size: smaller;
@@ -185,22 +170,33 @@ body {
   box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
 }
 
-.goBackMain:hover {
+.goFacts:hover {
   filter: brightness(75%);
 }
 
-.goBackMain:active {
+.goFacts:active {
   filter: brightness(50%);
 }
 .container {
   padding: 10px;
   max-width: 80%;
+}
+
+.cardBody,
+.cardFoot {
+  background-color: #151f25;
+  color: white;
+  font-size: medium;
 }
 
 .bondImage {
-  width: 80%;
+  width: 60%;
   height: auto;
-  box-shadow: 2px 2px 3px black;
+  box-shadow: 1px 0 1px black inset, 0px 2px 1px black inset, 2px 0 2px black inset, 0px 2px 2px black inset;
+}
+
+.thumbNail {
+  box-shadow: 1px 0 1px black inset, 0px 2px 1px black inset, 2px 0 2px black inset, 0px 2px 2px black inset;
 }
 
 .label,
@@ -215,25 +211,57 @@ body {
   font-size: x-large;
 }
 
-.goBackMovie,
-.goBackMovie:hover,
-.goBackMovie:active {
+.titleh2 {
+  color: white;
+  font-size: medium;
+}
+
+.goMovie2,
+.goMovie2:hover,
+.goMovie2:active,
+.goMain2,
+.goMain2:hover,
+.goMain2:active,
+.goDetail2,
+.goDetail2:hover,
+.goDetail2:active {
   background-color: #0071ba;
   color: white;
-  width: 200px;
+  width: 160px;
   box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
 }
 
-.goBackMovie:hover {
+.goDetail2,
+.goDetail2:hover,
+.goDetail2:active {
+  width: auto;
+}
+
+.goMovie2:hover,
+.goMain2:hover,
+.goDetail2:hover {
   filter: brightness(75%);
 }
 
-.goBackMovie:active {
+.goMovie2:active,
+.goMain2:active,
+.goDetail2:active {
   filter: brightness(50%);
 }
 .container {
   padding: 10px;
   max-width: 80%;
+}
+
+.cardBody,
+.cardFoot {
+  background-color: #151f25;
+  color: white;
+  font-size: medium;
+}
+
+.thumbNail {
+  box-shadow: 1px 0 1px black inset, 0px 2px 1px black inset, 2px 0 2px black inset, 0px 2px 2px black inset;
 }
 
 .label,
@@ -248,31 +276,63 @@ body {
   font-size: x-large;
 }
 
-.goBackMovie,
-.goBackMovie:hover,
-.goBackMovie:active {
-  background-color: #0071ba;
+.titleh2 {
   color: white;
-  width: 200px;
-  box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
+  font-size: medium;
 }
 
-.goBackMovie:hover {
+.goMovie1,
+.goMovie1:hover,
+.goMovie1:active,
+.goMain1,
+.goMain1:hover,
+.goMain1:active,
+.goDetail1,
+.goDetail1:hover,
+.goDetail1:active {
+  background-color: #0071ba;
+  color: white;
+  width: 160px;
+  box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #111a20 inset, 0px 2px 2px #111a20 inset;
+}
+
+.goDetail1,
+.goDetail1:hover,
+.goDetail1:active {
+  width: auto;
+}
+
+.goMovie1:hover,
+.goMain1:hover,
+.goDetail1:hover {
   filter: brightness(75%);
 }
 
-.goBackMovie:active {
+.goMovie1:active,
+.goMain1:active,
+.goDetail1:active {
   filter: brightness(50%);
 }
 .container {
   padding: 10px;
   max-width: 80%;
+}
+
+.cardBody,
+.cardFoot {
+  background-color: #151f25;
+  color: white;
+  font-size: medium;
 }
 
 .dirImage {
-  width: 80%;
+  width: 60%;
   height: auto;
-  box-shadow: 2px 2px 3px black;
+  box-shadow: 1px 0 1px black inset, 0px 2px 1px black inset, 2px 0 2px black inset, 0px 2px 2px black inset;
+}
+
+.thumbNail {
+  box-shadow: 1px 0 1px black inset, 0px 2px 1px black inset, 2px 0 2px black inset, 0px 2px 2px black inset;
 }
 
 .label,
@@ -287,20 +347,41 @@ body {
   font-size: x-large;
 }
 
-.goBackMovie,
-.goBackMovie:hover,
-.goBackMovie:active {
+.titleh2 {
+  color: white;
+  font-size: medium;
+}
+
+.goMovie3,
+.goMovie3:hover,
+.goMovie3:active,
+.goMain3,
+.goMain3:hover,
+.goMain3:active,
+.goDetail3,
+.goDetail3:hover,
+.goDetail3:active {
   background-color: #0071ba;
   color: white;
-  width: 200px;
+  width: 160px;
   box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
 }
 
-.goBackMovie:hover {
+.goDetail3,
+.goDetail3:hover,
+.goDetail3:active {
+  width: auto;
+}
+
+.goMovie3:hover,
+.goMain3:hover,
+.goDetail3:hover {
   filter: brightness(75%);
 }
 
-.goBackMovie:active {
+.goMovie2:active,
+.goMain2:active,
+.goDetail3:active {
   filter: brightness(50%);
 }
 body {
@@ -359,13 +440,9 @@ body {
   font-style: italic;
 }
 
-.logOutButton {
-  visibility: visible;
-}
-
-.goUser,
-.goUser:hover,
-.goUser:active,
+.goUserProf,
+.goUserProf:hover,
+.goUserProf:active,
 .logOutButton,
 .logOutButton:hover,
 .logOutButton:active {
@@ -376,12 +453,12 @@ body {
   box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
 }
 
-.goUser:hover,
+.goUserProf:hover,
 .logOutButton:hover {
   filter: brightness(75%);
 }
 
-.goUser:active,
+.goUserProf:active,
 .logOutButton:active {
   filter: brightness(50%);
 }

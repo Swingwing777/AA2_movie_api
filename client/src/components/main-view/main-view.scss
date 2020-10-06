@@ -27,13 +27,9 @@ body {
   font-style: italic;
 }
 
-.logOutButton {
-  visibility: visible;
-}
-
-.goUser,
-.goUser:hover,
-.goUser:active, 
+.goUserProf,
+.goUserProf:hover,
+.goUserProf:active, 
 .logOutButton,
 .logOutButton:hover,
 .logOutButton:active {
@@ -48,12 +44,12 @@ body {
   0px 2px 2px $buttonLL inset;
 }
 
-.goUser:hover,
+.goUserProf:hover,
 .logOutButton:hover {
   filter: brightness(75%);
 }
 
-.goUser:active,
+.goUserProf:active,
 .logOutButton:active {
   filter: brightness(50%);
 }

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Button, Col, Row } from 'react-bootstrap';
+import { Container, Button, Card, Row } from 'react-bootstrap';
 import './genre-view.scss';
+
+// import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { Link } from "react-router-dom";
 
@@ -14,76 +16,66 @@ export class GenreView extends React.Component {
         this.state = {}
     }
 
-    // // new method to get movies
-    // getMovies(token) {
-    //     axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {   //https://cors-anywhere.herokuapp.com
-    //         headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
-    //     })
-    //         .then(response => {
-    //             console.log(response.data);
-    //             // Assign the result to the state
-    //             this.setState({
-    //                 movies: response.data
-    //             });
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
-
-
     render() {
-        const { genre } = this.props;
+        const { genre, movies } = this.props;
         console.log(this.props)
         if (!genre) return null;
 
         return (
-            <Container className='' >
-                <Row className='genre-view'>
-                    <Col>
-                        <Row >
-                            <span className='titleh1 mt-3'>According to IMDB.com, the following genres apply:</span>
-                        </Row>
-                        <Row className='mt-3'>
-                            <span className='titleh1 genreName'>{genre.Name}{':'}</span>
-                        </Row>
-                        <Row className='mt-2'>
-                            <span className='value genreDescribe'>{genre.Description}</span>
-                        </Row>
 
-                        <Row className='mt-5'>
-                            <Link to={`/`}>
-                                <Button className='goBackMovie' variant="link">Return to Movie View</Button>
-                            </Link>
+            <Container className='d-flex justify-content-center' >
+                <Row className='p-2 justify-content-center'>
+                    <Card style={{ width: 'fit-content(70%)' }} className='m-3 h-160 text-center movie-card'>
+                        <Card.Body className='cardBody p-1'>
+                            <Card.Title className='titleh1 mt-3'>{genre.Name}</Card.Title>
+                            <Card.Text className='value m-3'>
+                                <span className='value'>{genre.Description}</span>
+                            </Card.Text>
+                        </Card.Body>
+                        <Card.Footer className="cardFoot border-top-0">
+                            <Row className='d-flex flex-md-row justify-content-center'>
+                                <Link to="" onClick={() => history.back()}>
+                                    <Button className='goMovie1 m-2' variant="link">Movie</Button>
+                                </Link>
+
+                                <Link to={`/`}>
+                                    <Button className='goMain1 m-2' variant="link">Main</Button>
+                                </Link>
+                            </Row>
+                        </Card.Footer>
+                    </Card>
+
+                    <Container className='flex-shrink-md'>
+
+                        <h1 className='titleh1 mt-4'>{genre.Name} movies</h1>
+                        <Row className='p-2'>
+                            <div className='d-flex row m-2'>
+                                {movies.map(movie => {
+                                    if (movie.Genre.Name === genre.Name) {
+                                        return (
+                                            <div key={movie._id}>
+                                                <Card style={{ width: '10em' }} className="mt-3 m-2 p-2 text-center movie-card h-100">
+                                                    <Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
+                                                    <Card.Body className='cardBody p-0'>
+                                                        <Link to={`/movies/${movie._id}`}>
+                                                            <Card.Title className='titleh2 p-1'>{movie.Title}</Card.Title>
+                                                        </Link>
+                                                    </Card.Body>
+                                                    <Card.Footer className='cardFoot border-top-0 d-flex justify-content-center'>
+                                                        <Link to={`/movies/${movie._id}`}>
+                                                            <Button variant='link' className='goDetail1'>Read more</Button>
+                                                        </Link>
+                                                    </Card.Footer>
+                                                </Card>
+                                            </div>
+                                        );
+                                    }
+                                })}
+                            </div>
                         </Row>
-                        {/*New Back Button */}
-                        <Row className='mt-5'>
-                            <Link to='' onClick={() => history.back()}>
-                            </Link>
-                        </Row>
-                        {/*New*/}
-                        <Row className='mt-5'>
-                            <Link to={`/movies/genre/${genre.Name}`}>
-                                <Button className='goSameGenre' variant="link">Movies with same genre</Button>
-                            </Link>
-                        </Row>
-                    </Col>
+                    </Container>
                 </Row>
-
-
-                {/* <Link to={`/directors/${movie.Director.Name}`}>
-          <Button variant="link">Director</Button>
-        </Link>
-
-        <Link to={`/genres/${movie.Genre.Name}`}>
-          <Button variant="link">Genre</Button>
-        </Link> */}
-
-                {/* <Link to={`/movies/${movie.BondActor.Name}`}>
-          <Button variant="link">Bond</Button>
-        </Link> */}
-
-            </Container >
+            </Container>
         )
     }
 };

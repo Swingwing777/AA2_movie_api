@@ -4,16 +4,27 @@ $button-text: white;
 $background: black; 
 $button: #0071ba;
 $buttonHL: #b8e2fc;
-$buttonLL: #003657;
-
-// body {
-//   background-color: $background;
-//   background-image: url(../../../../public/img/6BWTransFade.png);
-// }
+$buttonLL: #111a20;
+$backColor: #151f25;
 
 .container {
   padding: 10px;
   max-width: 80%;
+}
+
+.cardBody,
+.cardFoot {
+  background-color: $backColor;
+  color: $main-text;
+  font-size: medium;
+}
+
+.thumbNail {
+  box-shadow: 
+  1px 0 1px black inset,
+  0px 2px 1px black inset,
+  2px 0 2px black inset,
+  0px 2px 2px black inset;
 }
 
 .label,
@@ -28,13 +39,23 @@ $buttonLL: #003657;
   font-size: x-large;
   }
 
+.titleh2 {
+  color: $main-text;
+  font-size: medium;
+  }
 
-.goBackMovie,
-.goBackMovie:hover,
-.goBackMovie:active {
+.goMovie1,
+.goMovie1:hover,
+.goMovie1:active,
+.goMain1,
+.goMain1:hover,
+.goMain1:active,
+.goDetail1,
+.goDetail1:hover,
+.goDetail1:active {
   background-color: $button;
   color: $button-text;
-  width: 200px;
+  width: 160px;
   box-shadow: 
   1px 0 1px $buttonHL inset,
   0px 2px 1px $buttonHL inset,
@@ -42,10 +63,20 @@ $buttonLL: #003657;
   0px 2px 2px $buttonLL inset;
 }
 
-.goBackMovie:hover {
+.goDetail1,
+.goDetail1:hover,
+.goDetail1:active {
+  width: auto;
+}
+
+.goMovie1:hover,
+.goMain1:hover,
+.goDetail1:hover {
   filter: brightness(75%);
 }
 
-.goBackMovie:active {
+.goMovie1:active,
+.goMain1:active,
+.goDetail1:active {
   filter: brightness(50%);
 }

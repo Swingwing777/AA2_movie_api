@@ -14,12 +14,16 @@ export class MovieCard extends React.Component {
       <Card style={{ width: '15em' }} className='m-3 text-center movie-card'>
         <Card.Img variant="top" src={movie.ImagePath} className='thumbNail' />
         <Card.Body>
-          <Card.Title>{movie.Title}</Card.Title>
-          <Card.Text>{movie.Description}</Card.Text>
           <Link to={`/movies/${movie._id}`}>
-            <Button className='m-auto buttonDetails' variant="link">More Details</Button>
+            <Card.Title>{movie.Title}</Card.Title>
           </Link>
+          <Card.Text>{movie.Description.substring(0, 70)}</Card.Text>
         </Card.Body>
+        <Card.Footer>
+          <Link to={`/movies/${movie._id}`}>
+            <Button className='m-auto goDetail' variant="link">More Details</Button>
+          </Link>
+        </Card.Footer>
       </Card>
     );
   }
