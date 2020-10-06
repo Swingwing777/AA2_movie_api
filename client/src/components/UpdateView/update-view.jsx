@@ -3,23 +3,29 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { LoginView } from '../login-view/login-view';
 import { Form, Container, Col, Button, Row } from 'react-bootstrap';
-import './registration-view.scss';
+
+import './update-view.scss';
 
 import { Link } from "react-router-dom";
 
 export function UpdateView(props) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [username, updateUsername] = useState('');
+  const [password, updatePassword] = useState('');
+  const [email, updateEmail] = useState('');
+  const [birthday, updateBirthday] = useState('');
+
+  // Try this
+  const user = this.props;
 
   const updateUser = (e) => {
     e.preventDefault();
-    axios.put('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${Username}', {
+    axios.put(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
       Username: username,
       Password: password,
       Email: email,
       Birthday: birthday
+    }, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
         const data = response.data;
@@ -31,7 +37,13 @@ export function UpdateView(props) {
       });
   };
 
-  if (username === 'Registered') return <LoginView onLoggedIn={user => this.handleSubmit(user)} />;
+  const loginUser = (e) => {
+    e.preventDefault();
+    setUsername('Registered');
+    props.onLoggedIn(username);
+  };
+
+  // if (username === 'Registered') return <LoginView onLoggedIn={user => this.handleSubmit(user)} />;
 
   return (
     <Container className='formwrapper' >
@@ -42,14 +54,8 @@ export function UpdateView(props) {
 
         <Form.Row className='justify-content-center mt-3'>
           <Form.Group as={Col} controlId='formGridUsername'>
-            <Form.Label className='formLabel'>Username</Form.Label>
-            <Form.Control
-              className='entryField'
-              type='text'
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-              placeholder='Enter Username'
-            />
+            <Form.Label className='formLabel'>Username:  </Form.Label>
+            <Form.Row className='justify-content-center mt-3'>{username}</Form.Row>
           </Form.Group>
 
           <Form.Group as={Col} controlId='formGridPassword'>
@@ -88,7 +94,7 @@ export function UpdateView(props) {
         <Row className='formPromise'>We will never share your details</Row>
 
         <Form.Row className='justify-content-center'>
-          <Button className='formButton mt-3' variant='primary' type='submit' onClick={registerUser} >
+          <Button className='formButton mt-3' variant='primary' type='submit' onClick={updateUser} >
             Submit
         </Button>
         </Form.Row>

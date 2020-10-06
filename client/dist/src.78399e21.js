@@ -49126,12 +49126,13 @@ function RegistrationView(props) {
     }).catch(function (e) {
       console.log('Please check and try again');
     });
-  }; // const loginUser = (e) => {
-  //   e.preventDefault();
-  //   setUsername('Registered');
-  //   props.onLoggedIn(username);
-  // };
+  };
 
+  var loginUser = function loginUser(e) {
+    e.preventDefault();
+    setUsername('Registered');
+    props.onLoggedIn(username);
+  };
 
   if (username === 'Registered') return _react.default.createElement(_loginView.LoginView, {
     onLoggedIn: function onLoggedIn(user) {
@@ -50610,6 +50611,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         className: "goUserProf mx-3 mt-3",
         variant: "link"
       }, "Logged in as: ", user)), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/update/".concat(user)
+      }, _react.default.createElement(_reactBootstrap.Button, {
+        className: "goUserProf mx-3 mt-3",
+        variant: "link"
+      }, "Update User")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "logOutButton mx-3 mt-3",
@@ -50707,7 +50713,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           });
           return _react.default.createElement(_profileView.ProfileView, {
             userProfile: userProfile,
-            user: user,
+            user: localStorage.getItem('user'),
             movies: movies
           }); //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
         }
@@ -50716,7 +50722,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         path: "/update/:Username",
         render: function render() {
           return _react.default.createElement(UpdateView, {
-            user: user
+            user: localStorage.getItem('user'),
+            userProfile: userProfile
           });
         }
       })))));
@@ -50842,7 +50849,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36233" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40975" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

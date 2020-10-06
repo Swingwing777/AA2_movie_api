@@ -125,6 +125,9 @@ export class MainView extends React.Component {
             <Link to={`/users/${user}`}>
               <Button className='goUserProf mx-3 mt-3' variant="link">Logged in as: {user}</Button>
             </Link>
+            <Link to={`/update/${user}`}>
+              <Button className='goUserProf mx-3 mt-3' variant="link">Update User</Button>
+            </Link>
 
             <Link to={`/`}>
               <Button className='logOutButton mx-3 mt-3' variant='link' type='submit' onClick={user => this.logoutUser(user)} >
@@ -167,10 +170,10 @@ export class MainView extends React.Component {
 
               <Route exact path="/users/:Username" render={() => {
                 if (!user) return <div className="main-view" />;
-                return <ProfileView userProfile={userProfile} user={user} movies={movies} />  //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
+                return <ProfileView userProfile={userProfile} user={localStorage.getItem('user')} movies={movies} />  //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
               }
               } />
-              <Route exact path="/update/:Username" render={() => <UpdateView user={user} />} />
+              <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} userProfile={userProfile} />} />
             </Row>
           </div>
         </Router>
