@@ -24,6 +24,7 @@ export class MainView extends React.Component {
 
     this.state = {
       movies: [],
+      userProfile: null,
       user: null
     };
   }
@@ -35,8 +36,9 @@ export class MainView extends React.Component {
     })
       .then(response => {
         console.log(response.data);
+        this.getUser(token);
+
         // Assign the result to the state
-        // this.props.setMovies(response.data);  not a function
         this.setState({
           movies: response.data
         });
@@ -46,28 +48,33 @@ export class MainView extends React.Component {
       });
   }
 
-  getUser(user, token) {
+  getUser(token) {
     //let user = localstorage.getItem('user')
-    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {   //https://cors-anywhere.herokuapp.com
+    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${localStorage.getItem('user')}`, {   //https://cors-anywhere.herokuapp.com
       headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
     })
       .then(response => {
+        // Try this
+        const userProfile = response.data;
         console.log(response.data);
+
         // Assign the result to the state
-        //this.props.setUserProfile(response.data)
+
         this.setState({
-          userProfile: response.data
+          userProfile: userProfile
         });
+
+        console.log('This is user: ' + response.data.Username);
       })
       .catch(function (error) {
-        alert('Sorry, there has been an error');
+        console.log('Sorry, there has been an error: ' + error);
       });
   }
 
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
-    let user = localStorage.getItem('user');
+
     if (accessToken !== null) {
       this.setState({
         user: localStorage.getItem('user')
@@ -75,7 +82,7 @@ export class MainView extends React.Component {
 
       // If user and access token are present, can call getMovies & getUser methods.
       this.getMovies(accessToken);
-      this.getUser(user, accessToken);
+
     }
   }
 
@@ -88,7 +95,7 @@ export class MainView extends React.Component {
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
-    this.getUser(user, authData.token);
+    // this.getUser(authData.token);
   }
 
   logoutUser = (e) => {
@@ -105,7 +112,7 @@ export class MainView extends React.Component {
   render() {
     const { movies, user } = this.state;
 
-    console.log(user)
+    // console.log(user)
 
     if (!movies) return <div className="main-view" />;
 
@@ -116,7 +123,7 @@ export class MainView extends React.Component {
           <span className='label'>Welcome to the Bond Movies Database</span>
           <Router>
             <Link to={`/users/${user}`}>
-              <Button className='goUserProf mx-3 mt-3' variant="link">Username: {user}</Button>
+              <Button className='goUserProf mx-3 mt-3' variant="link">Logged in as: {user}</Button>
             </Link>
 
             <Link to={`/`}>
@@ -159,8 +166,8 @@ export class MainView extends React.Component {
               } />
 
               <Route exact path="/users/:Username" render={() => {
-                if (!userProfile) return <div className="main-view" />;
-                return <ProfileView userProfile={userProfile} user={user} movies={movies} />
+                if (!user) return <div className="main-view" />;
+                return <ProfileView userProfile={userProfile} user={user} movies={movies} />  //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
               }
               } />
               <Route exact path="/update/:Username" render={() => <UpdateView user={user} />} />

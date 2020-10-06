@@ -27,7 +27,6 @@ export class DirectorView extends React.Component {
                             <Card.Img variant="top" className='dirImage' src={director.Image} />
                             <Card.Title className='titleh1 mt-3'>{director.Name}</Card.Title>
                             <Card.Text className='value m-3'>
-
                                 <span className='value'>{director.Bio}</span>
                             </Card.Text>
                             <Card.Text className='text-left mt-4 m-2'>

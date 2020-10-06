@@ -27,15 +27,6 @@ export function LoginView(props) {
       });
   };
 
-  // const registerUser = (e) => {
-  //   e.preventDefault();
-  //   console.log('new-user');
-
-  //   // setUsername('New');
-  //   // props.onLoggedIn(username);
-  //   // console.log(props);
-  // };
-
   if (username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 
   return (

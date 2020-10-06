@@ -1,35 +1,48 @@
 $blur-color: #d4eeff;
 $main-text: white;
+$button-text: white;
 $background: black; 
 $button: #0071ba;
 $buttonHL: #b8e2fc;
-$buttonLL: #003657;
-
-body {
-  background-color: $background;
-  background-image: url(../../../../public/img/6BWTransFade.png);
-}
+$buttonLL: #111a20;
+$backColor: #151f25;
 
 .container {
   padding: 10px;
   max-width: 80%;
 }
 
-.formLabel,
-.formPromise {
+.cardBody,
+.cardFoot {
+  background-color: $backColor;
   color: $main-text;
-  font-size: larger;
-  text-shadow: 2px 2px 4px $blur-color;
+  font-size: medium;
 }
 
-.formPromise {
-  font-style: italic;
+.label,
+.value {
+  font-size: medium;
+  color: $main-text;
+  text-shadow: 2px 2px 3px black;
 }
 
-.formButton,
-.formButton:hover,
-.formButtton:active {
+.titleh1 {
+  color: $main-text;
+  font-size: x-large;
+  }
+
+.goMovie4,
+.goMovie4:hover,
+.goMovie4:active,
+.goMain4,
+.goMain4:hover,
+.goMain4:active,
+.userUpdate1,
+.userUpdate1:hover,
+.userUpdate1:active {
   background-color: $button;
+  color: $button-text;
+  width: 160px;
   box-shadow: 
   1px 0 1px $buttonHL inset,
   0px 2px 1px $buttonHL inset,
@@ -37,10 +50,20 @@ body {
   0px 2px 2px $buttonLL inset;
 }
 
-.formButton:hover {
+.userUpdate1,
+.userUpdate1:hover,
+.userUpdate1:active {
+  width: auto;
+}
+
+.goMovie4:hover,
+.goMain4:hover,
+.userUpdate1:hover {
   filter: brightness(75%);
 }
 
-.formButton:active {
+.goMovie4:active,
+.goMain4:active,
+.userUpdate1:active {
   filter: brightness(50%);
 }
