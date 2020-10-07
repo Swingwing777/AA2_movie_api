@@ -22,13 +22,13 @@ export class BondView extends React.Component {
 
             <Container className='d-flex justify-content-center' >
                 <Row className='p-2 justify-content-center'>
-                    <Card style={{ width: 'fit-content(70%)' }} className='m-3 h-160 text-center movie-card'>
+                    <Card style={{ width: 'fit-content(80%)' }} className='m-3 h-160 text-center movie-card'>
                         <Card.Body className='cardBody p-1'>
-                            <Card.Img variant="top" className='bondImage' src={bondactor.Image} />
+                            <Card.Img variant="top" className='bondImage pt-1' src={bondactor.Image} />
                             <Card.Title className='titleh1 mt-3'>{bondactor.Name}</Card.Title>
-                            <Card.Text className='value m-3'>
+                            <Card.Text className='m-3'>
 
-                                <span className='value'>{bondactor.Bio}</span>
+                                <span className='textMain'>{bondactor.Bio}</span>
                             </Card.Text>
                             <Card.Text className='text-left mt-4 m-2'>
                                 <span className='label'>{'Date of Birth:\u00A0\u00A0'} </span>
@@ -47,8 +47,8 @@ export class BondView extends React.Component {
                                 <span className='value'>{bondactor.Death.Place}</span>
                             </Card.Text>
                             <Card.Text className='text-left mt-4 m-2'>
-                                <span className='label'>{'Known for:\u00A0\u00A0'}</span>
-                                <span className='value'>{bondactor.KnownFor.join(',  ')}</span>
+                                <span className='textMain'>{'Also known for:\u00A0\u00A0'}</span>
+                                <span className='textMain'>{bondactor.KnownFor.join(',\u00A0\u00A0')}</span>
                             </Card.Text>
                         </Card.Body>
                         <Card.Footer className="cardFoot border-top-0">
@@ -73,7 +73,7 @@ export class BondView extends React.Component {
                                     if (movie.BondActor.Name === bondactor.Name) {
                                         return (
                                             <div key={movie._id}>
-                                                <Card style={{ width: '10em' }} className="mt-3 m-2 p-2 text-center movie-card h-100">
+                                                <Card style={{ width: '9em' }} className="pt-3 m-1 p-2 text-center movie-card h-100">
                                                     <Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
                                                     <Card.Body className='cardBody p-0'>
                                                         <Link to={`/movies/${movie._id}`}>

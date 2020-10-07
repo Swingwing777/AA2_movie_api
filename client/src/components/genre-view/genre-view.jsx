@@ -25,11 +25,11 @@ export class GenreView extends React.Component {
 
             <Container className='d-flex justify-content-center' >
                 <Row className='p-2 justify-content-center'>
-                    <Card style={{ width: 'fit-content(70%)' }} className='m-3 h-160 text-center movie-card'>
+                    <Card style={{ width: 'fit-content(80%)' }} className='m-3 h-160 text-center movie-card'>
                         <Card.Body className='cardBody p-1'>
                             <Card.Title className='titleh1 mt-3'>{genre.Name}</Card.Title>
                             <Card.Text className='value m-3'>
-                                <span className='value'>{genre.Description}</span>
+                                <span className='textMain'>{genre.Description}</span>
                             </Card.Text>
                         </Card.Body>
                         <Card.Footer className="cardFoot border-top-0">
@@ -54,7 +54,7 @@ export class GenreView extends React.Component {
                                     if (movie.Genre.Name === genre.Name) {
                                         return (
                                             <div key={movie._id}>
-                                                <Card style={{ width: '10em' }} className="mt-3 m-2 p-2 text-center movie-card h-100">
+                                                <Card style={{ width: '10em' }} className="pt-3 m-1 p-2 text-center movie-card h-100">
                                                     <Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
                                                     <Card.Body className='cardBody p-0'>
                                                         <Link to={`/movies/${movie._id}`}>

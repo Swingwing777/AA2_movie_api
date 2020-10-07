@@ -13,13 +13,13 @@ export class MovieCard extends React.Component {
     return (
       <Card style={{ width: '15em' }} className='m-3 text-center movie-card'>
         <Card.Img variant="top" src={movie.ImagePath} className='thumbNail' />
-        <Card.Body>
+        <Card.Body className='cardBody p-1'>
           <Link to={`/movies/${movie._id}`}>
-            <Card.Title>{movie.Title}</Card.Title>
+            <Card.Title className='cardTitle p-1'>{movie.Title}</Card.Title>
           </Link>
-          <Card.Text>{movie.Description.substring(0, 70)}</Card.Text>
+          <Card.Text className='cardText'>{movie.Description.substring(0, 70) + ' ...'}</Card.Text>
         </Card.Body>
-        <Card.Footer>
+        <Card.Footer className='cardFoot border-top-0'>
           <Link to={`/movies/${movie._id}`}>
             <Button className='m-auto goDetail' variant="link">More Details</Button>
           </Link>

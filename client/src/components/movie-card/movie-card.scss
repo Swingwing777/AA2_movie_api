@@ -20,9 +20,23 @@ body {
 }
 
 .cardBody,
-.cardFoot {
+.cardFoot,
+.cardTitle,
+.cardText,
+.cardFoot  {
   background-color: $backColor;
- }
+  color: $main-text;
+}
+
+.cardTitle {
+  font-size: larger;
+  text-shadow: 1px 1px 2px $shadow;
+}
+
+.cardText,
+.cardFoot {
+  font-size: medium;
+}
 
 .thumbNail {
   box-shadow: 

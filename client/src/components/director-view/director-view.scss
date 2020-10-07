@@ -38,8 +38,15 @@ $backColor: #151f25;
 }
 
 .label,
+.textMain,
 .value {
   font-size: medium;
+  color: $main-text;
+  text-shadow: 2px 2px 3px black;
+}
+
+.textMain {
+  font-size: large;
   color: $main-text;
   text-shadow: 2px 2px 3px black;
 }

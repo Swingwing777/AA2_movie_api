@@ -66,7 +66,7 @@ export class ProfileView extends React.Component {
         return (
             <Container className='d-flex justify-content-center' >
                 <Row className='p-2 justify-content-center'>
-                    <Card style={{ width: 'fit-content(70%)' }} className='m-3 h-160 text-center movie-card'>
+                    <Card style={{ width: 'fit-content(80%)' }} className='m-3 h-160 text-center movie-card'>
                         <Card.Body className='cardBody p-1'>
                             <Card.Title className='titleh1 mt-3'>Username: {user.Username}</Card.Title>
 

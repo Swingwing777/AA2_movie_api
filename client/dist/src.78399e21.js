@@ -49440,9 +49440,17 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
         variant: "top",
         src: movie.ImagePath,
         className: "thumbNail"
-      }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_reactRouterDom.Link, {
+      }), _react.default.createElement(_Card.default.Body, {
+        className: "cardBody p-1"
+      }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/movies/".concat(movie._id)
-      }, _react.default.createElement(_Card.default.Title, null, movie.Title)), _react.default.createElement(_Card.default.Text, null, movie.Description.substring(0, 70))), _react.default.createElement(_Card.default.Footer, null, _react.default.createElement(_reactRouterDom.Link, {
+      }, _react.default.createElement(_Card.default.Title, {
+        className: "cardTitle p-1"
+      }, movie.Title)), _react.default.createElement(_Card.default.Text, {
+        className: "cardText"
+      }, movie.Description.substring(0, 70) + ' ...')), _react.default.createElement(_Card.default.Footer, {
+        className: "cardFoot border-top-0"
+      }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/movies/".concat(movie._id)
       }, _react.default.createElement(_Button.default, {
         className: "m-auto goDetail",
@@ -49720,21 +49728,21 @@ var BondView = /*#__PURE__*/function (_React$Component) {
         className: "p-2 justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Card, {
         style: {
-          width: 'fit-content(70%)'
+          width: 'fit-content(80%)'
         },
         className: "m-3 h-160 text-center movie-card"
       }, _react.default.createElement(_reactBootstrap.Card.Body, {
         className: "cardBody p-1"
       }, _react.default.createElement(_reactBootstrap.Card.Img, {
         variant: "top",
-        className: "bondImage",
+        className: "bondImage pt-1",
         src: bondactor.Image
       }), _react.default.createElement(_reactBootstrap.Card.Title, {
         className: "titleh1 mt-3"
       }, bondactor.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
-        className: "value m-3"
+        className: "m-3"
       }, _react.default.createElement("span", {
-        className: "value"
+        className: "textMain"
       }, bondactor.Bio)), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
@@ -49762,10 +49770,10 @@ var BondView = /*#__PURE__*/function (_React$Component) {
       }, bondactor.Death.Place)), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
-        className: "label"
-      }, "Known for:\xA0\xA0"), _react.default.createElement("span", {
-        className: "value"
-      }, bondactor.KnownFor.join(',  ')))), _react.default.createElement(_reactBootstrap.Card.Footer, {
+        className: "textMain"
+      }, "Also known for:\xA0\xA0"), _react.default.createElement("span", {
+        className: "textMain"
+      }, bondactor.KnownFor.join(",\xA0\xA0")))), _react.default.createElement(_reactBootstrap.Card.Footer, {
         className: "cardFoot border-top-0"
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "d-flex flex-md-row justify-content-center"
@@ -49794,9 +49802,9 @@ var BondView = /*#__PURE__*/function (_React$Component) {
             key: movie._id
           }, _react.default.createElement(_reactBootstrap.Card, {
             style: {
-              width: '10em'
+              width: '9em'
             },
-            className: "mt-3 m-2 p-2 text-center movie-card h-100"
+            className: "pt-3 m-1 p-2 text-center movie-card h-100"
           }, _react.default.createElement(_reactBootstrap.Card.Img, {
             variant: "top",
             src: movie.ImagePath,
@@ -49920,7 +49928,7 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
         className: "p-2 justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Card, {
         style: {
-          width: 'fit-content(70%)'
+          width: 'fit-content(80%)'
         },
         className: "m-3 h-160 text-center movie-card"
       }, _react.default.createElement(_reactBootstrap.Card.Body, {
@@ -49930,7 +49938,7 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
       }, genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "value m-3"
       }, _react.default.createElement("span", {
-        className: "value"
+        className: "textMain"
       }, genre.Description))), _react.default.createElement(_reactBootstrap.Card.Footer, {
         className: "cardFoot border-top-0"
       }, _react.default.createElement(_reactBootstrap.Row, {
@@ -49964,7 +49972,7 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
             style: {
               width: '10em'
             },
-            className: "mt-3 m-2 p-2 text-center movie-card h-100"
+            className: "pt-3 m-1 p-2 text-center movie-card h-100"
           }, _react.default.createElement(_reactBootstrap.Card.Img, {
             variant: "top",
             src: movie.ImagePath,
@@ -50079,21 +50087,21 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
         className: "p-2 justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Card, {
         style: {
-          width: 'fit-content(70%)'
+          width: 'fit-content(80%)'
         },
         className: "m-3 h-160 text-center movie-card"
       }, _react.default.createElement(_reactBootstrap.Card.Body, {
         className: "cardBody p-1"
       }, _react.default.createElement(_reactBootstrap.Card.Img, {
         variant: "top",
-        className: "dirImage",
+        className: "dirImage pt-1",
         src: director.Image
       }), _react.default.createElement(_reactBootstrap.Card.Title, {
         className: "titleh1 mt-3"
       }, director.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
-        className: "value m-3"
+        className: "m-3"
       }, _react.default.createElement("span", {
-        className: "value"
+        className: "textMain"
       }, director.Bio)), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
@@ -50121,10 +50129,10 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
       }, director.Death.Place)), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
-        className: "label"
-      }, "Known for:\xA0\xA0"), _react.default.createElement("span", {
-        className: "value"
-      }, director.KnownFor.join(',  ')))), _react.default.createElement(_reactBootstrap.Card.Footer, {
+        className: "textMain"
+      }, "Also known for:\xA0\xA0"), _react.default.createElement("span", {
+        className: "textMain"
+      }, director.KnownFor.join(",\xA0\xA0")))), _react.default.createElement(_reactBootstrap.Card.Footer, {
         className: "cardFoot border-top-0"
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "d-flex flex-md-row justify-content-center"
@@ -50153,9 +50161,9 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
             key: movie._id
           }, _react.default.createElement(_reactBootstrap.Card, {
             style: {
-              width: '10em'
+              width: '9em'
             },
-            className: "mt-3 m-2 p-2 text-center movie-card h-100"
+            className: "pt-3 m-1 p-2 text-center movie-card h-100"
           }, _react.default.createElement(_reactBootstrap.Card.Img, {
             variant: "top",
             src: movie.ImagePath,
@@ -50328,7 +50336,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "p-2 justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Card, {
         style: {
-          width: 'fit-content(70%)'
+          width: 'fit-content(80%)'
         },
         className: "m-3 h-160 text-center movie-card"
       }, _react.default.createElement(_reactBootstrap.Card.Body, {
@@ -50849,7 +50857,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40975" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33959" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
