@@ -96,15 +96,12 @@ export class ProfileView extends React.Component {
     }
 
     render() {
-        const { movies, user, userProfile } = this.state;
-        console.log(userProfile)
+        const { user, userProfile, movies } = this.props;
+        // console.log(this.props)
 
-        if (!userProfile) return <div className="main-view" />;
+        const favoritesList = movies.filter(movie => userProfile.Favorites.includes(movie._id));
 
-        console.log("Profile page")
-        // const favoritesList = movies.filter(movie => userProfile.Favorites.includes(movie._id));
-
-        // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
+        if (!user || !userProfile || !movies || movies.length === 0) return <div>Loading.......</div>;
 
         return (
             <Container className='d-flex justify-content-center' >

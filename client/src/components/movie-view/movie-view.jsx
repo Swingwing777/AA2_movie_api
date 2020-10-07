@@ -27,8 +27,8 @@ export class MovieView extends React.Component {
                 <Card.Img variant="left" className='movie-poster' src={movie.ImagePath} />
               </Col>
               <Col>
-                <Card.Title className='titleh1 mt-3'>{movie.Title}</Card.Title>
-                <Card.Text className='text-left mt-3'>
+                <Card.Title className='titleh1 mt-3'>{movie.title}</Card.Title>
+                <Card.Text className='m-3'>
                   <span className='label'>{'Director:\u00A0\u00A0'}</span>
                   <span className='value'>{movie.Director.Name}</span>
                 </Card.Text>

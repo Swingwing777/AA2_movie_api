@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import { BrowserRouter as Router, Route, Link, Switch, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
@@ -15,6 +15,7 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { Container, Row, Button, Col } from 'react-bootstrap';
 import './main-view.scss';
 
+import { Link } from "react-router-dom";
 
 export class MainView extends React.Component {
 
@@ -106,19 +107,19 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, user, userProfile } = this.state;
+    const { movies, user } = this.state;
 
     if (!movies) return <div className="main-view" />;
 
     return (
-      <Router>
-        <Container>
-          <Row className='d-flex p-2 justify-content-around'>
-            <span className='label'>Welcome to the Bond Movies Database</span>
 
-            <NavLink to={`/users/${user}`} >
+      <Container>
+        <Row className='d-flex p-2 justify-content-around'>
+          <span className='label'>Welcome to the Bond Movies Database</span>
+          <Router>
+            <Link to={`/users/${user}`}>
               <Button className='goUserProf mx-3 mt-3' variant="link">Logged in as: {user}</Button>
-            </NavLink>
+            </Link>
             <Link to={`/update/${user}`}>
               <Button className='goUserProf mx-3 mt-3' variant="link">Update User</Button>
             </Link>
@@ -127,14 +128,12 @@ export class MainView extends React.Component {
               <Button className='logOutButton mx-3 mt-3' variant='link' type='submit' onClick={user => this.logoutUser(user)} >
                 Logout</Button>
             </Link>
+          </Router>
 
-
-          </Row>
-
+        </Row>
+        <Router>
           <div className="main-view">
             <Row className='p-2 justify-content-center'>
-              {/* <Switch> */}
-
               <Route exact path="/" render={() => {
                 if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
                 return movies.map(m => <MovieCard key={m._id} movie={m} />)
@@ -164,23 +163,18 @@ export class MainView extends React.Component {
               }
               } />
 
-              <Route path="/users/:Username" render={() => {
-                // if (!user) return <div className="main-view" />;
-                return <ProfileView
-                  //userProfile={userProfile}
-                  user={localStorage.getItem('user')}
-                  movies={movies} />
+              <Route exact path="/users/:Username" render={() => {
+                if (!user) return <div className="main-view" />;
+                return <ProfileView userProfile={userProfile} user={localStorage.getItem('user')} movies={movies} />  //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
               }
               } />
-              <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} />} />
-              {/* </Switch> */}
-
+              <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} userProfile={userProfile} />} />
             </Row>
           </div>
+        </Router>
 
+      </Container>
 
-        </Container>
-      </Router>
     );
   }
 }
