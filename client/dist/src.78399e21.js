@@ -49539,69 +49539,77 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       console.log(this.props);
       if (!movie) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
-        className: ""
+        className: "d-flex justify-content-center"
+      }, _react.default.createElement(_reactBootstrap.Card, {
+        style: {
+          width: 'fit-content(80%)'
+        },
+        className: "m-3 h-160 text-center movie-card"
+      }, _react.default.createElement(_reactBootstrap.Card.Body, {
+        className: "cardBody p-1"
       }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "movie-view d-flex"
-      }, _react.default.createElement(_reactBootstrap.Col, {
-        xs: 5
-      }, _react.default.createElement("img", {
+        className: "p-2 justify-content-center"
+      }, _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Card.Img, {
+        variant: "left",
         className: "movie-poster",
         src: movie.ImagePath
-      })), _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("span", {
+      })), _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Card.Title, {
         className: "titleh1 mt-3"
-      }, movie.Title)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, movie.title), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "m-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Director:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Name)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-4"
+      }, movie.Director.Name)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Release Year:\xA0\xA0", " "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Year)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, movie.Year)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-3"
       }, _react.default.createElement("span", {
         className: "label"
-      }, "Plot Summary:\xA0\xA0", movie.Description)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, "Plot Summary:\xA0\xA0", movie.Description)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Genre:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.Genre.Name)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, movie.Genre.Name)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Bond:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.BondActor.Name)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, movie.BondActor.Name)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Heroine:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.Heroine)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, movie.Heroine)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Villain:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.Villain)), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, movie.Villain)), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Supporting Cast:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.Actors.join(', '))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+      }, movie.Actors.join(', '))), _react.default.createElement(_reactBootstrap.Card.Text, {
+        className: "text-left mt-3"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Title Song by:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.SongArtist)), _react.default.createElement(_reactBootstrap.Row, {
+      }, movie.SongArtist))))), _react.default.createElement(_reactBootstrap.Card.Footer, {
+        className: "cardFoot border-top-0"
+      }, _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
@@ -50857,7 +50865,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33959" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37519" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
