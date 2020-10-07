@@ -17,7 +17,8 @@ body {
 }
 
 .formLabel,
-.formTitle {
+.formTitle,
+.userName {
   color: $main-text;
   font-size: x-large;
   text-shadow: 1px 1px 3px $blur-color;
