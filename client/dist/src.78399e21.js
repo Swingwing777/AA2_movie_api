@@ -49281,7 +49281,13 @@ function LoginView(props) {
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
       password = _useState4[0],
-      setPassword = _useState4[1];
+      setPassword = _useState4[1]; //ok whatsup?
+  // I am not aware of changing anything, but when I login as a user, I see a token logged by the console, but I also get the 'no such user' error from line 31.  And no data is saved to localStorage.
+  // Stndby
+  //did the watch thing work.  No.  For some reason the localhost stopped responding.
+  //hmm... is it working now?  No.  ypeError: Cannot read property 'data' of undefined
+  // at login-view.jsx:32 now?
+
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
@@ -49294,6 +49300,8 @@ function LoginView(props) {
       var data = response.data;
       props.onLoggedIn(data);
     }).catch(function (e) {
+      console.log(e.response); //what does this line show
+
       console.log('no such user: ' + e);
     });
   };
@@ -56023,6 +56031,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           user = _this$state.user,
           userProfile = _this$state.userProfile;
       console.log(userProfile);
+      console.log('profile view');
       if (!userProfile) return _react.default.createElement("div", {
         className: "main-view"
       });
@@ -56318,7 +56327,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         className: "main-view"
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "p-2 justify-content-center"
-      }, _react.default.createElement(_reactRouterDom.Route, {
+      }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/",
         render: function render() {
@@ -56412,7 +56421,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             user: localStorage.getItem('user')
           });
         }
-      })))));
+      }))))));
     }
   }]);
 
@@ -56535,7 +56544,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33587" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36143" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

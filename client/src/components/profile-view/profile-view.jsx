@@ -98,6 +98,7 @@ export class ProfileView extends React.Component {
   render() {
     const { movies, user, userProfile } = this.state;
     console.log(userProfile)
+    console.log('profile view');
 
     if (!userProfile) return <div className="main-view" />;
 

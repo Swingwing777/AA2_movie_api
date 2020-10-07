@@ -141,47 +141,47 @@ export class MainView extends React.Component {
 
           <div className="main-view">
             <Row className='p-2 justify-content-center'>
-              {/* <Switch> */}
+              <Switch>
 
-              <Route exact path="/" render={() => {
-                if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-                return movies.map(m => <MovieCard key={m._id} movie={m} />)
-              }
-              } />
-              <Route path="/register" render={() => <RegistrationView />} />
+                <Route exact path="/" render={() => {
+                  if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+                  return movies.map(m => <MovieCard key={m._id} movie={m} />)
+                }
+                } />
+                <Route path="/register" render={() => <RegistrationView />} />
 
-              <Route path="/movies/:movieId" render={({ match }) =>
-                <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-              {/* <Route exact path="/" render={Welcome} /> */}
+                <Route path="/movies/:movieId" render={({ match }) =>
+                  <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+                {/* <Route exact path="/" render={Welcome} /> */}
 
-              <Route exact path="/actors/:movie/:name" render={({ match }) => {
-                if (!movies) return <div className="main-view" />;
-                return <BondView bondactor={movies.find(m => m.BondActor.Name === match.params.name).BondActor} movies={movies} />
-              }
-              } />
+                <Route exact path="/actors/:movie/:name" render={({ match }) => {
+                  if (!movies) return <div className="main-view" />;
+                  return <BondView bondactor={movies.find(m => m.BondActor.Name === match.params.name).BondActor} movies={movies} />
+                }
+                } />
 
-              <Route exact path="/directors/:movie/:name" render={({ match }) => {
-                if (!movies) return <div className="main-view" />;
-                return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} movies={movies} />
-              }
-              } />
+                <Route exact path="/directors/:movie/:name" render={({ match }) => {
+                  if (!movies) return <div className="main-view" />;
+                  return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} movies={movies} />
+                }
+                } />
 
-              <Route exact path="/genres/:movie/:name" render={({ match }) => {
-                if (!movies) return <div className="main-view" />;
-                return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} movies={movies} />
-              }
-              } />
+                <Route exact path="/genres/:movie/:name" render={({ match }) => {
+                  if (!movies) return <div className="main-view" />;
+                  return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} movies={movies} />
+                }
+                } />
 
-              <Route path="/users/:Username" render={() => {
-                // if (!user) return <div className="main-view" />;
-                return <ProfileView
-                  //userProfile={userProfile}
-                  user={localStorage.getItem('user')}
-                  movies={movies} />
-              }
-              } />
-              <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} />} />
-              {/* </Switch> */}
+                <Route path="/users/:Username" render={() => {
+                  // if (!user) return <div className="main-view" />;
+                  return <ProfileView
+                    //userProfile={userProfile}
+                    user={localStorage.getItem('user')}
+                    movies={movies} />
+                }
+                } />
+                <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} />} />
+              </Switch>
 
             </Row>
           </div>

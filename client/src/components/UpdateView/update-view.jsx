@@ -47,7 +47,8 @@ export function UpdateView(props) {
   // if (username === 'Registered') return <LoginView onLoggedIn={user => this.handleSubmit(user)} />;
 
   return (
-    <Container className='formwrapper' >
+
+    < Container className='formwrapper' >
       <Form className='p-md-3'>
         <Form.Row className='d-flex flex-md-row justify-content-center'>
           <Form.Label size='lg' className='formTitle'>Please Register</Form.Label>
@@ -106,7 +107,7 @@ export function UpdateView(props) {
           </Link>
         </Form.Row>
       </Form >
-    </Container>
+    </Container >
   );
 }
 
