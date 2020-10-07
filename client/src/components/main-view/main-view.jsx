@@ -30,8 +30,8 @@ export class MainView extends React.Component {
 
   // new method to get movies
   getMovies(token) {
-    axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {   //https://cors-anywhere.herokuapp.com
-      headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
+    axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
         console.log(response.data);
@@ -48,18 +48,16 @@ export class MainView extends React.Component {
   }
 
   getUser(token) {
-    //let user = localstorage.getItem('user')
-    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${localStorage.getItem('user')}`, {   //https://cors-anywhere.herokuapp.com
-      headers: { Authorization: `Bearer ${token}` }        //Access-Control-Allows-Origin: *
+    let user = localStorage.getItem('user')
+    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+      headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
         // const userProfile = response.data;
         console.log(response.data);
 
-        // Assign the result to the state
-
         this.setState({
-          userProfile: userProfile
+          userProfile: response.data
         });
 
         console.log('This is user: ' + response.data.Username);
@@ -89,6 +87,7 @@ export class MainView extends React.Component {
     this.setState({
       user: authData.user.Username
     });
+    console.log(`This is user: ${user}`)
 
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
@@ -100,9 +99,11 @@ export class MainView extends React.Component {
     e.preventDefault();
     console.log('Logged out');
     this.setState({
+      user: undefined
+    });
+    this.setState({
       user: null
     });
-
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   }
@@ -137,7 +138,6 @@ export class MainView extends React.Component {
             <Row className='p-2 justify-content-center'>
               {/* <Switch> */}
 
-
               <Route exact path="/" render={() => {
                 if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
                 return movies.map(m => <MovieCard key={m._id} movie={m} />)
@@ -170,12 +170,12 @@ export class MainView extends React.Component {
               <Route path="/users/:Username" render={() => {
                 // if (!user) return <div className="main-view" />;
                 return <ProfileView
-                  userProfile={userProfile}
+                  //userProfile={userProfile}
                   user={localStorage.getItem('user')}
                   movies={movies} />
               }
               } />
-              <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} userProfile={userProfile} />} />
+              <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} />} />
               {/* </Switch> */}
 
             </Row>
