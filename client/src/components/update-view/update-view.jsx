@@ -54,7 +54,7 @@ export function UpdateView(props) {
         <Form.Row className='justify-content-center mt-3'>
           <Form.Group as={Col} controlId='formGridUsername'>
             <Form.Label className='formLabel'>Username:  </Form.Label>
-            <Form.Row className='justify-content-center mt-3'>{username}</Form.Row>
+            <Form.Row className='userName justify-content-center mt-3'>{username}</Form.Row>
           </Form.Group>
 
           <Form.Group as={Col} controlId='formGridPassword'>
@@ -63,7 +63,7 @@ export function UpdateView(props) {
               className='entryField'
               type='password'
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={e => updatePassword(e.target.value)}
               placeholder='Enter Password' />
           </Form.Group>
         </Form.Row>
@@ -75,7 +75,7 @@ export function UpdateView(props) {
               className='entryField'
               type='email'
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={e => updateEmail(e.target.value)}
               placeholder='Enter Email' />
 
           </Form.Group>
@@ -86,7 +86,7 @@ export function UpdateView(props) {
               className='entryField'
               type='date'
               value={birthday}
-              onChange={e => setBirthday(e.target.value)}
+              onChange={e => updateBirthday(e.target.value)}
               placeholder='Enter Birthday' />
           </Form.Group>
         </Form.Row>
