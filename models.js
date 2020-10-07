@@ -43,7 +43,7 @@ let directorSchema = mongoose.Schema({
   Bio: { type: String, required: true },
   Birth: {
     Date: Date,
-    Place: { type: String, required: true }
+    Place: String    // Cannot be required due to Casino Royale(1967) multiple directors
   },
   Death: {
     Date: Date,

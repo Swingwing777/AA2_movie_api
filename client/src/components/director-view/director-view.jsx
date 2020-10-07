@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Button, Card, Row } from 'react-bootstrap';
-
+import moment from 'moment';
 import { Link } from "react-router-dom";
 
 import './director-view.scss';
@@ -30,20 +30,23 @@ export class DirectorView extends React.Component {
                                 <span className='textMain'>{director.Bio}</span>
                             </Card.Text>
                             <Card.Text className='text-left mt-4 m-2'>
-                                <span className='label'>{'Date of Birth:\u00A0\u00A0'} </span>
-                                <span className='value'>{director.Birth.Date}</span>
+                                <span className='label'>{
+                                    director.Birth.Date ?
+                                        'Born:\u00A0\u00A0' +
+                                        moment(director.Birth.Date).format('D MMM YYYY') +
+                                        ',\u00A0\u00A0' + director.Birth.Place :
+                                        ''}
+                                </span>
                             </Card.Text>
                             <Card.Text className='text-left m-2'>
-                                <span className='label'>{'Place of Birth:\u00A0\u00A0'}</span>
-                                <span className='value'>{director.Birth.Place}</span>
-                            </Card.Text>
-                            <Card.Text className='text-left m-2'>
-                                <span className='label'>{'Date of Death:\u00A0\u00A0'}</span>
-                                <span className='value'>{director.Death.Date}</span>
-                            </Card.Text>
-                            <Card.Text className='text-left m-2'>
-                                <span className='label'>{'Place of Death:\u00A0\u00A0'}</span>
-                                <span className='value'>{director.Death.Place}</span>
+                                {/* <span className='label'>{'Place:\u00A0\u00A0'}</span> */}
+                                <span className='value'>{
+                                    director.Death.Date ?
+                                        'Died:\u00A0\u00A0' +
+                                        moment(director.Death.Date).format('D MMM YYYY') +
+                                        ',\u00A0\u00A0' + director.Death.Place :
+                                        ''}
+                                </span>
                             </Card.Text>
                             <Card.Text className='text-left mt-4 m-2'>
                                 <span className='textMain'>{'Also known for:\u00A0\u00A0'}</span>

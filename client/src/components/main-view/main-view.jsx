@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, NavLink } from 'react-router-dom';
 
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
@@ -15,7 +15,6 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { Container, Row, Button, Col } from 'react-bootstrap';
 import './main-view.scss';
 
-import { Link } from "react-router-dom";
 
 export class MainView extends React.Component {
 
@@ -110,21 +109,21 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, user } = this.state;
+    const { movies, user, userProfile } = this.state;
 
     // console.log(user)
 
     if (!movies) return <div className="main-view" />;
 
     return (
+      <Router>
+        <Container>
+          <Row className='d-flex p-2 justify-content-around'>
+            <span className='label'>Welcome to the Bond Movies Database</span>
 
-      <Container>
-        <Row className='d-flex p-2 justify-content-around'>
-          <span className='label'>Welcome to the Bond Movies Database</span>
-          <Router>
-            <Link to={`/users/${user}`}>
-              <Button className='goUserProf mx-3 mt-3' variant="link">Logged in as: {user}</Button>
-            </Link>
+            <NavLink to={`/users/${user}`} className="goUserProf mx-3 mt-3">
+              Logged in as: {user}
+            </NavLink>
             <Link to={`/update/${user}`}>
               <Button className='goUserProf mx-3 mt-3' variant="link">Update User</Button>
             </Link>
@@ -133,53 +132,64 @@ export class MainView extends React.Component {
               <Button className='logOutButton mx-3 mt-3' variant='link' type='submit' onClick={user => this.logoutUser(user)} >
                 Logout</Button>
             </Link>
-          </Router>
 
-        </Row>
-        <Router>
+
+          </Row>
+
           <div className="main-view">
             <Row className='p-2 justify-content-center'>
-              <Route exact path="/" render={() => {
-                if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-                return movies.map(m => <MovieCard key={m._id} movie={m} />)
-              }
-              } />
-              <Route path="/register" render={() => <RegistrationView />} />
+              <Switch>
 
-              <Route path="/movies/:movieId" render={({ match }) =>
-                <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-              {/* <Route exact path="/" render={Welcome} /> */}
 
-              <Route exact path="/actors/:movie/:name" render={({ match }) => {
-                if (!movies) return <div className="main-view" />;
-                return <BondView bondactor={movies.find(m => m.BondActor.Name === match.params.name).BondActor} movies={movies} />
-              }
-              } />
+                <Route exact path="/" render={() => {
+                  if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+                  return movies.map(m => <MovieCard key={m._id} movie={m} />)
+                }
+                } />
+                <Route path="/register" render={() => <RegistrationView />} />
 
-              <Route exact path="/directors/:movie/:name" render={({ match }) => {
-                if (!movies) return <div className="main-view" />;
-                return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} movies={movies} />
-              }
-              } />
+                <Route path="/movies/:movieId" render={({ match }) =>
+                  <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+                {/* <Route exact path="/" render={Welcome} /> */}
 
-              <Route exact path="/genres/:movie/:name" render={({ match }) => {
-                if (!movies) return <div className="main-view" />;
-                return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} movies={movies} />
-              }
-              } />
+                <Route exact path="/actors/:movie/:name" render={({ match }) => {
+                  if (!movies) return <div className="main-view" />;
+                  return <BondView bondactor={movies.find(m => m.BondActor.Name === match.params.name).BondActor} movies={movies} />
+                }
+                } />
 
-              <Route exact path="/users/:Username" render={() => {
-                if (!user) return <div className="main-view" />;
-                return <ProfileView userProfile={userProfile} user={localStorage.getItem('user')} movies={movies} />  //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
-              }
-              } />
-              <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} userProfile={userProfile} />} />
+                <Route exact path="/directors/:movie/:name" render={({ match }) => {
+                  if (!movies) return <div className="main-view" />;
+                  return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} movies={movies} />
+                }
+                } />
+
+                <Route exact path="/genres/:movie/:name" render={({ match }) => {
+                  if (!movies) return <div className="main-view" />;
+                  return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} movies={movies} />
+                }
+                } />
+
+                <Route path="/users/:Username" render={() => {
+                  // if (!user) return <div className="main-view" />;
+                  //userProfile isnt defined. where does it come from?
+                  // I set it as a state at line 62.  In the getUser method.userProfile={userProfile}
+                  //i added it to 112
+                  return <ProfileView
+                    userProfile={userProfile}
+                    user={localStorage.getItem('user')}
+                    movies={movies} />  //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
+                }
+                } />
+                <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} userProfile={userProfile} />} />
+              </Switch>
+
             </Row>
           </div>
-        </Router>
 
-      </Container>
 
+        </Container>
+      </Router>
     );
   }
 }
