@@ -35,6 +35,7 @@ passport.use(new LocalStrategy({
   });
 }));
 
+console.log("secret: ", process.env.MY_SECRET);
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.MY_SECRET
@@ -44,6 +45,7 @@ passport.use(new JWTStrategy({
       return callback(null, user);
     })
     .catch((error) => {
+      console.log(error)
       return callback(error)
     });
 }));

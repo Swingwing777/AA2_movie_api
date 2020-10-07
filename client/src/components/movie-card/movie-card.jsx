@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import './movie-card.scss';
-
 import { Link } from "react-router-dom";
+import './movie-card.scss';
 
 export class MovieCard extends React.Component {
   render() {

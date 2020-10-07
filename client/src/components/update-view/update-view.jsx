@@ -3,7 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { LoginView } from '../login-view/login-view';
 import { Form, Container, Col, Button, Row } from 'react-bootstrap';
-
+// import { RegistrationView } from '../registration-view/registration-view';
 import './update-view.scss';
 
 import { Link } from "react-router-dom";
@@ -13,9 +13,6 @@ export function UpdateView(props) {
   const [password, updatePassword] = useState('');
   const [email, updateEmail] = useState('');
   const [birthday, updateBirthday] = useState('');
-
-  // Try this
-  const user = this.props;
 
   const updateUser = (e) => {
     e.preventDefault();
@@ -111,7 +108,7 @@ export function UpdateView(props) {
   );
 }
 
-RegistrationView.propTypes = {
+UpdateView.propTypes = {
   Username: PropTypes.string,
   Password: PropTypes.string,
   Email: PropTypes.string,

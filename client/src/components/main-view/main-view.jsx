@@ -11,6 +11,7 @@ import { BondView } from '../bond-view/bond-view';
 import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
 import { ProfileView } from '../profile-view/profile-view';
+import { UpdateView } from '../update-view/update-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { Container, Row, Button, Col } from 'react-bootstrap';
 import './main-view.scss';

@@ -8,19 +8,8 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { BrowserRouter as Router, Route, Link, Switch, NavLink } from 'react-router-dom';
 
 export function LoginView(props) {
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('admin');
-  //ok whatsup?
-  // I am not aware of changing anything, but when I login as a user, I see a token logged by the console, but I also get the 'no such user' error from line 31.  And no data is saved to localStorage.
-  // Stndby
-  //did the watch thing work.  No.  For some reason the localhost stopped responding.
-  //hmm... is it working now?  No.  ypeError: Cannot read property 'data' of undefined
-  // at login-view.jsx:32 now?
-  // response in console undefined
-  // login-view.jsx:35 no such user: ReferenceError: user is not defined
-  //does the user exist? yes.  I keep checking mongodb.  admin / admin works on Postman
-  //try on postman
-
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +23,7 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch(e => {
-        console.log(e.response) //what does this line show
+        //console.log(e.response) //what does this line show -'undefined'
         console.log('no such user: ' + e)
       });
   };
