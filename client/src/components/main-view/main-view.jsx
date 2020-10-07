@@ -24,6 +24,7 @@ export class MainView extends React.Component {
 
     this.state = {
       movies: [],
+      selectedMovie: null,
       userProfile: null,
       user: null
     };
@@ -67,7 +68,6 @@ export class MainView extends React.Component {
         console.log('Sorry, there has been an error: ' + error);
       });
   }
-
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
@@ -137,7 +137,6 @@ export class MainView extends React.Component {
                 Logout</Button>
             </Link>
 
-
           </Row>
 
           <div className="main-view">
@@ -153,7 +152,6 @@ export class MainView extends React.Component {
 
                 <Route path="/movies/:movieId" render={({ match }) =>
                   <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-                {/* <Route exact path="/" render={Welcome} /> */}
 
                 <Route exact path="/actors/:movie/:name" render={({ match }) => {
                   if (!movies) return <div className="main-view" />;

@@ -49284,6 +49284,7 @@ function LoginView(props) {
       setPassword = _useState4[1];
 
   var handleSubmit = function handleSubmit(e) {
+    console.log(username, password);
     e.preventDefault();
     /* Send a request to the server for authentication */
 
@@ -49352,12 +49353,12 @@ function LoginView(props) {
     onClick: handleSubmit
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.Link, {
+  }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
     to: "/register"
   }, _react.default.createElement(_reactBootstrap.Button, {
     className: "formButton mt-3",
     variant: "link"
-  }, "Register User")))));
+  }, "Register User"))))));
 }
 /* using .required for PropTypes before login is pointless,
 as it flags warnings for entries that have not 
@@ -49389,9 +49390,9 @@ var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
-require("./movie-card.scss");
-
 var _reactRouterDom = require("react-router-dom");
+
+require("./movie-card.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49471,7 +49472,7 @@ MovieCard.propTypes = {
     ImagePath: _propTypes.default.string.isRequired
   }).isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./movie-card.scss":"components/movie-card/movie-card.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-view/movie-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-card.scss":"components/movie-card/movie-card.scss"}],"components/movie-view/movie-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -56372,6 +56373,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _this.state = {
       movies: [],
+      selectedMovie: null,
       userProfile: null,
       user: null
     };
@@ -56719,7 +56721,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46261" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40655" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -7,8 +7,6 @@ import './genre-view.scss';
 
 import { Link } from "react-router-dom";
 
-import './genre-view.scss';
-
 export class GenreView extends React.Component {
 
   constructor() {
