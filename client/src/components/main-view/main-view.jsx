@@ -55,7 +55,8 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        // const userProfile = response.data;
+        // Try this
+        const userProfile = response.data;
         console.log(response.data);
 
         this.setState({
@@ -117,6 +118,8 @@ export class MainView extends React.Component {
 
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
+    // console.log(user)
+
     if (!movies) return <div className="main-view" />;
 
     return (
@@ -125,8 +128,8 @@ export class MainView extends React.Component {
           <Row className='d-flex p-2 justify-content-around'>
             <span className='label'>Welcome to the Bond Movies Database</span>
 
-            <NavLink to={`/users/${user}`} >
-              <Button className='goUserProf mx-3 mt-3' variant="link">Logged in as: {user}</Button>
+            <NavLink to={`/users/${user}`} className="goUserProf mx-3 mt-3">
+              Logged in as: {user}
             </NavLink>
             <Link to={`/update/${user}`}>
               <Button className='goUserProf mx-3 mt-3' variant="link">Update User</Button>
@@ -152,6 +155,7 @@ export class MainView extends React.Component {
 
                 <Route path="/movies/:movieId" render={({ match }) =>
                   <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+                {/* <Route exact path="/" render={Welcome} /> */}
 
                 <Route exact path="/actors/:movie/:name" render={({ match }) => {
                   if (!movies) return <div className="main-view" />;
@@ -173,13 +177,16 @@ export class MainView extends React.Component {
 
                 <Route path="/users/:Username" render={() => {
                   // if (!user) return <div className="main-view" />;
+                  //userProfile isnt defined. where does it come from?
+                  // I set it as a state at line 62.  In the getUser method.userProfile={userProfile}
+                  //i added it to 112
                   return <ProfileView
-                    //userProfile={userProfile}
+                    userProfile={userProfile}
                     user={localStorage.getItem('user')}
-                    movies={movies} />
+                    movies={movies} />  //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
                 }
                 } />
-                <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} />} />
+                <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} userProfile={userProfile} />} />
               </Switch>
 
             </Row>
