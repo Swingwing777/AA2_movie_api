@@ -49292,7 +49292,7 @@ function LoginView(props) {
       Password: password
     }).then(function (response) {
       var data = response.data;
-      props.onLoggedIn(data);
+      props.onLoggedIn(username);
     }).catch(function (e) {
       console.log('no such user: ' + e);
     });
@@ -56255,6 +56255,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
+    key: "onMovieClick",
+    value: function onMovieClick(movie) {
+      this.setState({
+        selectedMovie: movie
+      });
+    }
+  }, {
     key: "onLoggedIn",
     value: function onLoggedIn(authData) {
       console.log(authData);
@@ -56274,7 +56281,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           movies = _this$state.movies,
           user = _this$state.user,
+          selectedMovie = _this$state.selectedMovie,
           userProfile = _this$state.userProfile;
+      if (!user) return _react.default.createElement(_loginView.LoginView, {
+        onLoggedIn: function onLoggedIn(user) {
+          return _this4.onLoggedIn(user);
+        }
+      });
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
@@ -56522,7 +56535,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42607" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41553" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
