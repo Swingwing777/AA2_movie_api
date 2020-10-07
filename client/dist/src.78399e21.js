@@ -55927,19 +55927,14 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ProfileView);
 
     _this = _super.call(this);
-<<<<<<< HEAD
     _this.state = {
       user: localStorage.getItem('user'),
       userProfile: null
     };
-=======
-    _this.state = {};
->>>>>>> parent of f45872d... MainView User Profile button styled
     return _this;
   }
 
   _createClass(ProfileView, [{
-<<<<<<< HEAD
     key: "getUser",
     value: function getUser(token) {
       var _this2 = this;
@@ -55975,8 +55970,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       this.getUser(accessToken);
     }
   }, {
-=======
->>>>>>> parent of f45872d... MainView User Profile button styled
     key: "deleteFavorite",
     value: function deleteFavorite(token, movieId) {
       // let accessToken = localStorage.getItem('token');
@@ -55997,13 +55990,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "deleteProfile",
-<<<<<<< HEAD
     value: function deleteProfile(token) {
       var _this3 = this;
-=======
-    value: function deleteProfile() {
-      var _this2 = this;
->>>>>>> parent of f45872d... MainView User Profile button styled
 
       var user = localStorage.getItem('user');
 
@@ -56019,11 +56007,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
 
-<<<<<<< HEAD
         _this3.setState({
-=======
-        _this2.setState({
->>>>>>> parent of f45872d... MainView User Profile button styled
           user: null
         }); //window.open('/', '_self');
 
@@ -56034,7 +56018,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-<<<<<<< HEAD
       var _this4 = this;
 
       var _this$state = this.state,
@@ -56048,20 +56031,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       });
       console.log("Profile page"); // const favoritesList = movies.filter(movie => userProfile.Favorites.includes(movie._id));
       // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
-=======
-      var _this3 = this;
 
-      var _this$props = this.props,
-          user = _this$props.user,
-          userProfile = _this$props.userProfile,
-          movies = _this$props.movies; // console.log(this.props)
->>>>>>> parent of f45872d... MainView User Profile button styled
-
-      console.log("Profile page");
-      var favoritesList = movies.filter(function (movie) {
-        return userProfile.Favorites.includes(movie._id);
-      });
-      if (!user || !movies || movies.length === 0) return _react.default.createElement("div", null, "Loading.......");
       return _react.default.createElement(_reactBootstrap.Container, {
         className: "d-flex justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Row, {
@@ -56108,11 +56078,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, "Movie")), _react.default.createElement(_reactRouterDom.Link, {
         to: "",
         onClick: function onClick() {
-<<<<<<< HEAD
           return _this4.deleteProfile();
-=======
-          return _this3.deleteProfile();
->>>>>>> parent of f45872d... MainView User Profile button styled
         }
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 deleteMe",
@@ -56124,44 +56090,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         variant: "link"
       }, "Update Details")))))), _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
         className: "text-center mt-4 m-2"
-<<<<<<< HEAD
       }, "My Favourite Movies:\xA0\xA0")));
-=======
-      }, "My Favourite Movies:\xA0\xA0"), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("div", {
-        className: "d-flex row m-2"
-      }, favoritesList.map(function (movie) {
-        if (movie.BondActor.Name === bondactor.Name) {
-          return _react.default.createElement("div", {
-            key: movie._id
-          }, _react.default.createElement(_reactBootstrap.Card, {
-            style: {
-              width: '10em'
-            },
-            className: "mt-3 m-2 p-2 text-center movie-card h-100"
-          }, _react.default.createElement(_reactBootstrap.Card.Img, {
-            variant: "top",
-            src: movie.ImagePath,
-            className: "thumbNail m-auto"
-          }), _react.default.createElement(_reactBootstrap.Card.Body, {
-            className: "cardBody p-0"
-          }, _react.default.createElement(_reactRouterDom.Link, {
-            to: "/movies/".concat(movie._id)
-          }, _react.default.createElement(_reactBootstrap.Card.Title, {
-            className: "titleh2 p-1"
-          }, movie.Title))), _react.default.createElement(_reactBootstrap.Card.Footer, {
-            className: "cardFoot border-top-0 d-flex justify-content-center"
-          }, _react.default.createElement(_reactRouterDom.Link, {
-            to: "",
-            onClick: function onClick() {
-              return _this3.deleteFavorite(movie._id);
-            }
-          }, _react.default.createElement(_reactBootstrap.Button, {
-            variant: "link",
-            className: "goDetail2"
-          }, "Read more")))));
-        }
-      })))));
->>>>>>> parent of f45872d... MainView User Profile button styled
     }
   }]);
 
@@ -56283,7 +56212,7 @@ function UpdateView(props) {
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
     className: "formLabel"
   }, "Username:  "), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "justify-content-center mt-3"
+    className: "userName justify-content-center mt-3"
   }, username)), _react.default.createElement(_reactBootstrap.Form.Group, {
     as: _reactBootstrap.Col,
     controlId: "formGridPassword"
@@ -56294,7 +56223,7 @@ function UpdateView(props) {
     type: "password",
     value: password,
     onChange: function onChange(e) {
-      return setPassword(e.target.value);
+      return updatePassword(e.target.value);
     },
     placeholder: "Enter Password"
   }))), _react.default.createElement(_reactBootstrap.Form.Row, {
@@ -56309,7 +56238,7 @@ function UpdateView(props) {
     type: "email",
     value: email,
     onChange: function onChange(e) {
-      return setEmail(e.target.value);
+      return updateEmail(e.target.value);
     },
     placeholder: "Enter Email"
   })), _react.default.createElement(_reactBootstrap.Form.Group, {
@@ -56322,7 +56251,7 @@ function UpdateView(props) {
     type: "date",
     value: birthday,
     onChange: function onChange(e) {
-      return setBirthday(e.target.value);
+      return updateBirthday(e.target.value);
     },
     placeholder: "Enter Birthday"
   }))), _react.default.createElement(_reactBootstrap.Row, {
@@ -56486,14 +56415,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-<<<<<<< HEAD
-        // const userProfile = response.data;
-        console.log(response.data);
-=======
         // Try this
         var userProfile = response.data;
-        console.log(response.data); // Assign the result to the state
->>>>>>> parent of f45872d... MainView User Profile button styled
+        console.log(response.data);
 
         _this3.setState({
           userProfile: response.data
@@ -56544,18 +56468,14 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           movies = _this$state.movies,
           user = _this$state.user,
-<<<<<<< HEAD
           selectedMovie = _this$state.selectedMovie,
           userProfile = _this$state.userProfile;
       if (!user) return _react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
           return _this4.onLoggedIn(user);
         }
-      });
-=======
-          userProfile = _this$state.userProfile; // console.log(user)
+      }); // console.log(user)
 
->>>>>>> parent of f45872d... MainView User Profile button styled
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
@@ -56664,16 +56584,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         path: "/users/:Username",
         render: function render() {
           // if (!user) return <div className="main-view" />;
-<<<<<<< HEAD
-          return _react.default.createElement(_profileView.ProfileView //userProfile={userProfile}
-          , {
-=======
           //userProfile isnt defined. where does it come from?
           // I set it as a state at line 62.  In the getUser method.userProfile={userProfile}
           //i added it to 112
           return _react.default.createElement(_profileView.ProfileView, {
             userProfile: userProfile,
->>>>>>> parent of f45872d... MainView User Profile button styled
             user: localStorage.getItem('user'),
             movies: movies
           }); //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
@@ -56683,7 +56598,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         path: "/update/:Username",
         render: function render() {
           return _react.default.createElement(_updateView.UpdateView, {
-            user: localStorage.getItem('user')
+            user: localStorage.getItem('user'),
+            userProfile: userProfile
           });
         }
       }))))));
@@ -56809,11 +56725,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-<<<<<<< HEAD
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40655" + '/');
-=======
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42715" + '/');
->>>>>>> parent of f45872d... MainView User Profile button styled
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "32895" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
