@@ -8,151 +8,151 @@ import { Link } from "react-router-dom";
 
 export class ProfileView extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            user: localStorage.getItem('user'),
-            userProfile: null
-        }
+  constructor() {
+    super();
+    this.state = {
+      user: localStorage.getItem('user'),
+      userProfile: null
     }
+  }
 
-    getUser(token) {
-        let user = localStorage.getItem('user')
-        axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            .then(response => {
-                const userProfile = response.data;
-                console.log(response.data);
+  getUser(token) {
+    let user = localStorage.getItem('user')
+    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        const userProfile = response.data;
+        console.log(response.data);
 
-                this.setState({
-                    userProfile: userProfile
-                });
+        this.setState({
+          userProfile: userProfile
+        });
 
-                console.log('This is user: ' + userProfile.Username);
-            })
-            .catch(function (error) {
-                console.log('Sorry, there has been an error: ' + error);
-            });
-    }
+        console.log('This is user: ' + userProfile.Username);
+      })
+      .catch(function (error) {
+        console.log('Sorry, there has been an error: ' + error);
+      });
+  }
 
-    componentDidMount() {
-        let accessToken = localStorage.getItem('token');
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
 
-        // if (accessToken !== null) {
-        //   this.setState({
-        //     user: localStorage.getItem('user')
-        //   });
+    // if (accessToken !== null) {
+    //   this.setState({
+    //     user: localStorage.getItem('user')
+    //   });
 
-        // If user and access token are present, can call getMovies & getUser methods.
-        this.getUser(accessToken);
+    // If user and access token are present, can call getMovies & getUser methods.
+    this.getUser(accessToken);
 
-    }
+  }
 
 
-    deleteFavorite(token, movieId) {
-        // let accessToken = localStorage.getItem('token');
-        let user = localStorage.getItem('user');
-        axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
-            headers: { Authorization: `Bearer ${token}` }
-        })
-            // .then(res => {
-            //     document.location.reload(true);
-            // })
-            .then(res => {
-                alert('Movie successfully deleted from favorites');
-            })
+  deleteFavorite(token, movieId) {
+    // let accessToken = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
+    axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      // .then(res => {
+      //     document.location.reload(true);
+      // })
+      .then(res => {
+        alert('Movie successfully deleted from favorites');
+      })
 
-            .catch(e => {
-                alert('Movie could not be deleted from favorites ' + e)
-            });
-    }
+      .catch(e => {
+        alert('Movie could not be deleted from favorites ' + e)
+      });
+  }
 
-    deleteProfile(token) {
-        let user = localStorage.getItem('user')
-        axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`,
-            {
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            })
-            .then(res => {
-                alert('Do you really want to delete your account?')
-            })
-            .then(res => {
-                alert('Account was successfully deleted')
-            })
-            .then(res => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('user');
+  deleteProfile(token) {
+    let user = localStorage.getItem('user')
+    axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      })
+      .then(res => {
+        alert('Do you really want to delete your account?')
+      })
+      .then(res => {
+        alert('Account was successfully deleted')
+      })
+      .then(res => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
 
-                this.setState({
-                    user: null
+        this.setState({
+          user: null
 
-                });
-                //window.open('/', '_self');
-            })
-            .catch(e => {
-                alert('Account could not be deleted ' + e)
-            });
-    }
+        });
+        //window.open('/', '_self');
+      })
+      .catch(e => {
+        alert('Account could not be deleted ' + e)
+      });
+  }
 
-    render() {
-        const { movies, user, userProfile } = this.state;
-        console.log(userProfile)
+  render() {
+    const { movies, user, userProfile } = this.state;
+    console.log(userProfile)
 
-        if (!userProfile) return <div className="main-view" />;
+    if (!userProfile) return <div className="main-view" />;
 
-        console.log("Profile page")
-        // const favoritesList = movies.filter(movie => userProfile.Favorites.includes(movie._id));
+    console.log("Profile page")
+    // const favoritesList = movies.filter(movie => userProfile.Favorites.includes(movie._id));
 
-        // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
+    // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
 
-        return (
-            <Container className='d-flex justify-content-center' >
-                <Row className='p-2 justify-content-center'>
-                    <Card style={{ width: 'fit-content(80%)' }} className='m-3 h-160 text-center movie-card'>
-                        <Card.Body className='cardBody p-1'>
-                            <Card.Title className='titleh1 mt-3'>Username: {userProfile.Username}</Card.Title>
+    return (
+      <Container className='d-flex justify-content-center' >
+        <Row className='p-2 justify-content-center'>
+          <Card style={{ width: 'fit-content(80%)' }} className='m-3 h-160 text-center movie-card'>
+            <Card.Body className='cardBody p-1'>
+              <Card.Title className='titleh1 mt-3'>Username: {userProfile.Username}</Card.Title>
 
-                            <Card.Text className='text-left mt-4 m-2'>
-                                <span className='label'>{'Email:\u00A0\u00A0'} </span>
-                                <span className='value'>{userProfile.Email}</span>
-                            </Card.Text>
-                            <Card.Text className='text-left mt-4 m-2'>
-                                <span className='label'>{'Birthday:\u00A0\u00A0'}</span>
-                                <span className='valueh1'>{userProfile.Birthday}</span>
-                            </Card.Text>
-                            <Card.Text className='text-left mt-4 m-2'>
-                                <span className='label'>{'Favorite Bond Movies:\u00A0\u00A0'}</span>
-                                <span className='valueh1'>{
-                                    userProfile.FavoriteMovies[0] ?
-                                        userProfile.FavoriteMovies.join(',\u00A0\u00A0') :
-                                        'You have not chosen any favourite movies'}</span>
-                            </Card.Text>
+              <Card.Text className='text-left mt-4 m-2'>
+                <span className='label'>{'Email:\u00A0\u00A0'} </span>
+                <span className='value'>{userProfile.Email}</span>
+              </Card.Text>
+              <Card.Text className='text-left mt-4 m-2'>
+                <span className='label'>{'Birthday:\u00A0\u00A0'}</span>
+                <span className='valueh1'>{userProfile.Birthday}</span>
+              </Card.Text>
+              <Card.Text className='text-left mt-4 m-2'>
+                <span className='label'>{'Favorite Bond Movies:\u00A0\u00A0'}</span>
+                <span className='valueh1'>{
+                  userProfile.FavoriteMovies[0] ?
+                    userProfile.FavoriteMovies.join(',\u00A0\u00A0') :
+                    'You have not chosen any favourite movies'}</span>
+              </Card.Text>
 
-                        </Card.Body>
-                        <Card.Footer className="cardFoot border-top-0">
-                            <Row className='d-flex flex-md-row justify-content-center'>
-                                <Link to="" onClick={() => history.back()}>
-                                    <Button className='m-2 goMovie4' variant="link">Movie</Button>
-                                </Link>
+            </Card.Body>
+            <Card.Footer className="cardFoot border-top-0">
+              <Row className='d-flex flex-md-row justify-content-center'>
+                <Link to="" onClick={() => history.back()}>
+                  <Button className='m-2 goMovie4' variant="link">Movie</Button>
+                </Link>
 
-                                <Link to="" onClick={() => this.deleteProfile()}>
-                                    <Button className='m-2 deleteMe' variant="link">Delete Profile</Button>
-                                </Link>
-                                <Link to={`/update/:Username`}>"
+                <Link to="" onClick={() => this.deleteProfile()}>
+                  <Button className='m-2 deleteMe' variant="link">Delete Profile</Button>
+                </Link>
+                <Link to={`/update/:Username`}>"
                                     <Button className='m-2 userUpdate1' variant="link">Update Details</Button>
-                                </Link>
-                            </Row>
-                        </Card.Footer>
-                    </Card>
-                </Row>
-                <Container>
-                    <Row className='text-center mt-4 m-2'>{'My Favourite Movies:\u00A0\u00A0'}</Row>
-                    {/* {userProfile.Favorites.length === 0 &&
+                </Link>
+              </Row>
+            </Card.Footer>
+          </Card>
+        </Row>
+        <Container>
+          <Row className='text-center mt-4 m-2'>{'My Favourite Movies:\u00A0\u00A0'}</Row>
+          {/* {userProfile.Favorites.length === 0 &&
                         <span> You have no favorite movies</span>}
                     {userProfile.Favorites.length > 0 && */}
 
-                    {/* <Row>
+          {/* <Row>
                     <div className='d-flex row m-2'>
                         {favoritesList.map(movie => {
                             if (movie.BondActor.Name === bondactor.Name) {
@@ -177,10 +177,10 @@ export class ProfileView extends React.Component {
                         })}
                     </div>
                 </Row> */}
-                </Container>
-            </Container >
-        )
-    }
+        </Container>
+      </Container >
+    )
+  }
 };
 
 

@@ -49291,9 +49291,10 @@ function LoginView(props) {
       Username: username,
       Password: password
     }).then(function (response) {
-      var data = response.data; //props.onLoggedIn(data);
+      var data = response.data;
+      props.onLoggedIn(data);
     }).catch(function (e) {
-      console.log('no such user' + e);
+      console.log('no such user: ' + e);
     });
   };
 
@@ -56521,7 +56522,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42091" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42607" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
