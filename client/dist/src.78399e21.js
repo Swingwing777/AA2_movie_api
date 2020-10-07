@@ -49291,11 +49291,9 @@ function LoginView(props) {
       Username: username,
       Password: password
     }).then(function (response) {
-      var data = response.data;
-      props.onLoggedIn(data);
-      console.log(response.data);
+      var data = response.data; //props.onLoggedIn(data);
     }).catch(function (e) {
-      console.log('There is no such user');
+      console.log('no such user' + e);
     });
   };
 
@@ -56183,10 +56181,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         user: undefined
       });
 
-      _this.setState({
-        user: null
-      });
-
       localStorage.removeItem('token');
       localStorage.removeItem('user');
     };
@@ -56269,7 +56263,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       console.log("This is user: ".concat(user));
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
-      this.getMovies(authData.token); // this.getUser(authData.token);
+      this.getMovies(authData.token);
     }
   }, {
     key: "render",
@@ -56527,7 +56521,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40847" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42091" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -87,12 +87,12 @@ export class MainView extends React.Component {
     this.setState({
       user: authData.user.Username
     });
+
     console.log(`This is user: ${user}`)
 
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
-    // this.getUser(authData.token);
   }
 
   logoutUser = (e) => {
@@ -100,9 +100,6 @@ export class MainView extends React.Component {
     console.log('Logged out');
     this.setState({
       user: undefined
-    });
-    this.setState({
-      user: null
     });
     localStorage.removeItem('token');
     localStorage.removeItem('user');
