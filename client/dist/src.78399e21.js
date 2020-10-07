@@ -55925,11 +55925,65 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ProfileView);
 
     _this = _super.call(this);
-    _this.state = {};
+    _this.state = {
+      userProfile: null
+    };
     return _this;
   }
 
   _createClass(ProfileView, [{
+    key: "getUser",
+    value: function getUser(token) {
+      var _this2 = this;
+
+      //let user = localstorage.getItem('user')
+      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(localStorage.getItem('user')), {
+        //https://cors-anywhere.herokuapp.com
+        headers: {
+          Authorization: "Bearer ".concat(token) //Access-Control-Allows-Origin: *
+
+        }
+      }).then(function (response) {
+        //const userProfile = response.data;
+        console.log(response.data);
+
+        _this2.getFavorites(token); // Assign the result to the state
+
+
+        _this2.setState({
+          userProfile: response.data
+        });
+
+        console.log('This is user: ' + response.data.Username);
+      }).catch(function (error) {
+        console.log('Sorry, there has been an error: ' + error);
+      });
+    }
+  }, {
+    key: "getFavorites",
+    value: function getFavorites(token) {
+      var _this3 = this;
+
+      //let user = localstorage.getItem('user')
+      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies", {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        // Try this
+        var userProfile = response.data;
+        console.log(response.data); // Assign the result to the state
+
+        _this3.setState({
+          userProfile: userProfile
+        });
+
+        console.log('This is user: ' + response.data.Username);
+      }).catch(function (error) {
+        console.log('Sorry, there has been an error: ' + error);
+      });
+    }
+  }, {
     key: "deleteFavorite",
     value: function deleteFavorite(movieId) {
       _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(localStorage.getItem('user'), "/movieID/").concat(movieId), {
@@ -55947,7 +56001,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteProfile",
     value: function deleteProfile() {
-      var _this2 = this;
+      var _this4 = this;
 
       _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(localStorage.getItem('user')), {
         headers: {
@@ -55961,7 +56015,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
 
-        _this2.setState({
+        _this4.setState({
           user: null
         });
 
@@ -55973,18 +56027,12 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this5 = this;
 
-      var _this$props = this.props,
-          user = _this$props.user,
-          userProfile = _this$props.userProfile,
-          movies = _this$props.movies; // console.log(this.props)
+      var userProfile = this.state.userProfile;
+      console.log("Profile page"); // const favoritesList = movies.filter(movie => userProfile.Favorites.includes(movie._id));
+      // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
 
-      console.log("Profile page");
-      var favoritesList = movies.filter(function (movie) {
-        return userProfile.Favorites.includes(movie._id);
-      });
-      if (!user || !movies || movies.length === 0) return _react.default.createElement("div", null, "Loading.......");
       return _react.default.createElement(_reactBootstrap.Container, {
         className: "d-flex justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Row, {
@@ -56025,7 +56073,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, "Movie")), _react.default.createElement(_reactRouterDom.Link, {
         to: "",
         onClick: function onClick() {
-          return _this3.deleteProfile();
+          return _this5.deleteProfile();
         }
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 deleteMe",
@@ -56063,7 +56111,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           }, _react.default.createElement(_reactRouterDom.Link, {
             to: "",
             onClick: function onClick() {
-              return _this3.deleteFavorite(movie._id);
+              return _this5.deleteFavorite(movie._id);
             }
           }, _react.default.createElement(_reactBootstrap.Button, {
             variant: "link",
@@ -56215,8 +56263,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
         }
       }).then(function (response) {
-        // Try this
-        var userProfile = response.data;
+        // const userProfile = response.data;
         console.log(response.data); // Assign the result to the state
 
         _this3.setState({
@@ -56260,8 +56307,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           movies = _this$state.movies,
           user = _this$state.user,
-          userProfile = _this$state.userProfile; // console.log(user)
-
+          userProfile = _this$state.userProfile;
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
@@ -56270,9 +56316,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement("span", {
         className: "label"
       }, "Welcome to the Bond Movies Database"), _react.default.createElement(_reactRouterDom.NavLink, {
-        to: "/users/".concat(user),
-        className: "goUserProf mx-3 mt-3"
-      }, "Logged in as: ", user), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/users/".concat(user)
+      }, _react.default.createElement(_reactBootstrap.Button, {
+        className: "goUserProf mx-3 mt-3",
+        variant: "link"
+      }, "Logged in as: ", user)), _react.default.createElement(_reactRouterDom.Link, {
         to: "/update/".concat(user)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goUserProf mx-3 mt-3",
@@ -56290,7 +56338,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         className: "main-view"
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "p-2 justify-content-center"
-      }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+      }, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/",
         render: function render() {
@@ -56370,14 +56418,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         path: "/users/:Username",
         render: function render() {
           // if (!user) return <div className="main-view" />;
-          //userProfile isnt defined. where does it come from?
-          // I set it as a state at line 62.  In the getUser method.userProfile={userProfile}
-          //i added it to 112
           return _react.default.createElement(_profileView.ProfileView, {
             userProfile: userProfile,
             user: localStorage.getItem('user'),
             movies: movies
-          }); //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
+          });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -56388,7 +56433,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             userProfile: userProfile
           });
         }
-      }))))));
+      })))));
     }
   }]);
 
@@ -56511,7 +56556,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42715" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43401" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
