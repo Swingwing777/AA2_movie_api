@@ -5,7 +5,7 @@ import { Form, Container, Button, Col } from 'react-bootstrap';
 import './login-view.scss';
 import { RegistrationView } from '../registration-view/registration-view';
 
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch, NavLink } from 'react-router-dom';
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');
@@ -67,9 +67,11 @@ export function LoginView(props) {
           </Button>
         </Form.Row>
         <Form.Row className='justify-content-center'>
-          <Link to={`/register`}>
-            <Button className='formButton mt-3' variant="link">Register User</Button>
-          </Link>
+          <Router>
+            <Link to={`/register`}>
+              <Button className='formButton mt-3' variant="link">Register User</Button>
+            </Link>
+          </Router>
         </Form.Row>
       </Form>
     </Container>
