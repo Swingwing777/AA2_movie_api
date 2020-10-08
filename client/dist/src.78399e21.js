@@ -55936,6 +55936,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ProfileView);
 
     _this = _super.call(this);
+    _this._isMounted = false;
     _this.state = {
       user: localStorage.getItem('user'),
       userProfile: null
@@ -55955,14 +55956,16 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        var userProfile = response.data;
-        console.log(response.data);
+        if (_this2._isMounted && response.status === 200) {
+          var userProfile = response.data;
+          console.log(response.data);
 
-        _this2.setState({
-          userProfile: userProfile
-        });
+          _this2.setState({
+            userProfile: userProfile
+          });
 
-        console.log('This is user: ' + userProfile.Username);
+          console.log('This is user: ' + userProfile.Username);
+        }
       }).catch(function (error) {
         console.log('Sorry, there has been an error: ' + error);
       });
@@ -55970,8 +55973,14 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
+      this._isMounted = true;
       var accessToken = localStorage.getItem('token');
       this.getUser(accessToken);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this._isMounted = false;
     }
   }, {
     key: "deleteFavorite",
@@ -56038,7 +56047,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
       return _react.default.createElement(_reactBootstrap.Container, {
         className: "formwrapper"
-      }, _react.default.createElement(_reactBootstrap.Form, {
+      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Form, {
         className: "p-md-3"
       }, _react.default.createElement(_reactBootstrap.Form.Row, {
         className: "d-flex flex-md-row justify-content-center"
@@ -56086,7 +56095,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         defaultValue: (0, _moment.default)(userProfile.Birthday).format('DD/MM/YYYY'),
         readOnly: true
       })))), _react.default.createElement(_reactBootstrap.Container, {
-        className: "flex-shrink-md"
+        className: "flex-shrink-md justify-content-center"
       }, _react.default.createElement("h1", {
         className: "titleh1 mt-4"
       }, "Your favorite Bond Movies"), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("div", {
@@ -56128,14 +56137,13 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
             className: "m-1 goDetail6"
           }, "Delete"))))));
         }
-      }), ")}"))), _react.default.createElement(_reactBootstrap.Row, {
+      }), ")"))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3 d-flex flex-md-row justify-content-center formPromise"
       }, "We will never share your details"), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
       }), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3 d-flex flex-md-row justify-content-center"
-      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
-        to: "",
+      }, _react.default.createElement(_reactRouterDom.Link, {
         onClick: function onClick() {
           return history.back();
         }
@@ -56143,7 +56151,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "m-2 formButton",
         variant: "link"
       }, "Movie")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "",
         onClick: function onClick() {
           return _this4.deleteProfile();
         }
@@ -56151,7 +56158,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "m-2 formButton1",
         variant: "link"
       }, "Delete Profile")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/update/".concat(localStorage.getItem('user'))
+        to: "/update/".concat(userProfile.Username)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 formButton",
         variant: "link"
@@ -56494,9 +56501,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        // Try this
-        var userProfile = response.data; // console.log(response.data);
-
+        //const userProfile = response.data;
         _this3.setState({
           userProfile: response.data
         });
@@ -56805,7 +56810,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46513" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35831" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

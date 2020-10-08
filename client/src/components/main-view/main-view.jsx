@@ -32,6 +32,7 @@ export class MainView extends React.Component {
 
   // new method to get movies
   getMovies(token) {
+
     axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -55,9 +56,7 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        // Try this
-        const userProfile = response.data;
-        // console.log(response.data);
+        //const userProfile = response.data;
 
         this.setState({
           userProfile: response.data
