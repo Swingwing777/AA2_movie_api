@@ -55970,12 +55970,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var accessToken = localStorage.getItem('token'); // if (accessToken !== null) {
-      //   this.setState({
-      //     user: localStorage.getItem('user')
-      //   });
-      // If user and access token are present, can call getMovies & getUser methods.
-
+      var accessToken = localStorage.getItem('token');
       this.getUser(accessToken);
     }
   }, {
@@ -56009,7 +56004,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
       }).then(function (res) {
-        _react.default.createElement("div", null, "'Do you really want to delete your account?'");
+        alert('Do you really want to delete your account?');
       }).then(function (res) {
         alert('Account was successfully deleted');
       }).then(function (res) {
@@ -56022,7 +56017,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.open('/', '_self');
+        window.open('/');
       }).catch(function (e) {
         alert('Account could not be deleted ' + e);
       });
@@ -56032,17 +56027,15 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this4 = this;
 
-      var _this$state = this.state,
-          movies = _this$state.movies,
-          user = _this$state.user,
-          userProfile = _this$state.userProfile;
-      console.log(userProfile);
-      console.log('profile view');
+      var _this$props = this.props,
+          movies = _this$props.movies,
+          user = _this$props.user,
+          userProfile = _this$props.userProfile;
+      console.log(userProfile.FavoriteMovies); // console.log('profile view');
+
       if (!userProfile) return _react.default.createElement("div", {
         className: "main-view"
-      });
-      console.log("Profile page"); // const favoritesList = movies.filter(movie => userProfile.Favorites.includes(movie._id));
-      // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
+      }); // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
 
       return _react.default.createElement(_reactBootstrap.Container, {
         className: "formwrapper"
@@ -56093,17 +56086,45 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "entryField",
         defaultValue: (0, _moment.default)(userProfile.Birthday).format('DD/MM/YYYY'),
         readOnly: true
-      })))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3 d-flex flex-md-row justify-content-center"
-      }, _react.default.createElement("span", {
-        className: "titleh1 mt-3 d-flex flex-md-row justify-content-center"
-      }, "Favorite Bond Movies:\xA0\xA0")), _react.default.createElement(_reactBootstrap.Row, {
-        className: "valueh1 d-flex flex-md-row justify-content-center"
-      }, _react.default.createElement("span", {
-        className: "valueh1"
-      }, userProfile.FavoriteMovies[0] ? userProfile.FavoriteMovies.join(",\xA0\xA0") : 'You have not chosen any favourite movies')), _react.default.createElement(_reactBootstrap.Row, {
+      })))), _react.default.createElement(_reactBootstrap.Container, {
+        className: "flex-shrink-md"
+      }, _react.default.createElement("h1", {
+        className: "titleh1 mt-4"
+      }, "Your favorite Bond Movies"), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("div", {
+        className: "d-flex row m-2"
+      }, movies.map(function (movie) {
+        if (userProfile.FavoriteMovies.indexOf(movie._id) !== -1) {
+          return _react.default.createElement("div", {
+            key: movie._id
+          }, _react.default.createElement(_reactBootstrap.Card, {
+            style: {
+              width: '9em'
+            },
+            className: "pt-3 m-1 p-2 text-center movie-card h-100"
+          }, _react.default.createElement(_reactBootstrap.Card.Img, {
+            variant: "top",
+            src: movie.ImagePath,
+            className: "thumbNail m-auto"
+          }), _react.default.createElement(_reactBootstrap.Card.Body, {
+            className: "cardBody p-0"
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(movie._id)
+          }, _react.default.createElement(_reactBootstrap.Card.Title, {
+            className: "titleh2 p-1"
+          }, movie.Title))), _react.default.createElement(_reactBootstrap.Card.Footer, {
+            className: "cardFoot border-top-0 d-flex justify-content-center"
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(movie._id)
+          }, _react.default.createElement(_reactBootstrap.Button, {
+            variant: "link",
+            className: "goDetail3"
+          }, "Read more")))));
+        }
+      }), ")}"))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3 d-flex flex-md-row justify-content-center formPromise"
       }, "We will never share your details"), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-5"
+      }), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3 d-flex flex-md-row justify-content-center"
       }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
         to: "",
@@ -56122,7 +56143,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "m-2 formButton1",
         variant: "link"
       }, "Delete Profile")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/update/:Username"
+        to: "/update/".concat(localStorage.getItem('user'))
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 formButton",
         variant: "link"
@@ -56263,7 +56284,7 @@ function UpdateView(props) {
     onChange: function onChange(e) {
       return updateUsername(e.target.value);
     },
-    placeholder: "**********"
+    placeholder: username
   })), _react.default.createElement(_reactBootstrap.Form.Group, {
     as: _reactBootstrap.Col,
     controlId: "formGridPassword"
@@ -56776,7 +56797,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44297" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43903" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

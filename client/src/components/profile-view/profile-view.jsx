@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { Container, Button, Row, Col, Form } from 'react-bootstrap';
+import { Container, Card, Button, Row, Col, Form } from 'react-bootstrap';
 import './profile-view.scss';
 import moment from 'moment';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
@@ -38,15 +38,7 @@ export class ProfileView extends React.Component {
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
-
-    // if (accessToken !== null) {
-    //   this.setState({
-    //     user: localStorage.getItem('user')
-    //   });
-
-    // If user and access token are present, can call getMovies & getUser methods.
     this.getUser(accessToken);
-
   }
 
 
@@ -75,7 +67,7 @@ export class ProfileView extends React.Component {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       })
       .then(res => {
-        <div>'Do you really want to delete your account?'</div>
+        alert('Do you really want to delete your account?')
       })
       .then(res => {
         alert('Account was successfully deleted')
@@ -90,7 +82,7 @@ export class ProfileView extends React.Component {
         });
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.open('/', '_self');
+        window.open('/');
       })
       .catch(e => {
         alert('Account could not be deleted ' + e)
@@ -98,14 +90,11 @@ export class ProfileView extends React.Component {
   }
 
   render() {
-    const { movies, user, userProfile } = this.state;
-    console.log(userProfile)
-    console.log('profile view');
+    const { movies, user, userProfile } = this.props;
+    console.log(userProfile.FavoriteMovies);
+    // console.log('profile view');
 
     if (!userProfile) return <div className="main-view" />;
-
-    console.log("Profile page")
-    // const favoritesList = movies.filter(movie => userProfile.Favorites.includes(movie._id));
 
     // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
 
@@ -155,20 +144,45 @@ export class ProfileView extends React.Component {
             </Form.Group>
           </Form.Row>
         </Form>
-        <Row className='mt-3 d-flex flex-md-row justify-content-center'>
-          <span className='titleh1 mt-3 d-flex flex-md-row justify-content-center'>{'Favorite Bond Movies:\u00A0\u00A0'}</span>
-        </Row>
-        <Row className='valueh1 d-flex flex-md-row justify-content-center'>
 
-          <span className='valueh1'>{
-            userProfile.FavoriteMovies[0] ?
-              userProfile.FavoriteMovies.join(',\u00A0\u00A0') :
-              'You have not chosen any favourite movies'}</span>
 
-        </Row>
+
+        <Container className='flex-shrink-md'>
+
+          <h1 className='titleh1 mt-4'>Your favorite Bond Movies</h1>
+          <Row>
+            <div className='d-flex row m-2'>
+              {movies.map(movie => {
+                if (userProfile.FavoriteMovies.indexOf(movie._id) !== -1) {
+                  return (
+                    <div key={movie._id}>
+                      <Card style={{ width: '9em' }} className="pt-3 m-1 p-2 text-center movie-card h-100">
+                        <Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
+                        <Card.Body className='cardBody p-0'>
+                          <Link to={`/movies/${movie._id}`}>
+                            <Card.Title className='titleh2 p-1'>{movie.Title}</Card.Title>
+                          </Link>
+                        </Card.Body>
+                        <Card.Footer className='cardFoot border-top-0 d-flex justify-content-center'>
+                          <Link to={`/movies/${movie._id}`}>
+                            <Button variant='link' className='goDetail3'>Read more</Button>
+                          </Link>
+                        </Card.Footer>
+                      </Card>
+                    </div>
+                  );
+                }
+              })
+              })}
+            </div>
+          </Row>
+        </Container>
+
+        {/* //////////////// */}
 
         <Row className='mt-3 d-flex flex-md-row justify-content-center formPromise'>We will never share your details
         </Row>
+        <Row className='mt-5'></Row>
 
         <Row className='mt-3 d-flex flex-md-row justify-content-center'>
           <Router>
@@ -179,12 +193,12 @@ export class ProfileView extends React.Component {
             <Link to="" onClick={() => this.deleteProfile()}>
               <Button className='m-2 formButton1' variant="link">Delete Profile</Button>
             </Link>
-            <Link to={`/update/:Username`}>
+            <Link to={`/update/${localStorage.getItem('user')}`}>
               <Button className='m-2 formButton' variant="link">Update Details</Button>
             </Link>
           </Router>
         </Row>
-      </Container>
+      </Container >
     )
   }
 }
