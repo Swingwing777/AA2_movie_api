@@ -91,9 +91,10 @@ export function RegistrationView(props) {
               placeholder='Enter Birthday' />
           </Form.Group>
         </Form.Row>
-        <Row className='formPromise'>We will never share your details</Row>
+        <Row className='mt-3 d-flex flex-md-row justify-content-center formPromise'>We will never share your details
+        </Row>
 
-        <Form.Row className='justify-content-center'>
+        <Form.Row className='mt-5 justify-content-center'>
           <Button className='formButton mt-3' variant='primary' type='submit' onClick={registerUser} >
             Submit
         </Button>

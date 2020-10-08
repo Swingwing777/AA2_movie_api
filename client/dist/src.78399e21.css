@@ -424,55 +424,61 @@ body {
   max-width: 80%;
 }
 
-.cardBody,
-.cardFoot {
-  background-color: #151f25;
-  color: white;
-  font-size: medium;
-}
-
-.label,
-.value {
-  font-size: medium;
-  color: white;
-  text-shadow: 2px 2px 3px black;
-}
-
-.titleh1 {
+.formLabel,
+.formTitle {
   color: white;
   font-size: x-large;
+  text-shadow: 1px 1px 3px #d4eeff;
 }
 
-.goMovie4,
-.goMovie4:hover,
-.goMovie4:active,
-.goMain4,
-.goMain4:hover,
-.goMain4:active,
-.userUpdate1,
-.userUpdate1:hover,
-.userUpdate1:active {
-  background-color: #0071ba;
+.entryField {
+  color: #4b678b;
+  font-size: smaller;
+}
+
+.formTitle {
+  font-size: xx-large;
+}
+
+.formPromise {
   color: white;
+  font-size: medium;
+  font-style: italic;
+  text-shadow: 1px 1px 3px #d4eeff;
+}
+
+.titleh1,
+.valueh1 {
+  color: white;
+  font-size: large;
+  text-shadow: 1px 1px 3px #d4eeff;
+}
+
+.formButton,
+.formButton:hover,
+.formButtton:active,
+.formButton1,
+.formButton1:hover,
+.formButtton1:active {
+  background-color: #0071ba;
   width: 160px;
+  color: white;
   box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #111a20 inset, 0px 2px 2px #111a20 inset;
 }
 
-.userUpdate1,
-.userUpdate1:hover,
-.userUpdate1:active {
-  width: auto;
+.formButton1,
+.formButton1:hover,
+.formButtton1:active {
+  background-color: #8b010d;
 }
 
-.goMovie4:hover,
-.goMain4:hover,
-.userUpdate1:hover {
+.formButton:hover,
+.formButton1:hover {
   filter: brightness(75%);
 }
 
-.goMovie4:active,
-.goMain4:active,
-.userUpdate1:active {
+.formButton:active,
+.formButton1:active {
   filter: brightness(50%);
 }
 body {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { LoginView } from '../login-view/login-view';
+import moment from 'moment';
 import { Form, Container, Col, Button, Row } from 'react-bootstrap';
 import './update-view.scss';
 
@@ -56,9 +57,14 @@ export function UpdateView(props) {
           <Form.Group as={Col} controlId='formGridUsername'>
             <Form.Label className='formLabel'>Username:  </Form.Label>
             <Form.Control
-              className='userField'
-              defaultValue={localStorage.getItem('user') + '  (This cannot be changed)'}
-              readOnly />
+              className='entryField'
+              type='username'
+              value={username}
+              onChange={e => updateUsername(e.target.value)}
+              placeholder='**********' />
+            {/* className='userField'
+              defaultValue={localStorage.getItem('user') + '\u00A0\u00A0\u00A0\(This cannot be changed)'}
+              readOnly /> */}
           </Form.Group>
 
           <Form.Group as={Col} controlId='formGridPassword'>
@@ -68,7 +74,7 @@ export function UpdateView(props) {
               type='password'
               value={password}
               onChange={e => updatePassword(e.target.value)}
-              placeholder='Enter Password' />
+              placeholder='**********' />
           </Form.Group>
         </Form.Row>
 
@@ -80,7 +86,7 @@ export function UpdateView(props) {
               type='email'
               value={email}
               onChange={e => updateEmail(e.target.value)}
-              placeholder='Enter Email' />
+              placeholder={email} />
 
           </Form.Group>
 
@@ -91,10 +97,11 @@ export function UpdateView(props) {
               type='date'
               value={birthday}
               onChange={e => updateBirthday(e.target.value)}
-              placeholder='Enter Birthday' />
+              placeholder={birthday} />
           </Form.Group>
         </Form.Row>
-        <Row className='formPromise'>We will never share your details</Row>
+        <Row className='mt-3 d-flex flex-md-row justify-content-center formPromise'>We will never share your details
+        </Row>
 
         <Form.Row className='justify-content-center'>
           <Button className='formButton mt-3' variant='primary' type='submit' onClick={updateUser} >

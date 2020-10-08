@@ -49205,9 +49205,9 @@ function RegistrationView(props) {
     },
     placeholder: "Enter Birthday"
   }))), _react.default.createElement(_reactBootstrap.Row, {
-    className: "formPromise"
+    className: "mt-3 d-flex flex-md-row justify-content-center formPromise"
   }, "We will never share your details"), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "justify-content-center"
+    className: "mt-5 justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Button, {
     className: "formButton mt-3",
     variant: "primary",
@@ -55893,6 +55893,8 @@ var _reactBootstrap = require("react-bootstrap");
 
 require("./profile-view.scss");
 
+var _moment = _interopRequireDefault(require("moment"));
+
 var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -56043,47 +56045,73 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
 
       return _react.default.createElement(_reactBootstrap.Container, {
-        className: "d-flex justify-content-center"
-      }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "p-2 justify-content-center"
-      }, _react.default.createElement(_reactBootstrap.Card, {
-        style: {
-          width: 'fit-content(80%)'
-        },
-        className: "m-3 h-160 text-center movie-card"
-      }, _react.default.createElement(_reactBootstrap.Card.Body, {
-        className: "cardBody p-1"
-      }, _react.default.createElement(_reactBootstrap.Card.Title, {
-        className: "titleh1 mt-3"
-      }, "Username: ", userProfile.Username), _react.default.createElement(_reactBootstrap.Card.Text, {
-        className: "text-left mt-4 m-2"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Email:\xA0\xA0", " "), _react.default.createElement("span", {
-        className: "value"
-      }, userProfile.Email)), _react.default.createElement(_reactBootstrap.Card.Text, {
-        className: "text-left mt-4 m-2"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Birthday:\xA0\xA0"), _react.default.createElement("span", {
-        className: "valueh1"
-      }, userProfile.Birthday)), _react.default.createElement(_reactBootstrap.Card.Text, {
-        className: "text-left mt-4 m-2"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Favorite Bond Movies:\xA0\xA0"), _react.default.createElement("span", {
-        className: "valueh1"
-      }, userProfile.FavoriteMovies[0] ? userProfile.FavoriteMovies.join(",\xA0\xA0") : 'You have not chosen any favourite movies'))), _react.default.createElement(_reactBootstrap.Card.Footer, {
-        className: "cardFoot border-top-0"
-      }, _react.default.createElement(_reactBootstrap.Row, {
+        className: "formwrapper"
+      }, _react.default.createElement(_reactBootstrap.Form, {
+        className: "p-md-3"
+      }, _react.default.createElement(_reactBootstrap.Form.Row, {
         className: "d-flex flex-md-row justify-content-center"
-      }, _react.default.createElement(_reactRouterDom.Link, {
+      }, _react.default.createElement(_reactBootstrap.Form.Label, {
+        size: "lg",
+        className: "formTitle"
+      }, "User Profile")), _react.default.createElement(_reactBootstrap.Form.Row, {
+        className: "justify-content-center mt-3"
+      }, _react.default.createElement(_reactBootstrap.Form.Group, {
+        as: _reactBootstrap.Col,
+        controlId: "formGridUsername"
+      }, _react.default.createElement(_reactBootstrap.Form.Label, {
+        className: "formLabel"
+      }, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
+        className: "entryField",
+        defaultValue: userProfile.Username,
+        readOnly: true
+      })), _react.default.createElement(_reactBootstrap.Form.Group, {
+        as: _reactBootstrap.Col,
+        controlId: "formGridPassword"
+      }, _react.default.createElement(_reactBootstrap.Form.Label, {
+        className: "formLabel"
+      }, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
+        className: "entryField",
+        defaultValue: "**************",
+        readOnly: true
+      }))), _react.default.createElement(_reactBootstrap.Form.Row, {
+        className: "d-flex flex-md-row justify-content-center"
+      }, _react.default.createElement(_reactBootstrap.Form.Group, {
+        as: _reactBootstrap.Col,
+        controlId: "formGridEmail"
+      }, _react.default.createElement(_reactBootstrap.Form.Label, {
+        className: "formLabel"
+      }, "Email"), _react.default.createElement(_reactBootstrap.Form.Control, {
+        className: "entryField",
+        defaultValue: userProfile.Email,
+        readOnly: true
+      })), _react.default.createElement(_reactBootstrap.Form.Group, {
+        as: _reactBootstrap.Col,
+        controlId: "formBirthday"
+      }, _react.default.createElement(_reactBootstrap.Form.Label, {
+        className: "formLabel"
+      }, "Birthday"), _react.default.createElement(_reactBootstrap.Form.Control, {
+        className: "entryField",
+        defaultValue: (0, _moment.default)(userProfile.Birthday).format('DD/MM/YYYY'),
+        readOnly: true
+      })))), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3 d-flex flex-md-row justify-content-center"
+      }, _react.default.createElement("span", {
+        className: "titleh1 mt-3 d-flex flex-md-row justify-content-center"
+      }, "Favorite Bond Movies:\xA0\xA0")), _react.default.createElement(_reactBootstrap.Row, {
+        className: "valueh1 d-flex flex-md-row justify-content-center"
+      }, _react.default.createElement("span", {
+        className: "valueh1"
+      }, userProfile.FavoriteMovies[0] ? userProfile.FavoriteMovies.join(",\xA0\xA0") : 'You have not chosen any favourite movies')), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3 d-flex flex-md-row justify-content-center formPromise"
+      }, "We will never share your details"), _react.default.createElement(_reactBootstrap.Row, {
+        className: "mt-3 d-flex flex-md-row justify-content-center"
+      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
         to: "",
         onClick: function onClick() {
           return history.back();
         }
       }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "m-2 goMovie4",
+        className: "m-2 formButton",
         variant: "link"
       }, "Movie")), _react.default.createElement(_reactRouterDom.Link, {
         to: "",
@@ -56091,16 +56119,14 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           return _this4.deleteProfile();
         }
       }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "m-2 deleteMe",
+        className: "m-2 formButton1",
         variant: "link"
       }, "Delete Profile")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/update/:Username"
-      }, "\"", _react.default.createElement(_reactBootstrap.Button, {
-        className: "m-2 userUpdate1",
+      }, _react.default.createElement(_reactBootstrap.Button, {
+        className: "m-2 formButton",
         variant: "link"
-      }, "Update Details")))))), _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
-        className: "text-center mt-4 m-2"
-      }, "My Favourite Movies:\xA0\xA0")));
+      }, "Update Details")))));
     }
   }]);
 
@@ -56108,9 +56134,14 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.ProfileView = ProfileView;
-; // ProfileView.propTypes = {
-// };
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./profile-view.scss":"components/profile-view/profile-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/update-view/update-view.scss":[function(require,module,exports) {
+ProfileView.propTypes = {
+  Username: _propTypes.default.string,
+  Password: _propTypes.default.string,
+  Email: _propTypes.default.string,
+  Birthday: _propTypes.default.string,
+  onClick: _propTypes.default.func
+};
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./profile-view.scss":"components/profile-view/profile-view.scss","moment":"../node_modules/moment/moment.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/update-view/update-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -56130,6 +56161,8 @@ var _axios = _interopRequireDefault(require("axios"));
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _loginView = require("../login-view/login-view");
+
+var _moment = _interopRequireDefault(require("moment"));
 
 var _reactBootstrap = require("react-bootstrap");
 
@@ -56224,9 +56257,13 @@ function UpdateView(props) {
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
     className: "formLabel"
   }, "Username:  "), _react.default.createElement(_reactBootstrap.Form.Control, {
-    className: "userField",
-    defaultValue: localStorage.getItem('user') + '  (This cannot be changed)',
-    readOnly: true
+    className: "entryField",
+    type: "username",
+    value: username,
+    onChange: function onChange(e) {
+      return updateUsername(e.target.value);
+    },
+    placeholder: "**********"
   })), _react.default.createElement(_reactBootstrap.Form.Group, {
     as: _reactBootstrap.Col,
     controlId: "formGridPassword"
@@ -56239,7 +56276,7 @@ function UpdateView(props) {
     onChange: function onChange(e) {
       return updatePassword(e.target.value);
     },
-    placeholder: "Enter Password"
+    placeholder: "**********"
   }))), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "d-flex flex-md-row justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Form.Group, {
@@ -56254,7 +56291,7 @@ function UpdateView(props) {
     onChange: function onChange(e) {
       return updateEmail(e.target.value);
     },
-    placeholder: "Enter Email"
+    placeholder: email
   })), _react.default.createElement(_reactBootstrap.Form.Group, {
     as: _reactBootstrap.Col,
     controlId: "formBirthday"
@@ -56267,9 +56304,9 @@ function UpdateView(props) {
     onChange: function onChange(e) {
       return updateBirthday(e.target.value);
     },
-    placeholder: "Enter Birthday"
+    placeholder: birthday
   }))), _react.default.createElement(_reactBootstrap.Row, {
-    className: "formPromise"
+    className: "mt-3 d-flex flex-md-row justify-content-center formPromise"
   }, "We will never share your details"), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Button, {
@@ -56294,7 +56331,7 @@ UpdateView.propTypes = {
   Birthday: _propTypes.default.string,
   onClick: _propTypes.default.func
 };
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../login-view/login-view":"components/login-view/login-view.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./update-view.scss":"components/update-view/update-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/main-view/main-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../login-view/login-view":"components/login-view/login-view.jsx","moment":"../node_modules/moment/moment.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./update-view.scss":"components/update-view/update-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/main-view/main-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -56739,7 +56776,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42597" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44297" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

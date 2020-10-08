@@ -2,7 +2,9 @@ $blur-color: #d4eeff;
 $main-text: white;
 $button-text: white;
 $background: black; 
+$placeHolder:rgb(75, 103, 139);
 $button: #0071ba;
+$buttonRed: #8b010d;
 $buttonHL: #b8e2fc;
 $buttonLL: #111a20;
 $backColor: #151f25;
@@ -12,37 +14,44 @@ $backColor: #151f25;
   max-width: 80%;
 }
 
-.cardBody,
-.cardFoot {
-  background-color: $backColor;
-  color: $main-text;
-  font-size: medium;
-}
-
-.label,
-.value {
-  font-size: medium;
-  color: $main-text;
-  text-shadow: 2px 2px 3px black;
-}
-
-.titleh1 {
+.formLabel,
+.formTitle {
   color: $main-text;
   font-size: x-large;
-  }
+  text-shadow: 1px 1px 3px $blur-color;
+}
+.entryField {
+  color: $placeHolder;
+  font-size: smaller;
+}
 
-.goMovie4,
-.goMovie4:hover,
-.goMovie4:active,
-.goMain4,
-.goMain4:hover,
-.goMain4:active,
-.userUpdate1,
-.userUpdate1:hover,
-.userUpdate1:active {
+.formTitle {
+  font-size: xx-large
+}
+
+.formPromise {
+  color: $main-text;
+  font-size: medium;
+  font-style: italic;
+  text-shadow: 1px 1px 3px $blur-color;
+}
+
+.titleh1,
+.valueh1 {
+  color: $main-text;
+  font-size: large;
+  text-shadow: 1px 1px 3px $blur-color;
+}
+
+.formButton,
+.formButton:hover,
+.formButtton:active,
+.formButton1,
+.formButton1:hover,
+.formButtton1:active {
   background-color: $button;
-  color: $button-text;
   width: 160px;
+  color: $main-text;
   box-shadow: 
   1px 0 1px $buttonHL inset,
   0px 2px 1px $buttonHL inset,
@@ -50,20 +59,18 @@ $backColor: #151f25;
   0px 2px 2px $buttonLL inset;
 }
 
-.userUpdate1,
-.userUpdate1:hover,
-.userUpdate1:active {
-  width: auto;
+.formButton1,
+.formButton1:hover,
+.formButtton1:active {
+  background-color: $buttonRed;
 }
 
-.goMovie4:hover,
-.goMain4:hover,
-.userUpdate1:hover {
+.formButton:hover,
+.formButton1:hover {
   filter: brightness(75%);
 }
 
-.goMovie4:active,
-.goMain4:active,
-.userUpdate1:active {
+.formButton:active,
+.formButton1:active {
   filter: brightness(50%);
 }
