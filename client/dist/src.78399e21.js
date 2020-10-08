@@ -56166,7 +56166,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "m-2 formButton1",
         variant: "link"
       }, "Delete Profile")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/update/".concat(localStorage.getItem('user'))
+        to: "/update/".concat(userProfile.Username)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 formButton",
         variant: "link"
@@ -56360,12 +56360,7 @@ function UpdateView(props) {
     onClick: updateUser
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/"
-  }, _react.default.createElement(_reactBootstrap.Button, {
-    className: "formButton mt-3",
-    variant: "link"
-  }, "Home"))))));
+  })));
 }
 
 UpdateView.propTypes = {
@@ -56816,7 +56811,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46141" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44805" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
