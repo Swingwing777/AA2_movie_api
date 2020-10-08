@@ -99,7 +99,7 @@ export class MainView extends React.Component {
     localStorage.setItem('user', authData.user.Username);
 
     this.getMovies(authData.token);
-    console.log(`This is user: ${user}`);     //  This unlocked things, by moving it from above localStorage.setItem
+    console.log(`This is user: ${localStorage.getItem('user')}`);     //  This unlocked things, by moving it from above localStorage.setItem
   }
 
   logoutUser = (e) => {
@@ -113,7 +113,7 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, user, selectedMovie, userProfile } = this.state;
+    const { movies, user, userProfile } = this.state;
 
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
