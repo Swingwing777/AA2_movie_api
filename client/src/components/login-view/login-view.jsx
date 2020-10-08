@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Form, Container, Button, Col } from 'react-bootstrap';
@@ -10,11 +10,15 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 export function LoginView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [apiData, setApiData] = useState(null);
 
   const handleSubmit = (e) => {
+    const source = axios.CancelToken.source();
+
     console.log(username, password);
     e.preventDefault();
     /* Send a request to the server for authentication */
+
     axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
       Username: username,
       Password: password
@@ -22,13 +26,16 @@ export function LoginView(props) {
       .then(response => {
         const data = response.data;
         props.onLoggedIn(data);
-      })
-      .catch(e => {
-        console.log(e.response) //what does this line show -'undefined'
+      }).then(axios.get("https://jsonplaceholder.typicode.com/todos", {
+        cancelToken: source.token
+      }).then(response => {
+        setApiData(response.data);
+      }).catch(e => {
         setUsername('New')
         console.log('User or Password details do not match:  ' + e)
-      });
+      }));
   };
+
   // const loginUser = (e) => {
   //   e.preventDefault();
   //   setUsername('New');
