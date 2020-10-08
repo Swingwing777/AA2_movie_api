@@ -466,19 +466,38 @@ body {
   box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #111a20 inset, 0px 2px 2px #111a20 inset;
 }
 
+.goDetail5,
+.goDetail6,
+.goDetail5:hover,
+.goDetail6:active,
+.goDetail5:hover,
+.goDetail6:active {
+  background-color: #0071ba;
+  width: 100px;
+  color: white;
+  box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #111a20 inset, 0px 2px 2px #111a20 inset;
+}
+
 .formButton1,
 .formButton1:hover,
-.formButtton1:active {
+.formButtton1:active,
+.goDetail6,
+.goDetail6:hover,
+.goDetail6:active {
   background-color: #8b010d;
 }
 
 .formButton:hover,
-.formButton1:hover {
+.formButton1:hover,
+.goDetail5:hover,
+.goDetail6:hover {
   filter: brightness(75%);
 }
 
 .formButton:active,
-.formButton1:active {
+.formButton1:active,
+.goDetail5:active,
+.goDetail6:active {
   filter: brightness(50%);
 }
 body {

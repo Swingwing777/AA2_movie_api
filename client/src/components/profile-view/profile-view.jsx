@@ -41,16 +41,15 @@ export class ProfileView extends React.Component {
     this.getUser(accessToken);
   }
 
-
-  deleteFavorite(token, movieId) {
+  deleteFavorite(movieId) {
     // let accessToken = localStorage.getItem('token');
     let user = localStorage.getItem('user');
     axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
-      // .then(res => {
-      //     document.location.reload(true);
-      // })
+      .then(res => {
+        location.reload(true);
+      })
       .then(res => {
         alert('Movie successfully deleted from favorites');
       })
@@ -60,7 +59,7 @@ export class ProfileView extends React.Component {
       });
   }
 
-  deleteProfile(token) {
+  deleteProfile() {
     let user = localStorage.getItem('user')
     axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`,
       {
@@ -145,8 +144,6 @@ export class ProfileView extends React.Component {
           </Form.Row>
         </Form>
 
-
-
         <Container className='flex-shrink-md'>
 
           <h1 className='titleh1 mt-4'>Your favorite Bond Movies</h1>
@@ -164,9 +161,14 @@ export class ProfileView extends React.Component {
                           </Link>
                         </Card.Body>
                         <Card.Footer className='cardFoot border-top-0 d-flex justify-content-center'>
-                          <Link to={`/movies/${movie._id}`}>
-                            <Button variant='link' className='goDetail3'>Read more</Button>
-                          </Link>
+                          <Row className='d-flex flex-md-row justify-content-center'>
+                            <Link to={`/movies/${movie._id}`}>
+                              <Button variant='link' className='m-1 goDetail5'>Details</Button>
+                            </Link>
+                            <Link onClick={() => this.deleteFavorite(movie._id)}>
+                              <Button variant='link' className='m-1 goDetail6'>Delete</Button>
+                            </Link>
+                          </Row>
                         </Card.Footer>
                       </Card>
                     </div>
@@ -177,8 +179,6 @@ export class ProfileView extends React.Component {
             </div>
           </Row>
         </Container>
-
-        {/* //////////////// */}
 
         <Row className='mt-3 d-flex flex-md-row justify-content-center formPromise'>We will never share your details
         </Row>

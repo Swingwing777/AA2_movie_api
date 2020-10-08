@@ -55975,18 +55975,17 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "deleteFavorite",
-    value: function deleteFavorite(token, movieId) {
+    value: function deleteFavorite(movieId) {
       // let accessToken = localStorage.getItem('token');
       var user = localStorage.getItem('user');
 
       _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
         headers: {
-          Authorization: "Bearer ".concat(token)
+          Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
-      }) // .then(res => {
-      //     document.location.reload(true);
-      // })
-      .then(function (res) {
+      }).then(function (res) {
+        location.reload(true);
+      }).then(function (res) {
         alert('Movie successfully deleted from favorites');
       }).catch(function (e) {
         alert('Movie could not be deleted from favorites ' + e);
@@ -55994,7 +55993,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "deleteProfile",
-    value: function deleteProfile(token) {
+    value: function deleteProfile() {
       var _this3 = this;
 
       var user = localStorage.getItem('user');
@@ -56113,12 +56112,21 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
             className: "titleh2 p-1"
           }, movie.Title))), _react.default.createElement(_reactBootstrap.Card.Footer, {
             className: "cardFoot border-top-0 d-flex justify-content-center"
+          }, _react.default.createElement(_reactBootstrap.Row, {
+            className: "d-flex flex-md-row justify-content-center"
           }, _react.default.createElement(_reactRouterDom.Link, {
             to: "/movies/".concat(movie._id)
           }, _react.default.createElement(_reactBootstrap.Button, {
             variant: "link",
-            className: "goDetail3"
-          }, "Read more")))));
+            className: "m-1 goDetail5"
+          }, "Details")), _react.default.createElement(_reactRouterDom.Link, {
+            onClick: function onClick() {
+              return _this4.deleteFavorite(movie._id);
+            }
+          }, _react.default.createElement(_reactBootstrap.Button, {
+            variant: "link",
+            className: "m-1 goDetail6"
+          }, "Delete"))))));
         }
       }), ")}"))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3 d-flex flex-md-row justify-content-center formPromise"
@@ -56797,7 +56805,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43903" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46513" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

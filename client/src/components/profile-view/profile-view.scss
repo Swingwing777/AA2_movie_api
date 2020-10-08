@@ -59,18 +59,41 @@ $backColor: #151f25;
   0px 2px 2px $buttonLL inset;
 }
 
+.goDetail5,
+.goDetail6,
+.goDetail5:hover,
+.goDetail6:active,
+.goDetail5:hover,
+.goDetail6:active {
+  background-color: $button;
+  width:100px;
+  color: $main-text;
+  box-shadow: 
+  1px 0 1px $buttonHL inset,
+  0px 2px 1px $buttonHL inset,
+  2px 0 2px $buttonLL inset,
+  0px 2px 2px $buttonLL inset;
+}
+
 .formButton1,
 .formButton1:hover,
-.formButtton1:active {
+.formButtton1:active,
+.goDetail6,
+.goDetail6:hover,
+.goDetail6:active {
   background-color: $buttonRed;
 }
 
 .formButton:hover,
-.formButton1:hover {
+.formButton1:hover,
+.goDetail5:hover,
+.goDetail6:hover {
   filter: brightness(75%);
 }
 
 .formButton:active,
-.formButton1:active {
+.formButton1:active,
+.goDetail5:active,
+.goDetail6:active {
   filter: brightness(50%);
 }
