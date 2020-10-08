@@ -56456,7 +56456,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
-      console.log("This is user: ".concat(user));
+      console.log("This is user: ".concat(user)); //  This unlocked things, by moving it from above localStorage.setItem
     }
   }, {
     key: "render",
@@ -56482,9 +56482,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement("span", {
         className: "label"
       }, "Welcome to the Bond Movies Database"), _react.default.createElement(_reactRouterDom.NavLink, {
-        to: "/users/".concat(user),
-        className: "goUserProf mx-3 mt-3"
-      }, "Logged in as: ", user), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/users/".concat(user)
+      }, _react.default.createElement(_reactBootstrap.Button, {
+        className: "goUserProf mx-3 mt-3",
+        variant: "link"
+      }, "Logged in as: ", user)), _react.default.createElement(_reactRouterDom.Link, {
         to: "/update/".concat(user)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goUserProf mx-3 mt-3",
@@ -56723,7 +56725,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39539" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44451" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -25,7 +25,7 @@ export function LoginView(props) {
       })
       .catch(e => {
         //console.log(e.response) //what does this line show -'undefined'
-        console.log('no such user: ' + e)
+        console.log('handleSubmit catch error: ' + e)
       });
   };
 

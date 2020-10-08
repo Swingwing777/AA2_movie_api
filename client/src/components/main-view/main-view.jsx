@@ -128,8 +128,8 @@ export class MainView extends React.Component {
           <Row className='d-flex p-2 justify-content-around'>
             <span className='label'>Welcome to the Bond Movies Database</span>
 
-            <NavLink to={`/users/${user}`} className="goUserProf mx-3 mt-3">
-              Logged in as: {user}
+            <NavLink to={`/users/${user}`}>
+              <Button className='goUserProf mx-3 mt-3' variant="link">Logged in as: {user}</Button>
             </NavLink>
             <Link to={`/update/${user}`}>
               <Button className='goUserProf mx-3 mt-3' variant="link">Update User</Button>
