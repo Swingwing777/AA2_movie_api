@@ -266,7 +266,7 @@ app.get('/users/usernames', passport.authenticate('jwt', { session: false }), (r
 // GET single user by username
 app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
-    .populate('FavoriteMovies', 'Title')
+    //.populate('FavoriteMovies', 'Title')
     .then((user) => {
       if (!user) {
         return res.status(400).send('User with name "' + req.params.Username + '" not found');
