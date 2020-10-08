@@ -486,7 +486,8 @@ body {
 }
 
 .formLabel,
-.formTitle {
+.formTitle,
+.userName {
   color: white;
   font-size: x-large;
   text-shadow: 1px 1px 3px #d4eeff;
