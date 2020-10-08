@@ -61,7 +61,7 @@ export function UpdateView(props) {
               type='username'
               value={username}
               onChange={e => updateUsername(e.target.value)}
-              placeholder='**********' />
+              placeholder={username} />
             {/* className='userField'
               defaultValue={localStorage.getItem('user') + '\u00A0\u00A0\u00A0\(This cannot be changed)'}
               readOnly /> */}
