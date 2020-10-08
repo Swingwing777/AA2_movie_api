@@ -101,7 +101,7 @@ export function RegistrationView(props) {
 
         <Form.Row className='justify-content-center'>
           <Link to={`/`}>
-            <Button className='formButton mt-3' variant="link">Return to Login</Button>
+            <Button className='formButton mt-3' variant="link">Home</Button>
           </Link>
         </Form.Row>
       </Form >

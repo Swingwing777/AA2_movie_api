@@ -49296,7 +49296,7 @@ function LoginView(props) {
       props.onLoggedIn(data);
     }).catch(function (e) {
       //console.log(e.response) //what does this line show -'undefined'
-      console.log('no such user: ' + e);
+      console.log('handleSubmit catch error: ' + e);
     });
   };
 
@@ -56364,7 +56364,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       console.log('Logged out');
 
       _this.setState({
-        user: undefined
+        user: null
       });
 
       localStorage.removeItem('token');
@@ -56725,7 +56725,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44451" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43637" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
