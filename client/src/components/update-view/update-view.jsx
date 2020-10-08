@@ -110,11 +110,11 @@ export function UpdateView(props) {
         </Form.Row>
 
         <Form.Row className='justify-content-center'>
-          <Router>
+          {/* <Router>
             <Link to={`/`}>
               <Button className='formButton mt-3' variant="link">Home</Button>
             </Link>
-          </Router>
+          </Router> */}
         </Form.Row>
       </Form >
     </Container >

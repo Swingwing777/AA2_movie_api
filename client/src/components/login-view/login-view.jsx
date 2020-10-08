@@ -26,21 +26,18 @@ export function LoginView(props) {
       .then(response => {
         const data = response.data;
         props.onLoggedIn(data);
-      }).then(axios.get("https://jsonplaceholder.typicode.com/todos", {
-        cancelToken: source.token
-      }).then(response => {
-        setApiData(response.data);
       }).catch(e => {
         setUsername('New')
         console.log('User or Password details do not match:  ' + e)
-      }));
-  };
-
-  // const loginUser = (e) => {
-  //   e.preventDefault();
-  //   setUsername('New');
-  //   props.onLoggedIn(username);
-  // };
+      })
+    axios.get("https://jsonplaceholder.typicode.com/todos", {
+      cancelToken: source.token
+    }).then(response => {
+      setApiData(response.data);
+    }).catch(e => {
+      console.log('Cancel Token error: ' + e)
+    });
+  }
 
   if (username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 

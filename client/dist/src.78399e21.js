@@ -49283,7 +49283,14 @@ function LoginView(props) {
       password = _useState4[0],
       setPassword = _useState4[1];
 
+  var _useState5 = (0, _react.useState)(null),
+      _useState6 = _slicedToArray(_useState5, 2),
+      apiData = _useState6[0],
+      setApiData = _useState6[1];
+
   var handleSubmit = function handleSubmit(e) {
+    var source = _axios.default.CancelToken.source();
+
     console.log(username, password);
     e.preventDefault();
     /* Send a request to the server for authentication */
@@ -49295,17 +49302,18 @@ function LoginView(props) {
       var data = response.data;
       props.onLoggedIn(data);
     }).catch(function (e) {
-      console.log(e.response); //what does this line show -'undefined'
-
       setUsername('New');
       console.log('User or Password details do not match:  ' + e);
     });
-  }; // const loginUser = (e) => {
-  //   e.preventDefault();
-  //   setUsername('New');
-  //   props.onLoggedIn(username);
-  // };
 
+    _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
+      cancelToken: source.token
+    }).then(function (response) {
+      setApiData(response.data);
+    }).catch(function (e) {
+      console.log('Cancel Token error: ' + e);
+    });
+  };
 
   if (username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
     onLoggedIn: function onLoggedIn(user) {
@@ -56451,7 +56459,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       console.log('Logged out');
 
       _this.setState({
-        user: null
+        user: null,
+        userProfile: null,
+        selectedMovie: null
       });
 
       localStorage.removeItem('token');
@@ -56605,6 +56615,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
         path: "/register",
         render: function render() {
           return _react.default.createElement(_registrationView.RegistrationView, null);
@@ -56667,15 +56678,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/users/:Username",
         render: function render() {
-          // if (!user) return <div className="main-view" />;
-          //userProfile isnt defined. where does it come from?
-          // I set it as a state at line 62.  In the getUser method.userProfile={userProfile}
-          //i added it to 112
           return _react.default.createElement(_profileView.ProfileView, {
             userProfile: userProfile,
             user: localStorage.getItem('user'),
             movies: movies
-          }); //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
+          });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -56809,7 +56816,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45689" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46141" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
