@@ -49215,12 +49215,12 @@ function RegistrationView(props) {
     onClick: registerUser
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.Link, {
+  }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
   }, _react.default.createElement(_reactBootstrap.Button, {
     className: "formButton mt-3",
     variant: "link"
-  }, "Return to Login")))));
+  }, "Home"))))));
 }
 
 RegistrationView.propTypes = {
@@ -49295,10 +49295,17 @@ function LoginView(props) {
       var data = response.data;
       props.onLoggedIn(data);
     }).catch(function (e) {
-      //console.log(e.response) //what does this line show -'undefined'
-      console.log('handleSubmit catch error: ' + e);
+      console.log(e.response); //what does this line show -'undefined'
+
+      setUsername('New');
+      console.log('User or Password details do not match:  ' + e);
     });
-  };
+  }; // const loginUser = (e) => {
+  //   e.preventDefault();
+  //   setUsername('New');
+  //   props.onLoggedIn(username);
+  // };
+
 
   if (username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
     onLoggedIn: function onLoggedIn(user) {
@@ -56000,7 +56007,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
       }).then(function (res) {
-        alert('Do you really want to delete your account?');
+        _react.default.createElement("div", null, "'Do you really want to delete your account?'");
       }).then(function (res) {
         alert('Account was successfully deleted');
       }).then(function (res) {
@@ -56009,8 +56016,11 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
         _this3.setState({
           user: null
-        }); //window.open('/', '_self');
+        });
 
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.open('/', '_self');
       }).catch(function (e) {
         alert('Account could not be deleted ' + e);
       });
@@ -56167,6 +56177,7 @@ function UpdateView(props) {
       updateBirthday = _useState8[1];
 
   var updateUser = function updateUser(e) {
+    var user = localStorage.getItem('user');
     e.preventDefault();
 
     _axios.default.put("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
@@ -56182,15 +56193,16 @@ function UpdateView(props) {
       var data = response.data;
       alert('Your profile changes were successful');
       localStorage.setItem('user', data.Username);
-      window.open("/users/".concat(localStorage.getItem('user')));
+      console.log(response.data);
+      window.open("/users/".concat(localStorage.getItem('user')), '_self');
     }).catch(function (e) {
       console.log('Please check and try again');
     });
   };
 
   var loginUser = function loginUser(e) {
-    e.preventDefault();
-    setUsername('Registered');
+    e.preventDefault(); //updateUsername('Updated');
+
     props.onLoggedIn(username);
   }; // if (username === 'Registered') return <LoginView onLoggedIn={user => this.handleSubmit(user)} />;
 
@@ -56204,16 +56216,18 @@ function UpdateView(props) {
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
     size: "lg",
     className: "formTitle"
-  }, "Please Register")), _react.default.createElement(_reactBootstrap.Form.Row, {
+  }, "Update Details")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center mt-3"
   }, _react.default.createElement(_reactBootstrap.Form.Group, {
     as: _reactBootstrap.Col,
     controlId: "formGridUsername"
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
     className: "formLabel"
-  }, "Username:  "), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "userName justify-content-center mt-3"
-  }, username)), _react.default.createElement(_reactBootstrap.Form.Group, {
+  }, "Username:  "), _react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "userField",
+    defaultValue: localStorage.getItem('user') + '  (This cannot be changed)',
+    readOnly: true
+  })), _react.default.createElement(_reactBootstrap.Form.Group, {
     as: _reactBootstrap.Col,
     controlId: "formGridPassword"
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
@@ -56265,12 +56279,12 @@ function UpdateView(props) {
     onClick: updateUser
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.Link, {
+  }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
   }, _react.default.createElement(_reactBootstrap.Button, {
     className: "formButton mt-3",
     variant: "link"
-  }, "Return to Login")))));
+  }, "Home"))))));
 }
 
 UpdateView.propTypes = {
@@ -56725,7 +56739,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43637" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42597" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

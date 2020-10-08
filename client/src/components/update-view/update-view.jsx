@@ -3,10 +3,9 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { LoginView } from '../login-view/login-view';
 import { Form, Container, Col, Button, Row } from 'react-bootstrap';
-// import { RegistrationView } from '../registration-view/registration-view';
 import './update-view.scss';
 
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch, NavLink } from 'react-router-dom';
 
 export function UpdateView(props) {
   const [username, updateUsername] = useState('');
@@ -15,6 +14,7 @@ export function UpdateView(props) {
   const [birthday, updateBirthday] = useState('');
 
   const updateUser = (e) => {
+    const user = localStorage.getItem('user')
     e.preventDefault();
     axios.put(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
       Username: username,
@@ -28,7 +28,8 @@ export function UpdateView(props) {
         const data = response.data;
         alert('Your profile changes were successful');
         localStorage.setItem('user', data.Username);
-        window.open(`/users/${localStorage.getItem('user')}`);
+        console.log(response.data);
+        window.open(`/users/${localStorage.getItem('user')}`, '_self');
       })
       .catch(e => {
         console.log('Please check and try again')
@@ -37,7 +38,7 @@ export function UpdateView(props) {
 
   const loginUser = (e) => {
     e.preventDefault();
-    setUsername('Registered');
+    //updateUsername('Updated');
     props.onLoggedIn(username);
   };
 
@@ -48,13 +49,16 @@ export function UpdateView(props) {
     < Container className='formwrapper' >
       <Form className='p-md-3'>
         <Form.Row className='d-flex flex-md-row justify-content-center'>
-          <Form.Label size='lg' className='formTitle'>Please Register</Form.Label>
+          <Form.Label size='lg' className='formTitle'>Update Details</Form.Label>
         </Form.Row>
 
         <Form.Row className='justify-content-center mt-3'>
           <Form.Group as={Col} controlId='formGridUsername'>
             <Form.Label className='formLabel'>Username:  </Form.Label>
-            <Form.Row className='userName justify-content-center mt-3'>{username}</Form.Row>
+            <Form.Control
+              className='userField'
+              defaultValue={localStorage.getItem('user') + '  (This cannot be changed)'}
+              readOnly />
           </Form.Group>
 
           <Form.Group as={Col} controlId='formGridPassword'>
@@ -99,9 +103,11 @@ export function UpdateView(props) {
         </Form.Row>
 
         <Form.Row className='justify-content-center'>
-          <Link to={`/`}>
-            <Button className='formButton mt-3' variant="link">Return to Login</Button>
-          </Link>
+          <Router>
+            <Link to={`/`}>
+              <Button className='formButton mt-3' variant="link">Home</Button>
+            </Link>
+          </Router>
         </Form.Row>
       </Form >
     </Container >

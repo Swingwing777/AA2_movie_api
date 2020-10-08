@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Container, Button, Row, Card } from 'react-bootstrap';
 import './profile-view.scss';
 
-import { Link } from "react-router-dom";
+import { Router, Link } from "react-router-dom";
 
 export class ProfileView extends React.Component {
 
@@ -75,7 +75,7 @@ export class ProfileView extends React.Component {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       })
       .then(res => {
-        alert('Do you really want to delete your account?')
+        <div>'Do you really want to delete your account?'</div>
       })
       .then(res => {
         alert('Account was successfully deleted')
@@ -88,7 +88,9 @@ export class ProfileView extends React.Component {
           user: null
 
         });
-        //window.open('/', '_self');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.open('/', '_self');
       })
       .catch(e => {
         alert('Account could not be deleted ' + e)
@@ -110,7 +112,7 @@ export class ProfileView extends React.Component {
     return (
       <Container className='d-flex justify-content-center' >
         <Row className='p-2 justify-content-center'>
-          <Card style={{ width: 'fit-content(80%)' }} className='m-3 h-160 text-center movie-card'>
+          <Card style={{ width: '80%' }} className='m-3 h-160 text-center movie-card'>
             <Card.Body className='cardBody p-1'>
               <Card.Title className='titleh1 mt-3'>Username: {userProfile.Username}</Card.Title>
 
@@ -120,7 +122,7 @@ export class ProfileView extends React.Component {
               </Card.Text>
               <Card.Text className='text-left mt-4 m-2'>
                 <span className='label'>{'Birthday:\u00A0\u00A0'}</span>
-                <span className='valueh1'>{userProfile.Birthday}</span>
+                <span className='valueh1'>{moment(userProfile.Birthday).format('D MMM YYYY')}</span>
               </Card.Text>
               <Card.Text className='text-left mt-4 m-2'>
                 <span className='label'>{'Favorite Bond Movies:\u00A0\u00A0'}</span>

@@ -24,10 +24,16 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch(e => {
-        //console.log(e.response) //what does this line show -'undefined'
-        console.log('handleSubmit catch error: ' + e)
+        console.log(e.response) //what does this line show -'undefined'
+        setUsername('New')
+        console.log('User or Password details do not match:  ' + e)
       });
   };
+  // const loginUser = (e) => {
+  //   e.preventDefault();
+  //   setUsername('New');
+  //   props.onLoggedIn(username);
+  // };
 
   if (username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 
