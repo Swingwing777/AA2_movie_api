@@ -36,7 +36,7 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         this.getUser(token);
 
         // Assign the result to the state
@@ -57,7 +57,7 @@ export class MainView extends React.Component {
       .then(response => {
         // Try this
         const userProfile = response.data;
-        console.log(response.data);
+        // console.log(response.data);
 
         this.setState({
           userProfile: response.data
@@ -96,11 +96,11 @@ export class MainView extends React.Component {
       user: authData.user.Username
     });
 
-    console.log(`This is user: ${user}`);
-
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
+
     this.getMovies(authData.token);
+    console.log(`This is user: ${user}`);     //  This unlocked things, by moving it from above localStorage.setItem
   }
 
   logoutUser = (e) => {

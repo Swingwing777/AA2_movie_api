@@ -56391,8 +56391,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        console.log(response.data);
-
+        // console.log(response.data);
         _this2.getUser(token); // Assign the result to the state
 
 
@@ -56416,8 +56415,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         }
       }).then(function (response) {
         // Try this
-        var userProfile = response.data;
-        console.log(response.data);
+        var userProfile = response.data; // console.log(response.data);
 
         _this3.setState({
           userProfile: response.data
@@ -56455,10 +56453,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       this.setState({
         user: authData.user.Username
       });
-      console.log("This is user: ".concat(user));
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
+      console.log("This is user: ".concat(user));
     }
   }, {
     key: "render",
@@ -56725,7 +56723,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35659" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39539" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
