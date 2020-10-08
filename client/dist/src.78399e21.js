@@ -55936,7 +55936,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ProfileView);
 
     _this = _super.call(this);
-    _this._isMounted = false;
     _this.state = {
       user: localStorage.getItem('user'),
       userProfile: null
@@ -55956,16 +55955,14 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        if (_this2._isMounted && response.status === 200) {
-          var userProfile = response.data;
-          console.log(response.data);
+        var userProfile = response.data;
+        console.log(response.data);
 
-          _this2.setState({
-            userProfile: userProfile
-          });
+        _this2.setState({
+          userProfile: userProfile
+        });
 
-          console.log('This is user: ' + userProfile.Username);
-        }
+        console.log('This is user: ' + userProfile.Username);
       }).catch(function (error) {
         console.log('Sorry, there has been an error: ' + error);
       });
@@ -55973,18 +55970,14 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      this._isMounted = true;
       var accessToken = localStorage.getItem('token');
       this.getUser(accessToken);
     }
   }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this._isMounted = false;
-    }
-  }, {
     key: "deleteFavorite",
     value: function deleteFavorite(movieId) {
+      var _this3 = this;
+
       // let accessToken = localStorage.getItem('token');
       var user = localStorage.getItem('user');
 
@@ -55992,9 +55985,14 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
-      }).then(function (res) {
-        location.reload(true);
-      }).then(function (res) {
+      }).then(function (response) {
+        var userProfile = response.data;
+        console.log(response.data);
+
+        _this3.setState({
+          userProfile: userProfile
+        });
+
         alert('Movie successfully deleted from favorites');
       }).catch(function (e) {
         alert('Movie could not be deleted from favorites ' + e);
@@ -56003,7 +56001,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteProfile",
     value: function deleteProfile() {
-      var _this3 = this;
+      var _this4 = this;
 
       var user = localStorage.getItem('user');
 
@@ -56019,7 +56017,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
 
-        _this3.setState({
+        _this4.setState({
           user: null
         });
 
@@ -56033,7 +56031,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       var _this$props = this.props,
           movies = _this$props.movies,
@@ -56047,7 +56045,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
       return _react.default.createElement(_reactBootstrap.Container, {
         className: "formwrapper"
-      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Form, {
+      }, _react.default.createElement(_reactBootstrap.Form, {
         className: "p-md-3"
       }, _react.default.createElement(_reactBootstrap.Form.Row, {
         className: "d-flex flex-md-row justify-content-center"
@@ -56095,7 +56093,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         defaultValue: (0, _moment.default)(userProfile.Birthday).format('DD/MM/YYYY'),
         readOnly: true
       })))), _react.default.createElement(_reactBootstrap.Container, {
-        className: "flex-shrink-md justify-content-center"
+        className: "flex-shrink-md"
       }, _react.default.createElement("h1", {
         className: "titleh1 mt-4"
       }, "Your favorite Bond Movies"), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("div", {
@@ -56130,7 +56128,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
             className: "m-1 goDetail5"
           }, "Details")), _react.default.createElement(_reactRouterDom.Link, {
             onClick: function onClick() {
-              return _this4.deleteFavorite(movie._id);
+              return _this5.deleteFavorite(movie._id);
             }
           }, _react.default.createElement(_reactBootstrap.Button, {
             variant: "link",
@@ -56143,7 +56141,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "mt-5"
       }), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3 d-flex flex-md-row justify-content-center"
-      }, _react.default.createElement(_reactRouterDom.Link, {
+      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
+        to: "",
         onClick: function onClick() {
           return history.back();
         }
@@ -56151,14 +56150,15 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "m-2 formButton",
         variant: "link"
       }, "Movie")), _react.default.createElement(_reactRouterDom.Link, {
+        to: "",
         onClick: function onClick() {
-          return _this4.deleteProfile();
+          return _this5.deleteProfile();
         }
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 formButton1",
         variant: "link"
       }, "Delete Profile")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/update/".concat(userProfile.Username)
+        to: "/update/".concat(localStorage.getItem('user'))
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 formButton",
         variant: "link"
@@ -56541,7 +56541,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
-      console.log("This is user: ".concat(user)); //  This unlocked things, by moving it from above localStorage.setItem
+      console.log("This is user: ".concat(localStorage.getItem('user'))); //  This unlocked things, by moving it from above localStorage.setItem
     }
   }, {
     key: "render",
@@ -56551,7 +56551,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           movies = _this$state.movies,
           user = _this$state.user,
-          selectedMovie = _this$state.selectedMovie,
           userProfile = _this$state.userProfile;
       if (!user) return _react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
@@ -56810,7 +56809,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35831" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45689" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

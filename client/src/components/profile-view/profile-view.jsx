@@ -47,13 +47,15 @@ export class ProfileView extends React.Component {
     axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
-      .then(res => {
-        location.reload(true);
-      })
-      .then(res => {
+      .then(response => {
+        const userProfile = response.data;
+        console.log(response.data);
+
+        this.setState({
+          userProfile: userProfile
+        });
         alert('Movie successfully deleted from favorites');
       })
-
       .catch(e => {
         alert('Movie could not be deleted from favorites ' + e)
       });
@@ -175,7 +177,7 @@ export class ProfileView extends React.Component {
                   );
                 }
               })
-              })}
+              })
             </div>
           </Row>
         </Container>
