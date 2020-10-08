@@ -153,7 +153,7 @@ export class MainView extends React.Component {
                   return movies.map(m => <MovieCard key={m._id} movie={m} />)
                 }
                 } />
-                <Route path="/register" render={() => <RegistrationView />} />
+                <Route exact path="/register" render={() => <RegistrationView />} />
 
                 <Route path="/movies/:movieId" render={({ match }) =>
                   <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
@@ -178,14 +178,10 @@ export class MainView extends React.Component {
                 } />
 
                 <Route path="/users/:Username" render={() => {
-                  // if (!user) return <div className="main-view" />;
-                  //userProfile isnt defined. where does it come from?
-                  // I set it as a state at line 62.  In the getUser method.userProfile={userProfile}
-                  //i added it to 112
                   return <ProfileView
                     userProfile={userProfile}
                     user={localStorage.getItem('user')}
-                    movies={movies} />  //user={users.find(u => u.Username === match.params.Username).User} movies={movies}
+                    movies={movies} />
                 }
                 } />
                 <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} userProfile={userProfile} />} />
