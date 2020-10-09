@@ -28,7 +28,7 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       }).catch(e => {
         setUsername('New')
-        console.log('User or Password details do not match:  ' + e)
+        alert('User or Password details do not match')
       })
     axios.get("https://jsonplaceholder.typicode.com/todos", {
       cancelToken: source.token
