@@ -49216,11 +49216,14 @@ function RegistrationView(props) {
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
   }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/"
+    to: "",
+    onClick: function onClick() {
+      return history.back();
+    }
   }, _react.default.createElement(_reactBootstrap.Button, {
-    className: "formButton mt-3",
+    className: "m-2 goMovie2",
     variant: "link"
-  }, "Home"))))));
+  }, "Go Back"))))));
 }
 
 RegistrationView.propTypes = {
@@ -49303,7 +49306,7 @@ function LoginView(props) {
       props.onLoggedIn(data);
     }).catch(function (e) {
       setUsername('New');
-      console.log('User or Password details do not match:  ' + e);
+      alert('User or Password details do not match');
     });
 
     _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
@@ -56044,8 +56047,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           movies = _this$props.movies,
           user = _this$props.user,
-          userProfile = _this$props.userProfile; //console.log(userProfile.FavoriteMovies);
-      // console.log('profile view');
+          userProfile = _this$props.userProfile;
+      console.log(userProfile.FavoriteMovies); // console.log('profile view');
 
       if (!userProfile) return _react.default.createElement("div", {
         className: "main-view"
@@ -56157,7 +56160,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 formButton",
         variant: "link"
-      }, "Go Back")), _react.default.createElement(_reactRouterDom.Link, {
+      }, "Movie")), _react.default.createElement(_reactRouterDom.Link, {
         to: "",
         onClick: function onClick() {
           return _this5.deleteProfile();
@@ -56165,13 +56168,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 formButton1",
         variant: "link"
-      }, "Delete Profile")), _react.default.createElement(_reactRouterDom.Link, {
-        Link: true,
-        to: '/'
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "m-2 formButton",
-        variant: "link"
-      }, "Home")))));
+      }, "Delete Profile")))));
     }
   }]);
 
@@ -56361,12 +56358,7 @@ function UpdateView(props) {
     onClick: updateUser
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/"
-  }, _react.default.createElement(_reactBootstrap.Button, {
-    className: "formButton mt-3",
-    variant: "link"
-  }, "Home"))))));
+  })));
 }
 
 UpdateView.propTypes = {
@@ -56616,7 +56608,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
         path: "/register",
         render: function render() {
           return _react.default.createElement(_registrationView.RegistrationView, null);
@@ -56817,7 +56808,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43339" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38727" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
