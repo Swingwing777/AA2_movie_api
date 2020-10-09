@@ -60,9 +60,9 @@
           <th class="c2" scope="col">Response Format</th>
         </tr>
 
-        <!-- Get All Bond Movies  -->
+        <!-- Get All Bond Movies as JSON  -->
         <tr>
-          <td>Get All Bond Movies</td>
+          <td>Get All Bond Movies as JSON</td>
           <td>
             <pre class="url">
 /movies       </pre>
@@ -78,13 +78,7 @@
     "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),
     "Title": "Dr. No",
     "Year": "1962-01-01",
-    "Genres":[
-      {
-        "_id": "5f509d2dcce013d48f955987",
-        "Name": "Action"
-      },
-      etc etc,
-    ],
+    "Genre": ObjectId("5f509d2dcce013d48f955987"),
     "Description": "Bond searches for a missing ......",
     "Director": ObjectId("5f50c29ecf52f03ae2f58fe5"),
     "BondActor": ObjectId("5f50c0dfcf52f03ae2f58fdf"),
@@ -135,7 +129,7 @@
 
         <!-- Get one movie by title -->
         <tr>
-          <td>Get One Movie by Title</td>
+          <td>Get Single Movie by Title</td>
           <td>
             <pre class="url">
 /movies
@@ -145,12 +139,13 @@
           <td>/<em style="color: #d11313; font-family: consolas;">Title</em> must match case and spelling of database
           </td>
           <td class="c1">None – via URL only</td>
-          <td class="c2">JSON: Single object containing information on single movie, as per first example for ' Get All
+          <td class="c2">JSON: Single object containing information on single movie, as per first example for 'Get All
+            Movies
             Bond Movies' .<br>
             Fault message returned if no title match.</td>
         </tr>
 
-        <!--   Get all directors information  -->
+        <!--   Get all director information  -->
         <tr>
           <td>Get all director information in database</td>
           <td>
@@ -168,7 +163,7 @@
     "Date": "2015-06-20T00:00:00.000Z",
     "Place": "Shanghai, China"
   },
-  "Death": {
+  "Death": {  (As applicable)
     "Date": "1994-09-07T00:00:00.000Z",
     "Place": "Cannes, France"
   },
@@ -183,7 +178,7 @@
           </td>
         </tr>
 
-        <!--   //////////////// Get all directors listed by name only /////////////////-->
+        <!--   Get all directors listed by name only -->
         <tr>
           <td>Get all directors in database by name only</td>
           <td>
@@ -231,7 +226,7 @@
     "Date": "YYYY-MM-DD",
     "Place": "Paris, France",
   },
-  "Death": {
+  "Death": {   (As applicable)
     "Date": "YYYY-MM-DD",
     "Place": "Majorca, Spain",
   },
@@ -245,7 +240,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// Get director information by Name ////////////// -->
+        <!--  Get director information by Name  -->
         <tr>
           <td>Get director information by Name</td>
           <td>
@@ -265,7 +260,7 @@
     "Date": "YYYY-MM-DD",
     "Place": "Paris, France",
   },
-  "Death": {
+  "Death": {  (As applicable)
     "Date": "YYYY-MM-DD",
     "Place": "Majorca, Spain",
   },
@@ -279,7 +274,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// get all Bond actor details in database ///////////////  -->
+        <!--  Get all Bond actor details in database  -->
         <tr>
           <td>Get all Bond actor details in database</td>
           <td>
@@ -297,7 +292,7 @@
       "Date": "YYYY-MM-DD",
       "Place": "Stockwell",
     },
-    "Death": {
+    "Death": {  (As applicable)
       "Date": "YYYY-MM-DD",
       "Place": "Switzerland",
     },
@@ -313,7 +308,7 @@
         </tr>
 
 
-        <!--  //////////////// get all Bond actors in database by name only///////////////  -->
+        <!--  Get all Bond actors in database by name only   -->
         <tr>
           <td>Get all Bond actors in database by name only</td>
           <td>
@@ -340,7 +335,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// get Bond actor information for specific title ///////////////  -->
+        <!--  Get Bond actor information for specific title -->
         <tr>
           <td>Get Bond actor information of specified Title</td>
           <td>
@@ -361,7 +356,7 @@
     "Date": "YYYY-MM-DD",
     "Place": "Stockwell",
   },
-  "Death": {
+  "Death": {  (As applicable)
     "Date": "YYYY-MM-DD",
     "Place": "Switzerland",
   },
@@ -375,7 +370,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// get Bond actor by Name ///////////////  -->
+        <!--  Get Bond actor by Name  -->
         <tr>
           <td>Get Bond actor information by Name</td>
           <td>
@@ -395,7 +390,7 @@
     "Date": "YYYY-MM-DD",
     "Place": "Stockwell, England",
   },
-  "Death": {
+  "Death": {  (As applicable)
     "Date": "YYYY-MM-DD",
     "Place": "Switzerland",
   },
@@ -409,7 +404,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// Get genre description  ///////////////  -->
+        <!-- Get genre description  -->
         <tr>
           <td>Get Genre description of given genre</td>
           <td>
@@ -433,7 +428,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// Get JSON of all users' information ///////////////  -->
+        <!--  Get JSON of all users' information -->
         <tr>
           <td>Get JSON of full details for all users</td>
           <td>
@@ -449,7 +444,7 @@
   {
     "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),
     "Username": "Navy",
-    "Password": "wetfeet",
+    "Password": "",   (Password not accessible)
     "Email": "scurvy@gmail.com",
     "Birthday": "1978-10-12"
     "FavoriteMovies": [
@@ -464,7 +459,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// Get list of all usernames ///////////////  -->
+        <!--  Get list of all usernames  -->
         <tr>
           <td>Get list of usernames</td>
           <td>
@@ -485,7 +480,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// Get JSON of single user's details ///////////////  -->
+        <!--  Get JSON of single user's details -->
         <tr>
           <td>Get single user's details by username</td>
           <td>
@@ -502,20 +497,15 @@
 {
  "_id": ObjectID("xxxxxxxxxxxxxxxxxxx"),
  "Username": "Navy",
- "Password": "wetfeet",
+ "Password": "",  (Password not accessible)
  "Email": "scurvy@gmail.com",
  "Birthday": "1978-10-12",
- "FavoriteMovies": [
-   "Goldfinger",
-   "Thunderball",
-   "GoldenEye",
-   "Dr. No"
- ]
+ "FavoriteMovies": [ ObjectId, ObjectId ]
 }             </pre>
           </td>
         </tr>
 
-        <!--  //////////////// Register New user ///////////////  -->
+        <!--  Register New user   -->
         <tr>
           <td>Register new user</td>
           <td>
@@ -528,7 +518,7 @@
             <pre>
 {
  "Username": "Navy",
- "Password": "wetfeet",
+ "Password": "wetfeet",  (Password is hashed/not accessible)
  "Email": "scurvy@gmail.com",
  "Birthday": "1978-10-12"
 }             </pre>
@@ -539,15 +529,15 @@
 {
  "_id": ObjectID("xxxxxxxxxxxx"),
  "Username": "Navy",
- "Password": "wetfeet",
+ "Password": "",  (Password not accessible)
  "Email": "scurvy@gmail.com",
  "Birthday": "1978-10-12",
- "FavoriteMovies": []
+ "FavoriteMovies": [ ObjectId, ObjectId ]
 }             </pre>
           </td>
         </tr>
 
-        <!--  //////////////// Update user ///////////////  -->
+        <!--   Update user  -->
         <tr>
           <td>Update user by Username</td>
           <td>
@@ -562,7 +552,7 @@
             <pre>
 {
   "Username": "Navy",
-  "Password": "wetfeet",
+  "Password": "wetfeet",  (Password is hashed/not accessible)
   "Email": "scurvy@gmail.com",
   "Birthday": "1978-10-12"
 }             </pre>
@@ -572,7 +562,7 @@
 {
   "_id": ObjectID("xxxxxxxxxxxxx"),
   "Username": "Navy",
-  "Password": "wetfeet",
+  "Password": "",  (Password not accessible)
   "Email": "scurvy@gmail.com",
   "Birthday": "1978-10-12",
   "FavoriteMovies": []
@@ -580,7 +570,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// Add User favorite by Title ///////////////  -->
+        <!--  Add User favorite by Title  -->
         <tr>
           <td>Add user favorite by Title</td>
           <td>
@@ -598,7 +588,7 @@
 {
   "_id": ObjectID("xxxxxxxxxxxxx"),
   "Username": "Navy",
-  "Password": "wetfeet",
+  "Password": "",  (Password not accessible)
   "Email": "scurvy@gmail.com",
   "Birthday": "1978-10-12",
   "FavoriteMovies": []
@@ -606,7 +596,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// Add User favorite by Movie database ID ///////////////  -->
+        <!-- Add User favorite by Movie database ID  -->
         <tr>
           <td>Add user favorite by Movie ID</td>
           <td>
@@ -625,7 +615,7 @@
 {
   "_id": ObjectID("xxxxxxxxxxxxx"),
   "Username": "Navy",
-  "Password": "wetfeet",
+  "Password": "",  (Password not accessible)
   "Email": "scurvy@gmail.com",
   "Birthday": "1978-10-12",
   "FavoriteMovies": [5f50e462cf52f03ae2f59008]
@@ -633,7 +623,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// Remove User favorite by Title ///////////////  -->
+        <!--  Remove User favorite by Title   -->
         <tr>
           <td>Remove user favorite by Title</td>
           <td>
@@ -651,7 +641,7 @@
 {
   "_id": ObjectID("xxxxxxxxxxxxx"),
   "Username": "Navy",
-  "Password": "wetfeet",
+  "Password": "",  (Password not accessible)
   "Email": "scurvy@gmail.com",
   "Birthday": "1978-10-12",
   "FavoriteMovies": []
@@ -659,7 +649,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// Remove User favorite by Movie database ID ///////////////  -->
+        <!--  Remove User favorite by Movie database ID   -->
         <tr>
           <td>Remove user favorite by Movie database ID</td>
           <td>
@@ -678,7 +668,7 @@
 {
   "_id": ObjectID("xxxxxxxxxxxxx"),
   "Username": "Navy",
-  "Password": "wetfeet",
+  "Password": "",  (Password not accessible)
   "Email": "scurvy@gmail.com",
   "Birthday": "1978-10-12",
   "FavoriteMovies": []
@@ -686,7 +676,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// Remove User by Username ///////////////  -->
+        <!--  Remove User by Username  -->
         <tr>
           <td>Remove user by username</td>
           <td>
@@ -706,7 +696,7 @@
           </td>
         </tr>
 
-        <!--  //////////////// Remove User by ID ///////////////  -->
+        <!-- Remove User by ID  -->
         <tr>
           <td>Remove user by ID</td>
           <td>
