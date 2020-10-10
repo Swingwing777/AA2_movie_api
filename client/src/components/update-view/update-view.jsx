@@ -13,6 +13,34 @@ export function UpdateView(props) {
   const [password, updatePassword] = useState('');
   const [email, updateEmail] = useState('');
   const [birthday, updateBirthday] = useState('');
+  const [apiData, setApiData] = useState(null);
+
+  const getUser = (e) => {
+    const source = axios.CancelToken.source();
+    const user = localStorage.getItem('user')
+    e.preventDefault();
+    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+      .then(response => {
+        const data = response.data;
+        updateUsername(data.Username);
+        updateEmail(data.Email);
+        // updateBirthday(data.Birthday);
+
+        console.log('This is user: ' + response.data.Username);
+      })
+      .catch(e => {
+        console.log('Sorry, there has been an error: ' + e);
+      })
+    axios.get("https://jsonplaceholder.typicode.com/todos", {
+      cancelToken: source.token
+    }).then(response => {
+      setApiData(response.data);
+    }).catch(e => {
+      console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
+    });
+  }
 
   const updateUser = (e) => {
     const user = localStorage.getItem('user')
@@ -30,7 +58,7 @@ export function UpdateView(props) {
         alert('Your profile changes were successful');
         localStorage.setItem('user', data.Username);
         console.log(response.data);
-        window.open(`/users/${localStorage.getItem('user')}`, '_self');
+        window.open(`/main`, '_self');
       })
       .catch(e => {
         console.log('Please check and try again')
@@ -74,7 +102,7 @@ export function UpdateView(props) {
               type='password'
               value={password}
               onChange={e => updatePassword(e.target.value)}
-              placeholder='**********' />
+              placeholder='Old or New Password required' />
           </Form.Group>
         </Form.Row>
 
@@ -102,20 +130,31 @@ export function UpdateView(props) {
         </Form.Row>
         <Row className='mt-3 d-flex flex-md-row justify-content-center formPromise'>We will never share your details
         </Row>
+        <Router>
+          <Form.Row className='justify-content-center'>
 
-        <Form.Row className='justify-content-center'>
-          <Button className='formButton mt-3' variant='primary' type='submit' onClick={updateUser} >
-            Submit
-        </Button>
-        </Form.Row>
+            <Button className='formButton m-3' variant='primary' type='submit' onClick={getUser} >
+              Current Details
+            </Button>
 
-        <Form.Row className='justify-content-center'>
-          {/* <Router>
+            <Button className='formButton m-3' variant='primary' type='submit' onClick={updateUser} >
+              Submit
+            </Button>
+          </Form.Row>
+
+          <Form.Row className='justify-content-center'>
+            {/* <Router>
             <Link to={`/`}>
               <Button className='formButton mt-3' variant="link">Home</Button>
             </Link>
           </Router> */}
-        </Form.Row>
+
+            <Link to="" className='btn formButton m-3' onClick={() => history.back()}>
+              Back
+            </Link>
+
+          </Form.Row>
+        </Router>
       </Form >
     </Container >
   );
