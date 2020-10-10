@@ -49089,8 +49089,6 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function RegistrationView(props) {
-  var _this = this;
-
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       username = _useState2[0],
@@ -49111,6 +49109,11 @@ function RegistrationView(props) {
       birthday = _useState8[0],
       setBirthday = _useState8[1];
 
+  var loginUser = function loginUser(e) {
+    e.preventDefault();
+    setUsername('Registered'); //props.onLoggedIn(username);
+  };
+
   var registerUser = function registerUser(e) {
     e.preventDefault();
 
@@ -49126,19 +49129,10 @@ function RegistrationView(props) {
     }).catch(function (e) {
       console.log('Please check and try again');
     });
-  };
+  }; // onLoggedIn={user => this.handleSubmit(user)}
 
-  var loginUser = function loginUser(e) {
-    e.preventDefault();
-    setUsername('Registered');
-    props.onLoggedIn(username);
-  };
 
-  if (username === 'Registered') return _react.default.createElement(_loginView.LoginView, {
-    onLoggedIn: function onLoggedIn(user) {
-      return _this.handleSubmit(user);
-    }
-  });
+  if (username === 'Registered') return _react.default.createElement(_loginView.LoginView, null);
   return _react.default.createElement(_reactBootstrap.Container, {
     className: "formwrapper"
   }, _react.default.createElement(_reactBootstrap.Form, {
@@ -49215,15 +49209,12 @@ function RegistrationView(props) {
     onClick: registerUser
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
-    to: "",
-    onClick: function onClick() {
-      return history.back();
-    }
   }, _react.default.createElement(_reactBootstrap.Button, {
-    className: "m-2 goMovie2",
-    variant: "link"
-  }, "Go Back"))))));
+    className: "formButton mt-3",
+    variant: "primary",
+    type: "submit",
+    onClick: loginUser
+  }, "Login"))));
 }
 
 RegistrationView.propTypes = {
@@ -49305,7 +49296,7 @@ function LoginView(props) {
       var data = response.data;
       props.onLoggedIn(data);
     }).catch(function (e) {
-      setUsername('New');
+      // setUsername('New')                                // Catch 1: for automatic reload of registration view
       alert('User or Password details do not match');
     });
 
@@ -49314,8 +49305,13 @@ function LoginView(props) {
     }).then(function (response) {
       setApiData(response.data);
     }).catch(function (e) {
-      console.log('Cancel Token error: ' + e);
+      console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
     });
+  };
+
+  var registerUser = function registerUser(e) {
+    e.preventDefault();
+    setUsername('New');
   };
 
   if (username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
@@ -49371,12 +49367,12 @@ function LoginView(props) {
     onClick: handleSubmit
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/register"
   }, _react.default.createElement(_reactBootstrap.Button, {
     className: "formButton mt-3",
-    variant: "link"
-  }, "Register User"))))));
+    variant: "primary",
+    type: "submit",
+    onClick: registerUser
+  }, "Register"))));
 }
 /* using .required for PropTypes before login is pointless,
 as it flags warnings for entries that have not 
@@ -56706,13 +56702,13 @@ MainView.propTypes = {
     Heroine: _propTypes.default.string.isRequired,
     ImagePath: _propTypes.default.string.isRequired,
     ThumbNail: _propTypes.default.string.isRequired
-  }) // user: PropTypes.shape({
-  //   Username: PropTypes.string.isRequired,
-  //   Password: PropTypes.string.isRequired,
-  //   Email: PropTypes.string.isRequired,
-  //   Birthday: PropTypes.date.isRequired
-  // })
-
+  }),
+  user: _propTypes.default.shape({
+    Username: _propTypes.default.string,
+    Password: _propTypes.default.string,
+    Email: _propTypes.default.string,
+    Birthday: _propTypes.default.date
+  })
 };
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../login-view/login-view":"components/login-view/login-view.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","../bond-view/bond-view":"components/bond-view/bond-view.jsx","../genre-view/genre-view":"components/genre-view/genre-view.jsx","../director-view/director-view":"components/director-view/director-view.jsx","../profile-view/profile-view":"components/profile-view/profile-view.jsx","../update-view/update-view":"components/update-view/update-view.jsx","../registration-view/registration-view":"components/registration-view/registration-view.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./main-view.scss":"components/main-view/main-view.scss"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -56808,7 +56804,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38727" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44459" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
