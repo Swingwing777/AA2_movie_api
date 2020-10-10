@@ -49043,188 +49043,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registration-view/registration-view.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registration-view/registration-view.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.RegistrationView = RegistrationView;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _axios = _interopRequireDefault(require("axios"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _loginView = require("../login-view/login-view");
-
-var _reactBootstrap = require("react-bootstrap");
-
-require("./registration-view.scss");
-
-var _reactRouterDom = require("react-router-dom");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function RegistrationView(props) {
-  var _useState = (0, _react.useState)(''),
-      _useState2 = _slicedToArray(_useState, 2),
-      username = _useState2[0],
-      setUsername = _useState2[1];
-
-  var _useState3 = (0, _react.useState)(''),
-      _useState4 = _slicedToArray(_useState3, 2),
-      password = _useState4[0],
-      setPassword = _useState4[1];
-
-  var _useState5 = (0, _react.useState)(''),
-      _useState6 = _slicedToArray(_useState5, 2),
-      email = _useState6[0],
-      setEmail = _useState6[1];
-
-  var _useState7 = (0, _react.useState)(''),
-      _useState8 = _slicedToArray(_useState7, 2),
-      birthday = _useState8[0],
-      setBirthday = _useState8[1];
-
-  var loginUser = function loginUser(e) {
-    e.preventDefault();
-    setUsername('Registered'); //props.onLoggedIn(username);  Don't add this - it causes a warning wehen switching back to Login.
-  };
-
-  var registerUser = function registerUser(e) {
-    e.preventDefault();
-
-    _axios.default.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthday
-    }).then(function (response) {
-      var data = response.data;
-      console.log(data);
-      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
-    }).catch(function (e) {
-      console.log('Please check and try again');
-    });
-  }; // onLoggedIn={user => this.handleSubmit(user)}
-
-
-  if (username === 'Registered') return _react.default.createElement(_loginView.LoginView, null);
-  return _react.default.createElement(_reactBootstrap.Container, {
-    className: "formwrapper"
-  }, _react.default.createElement(_reactBootstrap.Form, {
-    className: "p-md-3"
-  }, _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "d-flex flex-md-row justify-content-center"
-  }, _react.default.createElement(_reactBootstrap.Form.Label, {
-    size: "lg",
-    className: "formTitle"
-  }, "Please Register")), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "justify-content-center mt-3"
-  }, _react.default.createElement(_reactBootstrap.Form.Group, {
-    as: _reactBootstrap.Col,
-    controlId: "formGridUsername"
-  }, _react.default.createElement(_reactBootstrap.Form.Label, {
-    className: "formLabel"
-  }, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
-    className: "entryField",
-    type: "text",
-    value: username,
-    onChange: function onChange(e) {
-      return setUsername(e.target.value);
-    },
-    placeholder: "Enter Username"
-  })), _react.default.createElement(_reactBootstrap.Form.Group, {
-    as: _reactBootstrap.Col,
-    controlId: "formGridPassword"
-  }, _react.default.createElement(_reactBootstrap.Form.Label, {
-    className: "formLabel"
-  }, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
-    className: "entryField",
-    type: "password",
-    value: password,
-    onChange: function onChange(e) {
-      return setPassword(e.target.value);
-    },
-    placeholder: "Enter Password"
-  }))), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "d-flex flex-md-row justify-content-center"
-  }, _react.default.createElement(_reactBootstrap.Form.Group, {
-    as: _reactBootstrap.Col,
-    controlId: "formGridEmail"
-  }, _react.default.createElement(_reactBootstrap.Form.Label, {
-    className: "formLabel"
-  }, "Email"), _react.default.createElement(_reactBootstrap.Form.Control, {
-    className: "entryField",
-    type: "email",
-    value: email,
-    onChange: function onChange(e) {
-      return setEmail(e.target.value);
-    },
-    placeholder: "Enter Email"
-  })), _react.default.createElement(_reactBootstrap.Form.Group, {
-    as: _reactBootstrap.Col,
-    controlId: "formBirthday"
-  }, _react.default.createElement(_reactBootstrap.Form.Label, {
-    className: "formLabel"
-  }, "Birthday"), _react.default.createElement(_reactBootstrap.Form.Control, {
-    className: "entryField",
-    type: "date",
-    value: birthday,
-    onChange: function onChange(e) {
-      return setBirthday(e.target.value);
-    },
-    placeholder: "Enter Birthday"
-  }))), _react.default.createElement(_reactBootstrap.Row, {
-    className: "mt-3 d-flex flex-md-row justify-content-center formPromise"
-  }, "We will never share your details"), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "mt-5 justify-content-center"
-  }, _react.default.createElement(_reactBootstrap.Button, {
-    className: "formButton mt-3",
-    variant: "primary",
-    type: "submit",
-    onClick: registerUser
-  }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
-    className: "justify-content-center"
-  }, _react.default.createElement(_reactBootstrap.Button, {
-    className: "formButton mt-3",
-    variant: "primary",
-    type: "submit",
-    onClick: loginUser
-  }, "Login"))));
-}
-
-RegistrationView.propTypes = {
-  Username: _propTypes.default.string,
-  Password: _propTypes.default.string,
-  Email: _propTypes.default.string,
-  Birthday: _propTypes.default.string,
-  onClick: _propTypes.default.func
-};
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../login-view/login-view":"components/login-view/login-view.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./registration-view.scss":"components/registration-view/registration-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
+},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49241,8 +49060,6 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 var _reactBootstrap = require("react-bootstrap");
 
 require("./login-view.scss");
-
-var _registrationView = require("../registration-view/registration-view");
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -49265,8 +49082,6 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function LoginView(props) {
-  var _this = this;
-
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       username = _useState2[0],
@@ -49306,18 +49121,22 @@ function LoginView(props) {
     }).catch(function (e) {
       console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
     });
-  };
+  }; // const registerUser = (e) => {
+  //   e.preventDefault();
+  //   setUsername('New');
+  // };
 
-  var registerUser = function registerUser(e) {
-    e.preventDefault();
-    setUsername('New');
-  };
 
-  if (username === 'New') return _react.default.createElement(_registrationView.RegistrationView, {
-    onLoggedIn: function onLoggedIn(user) {
-      return _this.registerUser(user);
-    }
-  });
+  if (props.isAuth) {
+    return _react.default.createElement(_reactRouterDom.Redirect, {
+      to: "/"
+    });
+  }
+
+  if (username === 'New') return _react.default.createElement(_reactRouterDom.Redirect, {
+    to: "/register"
+  }); //<RegistrationView onLoggedIn={user => this.registerUser(user)} />;
+
   return _react.default.createElement(_reactBootstrap.Container, {
     className: "formwrapper"
   }, _react.default.createElement(_reactBootstrap.Form, {
@@ -49366,15 +49185,10 @@ function LoginView(props) {
     onClick: handleSubmit
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactBootstrap.Button, {
-    className: "formButton mt-3",
-    variant: "primary",
-    type: "submit",
-    onClick: registerUser
-  }, "Register"), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.NavLink, {
+  }, _react.default.createElement(_reactRouterDom.NavLink, {
     to: "/register",
     className: "btn btn-primary formButton mt-3"
-  }, "Register User")))));
+  }, "Register User"))));
 }
 /* using .required for PropTypes before login is pointless,
 as it flags warnings for entries that have not 
@@ -49385,7 +49199,7 @@ LoginView.propTypes = {
   Username: _propTypes.default.string,
   Password: _propTypes.default.string
 };
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./login-view.scss":"components/login-view/login-view.scss","../registration-view/registration-view":"components/registration-view/registration-view.jsx","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-card/movie-card.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./login-view.scss":"components/login-view/login-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-card/movie-card.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -56032,7 +55846,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.open('/');
+        window.open('/', '_self');
       }).catch(function (e) {
         alert('Account could not be deleted ' + e);
       });
@@ -56046,9 +55860,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           movies = _this$props.movies,
           user = _this$props.user,
           userProfile = _this$props.userProfile;
-      console.log(userProfile.FavoriteMovies); // console.log('profile view');
-
-      if (!userProfile) return _react.default.createElement("div", {
+      if (!user) return _react.default.createElement("div", {
         className: "main-view"
       }); // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
 
@@ -56136,6 +55948,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
             variant: "link",
             className: "m-1 goDetail5"
           }, "Details")), _react.default.createElement(_reactRouterDom.Link, {
+            to: "",
             onClick: function onClick() {
               return _this5.deleteFavorite(movie._id);
             }
@@ -56158,8 +55971,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 formButton",
         variant: "link"
-      }, "Movie")), _react.default.createElement(_reactRouterDom.Link, {
-        to: "",
+      }, "Back")), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/login",
         onClick: function onClick() {
           return _this5.deleteProfile();
         }
@@ -56249,6 +56062,40 @@ function UpdateView(props) {
       birthday = _useState8[0],
       updateBirthday = _useState8[1];
 
+  var _useState9 = (0, _react.useState)(null),
+      _useState10 = _slicedToArray(_useState9, 2),
+      apiData = _useState10[0],
+      setApiData = _useState10[1];
+
+  var getUser = function getUser(e) {
+    var source = _axios.default.CancelToken.source();
+
+    var user = localStorage.getItem('user');
+    e.preventDefault();
+
+    _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+      headers: {
+        Authorization: "Bearer ".concat(localStorage.getItem('token'))
+      }
+    }).then(function (response) {
+      var data = response.data;
+      updateUsername(data.Username);
+      updateEmail(data.Email); // updateBirthday(data.Birthday);
+
+      console.log('This is user: ' + response.data.Username);
+    }).catch(function (e) {
+      console.log('Sorry, there has been an error: ' + e);
+    });
+
+    _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
+      cancelToken: source.token
+    }).then(function (response) {
+      setApiData(response.data);
+    }).catch(function (e) {
+      console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
+    });
+  };
+
   var updateUser = function updateUser(e) {
     var user = localStorage.getItem('user');
     e.preventDefault();
@@ -56267,7 +56114,7 @@ function UpdateView(props) {
       alert('Your profile changes were successful');
       localStorage.setItem('user', data.Username);
       console.log(response.data);
-      window.open("/users/".concat(localStorage.getItem('user')), '_self');
+      window.open("/main", '_self');
     }).catch(function (e) {
       console.log('Please check and try again');
     });
@@ -56316,7 +56163,7 @@ function UpdateView(props) {
     onChange: function onChange(e) {
       return updatePassword(e.target.value);
     },
-    placeholder: "**********"
+    placeholder: "Old or New Password required"
   }))), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "d-flex flex-md-row justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Form.Group, {
@@ -56347,16 +56194,27 @@ function UpdateView(props) {
     placeholder: birthday
   }))), _react.default.createElement(_reactBootstrap.Row, {
     className: "mt-3 d-flex flex-md-row justify-content-center formPromise"
-  }, "We will never share your details"), _react.default.createElement(_reactBootstrap.Form.Row, {
+  }, "We will never share your details"), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Button, {
-    className: "formButton mt-3",
+    className: "formButton m-3",
+    variant: "primary",
+    type: "submit",
+    onClick: getUser
+  }, "Current Details"), _react.default.createElement(_reactBootstrap.Button, {
+    className: "formButton m-3",
     variant: "primary",
     type: "submit",
     onClick: updateUser
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  })));
+  }, _react.default.createElement(_reactRouterDom.Link, {
+    to: "",
+    className: "btn formButton m-3",
+    onClick: function onClick() {
+      return history.back();
+    }
+  }, "Back")))));
 }
 
 UpdateView.propTypes = {
@@ -56366,7 +56224,188 @@ UpdateView.propTypes = {
   Birthday: _propTypes.default.string,
   onClick: _propTypes.default.func
 };
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../login-view/login-view":"components/login-view/login-view.jsx","moment":"../node_modules/moment/moment.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./update-view.scss":"components/update-view/update-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/main-view/main-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../login-view/login-view":"components/login-view/login-view.jsx","moment":"../node_modules/moment/moment.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./update-view.scss":"components/update-view/update-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/registration-view/registration-view.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registration-view/registration-view.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RegistrationView = RegistrationView;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _loginView = require("../login-view/login-view");
+
+var _reactBootstrap = require("react-bootstrap");
+
+require("./registration-view.scss");
+
+var _reactRouterDom = require("react-router-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function RegistrationView(props) {
+  var _useState = (0, _react.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      username = _useState2[0],
+      setUsername = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      password = _useState4[0],
+      setPassword = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(''),
+      _useState6 = _slicedToArray(_useState5, 2),
+      email = _useState6[0],
+      setEmail = _useState6[1];
+
+  var _useState7 = (0, _react.useState)(''),
+      _useState8 = _slicedToArray(_useState7, 2),
+      birthday = _useState8[0],
+      setBirthday = _useState8[1]; // const loginUser = (e) => {
+  //   e.preventDefault();
+  //   setUsername('Registered');
+  //   //props.onLoggedIn(username);  Don't add this - it causes a warning wehen switching back to Login.
+  // };
+
+
+  var registerUser = function registerUser(e) {
+    e.preventDefault();
+
+    _axios.default.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    }).then(function (response) {
+      var data = response.data;
+      console.log(data);
+      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+    }).catch(function (e) {
+      console.log('Please check and try again');
+    });
+  }; // onLoggedIn={user => this.handleSubmit(user)}
+
+
+  if (username === 'Registered') return _react.default.createElement(_loginView.LoginView, null);
+  return _react.default.createElement(_reactBootstrap.Container, {
+    className: "formwrapper"
+  }, _react.default.createElement(_reactBootstrap.Form, {
+    className: "p-md-3"
+  }, _react.default.createElement(_reactBootstrap.Form.Row, {
+    className: "d-flex flex-md-row justify-content-center"
+  }, _react.default.createElement(_reactBootstrap.Form.Label, {
+    size: "lg",
+    className: "formTitle"
+  }, "Please Register")), _react.default.createElement(_reactBootstrap.Form.Row, {
+    className: "justify-content-center mt-3"
+  }, _react.default.createElement(_reactBootstrap.Form.Group, {
+    as: _reactBootstrap.Col,
+    controlId: "formGridUsername"
+  }, _react.default.createElement(_reactBootstrap.Form.Label, {
+    className: "formLabel"
+  }, "Username"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "entryField",
+    type: "text",
+    value: username,
+    onChange: function onChange(e) {
+      return setUsername(e.target.value);
+    },
+    placeholder: "Enter Username"
+  })), _react.default.createElement(_reactBootstrap.Form.Group, {
+    as: _reactBootstrap.Col,
+    controlId: "formGridPassword"
+  }, _react.default.createElement(_reactBootstrap.Form.Label, {
+    className: "formLabel"
+  }, "Password"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "entryField",
+    type: "password",
+    value: password,
+    onChange: function onChange(e) {
+      return setPassword(e.target.value);
+    },
+    placeholder: "Enter Password"
+  }))), _react.default.createElement(_reactBootstrap.Form.Row, {
+    className: "d-flex flex-md-row justify-content-center"
+  }, _react.default.createElement(_reactBootstrap.Form.Group, {
+    as: _reactBootstrap.Col,
+    controlId: "formGridEmail"
+  }, _react.default.createElement(_reactBootstrap.Form.Label, {
+    className: "formLabel"
+  }, "Email"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "entryField",
+    type: "email",
+    value: email,
+    onChange: function onChange(e) {
+      return setEmail(e.target.value);
+    },
+    placeholder: "Enter Email"
+  })), _react.default.createElement(_reactBootstrap.Form.Group, {
+    as: _reactBootstrap.Col,
+    controlId: "formBirthday"
+  }, _react.default.createElement(_reactBootstrap.Form.Label, {
+    className: "formLabel"
+  }, "Birthday"), _react.default.createElement(_reactBootstrap.Form.Control, {
+    className: "entryField",
+    type: "date",
+    value: birthday,
+    onChange: function onChange(e) {
+      return setBirthday(e.target.value);
+    },
+    placeholder: "Enter Birthday"
+  }))), _react.default.createElement(_reactBootstrap.Row, {
+    className: "mt-3 d-flex flex-md-row justify-content-center formPromise"
+  }, "We will never share your details"), _react.default.createElement(_reactBootstrap.Form.Row, {
+    className: "mt-5 justify-content-center"
+  }, _react.default.createElement(_reactBootstrap.Button, {
+    className: "formButton mt-3",
+    variant: "primary",
+    type: "submit",
+    onClick: registerUser
+  }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
+    className: "justify-content-center"
+  }, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/login"
+  }, _react.default.createElement(_reactBootstrap.Button, {
+    className: "formButton mt-3",
+    variant: "link"
+  }, "Login")))));
+}
+
+RegistrationView.propTypes = {
+  Username: _propTypes.default.string,
+  Password: _propTypes.default.string,
+  Email: _propTypes.default.string,
+  Birthday: _propTypes.default.string,
+  onClick: _propTypes.default.func
+};
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../login-view/login-view":"components/login-view/login-view.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./registration-view.scss":"components/registration-view/registration-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/main-view/main-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -56408,6 +56447,8 @@ var _registrationView = require("../registration-view/registration-view");
 var _reactBootstrap = require("react-bootstrap");
 
 require("./main-view.scss");
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56452,7 +56493,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       _this.setState({
         user: null,
         userProfile: null,
-        selectedMovie: null
+        selectedMovie: null,
+        isAuth: false
       });
 
       localStorage.removeItem('token');
@@ -56463,7 +56505,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       movies: [],
       selectedMovie: null,
       userProfile: null,
-      user: null
+      user: null,
+      isAuth: false // Ties to isLoggedIn and isLoggedOut
+
     };
     return _this;
   } // new method to get movies
@@ -56537,7 +56581,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function onLoggedIn(authData) {
       console.log(authData);
       this.setState({
-        user: authData.user.Username
+        user: authData.user.Username,
+        isAuth: true
       });
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
@@ -56552,12 +56597,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           movies = _this$state.movies,
           user = _this$state.user,
-          userProfile = _this$state.userProfile;
-      if (!user) return _react.default.createElement(_loginView.LoginView, {
-        onLoggedIn: function onLoggedIn(user) {
-          return _this4.onLoggedIn(user);
-        }
-      }); // console.log(user)
+          userProfile = _this$state.userProfile,
+          isAuth = _this$state.isAuth; // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+      // console.log(user)
 
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
@@ -56592,23 +56634,66 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/",
-        render: function render() {
-          if (!user) return _react.default.createElement(_loginView.LoginView, {
+        render: function render(props) {
+          if (!user) {
+            /* If no user, go to LoginView via <Route path="/login" /> */
+            return _react.default.createElement(_reactRouterDom.Redirect, {
+              to: "/login"
+            });
+          }
+
+          return movies.map(function (m) {
+            return (
+              /* Or else go to MovieCards */
+              _react.default.createElement(_movieCard.MovieCard, _extends({
+                key: m._id,
+                movie: m
+              }, props))
+              /* {...props} = bring all the props passed by render from MainView to MovieCard */
+
+            );
+          });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/login",
+        render: function render(props) {
+          return _react.default.createElement(_loginView.LoginView, _extends({}, props, {
+            isAuth: isAuth,
             onLoggedIn: function onLoggedIn(user) {
               return _this4.onLoggedIn(user);
             }
-          });
-          return movies.map(function (m) {
-            return _react.default.createElement(_movieCard.MovieCard, {
-              key: m._id,
-              movie: m
-            });
-          });
+          }));
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/register",
         render: function render() {
           return _react.default.createElement(_registrationView.RegistrationView, null);
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/main",
+        render: function render(props) {
+          var user = localStorage.getItem('user');
+
+          if (!user) {
+            /* If no user, go to LoginView via <Route path="/login" /> */
+            return _react.default.createElement(_reactRouterDom.Redirect, {
+              to: "/login"
+            });
+          }
+
+          return movies.map(function (m) {
+            return (
+              /* Or else go to MovieCards */
+              _react.default.createElement(_movieCard.MovieCard, _extends({
+                key: m._id,
+                movie: m
+              }, props))
+              /* {...props} = bring all the props passed by render from MainView to MovieCard */
+
+            );
+          });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         path: "/movies/:movieId",
@@ -56806,7 +56891,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38147" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38355" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

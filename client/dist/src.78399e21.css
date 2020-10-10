@@ -57,55 +57,6 @@ body {
   max-width: 80%;
 }
 
-.formLabel,
-.formTitle {
-  color: white;
-  font-size: x-large;
-  text-shadow: 1px 1px 3px #d4eeff;
-}
-
-.entryField {
-  color: #4b678b;
-  font-size: smaller;
-}
-
-.formTitle {
-  font-size: xx-large;
-}
-
-.formPromise {
-  color: white;
-  font-size: medium;
-  font-style: italic;
-  text-shadow: 1px 1px 3px #d4eeff;
-}
-
-.formButton,
-.formButton:hover,
-.formButtton:active {
-  background-color: #0071ba;
-  width: 160px;
-  color: white;
-  box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
-}
-
-.formButton:hover {
-  filter: brightness(75%);
-}
-
-.formButton:active {
-  filter: brightness(50%);
-}
-body {
-  background-color: black;
-  background-image: url(/6BWTransFade.fd57f77e.png);
-}
-
-.container {
-  padding: 10px;
-  max-width: 80%;
-}
-
 .cardBody,
 .cardFoot,
 .cardTitle,
@@ -513,6 +464,55 @@ body {
 .formLabel,
 .formTitle,
 .userName {
+  color: white;
+  font-size: x-large;
+  text-shadow: 1px 1px 3px #d4eeff;
+}
+
+.entryField {
+  color: #4b678b;
+  font-size: smaller;
+}
+
+.formTitle {
+  font-size: xx-large;
+}
+
+.formPromise {
+  color: white;
+  font-size: medium;
+  font-style: italic;
+  text-shadow: 1px 1px 3px #d4eeff;
+}
+
+.formButton,
+.formButton:hover,
+.formButtton:active {
+  background-color: #0071ba;
+  width: 160px;
+  color: white;
+  box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
+}
+
+.formButton:hover {
+  filter: brightness(75%);
+}
+
+.formButton:active {
+  filter: brightness(50%);
+}
+body {
+  background-color: black;
+  background-image: url(/6BWTransFade.fd57f77e.png);
+}
+
+.container {
+  padding: 10px;
+  max-width: 80%;
+}
+
+.formLabel,
+.formTitle {
   color: white;
   font-size: x-large;
   text-shadow: 1px 1px 3px #d4eeff;
