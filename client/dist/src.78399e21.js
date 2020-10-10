@@ -49111,7 +49111,7 @@ function RegistrationView(props) {
 
   var loginUser = function loginUser(e) {
     e.preventDefault();
-    setUsername('Registered'); //props.onLoggedIn(username);
+    setUsername('Registered'); //props.onLoggedIn(username);  Don't add this - it causes a warning wehen switching back to Login.
   };
 
   var registerUser = function registerUser(e) {
@@ -49296,7 +49296,6 @@ function LoginView(props) {
       var data = response.data;
       props.onLoggedIn(data);
     }).catch(function (e) {
-      // setUsername('New')                                // Catch 1: for automatic reload of registration view
       alert('User or Password details do not match');
     });
 
@@ -49372,7 +49371,10 @@ function LoginView(props) {
     variant: "primary",
     type: "submit",
     onClick: registerUser
-  }, "Register"))));
+  }, "Register"), _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.NavLink, {
+    to: "/register",
+    className: "btn btn-primary formButton mt-3"
+  }, "Register User")))));
 }
 /* using .required for PropTypes before login is pointless,
 as it flags warnings for entries that have not 
@@ -56804,7 +56806,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44459" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38147" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

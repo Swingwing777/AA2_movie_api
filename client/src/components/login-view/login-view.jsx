@@ -5,7 +5,7 @@ import { Form, Container, Button, Col } from 'react-bootstrap';
 import './login-view.scss';
 import { RegistrationView } from '../registration-view/registration-view';
 
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link, NavLink } from 'react-router-dom';
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');
@@ -86,11 +86,13 @@ export function LoginView(props) {
           <Button className='formButton mt-3' variant='primary' type='submit' onClick={registerUser} >
             Register
           </Button>
-          {/* <Router>
-            <Link to={`/register`}>
-              <Button className='formButton mt-3' variant="link">Register User</Button>
-            </Link>
-          </Router> */}
+          <Router>
+            <NavLink to={`/register`} className="btn btn-primary formButton mt-3">
+              {/* <Button className='formButton mt-3' variant="link"> */}
+                Register User
+                {/* </Button> */}
+            </NavLink>
+          </Router>
         </Form.Row>
       </Form>
     </Container>
