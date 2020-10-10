@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Container, Card, Button, Row, Col, Form } from 'react-bootstrap';
 import './profile-view.scss';
 import moment from 'moment';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link, NavLink } from 'react-router-dom';
 
 export class ProfileView extends React.Component {
 
@@ -83,7 +83,7 @@ export class ProfileView extends React.Component {
         });
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.open('/');
+        window.open('/', '_self');
       })
       .catch(e => {
         alert('Account could not be deleted ' + e)
@@ -92,10 +92,8 @@ export class ProfileView extends React.Component {
 
   render() {
     const { movies, user, userProfile } = this.props;
-    console.log(userProfile.FavoriteMovies);
-    // console.log('profile view');
 
-    if (!userProfile) return <div className="main-view" />;
+    if (!user) return <div className="main-view" />;
 
     // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
 
@@ -152,8 +150,11 @@ export class ProfileView extends React.Component {
           <Row>
             <div className='d-flex row m-2'>
               {movies.map(movie => {
+
                 if (userProfile.FavoriteMovies.indexOf(movie._id) !== -1) {
+
                   return (
+
                     <div key={movie._id}>
                       <Card style={{ width: '9em' }} className="pt-3 m-1 p-2 text-center movie-card h-100">
                         <Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
@@ -167,7 +168,7 @@ export class ProfileView extends React.Component {
                             <Link to={`/movies/${movie._id}`}>
                               <Button variant='link' className='m-1 goDetail5'>Details</Button>
                             </Link>
-                            <Link onClick={() => this.deleteFavorite(movie._id)}>
+                            <Link to="" onClick={() => this.deleteFavorite(movie._id)}>
                               <Button variant='link' className='m-1 goDetail6'>Delete</Button>
                             </Link>
                           </Row>
@@ -189,15 +190,16 @@ export class ProfileView extends React.Component {
         <Row className='mt-3 d-flex flex-md-row justify-content-center'>
           <Router>
             <Link to="" onClick={() => history.back()}>
-              <Button className='m-2 formButton' variant="link">Movie</Button>
+              <Button className='m-2 formButton' variant="link">Back</Button>
             </Link>
 
-            <Link to="" onClick={() => this.deleteProfile()}>
+            <Link to="/login" onClick={() => this.deleteProfile()}>
               <Button className='m-2 formButton1' variant="link">Delete Profile</Button>
             </Link>
             {/* <Link Link to={`/update/${userProfile.Username}`}>
               <Button className='m-2 formButton' variant="link">Update Details</Button>
             </Link> */}
+
           </Router>
         </Row>
       </Container >
