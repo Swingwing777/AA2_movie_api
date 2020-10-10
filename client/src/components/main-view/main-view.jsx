@@ -1,8 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-
-import { BrowserRouter as Router, Route, Link, Switch, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom';
 
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
@@ -26,7 +25,8 @@ export class MainView extends React.Component {
       movies: [],
       selectedMovie: null,
       userProfile: null,
-      user: null
+      user: null,
+      isAuth: false      // Ties to isLoggedIn and isLoggedOut
     };
   }
 
@@ -92,7 +92,8 @@ export class MainView extends React.Component {
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
-      user: authData.user.Username
+      user: authData.user.Username,
+      isAuth: true
     });
 
     localStorage.setItem('token', authData.token);
@@ -108,7 +109,8 @@ export class MainView extends React.Component {
     this.setState({
       user: null,
       userProfile: null,
-      selectedMovie: null
+      selectedMovie: null,
+      isAuth: false
 
     });
     localStorage.removeItem('token');
@@ -116,9 +118,9 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, user, userProfile } = this.state;
+    const { movies, user, userProfile, isAuth } = this.state;
 
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
     // console.log(user)
 
@@ -133,6 +135,7 @@ export class MainView extends React.Component {
             <NavLink to={`/users/${user}`}>
               <Button className='goUserProf mx-3 mt-3' variant="link">Logged in as: {user}</Button>
             </NavLink>
+
             <Link to={`/update/${user}`}>
               <Button className='goUserProf mx-3 mt-3' variant="link">Update User</Button>
             </Link>
@@ -147,17 +150,45 @@ export class MainView extends React.Component {
           <div className="main-view">
             <Row className='p-2 justify-content-center'>
               <Switch>
+                {/* This is the MainView default route */}
+                <Route
+                  exact
+                  path="/"
+                  render={(props) => {
+                    if (!user) {                                          /* If no user, go to LoginView via <Route path="/login" /> */
+                      return (
+                        <Redirect to="/login" />
+                      );
+                    }
+                    return movies.map((m) => (                            /* Or else go to MovieCards */
+                      <MovieCard key={m._id} movie={m} {...props} />      /* {...props} = bring all the props passed by render from MainView to MovieCard */
+                    ));
+                  }}
+                />
 
-                <Route exact path="/" render={() => {
-                  if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-                  return movies.map(m => <MovieCard key={m._id} movie={m} />)
-                }
-                } />
+                <Route exact path="/login" render={(props) => <LoginView {...props} isAuth={isAuth} onLoggedIn={(user) => this.onLoggedIn(user)}
+                />} />
+
                 <Route path="/register" render={() => <RegistrationView />} />
+
+                <Route
+                  exact
+                  path="/main"
+                  render={(props) => {
+                    const user = localStorage.getItem('user')
+                    if (!user) {                                          /* If no user, go to LoginView via <Route path="/login" /> */
+                      return (
+                        <Redirect to="/login" />
+                      );
+                    }
+                    return movies.map((m) => (                            /* Or else go to MovieCards */
+                      <MovieCard key={m._id} movie={m} {...props} />      /* {...props} = bring all the props passed by render from MainView to MovieCard */
+                    ));
+                  }}
+                />
 
                 <Route path="/movies/:movieId" render={({ match }) =>
                   <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
-                {/* <Route exact path="/" render={Welcome} /> */}
 
                 <Route exact path="/actors/:movie/:name" render={({ match }) => {
                   if (!movies) return <div className="main-view" />;
@@ -184,7 +215,9 @@ export class MainView extends React.Component {
                     movies={movies} />
                 }
                 } />
+
                 <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} userProfile={userProfile} />} />
+
               </Switch>
 
             </Row>
