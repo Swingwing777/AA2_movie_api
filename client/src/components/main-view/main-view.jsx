@@ -212,12 +212,12 @@ MainView.propTypes = {
     ThumbNail: PropTypes.string.isRequired
   }),
 
-  // user: PropTypes.shape({
-  //   Username: PropTypes.string.isRequired,
-  //   Password: PropTypes.string.isRequired,
-  //   Email: PropTypes.string.isRequired,
-  //   Birthday: PropTypes.date.isRequired
-  // })
+  user: PropTypes.shape({
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Email: PropTypes.string,
+    Birthday: PropTypes.date
+  })
 };
 
 

@@ -13,6 +13,13 @@ export function RegistrationView(props) {
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
 
+  const loginUser = (e) => {
+    e.preventDefault();
+    setUsername('Registered');
+    //props.onLoggedIn(username);
+  };
+
+
   const registerUser = (e) => {
     e.preventDefault();
     axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
@@ -31,13 +38,9 @@ export function RegistrationView(props) {
       });
   };
 
-  const loginUser = (e) => {
-    e.preventDefault();
-    setUsername('Registered');
-    props.onLoggedIn(username);
-  };
+  // onLoggedIn={user => this.handleSubmit(user)}
 
-  if (username === 'Registered') return <LoginView onLoggedIn={user => this.handleSubmit(user)} />;
+  if (username === 'Registered') return <LoginView />;
 
   return (
     <Container className='formwrapper' >
@@ -101,11 +104,15 @@ export function RegistrationView(props) {
         </Form.Row>
 
         <Form.Row className='justify-content-center'>
-          <Router>
+          <Button className='formButton mt-3' variant='primary' type='submit' onClick={loginUser} >
+            Login
+        </Button>
+
+          {/* <Router>
             <Link to={`/`}>
               <Button className='formButton mt-3' variant="link">Home</Button>
             </Link>
-          </Router>
+          </Router> */}
         </Form.Row>
       </Form >
     </Container>

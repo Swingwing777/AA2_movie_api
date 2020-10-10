@@ -27,7 +27,7 @@ export function LoginView(props) {
         const data = response.data;
         props.onLoggedIn(data);
       }).catch(e => {
-        setUsername('New')
+        // setUsername('New')                                // Catch 1: for automatic reload of registration view
         alert('User or Password details do not match')
       })
     axios.get("https://jsonplaceholder.typicode.com/todos", {
@@ -35,9 +35,14 @@ export function LoginView(props) {
     }).then(response => {
       setApiData(response.data);
     }).catch(e => {
-      console.log('Cancel Token error: ' + e)
+      console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
     });
   }
+
+  const registerUser = (e) => {
+    e.preventDefault();
+    setUsername('New');
+  };
 
   if (username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 
@@ -79,11 +84,14 @@ export function LoginView(props) {
           </Button>
         </Form.Row>
         <Form.Row className='justify-content-center'>
-          <Router>
+          <Button className='formButton mt-3' variant='primary' type='submit' onClick={registerUser} >
+            Register
+          </Button>
+          {/* <Router>
             <Link to={`/register`}>
               <Button className='formButton mt-3' variant="link">Register User</Button>
             </Link>
-          </Router>
+          </Router> */}
         </Form.Row>
       </Form>
     </Container>
