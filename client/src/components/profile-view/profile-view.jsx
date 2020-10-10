@@ -12,12 +12,14 @@ export class ProfileView extends React.Component {
     super();
     this.state = {
       user: localStorage.getItem('user'),
-      userProfile: null
+      userProfile: null,
+      apiData: null
     }
   }
 
   getUser(token) {
     let user = localStorage.getItem('user')
+    const source = axios.CancelToken.source();
     axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -33,7 +35,16 @@ export class ProfileView extends React.Component {
       })
       .catch(function (error) {
         console.log('Sorry, there has been an error: ' + error);
+      })
+    axios.get("https://jsonplaceholder.typicode.com/todos", {
+      cancelToken: source.token
+    }).then(response => {
+      this.setState({
+        apiData: response.data
       });
+    }).catch(e => {
+      console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
+    });
   }
 
   componentDidMount() {

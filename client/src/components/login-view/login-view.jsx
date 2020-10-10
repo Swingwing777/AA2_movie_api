@@ -14,7 +14,7 @@ export function LoginView(props) {
   const handleSubmit = (e) => {
     const source = axios.CancelToken.source();
 
-    console.log(username, password);
+    //console.log(username, password);
     e.preventDefault();
     /* Send a request to the server for authentication */
 
@@ -37,17 +37,10 @@ export function LoginView(props) {
     });
   }
 
-  // const registerUser = (e) => {
-  //   e.preventDefault();
-  //   setUsername('New');
-  // };
-
   if (props.isAuth) {
     return <Redirect to="/" />
   }
   if (username === 'New') return <Redirect to="/register" />
-
-  //<RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 
   return (
     <Container className='formwrapper'>
@@ -87,11 +80,6 @@ export function LoginView(props) {
           </Button>
         </Form.Row>
         <Form.Row className='justify-content-center'>
-
-          {/* /* Backup plan for navigating to RegisterView */}
-          {/* <Button className='formButton mt-3' variant='primary' type='submit' onClick={registerUser} >
-            Register
-          </Button> */}
 
           <NavLink to={`/register`} className="btn btn-primary formButton mt-3">
             Register User

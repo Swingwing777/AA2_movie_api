@@ -26,13 +26,14 @@ export class MainView extends React.Component {
       selectedMovie: null,
       userProfile: null,
       user: null,
+      apiData: null,
       isAuth: false      // Ties to isLoggedIn and isLoggedOut
     };
   }
 
   // new method to get movies
   getMovies(token) {
-
+    const source = axios.CancelToken.source();
     axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -47,16 +48,25 @@ export class MainView extends React.Component {
       })
       .catch(function (error) {
         console.log(error);
+      })
+    axios.get("https://jsonplaceholder.typicode.com/todos", {
+      cancelToken: source.token
+    }).then(response => {
+      this.setState({
+        apiData: response.data
       });
+    }).catch(e => {
+      console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
+    });
   }
 
   getUser(token) {
     let user = localStorage.getItem('user')
+    const source = axios.CancelToken.source();
     axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        //const userProfile = response.data;
 
         this.setState({
           userProfile: response.data
@@ -66,7 +76,16 @@ export class MainView extends React.Component {
       })
       .catch(function (error) {
         console.log('Sorry, there has been an error: ' + error);
+      })
+    axios.get("https://jsonplaceholder.typicode.com/todos", {
+      cancelToken: source.token
+    }).then(response => {
+      this.setState({
+        apiData: response.data
       });
+    }).catch(e => {
+      console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
+    });
   }
 
   componentDidMount() {
@@ -79,7 +98,6 @@ export class MainView extends React.Component {
 
       // If user and access token are present, can call getMovies & getUser methods.
       this.getMovies(accessToken);
-
     }
   }
 
@@ -119,10 +137,6 @@ export class MainView extends React.Component {
 
   render() {
     const { movies, user, userProfile, isAuth } = this.state;
-
-    // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-
-    // console.log(user)
 
     if (!movies) return <div className="main-view" />;
 

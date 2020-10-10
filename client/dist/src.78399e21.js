@@ -49098,9 +49098,9 @@ function LoginView(props) {
       setApiData = _useState6[1];
 
   var handleSubmit = function handleSubmit(e) {
-    var source = _axios.default.CancelToken.source();
+    var source = _axios.default.CancelToken.source(); //console.log(username, password);
 
-    console.log(username, password);
+
     e.preventDefault();
     /* Send a request to the server for authentication */
 
@@ -49121,11 +49121,7 @@ function LoginView(props) {
     }).catch(function (e) {
       console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
     });
-  }; // const registerUser = (e) => {
-  //   e.preventDefault();
-  //   setUsername('New');
-  // };
-
+  };
 
   if (props.isAuth) {
     return _react.default.createElement(_reactRouterDom.Redirect, {
@@ -49135,8 +49131,7 @@ function LoginView(props) {
 
   if (username === 'New') return _react.default.createElement(_reactRouterDom.Redirect, {
     to: "/register"
-  }); //<RegistrationView onLoggedIn={user => this.registerUser(user)} />;
-
+  });
   return _react.default.createElement(_reactBootstrap.Container, {
     className: "formwrapper"
   }, _react.default.createElement(_reactBootstrap.Form, {
@@ -55761,7 +55756,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this);
     _this.state = {
       user: localStorage.getItem('user'),
-      userProfile: null
+      userProfile: null,
+      apiData: null
     };
     return _this;
   }
@@ -55772,6 +55768,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       var user = localStorage.getItem('user');
+
+      var source = _axios.default.CancelToken.source();
 
       _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
         headers: {
@@ -55788,6 +55786,16 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         console.log('This is user: ' + userProfile.Username);
       }).catch(function (error) {
         console.log('Sorry, there has been an error: ' + error);
+      });
+
+      _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
+        cancelToken: source.token
+      }).then(function (response) {
+        _this2.setState({
+          apiData: response.data
+        });
+      }).catch(function (e) {
+        console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
       });
     }
   }, {
@@ -56092,7 +56100,7 @@ function UpdateView(props) {
     }).then(function (response) {
       setApiData(response.data);
     }).catch(function (e) {
-      console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
+      console.log('Cancel Token error: ' + e); // Catch for cancel token error
     });
   };
 
@@ -56119,13 +56127,6 @@ function UpdateView(props) {
       console.log('Please check and try again');
     });
   };
-
-  var loginUser = function loginUser(e) {
-    e.preventDefault(); //updateUsername('Updated');
-
-    props.onLoggedIn(username);
-  }; // if (username === 'Registered') return <LoginView onLoggedIn={user => this.handleSubmit(user)} />;
-
 
   return _react.default.createElement(_reactBootstrap.Container, {
     className: "formwrapper"
@@ -56288,12 +56289,7 @@ function RegistrationView(props) {
   var _useState7 = (0, _react.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
       birthday = _useState8[0],
-      setBirthday = _useState8[1]; // const loginUser = (e) => {
-  //   e.preventDefault();
-  //   setUsername('Registered');
-  //   //props.onLoggedIn(username);  Don't add this - it causes a warning wehen switching back to Login.
-  // };
-
+      setBirthday = _useState8[1];
 
   var registerUser = function registerUser(e) {
     e.preventDefault();
@@ -56310,8 +56306,7 @@ function RegistrationView(props) {
     }).catch(function (e) {
       console.log('Please check and try again');
     });
-  }; // onLoggedIn={user => this.handleSubmit(user)}
-
+  };
 
   if (username === 'Registered') return _react.default.createElement(_loginView.LoginView, null);
   return _react.default.createElement(_reactBootstrap.Container, {
@@ -56506,6 +56501,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       selectedMovie: null,
       userProfile: null,
       user: null,
+      apiData: null,
       isAuth: false // Ties to isLoggedIn and isLoggedOut
 
     };
@@ -56517,6 +56513,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     key: "getMovies",
     value: function getMovies(token) {
       var _this2 = this;
+
+      var source = _axios.default.CancelToken.source();
 
       _axios.default.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
         headers: {
@@ -56533,6 +56531,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }).catch(function (error) {
         console.log(error);
       });
+
+      _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
+        cancelToken: source.token
+      }).then(function (response) {
+        _this2.setState({
+          apiData: response.data
+        });
+      }).catch(function (e) {
+        console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
+      });
     }
   }, {
     key: "getUser",
@@ -56541,12 +56549,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
       var user = localStorage.getItem('user');
 
+      var source = _axios.default.CancelToken.source();
+
       _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        //const userProfile = response.data;
         _this3.setState({
           userProfile: response.data
         });
@@ -56554,6 +56563,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         console.log('This is user: ' + response.data.Username);
       }).catch(function (error) {
         console.log('Sorry, there has been an error: ' + error);
+      });
+
+      _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
+        cancelToken: source.token
+      }).then(function (response) {
+        _this3.setState({
+          apiData: response.data
+        });
+      }).catch(function (e) {
+        console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
       });
     }
   }, {
@@ -56598,9 +56617,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           movies = _this$state.movies,
           user = _this$state.user,
           userProfile = _this$state.userProfile,
-          isAuth = _this$state.isAuth; // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-      // console.log(user)
-
+          isAuth = _this$state.isAuth;
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
@@ -56891,7 +56908,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38355" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39287" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

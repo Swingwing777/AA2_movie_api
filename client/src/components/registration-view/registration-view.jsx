@@ -31,8 +31,6 @@ export function RegistrationView(props) {
       });
   };
 
-  // onLoggedIn={user => this.handleSubmit(user)}
-
   if (username === 'Registered') return <LoginView />;
 
   return (
@@ -97,11 +95,6 @@ export function RegistrationView(props) {
         </Form.Row>
 
         <Form.Row className='justify-content-center'>
-
-          {/* Backup option for navigation to LoginView */}
-          {/* <Button className='formButton mt-3' variant='primary' type='submit' onClick={loginUser} >  
-            Login
-          </Button> */}
 
           <Link to={`/login`}>
             <Button className='formButton mt-3' variant="link">Login</Button>

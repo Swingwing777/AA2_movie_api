@@ -38,7 +38,7 @@ export function UpdateView(props) {
     }).then(response => {
       setApiData(response.data);
     }).catch(e => {
-      console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
+      console.log('Cancel Token error: ' + e)            // Catch for cancel token error
     });
   }
 
@@ -64,14 +64,6 @@ export function UpdateView(props) {
         console.log('Please check and try again')
       });
   };
-
-  const loginUser = (e) => {
-    e.preventDefault();
-    //updateUsername('Updated');
-    props.onLoggedIn(username);
-  };
-
-  // if (username === 'Registered') return <LoginView onLoggedIn={user => this.handleSubmit(user)} />;
 
   return (
 
