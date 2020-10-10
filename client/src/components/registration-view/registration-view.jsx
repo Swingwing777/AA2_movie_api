@@ -5,19 +5,13 @@ import { LoginView } from '../login-view/login-view';
 import { Form, Container, Col, Button, Row } from 'react-bootstrap';
 import './registration-view.scss';
 
-import { BrowserRouter as Router, Route, Link, Switch, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom';
 
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
-
-  const loginUser = (e) => {
-    e.preventDefault();
-    setUsername('Registered');
-    //props.onLoggedIn(username);  Don't add this - it causes a warning wehen switching back to Login.
-  };
 
   const registerUser = (e) => {
     e.preventDefault();
@@ -103,15 +97,16 @@ export function RegistrationView(props) {
         </Form.Row>
 
         <Form.Row className='justify-content-center'>
-          <Button className='formButton mt-3' variant='primary' type='submit' onClick={loginUser} >
-            Login
-        </Button>
 
-          {/* <Router>
-            <Link to={`/`}>
-              <Button className='formButton mt-3' variant="link">Home</Button>
-            </Link>
-          </Router> */}
+          {/* Backup option for navigation to LoginView */}
+          {/* <Button className='formButton mt-3' variant='primary' type='submit' onClick={loginUser} >  
+            Login
+          </Button> */}
+
+          <Link to={`/login`}>
+            <Button className='formButton mt-3' variant="link">Login</Button>
+          </Link>
+
         </Form.Row>
       </Form >
     </Container>
