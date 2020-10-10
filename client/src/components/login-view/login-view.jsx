@@ -27,7 +27,6 @@ export function LoginView(props) {
         const data = response.data;
         props.onLoggedIn(data);
       }).catch(e => {
-        // setUsername('New')                                // Catch 1: for automatic reload of registration view
         alert('User or Password details do not match')
       })
     axios.get("https://jsonplaceholder.typicode.com/todos", {

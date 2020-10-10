@@ -16,9 +16,8 @@ export function RegistrationView(props) {
   const loginUser = (e) => {
     e.preventDefault();
     setUsername('Registered');
-    //props.onLoggedIn(username);
+    //props.onLoggedIn(username);  Don't add this - it causes a warning wehen switching back to Login.
   };
-
 
   const registerUser = (e) => {
     e.preventDefault();
