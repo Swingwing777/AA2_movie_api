@@ -3,9 +3,8 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Form, Container, Button, Col } from 'react-bootstrap';
 import './login-view.scss';
-import { RegistrationView } from '../registration-view/registration-view';
 
-import { BrowserRouter as Router, Link, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-dom';
 
 export function LoginView(props) {
   const [username, setUsername] = useState('');
@@ -38,12 +37,17 @@ export function LoginView(props) {
     });
   }
 
-  const registerUser = (e) => {
-    e.preventDefault();
-    setUsername('New');
-  };
+  // const registerUser = (e) => {
+  //   e.preventDefault();
+  //   setUsername('New');
+  // };
 
-  if (username === 'New') return <RegistrationView onLoggedIn={user => this.registerUser(user)} />;
+  if (props.isAuth) {
+    return <Redirect to="/" />
+  }
+  if (username === 'New') return <Redirect to="/register" />
+
+  //<RegistrationView onLoggedIn={user => this.registerUser(user)} />;
 
   return (
     <Container className='formwrapper'>
@@ -83,16 +87,16 @@ export function LoginView(props) {
           </Button>
         </Form.Row>
         <Form.Row className='justify-content-center'>
-          <Button className='formButton mt-3' variant='primary' type='submit' onClick={registerUser} >
+
+          {/* /* Backup plan for navigating to RegisterView */}
+          {/* <Button className='formButton mt-3' variant='primary' type='submit' onClick={registerUser} >
             Register
-          </Button>
-          <Router>
-            <NavLink to={`/register`} className="btn btn-primary formButton mt-3">
-              {/* <Button className='formButton mt-3' variant="link"> */}
-                Register User
-                {/* </Button> */}
-            </NavLink>
-          </Router>
+          </Button> */}
+
+          <NavLink to={`/register`} className="btn btn-primary formButton mt-3">
+            Register User
+          </NavLink>
+
         </Form.Row>
       </Form>
     </Container>
