@@ -1,7 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';                              // #0
 import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom';
+
+import { setMovies } from '../../actions/actions';                  // #0
+import MoviesList from '../movies-list/movies-list';                // #0
 
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
@@ -15,20 +20,32 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { Container, Row, Button, Col } from 'react-bootstrap';
 import './main-view.scss';
 
-
 export class MainView extends React.Component {
 
   constructor() {
     super();
 
     this.state = {
-      movies: [],
+      // movies: [],
       selectedMovie: null,
       userProfile: null,
       user: null,
       apiData: null,
       isAuth: false      // Ties to isLoggedIn and isLoggedOut
     };
+  }
+
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
+
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
+      });
+
+      // If user and access token are present, can call getMovies & getUser methods.
+      this.getMovies(accessToken);
+    }
   }
 
   // new method to get movies
@@ -38,13 +55,13 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        // console.log(response.data);
+        this.props.setMovies(response.data);      // #1 - to replace setState of Ex3.5 version
         this.getUser(token);
 
         // Assign the result to the state
-        this.setState({
-          movies: response.data
-        });
+        // this.setState({
+        //   movies: response.data
+        // });
       })
       .catch(function (error) {
         console.log(error);
@@ -88,20 +105,7 @@ export class MainView extends React.Component {
     });
   }
 
-  componentDidMount() {
-    let accessToken = localStorage.getItem('token');
-
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
-
-      // If user and access token are present, can call getMovies & getUser methods.
-      this.getMovies(accessToken);
-    }
-  }
-
-  onMovieClick(movie) {
+  onMovieClick(movie) {                                  // purpose????
     this.setState({
       selectedMovie: movie
     });
@@ -118,7 +122,6 @@ export class MainView extends React.Component {
     localStorage.setItem('user', authData.user.Username);
 
     this.getMovies(authData.token);
-    console.log(`This is user: ${localStorage.getItem('user')}`);     //  This unlocked things, by moving it from above localStorage.setItem
   }
 
   logoutUser = (e) => {
@@ -136,9 +139,16 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, user, userProfile, isAuth } = this.state;
+    const { userProfile, isAuth } = this.state;
+    let { movies } = this.props;                              // #2
+    let { user } = this.state;
+
+    // if (!userProfile) return <div className="mySpinner spinner-border text-primary" role="status">
+    //   <span className="sr-only">Loading...</span>
+    // </div>
 
     if (!movies) return <div className="main-view" />;
+
 
     return (
       <Router>
@@ -169,21 +179,31 @@ export class MainView extends React.Component {
                   exact
                   path="/"
                   render={(props) => {
-                    if (!user) {                                          /* If no user, go to LoginView via <Route path="/login" /> */
+                    if (!user) {                    /* If no user, go to LoginView via <Route path="/login" /> */
                       return (
                         <Redirect to="/login" />
                       );
                     }
-                    return movies.map((m) => (                            /* Or else go to MovieCards */
-                      <MovieCard key={m._id} movie={m} {...props} />      /* {...props} = bring all the props passed by render from MainView to MovieCard */
-                    ));
+                    return <MoviesList movies={movies} />;
+                    // return movies.map((m) => (                            /* Or else go to MovieCards */
+                    //   <MovieCard key={m._id} movie={m} {...props} />      /* {...props} = bring all the props passed by render from MainView to MovieCard */
+                    // ));
                   }}
                 />
 
-                <Route exact path="/login" render={(props) => <LoginView {...props} isAuth={isAuth} onLoggedIn={(user) => this.onLoggedIn(user)}
-                />} />
+                <Route
+                  exact
+                  path="/login"
+                  render={(props) => <LoginView {...props}
+                    isAuth={isAuth}
+                    onLoggedIn={(user) => this.onLoggedIn(user)}
+                  />}
+                />
 
-                <Route path="/register" render={() => <RegistrationView />} />
+                <Route
+                  path="/register"
+                  render={() => <RegistrationView />}
+                />
 
                 <Route
                   exact
@@ -195,42 +215,71 @@ export class MainView extends React.Component {
                         <Redirect to="/login" />
                       );
                     }
-                    return movies.map((m) => (                            /* Or else go to MovieCards */
-                      <MovieCard key={m._id} movie={m} {...props} />      /* {...props} = bring all the props passed by render from MainView to MovieCard */
-                    ));
+                    return <MoviesList movies={movies} />;
+                    // return movies.map((m) => (                            /* Or else go to MovieCards */
+                    //   <MovieCard key={m._id} movie={m} {...props} />      /* {...props} = bring all the props passed by render from MainView to MovieCard */
+                    // ));
                   }}
                 />
 
-                <Route path="/movies/:movieId" render={({ match }) =>
-                  <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+                <Route
+                  path="/movies/:movieId"
+                  render={({ match }) =>
+                    <MovieView
+                      movie={movies.find(m => m._id === match.params.movieId)} />}
+                />
 
-                <Route exact path="/actors/:movie/:name" render={({ match }) => {
-                  if (!movies) return <div className="main-view" />;
-                  return <BondView bondactor={movies.find(m => m.BondActor.Name === match.params.name).BondActor} movies={movies} />
-                }
-                } />
+                <Route
+                  exact
+                  path="/actors/:movie/:name"
+                  render={({ match }) => {
+                    if (!movies)
+                      return <div className="main-view" />;
+                    return <BondView
+                      bondactor={movies.find(m => m.BondActor.Name === match.params.name).BondActor}
+                      movies={movies} />
+                  }}
+                />
 
-                <Route exact path="/directors/:movie/:name" render={({ match }) => {
-                  if (!movies) return <div className="main-view" />;
-                  return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} movies={movies} />
-                }
-                } />
+                <Route
+                  exact
+                  path="/directors/:movie/:name"
+                  render={({ match }) => {
+                    if (!movies) return <div className="main-view" />;
+                    return <DirectorView
+                      director={movies.find(m => m.Director.Name === match.params.name).Director}
+                      movies={movies} />
+                  }}
+                />
 
-                <Route exact path="/genres/:movie/:name" render={({ match }) => {
-                  if (!movies) return <div className="main-view" />;
-                  return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} movies={movies} />
-                }
-                } />
+                <Route
+                  exact
+                  path="/genres/:movie/:name"
+                  render={({ match }) => {
+                    if (!movies) return <div className="main-view" />;
+                    return <GenreView
+                      genre={movies.find(m => m.Genre.Name === match.params.name).Genre}
+                      movies={movies} />
+                  }}
+                />
 
-                <Route path="/users/:Username" render={() => {
-                  return <ProfileView
-                    userProfile={userProfile}
+                <Route
+                  path="/users/:Username"
+                  render={() => {
+                    return <ProfileView
+                      userProfile={userProfile}
+                      user={localStorage.getItem('user')}
+                      movies={movies} />
+                  }}
+                />
+
+                <Route
+                  exact
+                  path="/update/:Username"
+                  render={() => <UpdateView
                     user={localStorage.getItem('user')}
-                    movies={movies} />
-                }
-                } />
-
-                <Route exact path="/update/:Username" render={() => <UpdateView user={localStorage.getItem('user')} userProfile={userProfile} />} />
+                    userProfile={userProfile} />}
+                />
 
               </Switch>
 
@@ -243,6 +292,12 @@ export class MainView extends React.Component {
     );
   }
 }
+
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies })(MainView);
 
 MainView.propTypes = {
   movie: PropTypes.shape({

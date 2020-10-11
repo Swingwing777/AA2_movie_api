@@ -560,6 +560,10 @@ body {
   max-width: 80%;
 }
 
+.mySpinner {
+  display: block;
+}
+
 .formLabel,
 .formPromise {
   color: white;

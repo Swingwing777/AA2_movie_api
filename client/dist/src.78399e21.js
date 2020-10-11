@@ -56617,7 +56617,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           movies = _this$state.movies,
           user = _this$state.user,
           userProfile = _this$state.userProfile,
-          isAuth = _this$state.isAuth;
+          isAuth = _this$state.isAuth; // if (!userProfile) return <div className="mySpinner spinner-border text-primary" role="status">
+      //   <span className="sr-only">Loading...</span>
+      // </div>
+
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
@@ -56908,7 +56911,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39287" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41105" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
