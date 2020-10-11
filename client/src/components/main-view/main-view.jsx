@@ -57,11 +57,6 @@ export class MainView extends React.Component {
       .then(response => {
         this.props.setMovies(response.data);      // #1 - to replace setState of Ex3.5 version
         this.getUser(token);
-
-        // Assign the result to the state
-        // this.setState({
-        //   movies: response.data
-        // });
       })
       .catch(function (error) {
         console.log(error);
@@ -179,15 +174,12 @@ export class MainView extends React.Component {
                   exact
                   path="/"
                   render={(props) => {
-                    if (!user) {                    /* If no user, go to LoginView via <Route path="/login" /> */
+                    if (!user) {      /* If no user, go to LoginView via <Route path="/login" /> */
                       return (
                         <Redirect to="/login" />
                       );
                     }
                     return <MoviesList movies={movies} />;
-                    // return movies.map((m) => (                            /* Or else go to MovieCards */
-                    //   <MovieCard key={m._id} movie={m} {...props} />      /* {...props} = bring all the props passed by render from MainView to MovieCard */
-                    // ));
                   }}
                 />
 
@@ -216,9 +208,6 @@ export class MainView extends React.Component {
                       );
                     }
                     return <MoviesList movies={movies} />;
-                    // return movies.map((m) => (                            /* Or else go to MovieCards */
-                    //   <MovieCard key={m._id} movie={m} {...props} />      /* {...props} = bring all the props passed by render from MainView to MovieCard */
-                    // ));
                   }}
                 />
 
