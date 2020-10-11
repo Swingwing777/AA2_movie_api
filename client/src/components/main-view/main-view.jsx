@@ -101,12 +101,6 @@ export class MainView extends React.Component {
     }
   }
 
-  onMovieClick(movie) {
-    this.setState({
-      selectedMovie: movie
-    });
-  }
-
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
