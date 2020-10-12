@@ -180,6 +180,9 @@ export class MainView extends React.Component {
                       );
                     }
                     return <MoviesList movies={movies} />;
+                    // return movies.map((m) => (                         /* Or else go to MovieCards */
+                    //   <MovieCard key={m._id} movie={m} {...props} />   /* {...props} = bring all the props passed by render from MainView to MovieCard */                                                 
+                    // ));
                   }}
                 />
 

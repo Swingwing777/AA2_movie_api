@@ -47,6 +47,10 @@ body {
 .goDetail:active {
   filter: brightness(50%);
 }
+.container {
+  padding: 10px;
+  max-width: 80%;
+}
 body {
   background-color: black;
   background-image: url(/6BWTransFade.fd57f77e.png);
