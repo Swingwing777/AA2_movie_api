@@ -55,7 +55,7 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        this.props.setMovies(response.data);      // #1 - to replace setState of Ex3.5 version
+        this.props.setMovies(response.data);         // #1 - to replace setState of Ex3.5 version
         this.getUser(token);
       })
       .catch(function (error) {
@@ -310,6 +310,3 @@ MainView.propTypes = {
     Birthday: PropTypes.date
   })
 };
-
-
-
