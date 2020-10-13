@@ -12,12 +12,16 @@ import { setUser } from '../../actions/actions';
 // import { setMovies } from '../../actions/actions';
 import { cancelToken } from '../../actions/actions';
 
+const mapStateToProps = state => {
+  return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }   // Change 1
+}
+
 export class ProfileView extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      user: localStorage.getItem('user'),
+      user: localStorage.getItem('user'),   // No need for data from store
       // userProfile: null,
       // apiData: null
     }
@@ -30,11 +34,12 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        // this.props.setUser(response.data);
-        const userProfile = response.data;
-        this.setState({
-          userProfile: userProfile
-        });
+        setUser(response.data);             // Change 2 (not this.props.setUser)
+
+        // const userProfile = response.data;
+        // this.setState({
+        //   userProfile: userProfile
+        // });
 
         // console.log('This is user: ' + userProfile.Username);
       })
@@ -44,10 +49,11 @@ export class ProfileView extends React.Component {
     axios.get("https://jsonplaceholder.typicode.com/todos", {
       cancelToken: source.token
     }).then(response => {
-      // this.props.cancelToken(response.data);
-      this.setState({
-        apiData: response.data
-      });
+      cancelToken(response.data);
+
+      // this.setState({
+      //   apiData: response.data
+      // });
     }).catch(e => {
       console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
     });
@@ -224,11 +230,11 @@ export class ProfileView extends React.Component {
   }
 }
 
-let mapStateToProps = state => {
-  return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }
-}
+// let mapStateToProps = state => {
+//   return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }
+// }
 
-export default connect(mapStateToProps, { setUser, cancelToken })(ProfileView);
+export default connect(mapStateToProps, { setUser, cancelToken })(ProfileView);  // mapDispatchTo Props?
 
 ProfileView.propTypes = {
   userProfile: PropTypes.shape({
