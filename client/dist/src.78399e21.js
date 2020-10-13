@@ -51658,10 +51658,7 @@ function MoviesList(props) {
   }))));
 }
 
-var _default = (0, _reactRedux.connect)(mapStateToProps)(MoviesList); // return movies.map((m) => (                         /* Or else go to MovieCards */
-//   <MovieCard key={m._id} movie={m} {...props} />   /* {...props} = bring all the props passed by render from MainView to MovieCard */                                                 
-// ));
-
+var _default = (0, _reactRedux.connect)(mapStateToProps)(MoviesList);
 
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../visibility-filter-input/visibility-filter-input":"components/visibility-filter-input/visibility-filter-input.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx","./movies-list.scss":"components/movies-list/movies-list.scss"}],"components/login-view/login-view.scss":[function(require,module,exports) {
@@ -58270,6 +58267,15 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    movies: state.movies,
+    userProfile: state.userProfile,
+    apiData: state.apiData // Change 1
+
+  };
+};
+
 var ProfileView = /*#__PURE__*/function (_React$Component) {
   _inherits(ProfileView, _React$Component);
 
@@ -58282,7 +58288,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
     _this.state = {
-      user: localStorage.getItem('user') // userProfile: null,
+      user: localStorage.getItem('user') // No need for data from store
+      // userProfile: null,
       // apiData: null
 
     };
@@ -58292,8 +58299,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   _createClass(ProfileView, [{
     key: "getUser",
     value: function getUser(token) {
-      var _this2 = this;
-
       var user = localStorage.getItem('user');
 
       var source = _axios.default.CancelToken.source();
@@ -58303,13 +58308,12 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        // this.props.setUser(response.data);
-        var userProfile = response.data;
-
-        _this2.setState({
-          userProfile: userProfile
-        }); // console.log('This is user: ' + userProfile.Username);
-
+        (0, _actions.setUser)(response.data); // Change 2 (not this.props.setUser)
+        // const userProfile = response.data;
+        // this.setState({
+        //   userProfile: userProfile
+        // });
+        // console.log('This is user: ' + userProfile.Username);
       }).catch(function (e) {
         console.log('User error: ' + e);
       });
@@ -58317,10 +58321,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
         cancelToken: source.token
       }).then(function (response) {
-        // this.props.cancelToken(response.data);
-        _this2.setState({
-          apiData: response.data
-        });
+        (0, _actions.cancelToken)(response.data); // this.setState({
+        //   apiData: response.data
+        // });
       }).catch(function (e) {
         console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
       });
@@ -58334,7 +58337,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteFavorite",
     value: function deleteFavorite(movieId) {
-      var _this3 = this;
+      var _this2 = this;
 
       // let accessToken = localStorage.getItem('token');
       var user = localStorage.getItem('user');
@@ -58347,7 +58350,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         // this.props.setUser(response.data);
         var userProfile = response.data;
 
-        _this3.setState({
+        _this2.setState({
           userProfile: userProfile
         });
 
@@ -58359,7 +58362,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteProfile",
     value: function deleteProfile() {
-      var _this4 = this;
+      var _this3 = this;
 
       var user = localStorage.getItem('user');
 
@@ -58375,7 +58378,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
 
-        _this4.setState({
+        _this3.setState({
           user: null
         });
 
@@ -58389,7 +58392,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this5 = this;
+      var _this4 = this;
 
       var _this$props = this.props,
           movies = _this$props.movies,
@@ -58485,7 +58488,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           }, "Details")), _react.default.createElement(_reactRouterDom.Link, {
             to: "",
             onClick: function onClick() {
-              return _this5.deleteFavorite(movie._id);
+              return _this4.deleteFavorite(movie._id);
             }
           }, _react.default.createElement(_reactBootstrap.Button, {
             variant: "link",
@@ -58509,7 +58512,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, "Back")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/login",
         onClick: function onClick() {
-          return _this5.deleteProfile();
+          return _this4.deleteProfile();
         }
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 formButton1",
@@ -58519,22 +58522,18 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return ProfileView;
-}(_react.default.Component);
+}(_react.default.Component); // let mapStateToProps = state => {
+//   return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }
+// }
+
 
 exports.ProfileView = ProfileView;
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    movies: state.movies,
-    userProfile: state.userProfile,
-    apiData: state.apiData
-  };
-};
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
   setUser: _actions.setUser,
   cancelToken: _actions.cancelToken
-})(ProfileView);
+})(ProfileView); // mapDispatchTo Props?
+
 
 exports.default = _default;
 ProfileView.propTypes = {
@@ -59048,8 +59047,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       // movies: [],
       // selectedMovie: null,
       // userProfile: null,
-      user: null,
       // apiData: null,
+      user: null,
       isAuth: false // Ties to isLoggedIn and isLoggedOut
 
     };
@@ -59114,7 +59113,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         _this3.props.setUser(response.data);
 
         console.log('This is user: ' + response.data.Username);
-        console.log(_this3.props);
       }).catch(function (e) {
         console.log('User error: ' + e);
       });
@@ -59545,7 +59543,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42847" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46735" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
