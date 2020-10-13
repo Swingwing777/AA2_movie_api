@@ -30,8 +30,8 @@ export class MainView extends React.Component {
       // movies: [],
       // selectedMovie: null,
       // userProfile: null,
-      user: null,
       // apiData: null,
+      user: null,
       isAuth: false      // Ties to isLoggedIn and isLoggedOut
     };
   }
@@ -80,7 +80,6 @@ export class MainView extends React.Component {
       .then(response => {
         this.props.setUser(response.data);
         console.log('This is user: ' + response.data.Username);
-        console.log(this.props);
       })
       .catch(e => {
         console.log('User error: ' + e);
