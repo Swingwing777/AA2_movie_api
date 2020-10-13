@@ -2,7 +2,7 @@
 
 import { combineReducers } from 'redux';
 
-import { SET_FILTER, SET_MOVIES, SET_USER } from '../actions/actions';
+import { SET_FILTER, SET_MOVIES, SET_USER, SET_API } from '../actions/actions';
 
 function visibilityFilter(state = '', action) {    // A string
   switch (action.type) {
@@ -12,6 +12,8 @@ function visibilityFilter(state = '', action) {    // A string
       return state;
   }
 }
+
+// Note: The action function name is imported into components, not the reducers function name.
 
 function movies(state = [], action) {              // An array of movie._ids
   switch (action.type) {
@@ -31,10 +33,22 @@ function userProfile(state = {}, action) {        // An object containing Userna
   }
 }
 
+function cancelAxios(state = {}, action) {        // An object containing axios cancel token
+  switch (action.type) {
+    case SET_API:
+      return action.value;
+    default:
+      return state;
+  }
+}
+
 const moviesApp = combineReducers({
   visibilityFilter,
   movies,
-  userProfile
+  userProfile,
+  cancelAxios
 });
 
-export default moviesApp;
+export default moviesApp;                         // This is imported into index.jsx
+
+

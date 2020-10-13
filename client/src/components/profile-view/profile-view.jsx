@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { Container, Card, Button, Row, Col, Form } from 'react-bootstrap';
 import './profile-view.scss';
-import moment from 'moment';
-import { BrowserRouter as Router, Link, NavLink } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+
 import { setUser } from '../../actions/actions';
+// import { setMovies } from '../../actions/actions';
+import { cancelToken } from '../../actions/actions';
 
 export class ProfileView extends React.Component {
 
@@ -14,8 +18,8 @@ export class ProfileView extends React.Component {
     super();
     this.state = {
       user: localStorage.getItem('user'),
-      userProfile: null,
-      apiData: null
+      // userProfile: null,
+      // apiData: null
     }
   }
 
@@ -26,24 +30,21 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        const userProfile = response.data;
-        console.log(response.data);
+        // const userProfile = response.data;
+        this.props.setUser(response.data);
+        // this.setState({
+        //   userProfile: userProfile
+        // });
 
-        this.setState({
-          userProfile: userProfile
-        });
-
-        console.log('This is user: ' + userProfile.Username);
+        // console.log('This is user: ' + userProfile.Username);
       })
-      .catch(function (error) {
-        console.log('Sorry, there has been an error: ' + error);
+      .catch(e => {
+        console.log('User error: ' + e);
       })
     axios.get("https://jsonplaceholder.typicode.com/todos", {
       cancelToken: source.token
     }).then(response => {
-      this.setState({
-        apiData: response.data
-      });
+      this.props.cancelToken(response.data);
     }).catch(e => {
       console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
     });
@@ -61,12 +62,13 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
-        const userProfile = response.data;
-        console.log(response.data);
+        // const userProfile = response.data;
+        this.props.setUser(response.data);
+        // this.setState({
+        //   userProfile: userProfile
+        // });
 
-        this.setState({
-          userProfile: userProfile
-        });
+        // console.log(response.data);
         alert('Movie successfully deleted from favorites');
       })
       .catch(e => {
@@ -220,10 +222,18 @@ export class ProfileView extends React.Component {
   }
 }
 
+let mapStateToProps = state => {
+  return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }
+}
+
+export default connect(mapStateToProps, { setUser, cancelToken })(ProfileView);
+
 ProfileView.propTypes = {
-  Username: PropTypes.string,
-  Password: PropTypes.string,
-  Email: PropTypes.string,
-  Birthday: PropTypes.string,
-  onClick: PropTypes.func
+  userProfile: PropTypes.shape({
+    _id: PropTypes.string,
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Email: PropTypes.string,
+    Birthday: PropTypes.date
+  }).isRequired
 };

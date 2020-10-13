@@ -9,7 +9,7 @@ import moviesApp from './reducers/reducers';
 // Import statement to indicate that we need to bundle `./index.scss`
 import './index.scss';
 
-const store = createStore(moviesApp);
+const store = createStore(moviesApp);            // moviesApp exported from reducers.js
 
 // Main component (will eventually use all the others)
 class BondMovieApp extends React.Component {

@@ -2,15 +2,15 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';                              // #0
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom';
 
 import { setMovies } from '../../actions/actions';
-import { setUser } from '../../actions/actions';                    // #0
-import MoviesList from '../movies-list/movies-list';                // #0
+import { cancelToken } from '../../actions/actions';
+import { setUser } from '../../actions/actions';
 
+import MoviesList from '../movies-list/movies-list';
 import { LoginView } from '../login-view/login-view';
-// import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { BondView } from '../bond-view/bond-view';
 import { GenreView } from '../genre-view/genre-view';
@@ -31,7 +31,7 @@ export class MainView extends React.Component {
       // selectedMovie: null,
       // userProfile: null,
       user: null,
-      apiData: null,
+      // apiData: null,
       isAuth: false      // Ties to isLoggedIn and isLoggedOut
     };
   }
@@ -56,7 +56,7 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        this.props.setMovies(response.data);         // #1 - to replace setState of Ex3.5 version
+        this.props.setMovies(response.data);
         this.getUser(token);
       })
       .catch(e => {
@@ -65,9 +65,7 @@ export class MainView extends React.Component {
     axios.get("https://jsonplaceholder.typicode.com/todos", {
       cancelToken: source.token
     }).then(response => {
-      this.setState({
-        apiData: response.data
-      });
+      this.props.cancelToken(response.data);
     }).catch(e => {
       console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
     });
@@ -82,6 +80,7 @@ export class MainView extends React.Component {
       .then(response => {
         this.props.setUser(response.data);
         console.log('This is user: ' + response.data.Username);
+        console.log(this.props);
       })
       .catch(e => {
         console.log('User error: ' + e);
@@ -89,9 +88,7 @@ export class MainView extends React.Component {
     axios.get("https://jsonplaceholder.typicode.com/todos", {
       cancelToken: source.token
     }).then(response => {
-      this.setState({
-        apiData: response.data
-      });
+      this.props.cancelToken(response.data);
     }).catch(e => {
       console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
     });
@@ -127,7 +124,6 @@ export class MainView extends React.Component {
   render() {
     const { isAuth, user } = this.state;
     let { movies, userProfile } = this.props;                              // #2
-    //let { user } = this.state;
 
     // if (!userProfile) return <div className="mySpinner spinner-border text-primary" role="status">
     //   <span className="sr-only">Loading...</span>
@@ -274,10 +270,10 @@ export class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-  return { movies: state.movies, userProfile: state.userProfile }
+  return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }
 }
 
-export default connect(mapStateToProps, { setMovies, setUser })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser, cancelToken })(MainView);
 
 MainView.propTypes = {
   movie: PropTypes.shape({

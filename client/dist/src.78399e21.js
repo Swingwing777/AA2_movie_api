@@ -36419,7 +36419,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.setMovies = setMovies;
 exports.setFilter = setFilter;
 exports.setUser = setUser;
-exports.SET_USER = exports.SET_FILTER = exports.SET_MOVIES = void 0;
+exports.cancelToken = cancelToken;
+exports.SET_API = exports.SET_USER = exports.SET_FILTER = exports.SET_MOVIES = void 0;
 // src/actions/actions.js
 var SET_MOVIES = 'SET_MOVIES';
 exports.SET_MOVIES = SET_MOVIES;
@@ -36427,6 +36428,9 @@ var SET_FILTER = 'SET_FILTER';
 exports.SET_FILTER = SET_FILTER;
 var SET_USER = 'SET_USER';
 exports.SET_USER = SET_USER;
+var SET_API = 'SET_API'; // Note: The action function name is imported into components, not the reducers function name.
+
+exports.SET_API = SET_API;
 
 function setMovies(value) {
   return {
@@ -36445,6 +36449,13 @@ function setFilter(value) {
 function setUser(value) {
   return {
     type: SET_USER,
+    value: value
+  };
+}
+
+function cancelToken(value) {
+  return {
+    type: SET_API,
     value: value
   };
 }
@@ -58211,21 +58222,21 @@ module.hot.accept(reloadCSS);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ProfileView = void 0;
+exports.default = exports.ProfileView = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _reactRedux = require("react-redux");
-
 var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _moment = _interopRequireDefault(require("moment"));
 
 var _reactBootstrap = require("react-bootstrap");
 
 require("./profile-view.scss");
 
-var _moment = _interopRequireDefault(require("moment"));
+var _reactRedux = require("react-redux");
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -58271,9 +58282,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
     _this.state = {
-      user: localStorage.getItem('user'),
-      userProfile: null,
-      apiData: null
+      user: localStorage.getItem('user') // userProfile: null,
+      // apiData: null
+
     };
     return _this;
   }
@@ -58292,24 +58303,20 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        var userProfile = response.data;
-        console.log(response.data);
+        // const userProfile = response.data;
+        _this2.props.setUser(response.data); // this.setState({
+        //   userProfile: userProfile
+        // });
+        // console.log('This is user: ' + userProfile.Username);
 
-        _this2.setState({
-          userProfile: userProfile
-        });
-
-        console.log('This is user: ' + userProfile.Username);
-      }).catch(function (error) {
-        console.log('Sorry, there has been an error: ' + error);
+      }).catch(function (e) {
+        console.log('User error: ' + e);
       });
 
       _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
         cancelToken: source.token
       }).then(function (response) {
-        _this2.setState({
-          apiData: response.data
-        });
+        _this2.props.cancelToken(response.data);
       }).catch(function (e) {
         console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
       });
@@ -58333,12 +58340,12 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
       }).then(function (response) {
-        var userProfile = response.data;
-        console.log(response.data);
+        // const userProfile = response.data;
+        _this3.props.setUser(response.data); // this.setState({
+        //   userProfile: userProfile
+        // });
+        // console.log(response.data);
 
-        _this3.setState({
-          userProfile: userProfile
-        });
 
         alert('Movie successfully deleted from favorites');
       }).catch(function (e) {
@@ -58511,14 +58518,31 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.ProfileView = ProfileView;
-ProfileView.propTypes = {
-  Username: _propTypes.default.string,
-  Password: _propTypes.default.string,
-  Email: _propTypes.default.string,
-  Birthday: _propTypes.default.string,
-  onClick: _propTypes.default.func
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    movies: state.movies,
+    userProfile: state.userProfile,
+    apiData: state.apiData
+  };
 };
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./profile-view.scss":"components/profile-view/profile-view.scss","moment":"../node_modules/moment/moment.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js"}],"components/update-view/update-view.scss":[function(require,module,exports) {
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, {
+  setUser: _actions.setUser,
+  cancelToken: _actions.cancelToken
+})(ProfileView);
+
+exports.default = _default;
+ProfileView.propTypes = {
+  userProfile: _propTypes.default.shape({
+    _id: _propTypes.default.string,
+    Username: _propTypes.default.string,
+    Password: _propTypes.default.string,
+    Email: _propTypes.default.string,
+    Birthday: _propTypes.default.date
+  }).isRequired
+};
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","moment":"../node_modules/moment/moment.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./profile-view.scss":"components/profile-view/profile-view.scss","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js"}],"components/update-view/update-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -59021,7 +59045,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       // selectedMovie: null,
       // userProfile: null,
       user: null,
-      apiData: null,
+      // apiData: null,
       isAuth: false // Ties to isLoggedIn and isLoggedOut
 
     };
@@ -59054,8 +59078,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        _this2.props.setMovies(response.data); // #1 - to replace setState of Ex3.5 version
-
+        _this2.props.setMovies(response.data);
 
         _this2.getUser(token);
       }).catch(function (e) {
@@ -59065,9 +59088,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
         cancelToken: source.token
       }).then(function (response) {
-        _this2.setState({
-          apiData: response.data
-        });
+        _this2.props.cancelToken(response.data);
       }).catch(function (e) {
         console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
       });
@@ -59089,6 +59110,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         _this3.props.setUser(response.data);
 
         console.log('This is user: ' + response.data.Username);
+        console.log(_this3.props);
       }).catch(function (e) {
         console.log('User error: ' + e);
       });
@@ -59096,9 +59118,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
         cancelToken: source.token
       }).then(function (response) {
-        _this3.setState({
-          apiData: response.data
-        });
+        _this3.props.cancelToken(response.data);
       }).catch(function (e) {
         console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
       });
@@ -59126,7 +59146,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           movies = _this$props.movies,
           userProfile = _this$props.userProfile; // #2
-      //let { user } = this.state;
       // if (!userProfile) return <div className="mySpinner spinner-border text-primary" role="status">
       //   <span className="sr-only">Loading...</span>
       // </div>
@@ -59294,13 +59313,15 @@ exports.MainView = MainView;
 var mapStateToProps = function mapStateToProps(state) {
   return {
     movies: state.movies,
-    userProfile: state.userProfile
+    userProfile: state.userProfile,
+    apiData: state.apiData
   };
 };
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
   setMovies: _actions.setMovies,
-  setUser: _actions.setUser
+  setUser: _actions.setUser,
+  cancelToken: _actions.cancelToken
 })(MainView);
 
 exports.default = _default;
@@ -59362,7 +59383,8 @@ function visibilityFilter() {
     default:
       return state;
   }
-}
+} // Note: The action function name is imported into components, not the reducers function name.
+
 
 function movies() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -59392,12 +59414,28 @@ function userProfile() {
   }
 }
 
+function cancelAxios() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  // An object containing axios cancel token
+  switch (action.type) {
+    case _actions.SET_API:
+      return action.value;
+
+    default:
+      return state;
+  }
+}
+
 var moviesApp = (0, _redux.combineReducers)({
   visibilityFilter: visibilityFilter,
   movies: movies,
-  userProfile: userProfile
+  userProfile: userProfile,
+  cancelAxios: cancelAxios
 });
-var _default = moviesApp;
+var _default = moviesApp; // This is imported into index.jsx
+
 exports.default = _default;
 },{"redux":"../node_modules/redux/es/redux.js","../actions/actions":"actions/actions.js"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -59445,7 +59483,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var store = (0, _redux.createStore)(_reducers.default); // Main component (will eventually use all the others)
+var store = (0, _redux.createStore)(_reducers.default); // moviesApp exported from reducers.js
+// Main component (will eventually use all the others)
 
 var BondMovieApp = /*#__PURE__*/function (_React$Component) {
   _inherits(BondMovieApp, _React$Component);
@@ -59502,7 +59541,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39303" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33105" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
