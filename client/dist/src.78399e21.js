@@ -58303,11 +58303,12 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        // const userProfile = response.data;
-        _this2.props.setUser(response.data); // this.setState({
-        //   userProfile: userProfile
-        // });
-        // console.log('This is user: ' + userProfile.Username);
+        // this.props.setUser(response.data);
+        var userProfile = response.data;
+
+        _this2.setState({
+          userProfile: userProfile
+        }); // console.log('This is user: ' + userProfile.Username);
 
       }).catch(function (e) {
         console.log('User error: ' + e);
@@ -58316,7 +58317,10 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
         cancelToken: source.token
       }).then(function (response) {
-        _this2.props.cancelToken(response.data);
+        // this.props.cancelToken(response.data);
+        _this2.setState({
+          apiData: response.data
+        });
       }).catch(function (e) {
         console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
       });
@@ -58340,12 +58344,12 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
       }).then(function (response) {
-        // const userProfile = response.data;
-        _this3.props.setUser(response.data); // this.setState({
-        //   userProfile: userProfile
-        // });
-        // console.log(response.data);
+        // this.props.setUser(response.data);
+        var userProfile = response.data;
 
+        _this3.setState({
+          userProfile: userProfile
+        });
 
         alert('Movie successfully deleted from favorites');
       }).catch(function (e) {
@@ -59541,7 +59545,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33105" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42847" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

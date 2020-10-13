@@ -30,11 +30,11 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        // const userProfile = response.data;
-        this.props.setUser(response.data);
-        // this.setState({
-        //   userProfile: userProfile
-        // });
+        // this.props.setUser(response.data);
+        const userProfile = response.data;
+        this.setState({
+          userProfile: userProfile
+        });
 
         // console.log('This is user: ' + userProfile.Username);
       })
@@ -44,7 +44,10 @@ export class ProfileView extends React.Component {
     axios.get("https://jsonplaceholder.typicode.com/todos", {
       cancelToken: source.token
     }).then(response => {
-      this.props.cancelToken(response.data);
+      // this.props.cancelToken(response.data);
+      this.setState({
+        apiData: response.data
+      });
     }).catch(e => {
       console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
     });
@@ -62,13 +65,12 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
-        // const userProfile = response.data;
-        this.props.setUser(response.data);
-        // this.setState({
-        //   userProfile: userProfile
-        // });
+        // this.props.setUser(response.data);
+        const userProfile = response.data;
+        this.setState({
+          userProfile: userProfile
+        });
 
-        // console.log(response.data);
         alert('Movie successfully deleted from favorites');
       })
       .catch(e => {
