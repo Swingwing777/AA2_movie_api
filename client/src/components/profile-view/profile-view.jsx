@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Container, Card, Button, Row, Col, Form } from 'react-bootstrap';
 import './profile-view.scss';
 import moment from 'moment';
 import { BrowserRouter as Router, Link, NavLink } from 'react-router-dom';
+import { setUser } from '../../actions/actions';
 
 export class ProfileView extends React.Component {
 

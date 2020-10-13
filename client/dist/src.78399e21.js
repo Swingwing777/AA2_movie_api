@@ -36418,12 +36418,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setMovies = setMovies;
 exports.setFilter = setFilter;
-exports.SET_FILTER = exports.SET_MOVIES = void 0;
+exports.setUser = setUser;
+exports.SET_USER = exports.SET_FILTER = exports.SET_MOVIES = void 0;
 // src/actions/actions.js
 var SET_MOVIES = 'SET_MOVIES';
 exports.SET_MOVIES = SET_MOVIES;
 var SET_FILTER = 'SET_FILTER';
 exports.SET_FILTER = SET_FILTER;
+var SET_USER = 'SET_USER';
+exports.SET_USER = SET_USER;
 
 function setMovies(value) {
   return {
@@ -36435,6 +36438,13 @@ function setMovies(value) {
 function setFilter(value) {
   return {
     type: SET_FILTER,
+    value: value
+  };
+}
+
+function setUser(value) {
+  return {
+    type: SET_USER,
     value: value
   };
 }
@@ -58207,6 +58217,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
+var _reactRedux = require("react-redux");
+
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _reactBootstrap = require("react-bootstrap");
@@ -58216,6 +58228,8 @@ require("./profile-view.scss");
 var _moment = _interopRequireDefault(require("moment"));
 
 var _reactRouterDom = require("react-router-dom");
+
+var _actions = require("../../actions/actions");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -58504,7 +58518,7 @@ ProfileView.propTypes = {
   Birthday: _propTypes.default.string,
   onClick: _propTypes.default.func
 };
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./profile-view.scss":"components/profile-view/profile-view.scss","moment":"../node_modules/moment/moment.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/update-view/update-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-redux":"../node_modules/react-redux/es/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./profile-view.scss":"components/profile-view/profile-view.scss","moment":"../node_modules/moment/moment.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js"}],"components/update-view/update-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -58931,8 +58945,6 @@ var _moviesList = _interopRequireDefault(require("../movies-list/movies-list"));
 
 var _loginView = require("../login-view/login-view");
 
-var _movieCard = require("../movie-card/movie-card");
-
 var _movieView = require("../movie-view/movie-view");
 
 var _bondView = require("../bond-view/bond-view");
@@ -58996,7 +59008,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       _this.setState({
         user: null,
         userProfile: null,
-        selectedMovie: null,
+        //selectedMovie: null,
         isAuth: false
       });
 
@@ -59006,8 +59018,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _this.state = {
       // movies: [],
-      selectedMovie: null,
-      userProfile: null,
+      // selectedMovie: null,
+      // userProfile: null,
       user: null,
       apiData: null,
       isAuth: false // Ties to isLoggedIn and isLoggedOut
@@ -59046,8 +59058,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
 
         _this2.getUser(token);
-      }).catch(function (error) {
-        console.log(error);
+      }).catch(function (e) {
+        console.log('Movie error: ' + e);
       });
 
       _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
@@ -59074,13 +59086,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        _this3.setState({
-          userProfile: response.data
-        });
+        _this3.props.setUser(response.data);
 
         console.log('This is user: ' + response.data.Username);
-      }).catch(function (error) {
-        console.log('Sorry, there has been an error: ' + error);
+      }).catch(function (e) {
+        console.log('User error: ' + e);
       });
 
       _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
@@ -59091,14 +59101,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         });
       }).catch(function (e) {
         console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
-      });
-    }
-  }, {
-    key: "onMovieClick",
-    value: function onMovieClick(movie) {
-      // purpose????
-      this.setState({
-        selectedMovie: movie
       });
     }
   }, {
@@ -59119,15 +59121,17 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this4 = this;
 
       var _this$state = this.state,
-          userProfile = _this$state.userProfile,
-          isAuth = _this$state.isAuth;
-      var movies = this.props.movies; // #2
-
-      var user = this.state.user; // if (!userProfile) return <div className="mySpinner spinner-border text-primary" role="status">
+          isAuth = _this$state.isAuth,
+          user = _this$state.user;
+      var _this$props = this.props,
+          movies = _this$props.movies,
+          userProfile = _this$props.userProfile; // #2
+      //let { user } = this.state;
+      // if (!userProfile) return <div className="mySpinner spinner-border text-primary" role="status">
       //   <span className="sr-only">Loading...</span>
       // </div>
 
-      if (!movies) return _react.default.createElement("div", {
+      if (!movies && !userProfile) return _react.default.createElement("div", {
         className: "main-view"
       });
       return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
@@ -59289,37 +59293,51 @@ exports.MainView = MainView;
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    movies: state.movies
+    movies: state.movies,
+    userProfile: state.userProfile
   };
 };
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
-  setMovies: _actions.setMovies
+  setMovies: _actions.setMovies,
+  setUser: _actions.setUser
 })(MainView);
 
 exports.default = _default;
 MainView.propTypes = {
   movie: _propTypes.default.shape({
+    _id: _propTypes.default.string.isRequired,
     Title: _propTypes.default.string.isRequired,
+    Year: _propTypes.default.string.isRequired,
     Description: _propTypes.default.string.isRequired,
+    Genre: _propTypes.default.shape({
+      _id: _propTypes.default.string.isRequired,
+      Name: _propTypes.default.string.isRequired
+    }).isRequired,
     BondActor: _propTypes.default.shape({
+      _id: _propTypes.default.string.isRequired,
       Name: _propTypes.default.string.isRequired
     }).isRequired,
     Director: _propTypes.default.shape({
+      _id: _propTypes.default.string.isRequired,
       Name: _propTypes.default.string.isRequired
     }).isRequired,
     Heroine: _propTypes.default.string.isRequired,
+    Villain: _propTypes.default.string.isRequired,
     ImagePath: _propTypes.default.string.isRequired,
-    ThumbNail: _propTypes.default.string.isRequired
+    ThumbNail: _propTypes.default.string.isRequired,
+    SongArtist: _propTypes.default.string.isRequired,
+    Featured: _propTypes.default.boolean
   }),
-  user: _propTypes.default.shape({
+  userProfile: _propTypes.default.shape({
+    _id: _propTypes.default.string,
     Username: _propTypes.default.string,
     Password: _propTypes.default.string,
     Email: _propTypes.default.string,
     Birthday: _propTypes.default.date
-  })
+  }).isRequired
 };
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js","../movies-list/movies-list":"components/movies-list/movies-list.jsx","../login-view/login-view":"components/login-view/login-view.jsx","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","../bond-view/bond-view":"components/bond-view/bond-view.jsx","../genre-view/genre-view":"components/genre-view/genre-view.jsx","../director-view/director-view":"components/director-view/director-view.jsx","../profile-view/profile-view":"components/profile-view/profile-view.jsx","../update-view/update-view":"components/update-view/update-view.jsx","../registration-view/registration-view":"components/registration-view/registration-view.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./main-view.scss":"components/main-view/main-view.scss"}],"reducers/reducers.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js","../movies-list/movies-list":"components/movies-list/movies-list.jsx","../login-view/login-view":"components/login-view/login-view.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx","../bond-view/bond-view":"components/bond-view/bond-view.jsx","../genre-view/genre-view":"components/genre-view/genre-view.jsx","../director-view/director-view":"components/director-view/director-view.jsx","../profile-view/profile-view":"components/profile-view/profile-view.jsx","../update-view/update-view":"components/update-view/update-view.jsx","../registration-view/registration-view":"components/registration-view/registration-view.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./main-view.scss":"components/main-view/main-view.scss"}],"reducers/reducers.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59336,6 +59354,7 @@ function visibilityFilter() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
+  // A string
   switch (action.type) {
     case _actions.SET_FILTER:
       return action.value;
@@ -59349,6 +59368,7 @@ function movies() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
+  // An array of movie._ids
   switch (action.type) {
     case _actions.SET_MOVIES:
       return action.value;
@@ -59358,9 +59378,24 @@ function movies() {
   }
 }
 
+function userProfile() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  // An object containing Username, Email etc
+  switch (action.type) {
+    case _actions.SET_USER:
+      return action.value;
+
+    default:
+      return state;
+  }
+}
+
 var moviesApp = (0, _redux.combineReducers)({
   visibilityFilter: visibilityFilter,
-  movies: movies
+  movies: movies,
+  userProfile: userProfile
 });
 var _default = moviesApp;
 exports.default = _default;
@@ -59467,7 +59502,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40409" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39303" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

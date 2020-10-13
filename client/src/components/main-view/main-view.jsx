@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';                              // #0
 import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom';
 
-import { setMovies } from '../../actions/actions';                  // #0
+import { setMovies } from '../../actions/actions';
+import { setUser } from '../../actions/actions';                    // #0
 import MoviesList from '../movies-list/movies-list';                // #0
 
 import { LoginView } from '../login-view/login-view';
-import { MovieCard } from '../movie-card/movie-card';
+// import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { BondView } from '../bond-view/bond-view';
 import { GenreView } from '../genre-view/genre-view';
@@ -27,8 +28,8 @@ export class MainView extends React.Component {
 
     this.state = {
       // movies: [],
-      selectedMovie: null,
-      userProfile: null,
+      // selectedMovie: null,
+      // userProfile: null,
       user: null,
       apiData: null,
       isAuth: false      // Ties to isLoggedIn and isLoggedOut
@@ -58,8 +59,8 @@ export class MainView extends React.Component {
         this.props.setMovies(response.data);         // #1 - to replace setState of Ex3.5 version
         this.getUser(token);
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(e => {
+        console.log('Movie error: ' + e);
       })
     axios.get("https://jsonplaceholder.typicode.com/todos", {
       cancelToken: source.token
@@ -79,15 +80,11 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-
-        this.setState({
-          userProfile: response.data
-        });
-
+        this.props.setUser(response.data);
         console.log('This is user: ' + response.data.Username);
       })
-      .catch(function (error) {
-        console.log('Sorry, there has been an error: ' + error);
+      .catch(e => {
+        console.log('User error: ' + e);
       })
     axios.get("https://jsonplaceholder.typicode.com/todos", {
       cancelToken: source.token
@@ -97,12 +94,6 @@ export class MainView extends React.Component {
       });
     }).catch(e => {
       console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
-    });
-  }
-
-  onMovieClick(movie) {                                  // purpose????
-    this.setState({
-      selectedMovie: movie
     });
   }
 
@@ -125,7 +116,7 @@ export class MainView extends React.Component {
     this.setState({
       user: null,
       userProfile: null,
-      selectedMovie: null,
+      //selectedMovie: null,
       isAuth: false
 
     });
@@ -134,15 +125,15 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { userProfile, isAuth } = this.state;
-    let { movies } = this.props;                              // #2
-    let { user } = this.state;
+    const { isAuth, user } = this.state;
+    let { movies, userProfile } = this.props;                              // #2
+    //let { user } = this.state;
 
     // if (!userProfile) return <div className="mySpinner spinner-border text-primary" role="status">
     //   <span className="sr-only">Loading...</span>
     // </div>
 
-    if (!movies) return <div className="main-view" />;
+    if (!movies && !userProfile) return <div className="main-view" />;
 
 
     return (
@@ -180,9 +171,6 @@ export class MainView extends React.Component {
                       );
                     }
                     return <MoviesList movies={movies} />;
-                    // return movies.map((m) => (                         /* Or else go to MovieCards */
-                    //   <MovieCard key={m._id} movie={m} {...props} />   /* {...props} = bring all the props passed by render from MainView to MovieCard */                                                 
-                    // ));
                   }}
                 />
 
@@ -286,30 +274,42 @@ export class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-  return { movies: state.movies }
+  return { movies: state.movies, userProfile: state.userProfile }
 }
 
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);
 
 MainView.propTypes = {
   movie: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     Title: PropTypes.string.isRequired,
+    Year: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Name: PropTypes.string.isRequired
+    }).isRequired,
     BondActor: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
       Name: PropTypes.string.isRequired,
     }).isRequired,
     Director: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
       Name: PropTypes.string.isRequired,
     }).isRequired,
     Heroine: PropTypes.string.isRequired,
+    Villain: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired,
-    ThumbNail: PropTypes.string.isRequired
+    ThumbNail: PropTypes.string.isRequired,
+    SongArtist: PropTypes.string.isRequired,
+    Featured: PropTypes.boolean,
   }),
 
-  user: PropTypes.shape({
+  userProfile: PropTypes.shape({
+    _id: PropTypes.string,
     Username: PropTypes.string,
     Password: PropTypes.string,
     Email: PropTypes.string,
     Birthday: PropTypes.date
-  })
+  }).isRequired
 };
