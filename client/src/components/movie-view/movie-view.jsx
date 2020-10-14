@@ -69,7 +69,7 @@ export class MovieView extends React.Component {
           </Card.Body>
 
           <Card.Footer className="cardFoot border-top-0">
-            <Row className='mt-3'>
+            <Row className='mt-3 d-flex flex-md-row justify-content-center'>
               <Link to={`/`}>
                 <Button className='goFacts m-3' variant="link">Main Menu</Button>
               </Link>
@@ -77,7 +77,7 @@ export class MovieView extends React.Component {
                 <Button className='goFacts m-3' variant="link">James Bond</Button>
               </Link>
             </Row>
-            <Row className='mt-3'>
+            <Row className='mt-3 d-flex flex-md-row justify-content-center'>
               <Link to={`/directors/${movie.Title}/${movie.Director.Name}`}>
                 <Button className='goFacts m-3' variant="link">Director</Button>
               </Link>

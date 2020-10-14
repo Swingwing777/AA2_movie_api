@@ -1,3 +1,6 @@
+.filter {
+  max-width: 400px;
+}
 body {
   background-color: black;
   background-image: url(/6BWTransFade.fd57f77e.png);
@@ -566,6 +569,12 @@ body {
 
 .mySpinner {
   display: block;
+}
+
+.label {
+  color: white;
+  font-size: larger;
+  text-shadow: 1px 1px 3px #d4eeff;
 }
 
 .formLabel,

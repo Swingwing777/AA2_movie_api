@@ -51481,11 +51481,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // src/components/visibility-filter-input/visibility-filter-input.jsx
 function VisibilityFilterInput(props) {
   return _react.default.createElement(_Form.default.Control, {
+    className: "filter d-flex p-2 justify-content-around",
     onChange: function onChange(e) {
       return props.setFilter(e.target.value);
     },
     value: props.visibilityFilter,
-    placeholder: "filter"
+    placeholder: "Filter by movie title"
   });
 }
 
@@ -51648,9 +51649,13 @@ function MoviesList(props) {
   });
   return _react.default.createElement("div", {
     className: "movies-list"
-  }, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_visibilityFilterInput.default, {
+  }, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
+    className: "d-flex p-2 justify-content-around"
+  }, _react.default.createElement(_visibilityFilterInput.default, {
     visibilityFilter: visibilityFilter
-  }), filteredMovies.map(function (m) {
+  })), _react.default.createElement(_reactBootstrap.Row, {
+    className: "d-flex p-2 justify-content-around"
+  }, filteredMovies.map(function (m) {
     return _react.default.createElement(_movieCard.MovieCard, {
       key: m._id,
       movie: m
@@ -51957,7 +51962,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }, movie.SongArtist))))), _react.default.createElement(_reactBootstrap.Card.Footer, {
         className: "cardFoot border-top-0"
       }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+        className: "mt-3 d-flex flex-md-row justify-content-center"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
@@ -51969,7 +51974,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "goFacts m-3",
         variant: "link"
       }, "James Bond"))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3"
+        className: "mt-3 d-flex flex-md-row justify-content-center"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/directors/".concat(movie.Title, "/").concat(movie.Director.Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
@@ -59543,7 +59548,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46735" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46627" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

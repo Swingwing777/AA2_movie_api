@@ -20,6 +20,12 @@ body {
   display: block;
 }
 
+.label {
+  color: $main-text;
+  font-size: larger;
+  text-shadow: 1px 1px 3px $blur-color;
+}
+
 .formLabel,
 .formPromise {
   color: $main-text;

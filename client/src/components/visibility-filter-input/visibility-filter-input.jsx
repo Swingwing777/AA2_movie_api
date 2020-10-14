@@ -11,9 +11,10 @@ import './visibility-filter-input.scss';
 
 function VisibilityFilterInput(props) {
   return <Form.Control
+    className='filter d-flex p-2 justify-content-around'
     onChange={e => props.setFilter(e.target.value)}
     value={props.visibilityFilter}
-    placeholder="filter"
+    placeholder="Filter by movie title"
   />;
 }
 
