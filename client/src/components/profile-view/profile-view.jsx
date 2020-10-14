@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 import { setUser } from '../../actions/actions';
-// import { setMovies } from '../../actions/actions';
 import { cancelToken } from '../../actions/actions';
 
 const mapStateToProps = state => {
@@ -20,11 +19,7 @@ export class ProfileView extends React.Component {
 
   constructor() {
     super();
-    this.state = {
-      user: localStorage.getItem('user'),   // No need for data from store
-      // userProfile: null,
-      // apiData: null
-    }
+    // No state defined.  props, not state used directly by functions.
   }
 
   getUser(token) {
@@ -34,14 +29,7 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        setUser(response.data);             // Change 2 (not this.props.setUser)
-
-        // const userProfile = response.data;
-        // this.setState({
-        //   userProfile: userProfile
-        // });
-
-        // console.log('This is user: ' + userProfile.Username);
+        setUser(response.data);                                // Change 2 (not 'setState')
       })
       .catch(e => {
         console.log('User error: ' + e);
@@ -49,13 +37,9 @@ export class ProfileView extends React.Component {
     axios.get("https://jsonplaceholder.typicode.com/todos", {
       cancelToken: source.token
     }).then(response => {
-      cancelToken(response.data);
-
-      // this.setState({
-      //   apiData: response.data
-      // });
+      cancelToken(response.data);                             // Change 3 (not 'setState')
     }).catch(e => {
-      console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
+      console.log('Cancel Token error: ' + e)
     });
   }
 
@@ -65,18 +49,12 @@ export class ProfileView extends React.Component {
   }
 
   deleteFavorite(movieId) {
-    // let accessToken = localStorage.getItem('token');
     let user = localStorage.getItem('user');
     axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
-        // this.props.setUser(response.data);
-        const userProfile = response.data;
-        this.setState({
-          userProfile: userProfile
-        });
-
+        setUser(response.data);                               // Change 4 (not 'setState')
         alert('Movie successfully deleted from favorites');
       })
       .catch(e => {
@@ -95,15 +73,7 @@ export class ProfileView extends React.Component {
       })
       .then(res => {
         alert('Account was successfully deleted')
-      })
-      .then(res => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-
-        this.setState({
-          user: null
-
-        });
+        setUser();                                         // Change 5 (not 'setState')
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         window.open('/', '_self');
