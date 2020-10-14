@@ -23,7 +23,7 @@ export function RegistrationView(props) {
     })
       .then(response => {
         const data = response.data;
-        console.log(data);
+        alert('Successful Registration.  Please login with your new details');
         window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
       })
       .catch(e => {
@@ -106,10 +106,13 @@ export function RegistrationView(props) {
   );
 }
 
+// propTypes cannot be required as no props passed until after registration.
 RegistrationView.propTypes = {
-  Username: PropTypes.string,
-  Password: PropTypes.string,
-  Email: PropTypes.string,
-  Birthday: PropTypes.string,
-  onClick: PropTypes.func
+  data: PropTypes.shape({
+    _id: PropTypes.string,
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Email: PropTypes.string,
+    Birthday: PropTypes.date
+  })
 };
