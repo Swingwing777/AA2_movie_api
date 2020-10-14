@@ -58287,18 +58287,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(ProfileView);
 
   function ProfileView() {
-    var _this;
-
     _classCallCheck(this, ProfileView);
 
-    _this = _super.call(this);
-    _this.state = {
-      user: localStorage.getItem('user') // No need for data from store
-      // userProfile: null,
-      // apiData: null
-
-    };
-    return _this;
+    return _super.call(this); // No state defined.  props, not state used directly by functions.
   }
 
   _createClass(ProfileView, [{
@@ -58313,12 +58304,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        (0, _actions.setUser)(response.data); // Change 2 (not this.props.setUser)
-        // const userProfile = response.data;
-        // this.setState({
-        //   userProfile: userProfile
-        // });
-        // console.log('This is user: ' + userProfile.Username);
+        (0, _actions.setUser)(response.data); // Change 2 (not 'setState')
       }).catch(function (e) {
         console.log('User error: ' + e);
       });
@@ -58326,11 +58312,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
         cancelToken: source.token
       }).then(function (response) {
-        (0, _actions.cancelToken)(response.data); // this.setState({
-        //   apiData: response.data
-        // });
+        (0, _actions.cancelToken)(response.data); // Change 3 (not 'setState')
       }).catch(function (e) {
-        console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
+        console.log('Cancel Token error: ' + e);
       });
     }
   }, {
@@ -58342,9 +58326,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteFavorite",
     value: function deleteFavorite(movieId) {
-      var _this2 = this;
-
-      // let accessToken = localStorage.getItem('token');
       var user = localStorage.getItem('user');
 
       _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
@@ -58352,12 +58333,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
       }).then(function (response) {
-        // this.props.setUser(response.data);
-        var userProfile = response.data;
-
-        _this2.setState({
-          userProfile: userProfile
-        });
+        (0, _actions.setUser)(response.data); // Change 4 (not 'setState')
 
         alert('Movie successfully deleted from favorites');
       }).catch(function (e) {
@@ -58367,8 +58343,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteProfile",
     value: function deleteProfile() {
-      var _this3 = this;
-
       var user = localStorage.getItem('user');
 
       _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
@@ -58379,13 +58353,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         alert('Do you really want to delete your account?');
       }).then(function (res) {
         alert('Account was successfully deleted');
-      }).then(function (res) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-
-        _this3.setState({
-          user: null
-        });
+        (0, _actions.setUser)(); // Change 5 (not 'setState')
 
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -58397,7 +58365,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this = this;
 
       var _this$props = this.props,
           movies = _this$props.movies,
@@ -58493,7 +58461,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           }, "Details")), _react.default.createElement(_reactRouterDom.Link, {
             to: "",
             onClick: function onClick() {
-              return _this4.deleteFavorite(movie._id);
+              return _this.deleteFavorite(movie._id);
             }
           }, _react.default.createElement(_reactBootstrap.Button, {
             variant: "link",
@@ -58517,7 +58485,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, "Back")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/login",
         onClick: function onClick() {
-          return _this4.deleteProfile();
+          return _this.deleteProfile();
         }
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 formButton1",
@@ -58849,7 +58817,7 @@ function RegistrationView(props) {
       Birthday: birthday
     }).then(function (response) {
       var data = response.data;
-      console.log(data);
+      alert('Successful Registration.  Please login with your new details');
       window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
     }).catch(function (e) {
       console.log('Please check and try again');
@@ -58939,14 +58907,17 @@ function RegistrationView(props) {
     className: "formButton mt-3",
     variant: "link"
   }, "Login")))));
-}
+} // propTypes cannot be required as no props passed until after registration.
+
 
 RegistrationView.propTypes = {
-  Username: _propTypes.default.string,
-  Password: _propTypes.default.string,
-  Email: _propTypes.default.string,
-  Birthday: _propTypes.default.string,
-  onClick: _propTypes.default.func
+  data: _propTypes.default.shape({
+    _id: _propTypes.default.string,
+    Username: _propTypes.default.string,
+    Password: _propTypes.default.string,
+    Email: _propTypes.default.string,
+    Birthday: _propTypes.default.date
+  })
 };
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../login-view/login-view":"components/login-view/login-view.jsx","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./registration-view.scss":"components/registration-view/registration-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/main-view/main-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -59046,6 +59017,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      window.open('/', '_self');
     };
 
     _this.state = {
@@ -59548,7 +59520,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46627" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37599" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
