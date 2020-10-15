@@ -23,6 +23,8 @@ body {
 .label {
   color: $main-text;
   font-size: larger;
+  // vertical-align: center;
+  text-align: center;
   text-shadow: 1px 1px 3px $blur-color;
 }
 
@@ -46,7 +48,7 @@ body {
   background-color: $button;
   color: $button-text;
   font-size: smaller;
-  width: 160px;
+  width: 140px;
   box-shadow: 
   1px 0 1px $buttonHL inset,
   0px 2px 1px $buttonHL inset,
@@ -62,4 +64,37 @@ body {
 .goUserProf:active,
 .logOutButton:active {
   filter: brightness(50%);
+}
+
+@media all and (max-width: 1400px) {
+  .movie-card {
+    width: 300px;
+    font-size: smaller;
+  }
+
+  .label, 
+  .formLabel,
+  .formPromise{
+    font-size:medium;
+  }
+}
+
+@media all and (max-width: 850px) {
+  .movie-card {
+    width: 260px;
+    font-size: smaller;
+  }
+
+  .label, 
+  .formLabel,
+  .formPromise{
+    font-size:medium;
+  }
+}
+  
+@media all and (max-width: 600px) {
+  .movie-card {
+    width: 180px;
+    font-size: smaller;
+  }
 }

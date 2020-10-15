@@ -84,6 +84,7 @@ $backColor: #151f25;
 .goDetail6:hover,
 .goDetail6:active {
   background-color: $buttonRed;
+  color: $main-text;
   box-shadow: 
   1px 0 1px $buttonRedHL inset,
   0px 2px 1px $buttonRedHL inset,
@@ -103,4 +104,17 @@ $backColor: #151f25;
 .goDetail5:active,
 .goDetail6:active {
   filter: brightness(50%);
+}
+
+@media all and (max-width: 850px) {
+  .movie-card {
+    width: 12em;
+    font-size: smaller;
+  }
+
+  .label, 
+  .formLabel,
+  .formPromise{
+    font-size:medium;
+  }
 }

@@ -20,9 +20,9 @@ export class BondView extends React.Component {
 
     return (
 
-      <Container className='d-flex justify-content-center' >
+      <Container style={{ width: '100%' }} className='d-flex justify-content-center' >
         <Row className='p-2 justify-content-center'>
-          <Card style={{ width: 'fit-content(80%)' }} className='m-3 h-160 text-center movie-card'>
+          <Card style={{ width: '90%' }} className='m-3 h-160 text-center movie-card'>
             <Card.Body className='cardBody p-1'>
               <Card.Img variant="top" className='bondImage pt-1' src={bondactor.Image} />
               <Card.Title className='titleh1 mt-3'>{bondactor.Name}</Card.Title>

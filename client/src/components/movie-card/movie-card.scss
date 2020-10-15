@@ -66,3 +66,19 @@ body {
 .goDetail:active {
   filter: brightness(50%);
 }
+
+
+@media all and (max-width: 800px) {
+  .movie-card {
+    width: 13em;
+    font-size: smaller;
+  }
+}
+  
+@media all and (max-width: 600px) {
+  .movie-card {
+    width: 10em;
+    font-size: smaller;
+  }
+}
+

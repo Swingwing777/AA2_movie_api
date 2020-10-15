@@ -21,9 +21,9 @@ export class GenreView extends React.Component {
 
     return (
 
-      <Container className='d-flex justify-content-center' >
+      <Container style={{ width: '100%' }} >
         <Row className='p-2 justify-content-center'>
-          <Card style={{ width: 'fit-content(80%)' }} className='m-3 h-160 text-center movie-card'>
+          <Card style={{ width: '90%' }} className='m-3 h-160 text-center movie-card'>
             <Card.Body className='cardBody p-1'>
               <Card.Title className='titleh1 mt-3'>{genre.Name}</Card.Title>
               <Card.Text className='value m-3'>

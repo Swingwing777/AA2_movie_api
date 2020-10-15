@@ -11,6 +11,7 @@ $buttonRedLL: #310005;
 $buttonGrn: #018b01;
 $buttonGrnHL: #d2f8d2;
 $buttonGrnLL: #002700;
+$star: #ffb342;
 
 body {
   background-color: $background;
@@ -43,6 +44,19 @@ body {
   text-shadow: 1px 1px 3px black;
 }
 
+.material-icons {
+  color: $star;
+  font-size:18px;
+}
+
+.material-icons:hover {
+  filter: brightness(133%);
+}
+
+.material-icons:active {
+  filter: brightness(200%);
+}
+
 .titleh1 {
   color: $main-text;
   font-size: x-large;
@@ -50,13 +64,7 @@ body {
 
 .goFacts,
 .goFacts:hover,
-.goFacts:active,
-.goAdd,
-.goAdd:hover,
-.goAdds:active,
-.goDelete,
-.goDelete:hover,
-.goDelete:active {
+.goFacts:active {
   background-color: $button;
   color: $button-text;
   font-size: smaller;
@@ -72,6 +80,9 @@ body {
 .goAdd:hover,
 .goAdd:active {
   background-color: $buttonGrn;
+  color: $button-text;
+  font-size: smaller;
+  width: 160px;
   box-shadow: 
   1px 0 1px $buttonGrnHL inset,
   0px 2px 1px $buttonGrnHL inset,
@@ -79,25 +90,18 @@ body {
   0px 2px 2px $buttonGrnLL inset;
 }
 
-.goDelete,
-.goDelete:hover,
-.goDelete:active {
-  background-color: $buttonRed;
-  box-shadow: 
-  1px 0 1px $buttonRedHL inset,
-  0px 2px 1px $buttonRedHL inset,
-  2px 0 2px $buttonRedLL inset,
-  0px 2px 2px $buttonRedLL inset;
-}
-
 .goFacts:hover,
-.goAdd:hover,
-.goDelete:hover {
+.goAdd:hover {
   filter: brightness(75%);
 }
 
 .goFacts:active,
-.goAdd:hover,
-.goDelete:active{
+.goAdd:hover {
   filter: brightness(50%);
+}
+
+@media all and (max-width: 1400px){
+  .movie-poster{
+    width:50%
+  }
 }

@@ -13,7 +13,8 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     const source = axios.CancelToken.source();
-
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     //console.log(username, password);
     e.preventDefault();
     /* Send a request to the server for authentication */
@@ -46,7 +47,7 @@ export function LoginView(props) {
     <Container className='formwrapper'>
       <Form className='p-md-3'>
         <Form.Row className='d-flex flex-md-row justify-content-center'>
-          <Form.Label size='lg' className='formTitle'>Please Login</Form.Label>
+          <Form.Label className='formTitle'>Please Login</Form.Label>
         </Form.Row>
 
         <Form.Row className='justify-content-center mt-3'>

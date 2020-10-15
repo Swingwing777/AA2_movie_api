@@ -37,6 +37,7 @@ export class MainView extends React.Component {
   }
 
   componentDidMount() {
+
     let accessToken = localStorage.getItem('token');
     // let user = localStorage.getItem('user');
     if (accessToken !== null) {
@@ -111,12 +112,7 @@ export class MainView extends React.Component {
   logoutUser = (e) => {
     e.preventDefault();
     this.props.setUserProf({});
-    // this.setState({
-    //   user: null,
-    //   userProfile: null,
-    //   //selectedMovie: null,
-    //   isAuth: false
-    // });
+
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     window.open('/', '_self');
@@ -136,21 +132,26 @@ export class MainView extends React.Component {
     return (
       <Router>
         <Container>
-          <Row className='d-flex p-2 justify-content-around'>
-            <span className='label'>Welcome to the Bond Movies Database</span>
-
-            <NavLink to={`/users/${user}`}>
-              <Button className='goUserProf mx-3 mt-3' variant="link">Logged in as: {user}</Button>
-            </NavLink>
-
-            <Link to={`/update/${user}`}>
-              <Button className='goUserProf mx-3 mt-3' variant="link">Update User</Button>
-            </Link>
-
-            <Link to={`/`}>
-              <Button className='logOutButton mx-3 mt-3' variant='link' type='submit' onClick={user => this.logoutUser(user)} >
-                Logout</Button>
-            </Link>
+          <Row className='d-flex pt-2 justify-content-around'>
+            <Col xs={12} md={3} className='justify-content-center align-items-center'>
+              <span className='label'>Welcome to the Bond Movies Database</span>
+            </Col>
+            <Col xs={12} md={2} className='justify-content-center'>
+              <NavLink to={`/users/${user}`}>
+                <Button className='goUserProf mx-3 mt-3' variant="link">User: {user}</Button>
+              </NavLink>
+            </Col>
+            <Col xs={12} md={2} className='justify-content-center'>
+              <Link to={`/update/${user}`}>
+                <Button className='goUserProf mx-3 mt-3' variant="link">Update User</Button>
+              </Link>
+            </Col>
+            <Col xs={12} md={2} className='justify-content-center'>
+              <Link to={`/`}>
+                <Button className='logOutButton mx-3 mt-3' variant='link' type='submit' onClick={user => this.logoutUser(user)} >
+                  Logout</Button>
+              </Link>
+            </Col>
 
           </Row>
 
@@ -294,12 +295,13 @@ MainView.propTypes = {
       _id: PropTypes.string.isRequired,
       Name: PropTypes.string.isRequired,
     }).isRequired,
+    Actors: PropTypes.array.isRequired,
     Heroine: PropTypes.string.isRequired,
     Villain: PropTypes.string.isRequired,
     ImagePath: PropTypes.string.isRequired,
     ThumbNail: PropTypes.string.isRequired,
     SongArtist: PropTypes.string.isRequired,
-    Featured: PropTypes.boolean,
+    Featured: PropTypes.boolean
   }),
 
   userProfile: PropTypes.shape({

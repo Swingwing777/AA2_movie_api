@@ -24,7 +24,7 @@ function MoviesList(props) {
   if (!movies) return <div className="main-view" />;
 
   return <div className="movies-list">
-    <Container>
+    <Container style={{ width: 'fit-content(90%)' }}>
       <Row className='d-flex p-2 justify-content-around'>
         <VisibilityFilterInput visibilityFilter={visibilityFilter} />
       </Row>
