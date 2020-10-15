@@ -8,7 +8,7 @@ import './profile-view.scss';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
-import { setUser } from '../../actions/actions';
+import { setUserProf } from '../../actions/actions';
 import { cancelToken } from '../../actions/actions';
 
 const mapStateToProps = state => {
@@ -29,7 +29,7 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        setUser(response.data);                                // Change 2 (not 'setState')
+        setUserProf(response.data);                                // Change 2 (not 'setState')
       })
       .catch(e => {
         console.log('User error: ' + e);
@@ -54,7 +54,7 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
-        setUser(response.data);                               // Change 4 (not 'setState')
+        setUserProf(response.data);                               // Change 4 (not 'setState')
         alert('Movie successfully deleted from favorites');
       })
       .catch(e => {
@@ -73,7 +73,7 @@ export class ProfileView extends React.Component {
       })
       .then(res => {
         alert('Account was successfully deleted')
-        setUser();                                         // Change 5 (not 'setState')
+        setUserProf({});                                         // Change 5 (not 'setState')
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         window.open('/', '_self');
@@ -204,7 +204,7 @@ export class ProfileView extends React.Component {
 //   return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }
 // }
 
-export default connect(mapStateToProps, { setUser, cancelToken })(ProfileView);  // mapDispatchTo Props?
+export default connect(mapStateToProps, { setUserProf, cancelToken })(ProfileView);  // mapDispatchTo Props?
 
 ProfileView.propTypes = {
   userProfile: PropTypes.shape({

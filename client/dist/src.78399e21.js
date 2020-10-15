@@ -58304,7 +58304,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        (0, _actions.setUser)(response.data); // Change 2 (not 'setState')
+        (0, _actions.setUserProf)(response.data); // Change 2 (not 'setState')
       }).catch(function (e) {
         console.log('User error: ' + e);
       });
@@ -58333,7 +58333,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
       }).then(function (response) {
-        (0, _actions.setUser)(response.data); // Change 4 (not 'setState')
+        (0, _actions.setUserProf)(response.data); // Change 4 (not 'setState')
 
         alert('Movie successfully deleted from favorites');
       }).catch(function (e) {
@@ -58353,7 +58353,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         alert('Do you really want to delete your account?');
       }).then(function (res) {
         alert('Account was successfully deleted');
-        (0, _actions.setUser)(); // Change 5 (not 'setState')
+        (0, _actions.setUserProf)({}); // Change 5 (not 'setState')
 
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -58503,7 +58503,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 exports.ProfileView = ProfileView;
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
-  setUser: _actions.setUser,
+  setUserProf: _actions.setUserProf,
   cancelToken: _actions.cancelToken
 })(ProfileView); // mapDispatchTo Props?
 
@@ -59006,7 +59006,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _this.logoutUser = function (e) {
       e.preventDefault();
-      console.log('Logged out');
 
       _this.props.setUserProf({}); // this.setState({
       //   user: null,
@@ -59530,7 +59529,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41753" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35013" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
