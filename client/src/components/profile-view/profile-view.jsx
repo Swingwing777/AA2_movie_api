@@ -54,7 +54,7 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
-        setUserProf(response.data);                               // Change 4 (not 'setState')
+        setUserProf(response.data);
         alert('Movie successfully deleted from favorites');
       })
       .catch(e => {
@@ -88,10 +88,8 @@ export class ProfileView extends React.Component {
 
     if (!user) return <div className="main-view" />;
 
-    // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
-
     return (
-      <Container className='formwrapper' >
+      <Container style={{ width: '90%' }} className='formwrapper' >
         <Form className='p-md-3'>
           <Form.Row className='d-flex flex-md-row justify-content-center'>
             <Form.Label size='lg' className='formTitle'>User Profile</Form.Label>
@@ -137,41 +135,46 @@ export class ProfileView extends React.Component {
           </Form.Row>
         </Form>
 
-        <Container className='flex-shrink-md'>
+        <Container style={{ width: '90%' }} className='flex-shrink-md'>
 
           <h1 className='titleh1 mt-4'>Your favorite Bond Movies</h1>
           <Row>
             <div className='d-flex row m-2'>
-              {movies.map(movie => {
 
-                if (userProfile.FavoriteMovies.indexOf(movie._id) !== -1) {
+              {userProfile.FavoriteMovies ?
 
-                  return (
+                movies.map(movie => {
 
-                    <div key={movie._id}>
-                      <Card style={{ width: '9em' }} className="pt-3 m-1 p-2 text-center movie-card h-100">
-                        <Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
-                        <Card.Body className='cardBody p-0'>
-                          <Link to={`/movies/${movie._id}`}>
-                            <Card.Title className='titleh2 p-1'>{movie.Title}</Card.Title>
-                          </Link>
-                        </Card.Body>
-                        <Card.Footer className='cardFoot border-top-0 d-flex justify-content-center'>
-                          <Row className='d-flex flex-md-row justify-content-center'>
+                  if (userProfile.FavoriteMovies.indexOf(movie._id) !== -1) {
+
+                    return (
+
+                      <div key={movie._id}>
+                        <Card style={{ width: '10em' }} className="pt-3 m-1 p-2 text-center movie-card h-100">
+                          <Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
+                          <Card.Body className='cardBody p-0'>
                             <Link to={`/movies/${movie._id}`}>
-                              <Button variant='link' className='m-1 goDetail5'>Details</Button>
+                              <Card.Title className='titleh2 p-1'>{movie.Title}</Card.Title>
                             </Link>
-                            <Link to="" onClick={() => this.deleteFavorite(movie._id)}>
-                              <Button variant='link' className='m-1 goDetail6'>Delete</Button>
-                            </Link>
-                          </Row>
-                        </Card.Footer>
-                      </Card>
-                    </div>
-                  );
-                }
-              })
-              })
+                          </Card.Body>
+                          <Card.Footer className='cardFoot border-top-0 d-flex justify-content-center'>
+                            <Row className='d-flex flex-md-row justify-content-center'>
+                              <Link to={`/movies/${movie._id}`}>
+                                <Button variant='link' className='m-1 goDetail5'>Details</Button>
+                              </Link>
+                              <Link to="" onClick={() => this.deleteFavorite(movie._id)}>
+                                <Button variant='link' className='m-1 goDetail6'>Delete</Button>
+                              </Link>
+                            </Row>
+                          </Card.Footer>
+                        </Card>
+                      </div>
+                    );
+                  }
+                })
+                :
+                <div className='titleh1 mt-4'> You have no favorites</div>
+              }
             </div>
           </Row>
         </Container>
@@ -200,13 +203,35 @@ export class ProfileView extends React.Component {
   }
 }
 
-// let mapStateToProps = state => {
-//   return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }
-// }
-
-export default connect(mapStateToProps, { setUserProf, cancelToken })(ProfileView);  // mapDispatchTo Props?
+export default connect(mapStateToProps, { setUserProf, cancelToken })(ProfileView);
 
 ProfileView.propTypes = {
+  movie: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    Title: PropTypes.string.isRequired,
+    Year: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Name: PropTypes.string.isRequired
+    }).isRequired,
+    BondActor: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Name: PropTypes.string.isRequired,
+    }).isRequired,
+    Director: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Name: PropTypes.string.isRequired,
+    }).isRequired,
+    Actors: PropTypes.array.isRequired,
+    Heroine: PropTypes.string.isRequired,
+    Villain: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string.isRequired,
+    ThumbNail: PropTypes.string.isRequired,
+    SongArtist: PropTypes.string.isRequired,
+    Featured: PropTypes.boolean
+  }),
+
   userProfile: PropTypes.shape({
     _id: PropTypes.string,
     Username: PropTypes.string,
