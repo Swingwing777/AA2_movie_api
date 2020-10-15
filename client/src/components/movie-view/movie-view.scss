@@ -5,6 +5,12 @@ $background: black;
 $button: #0071ba;
 $buttonHL: #b8e2fc;
 $buttonLL: #003657;
+$buttonRed: #8b010d;
+$buttonRedHL: #f8d9db;
+$buttonRedLL: #310005;
+$buttonGrn: #018b01;
+$buttonGrnHL: #d2f8d2;
+$buttonGrnLL: #002700;
 
 body {
   background-color: $background;
@@ -44,7 +50,13 @@ body {
 
 .goFacts,
 .goFacts:hover,
-.goFacts:active {
+.goFacts:active,
+.goAdd,
+.goAdd:hover,
+.goAdds:active,
+.goDelete,
+.goDelete:hover,
+.goDelete:active {
   background-color: $button;
   color: $button-text;
   font-size: smaller;
@@ -56,10 +68,36 @@ body {
   0px 2px 2px $buttonLL inset;
 }
 
-.goFacts:hover {
+.goAdd,
+.goAdd:hover,
+.goAdd:active {
+  background-color: $buttonGrn;
+  box-shadow: 
+  1px 0 1px $buttonGrnHL inset,
+  0px 2px 1px $buttonGrnHL inset,
+  2px 0 2px $buttonGrnLL inset,
+  0px 2px 2px $buttonGrnLL inset;
+}
+
+.goDelete,
+.goDelete:hover,
+.goDelete:active {
+  background-color: $buttonRed;
+  box-shadow: 
+  1px 0 1px $buttonRedHL inset,
+  0px 2px 1px $buttonRedHL inset,
+  2px 0 2px $buttonRedLL inset,
+  0px 2px 2px $buttonRedLL inset;
+}
+
+.goFacts:hover,
+.goAdd:hover,
+.goDelete:hover {
   filter: brightness(75%);
 }
 
-.goFacts:active {
+.goFacts:active,
+.goAdd:hover,
+.goDelete:active{
   filter: brightness(50%);
 }
