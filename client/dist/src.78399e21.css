@@ -50,6 +50,19 @@ body {
 .goDetail:active {
   filter: brightness(50%);
 }
+
+@media all and (max-width: 800px) {
+  .movie-card {
+    width: 13em;
+    font-size: smaller;
+  }
+}
+@media all and (max-width: 600px) {
+  .movie-card {
+    width: 10em;
+    font-size: smaller;
+  }
+}
 .container {
   padding: 10px;
   max-width: 80%;
@@ -127,6 +140,19 @@ body {
   text-shadow: 1px 1px 3px black;
 }
 
+.material-icons {
+  color: #ffb342;
+  font-size: 18px;
+}
+
+.material-icons:hover {
+  filter: brightness(133%);
+}
+
+.material-icons:active {
+  filter: brightness(200%);
+}
+
 .titleh1 {
   color: white;
   font-size: x-large;
@@ -142,12 +168,30 @@ body {
   box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
 }
 
-.goFacts:hover {
+.goAdd,
+.goAdd:hover,
+.goAdd:active {
+  background-color: #018b01;
+  color: white;
+  font-size: smaller;
+  width: 160px;
+  box-shadow: 1px 0 1px #d2f8d2 inset, 0px 2px 1px #d2f8d2 inset, 2px 0 2px #002700 inset, 0px 2px 2px #002700 inset;
+}
+
+.goFacts:hover,
+.goAdd:hover {
   filter: brightness(75%);
 }
 
-.goFacts:active {
+.goFacts:active,
+.goAdd:hover {
   filter: brightness(50%);
+}
+
+@media all and (max-width: 1400px) {
+  .movie-poster {
+    width: 50%;
+  }
 }
 .container {
   padding: 10px;
@@ -443,6 +487,8 @@ body {
 .goDetail6:hover,
 .goDetail6:active {
   background-color: #8b010d;
+  color: white;
+  box-shadow: 1px 0 1px #f8d9db inset, 0px 2px 1px #f8d9db inset, 2px 0 2px #310005 inset, 0px 2px 2px #310005 inset;
 }
 
 .formButton:hover,
@@ -457,6 +503,19 @@ body {
 .goDetail5:active,
 .goDetail6:active {
   filter: brightness(50%);
+}
+
+@media all and (max-width: 850px) {
+  .movie-card {
+    width: 12em;
+    font-size: smaller;
+  }
+
+  .label,
+.formLabel,
+.formPromise {
+    font-size: medium;
+  }
 }
 body {
   background-color: black;
@@ -574,6 +633,7 @@ body {
 .label {
   color: white;
   font-size: larger;
+  text-align: center;
   text-shadow: 1px 1px 3px #d4eeff;
 }
 
@@ -597,7 +657,7 @@ body {
   background-color: #0071ba;
   color: white;
   font-size: smaller;
-  width: 160px;
+  width: 140px;
   box-shadow: 1px 0 1px #b8e2fc inset, 0px 2px 1px #b8e2fc inset, 2px 0 2px #003657 inset, 0px 2px 2px #003657 inset;
 }
 
@@ -609,6 +669,37 @@ body {
 .goUserProf:active,
 .logOutButton:active {
   filter: brightness(50%);
+}
+
+@media all and (max-width: 1400px) {
+  .movie-card {
+    width: 300px;
+    font-size: smaller;
+  }
+
+  .label,
+.formLabel,
+.formPromise {
+    font-size: medium;
+  }
+}
+@media all and (max-width: 850px) {
+  .movie-card {
+    width: 260px;
+    font-size: smaller;
+  }
+
+  .label,
+.formLabel,
+.formPromise {
+    font-size: medium;
+  }
+}
+@media all and (max-width: 600px) {
+  .movie-card {
+    width: 180px;
+    font-size: smaller;
+  }
 }
 .my-flix {
   color: steelblue;

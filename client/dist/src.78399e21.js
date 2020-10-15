@@ -51649,7 +51649,11 @@ function MoviesList(props) {
   });
   return _react.default.createElement("div", {
     className: "movies-list"
-  }, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
+  }, _react.default.createElement(_reactBootstrap.Container, {
+    style: {
+      width: 'fit-content(90%)'
+    }
+  }, _react.default.createElement(_reactBootstrap.Row, {
     className: "d-flex p-2 justify-content-around"
   }, _react.default.createElement(_visibilityFilterInput.default, {
     visibilityFilter: visibilityFilter
@@ -51726,8 +51730,10 @@ function LoginView(props) {
       setApiData = _useState6[1];
 
   var handleSubmit = function handleSubmit(e) {
-    var source = _axios.default.CancelToken.source(); //console.log(username, password);
+    var source = _axios.default.CancelToken.source();
 
+    localStorage.removeItem('token');
+    localStorage.removeItem('user'); //console.log(username, password);
 
     e.preventDefault();
     /* Send a request to the server for authentication */
@@ -51767,7 +51773,6 @@ function LoginView(props) {
   }, _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "d-flex flex-md-row justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Form.Label, {
-    size: "lg",
     className: "formTitle"
   }, "Please Login")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center mt-3"
@@ -51839,9 +51844,13 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 var _reactBootstrap = require("react-bootstrap");
 
 var _reactRouterDom = require("react-router-dom");
+
+var _actions = require("../../actions/actions");
 
 require("./movie-view.scss");
 
@@ -51885,27 +51894,98 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(MovieView, [{
+    key: "getUser",
+    value: function getUser(token) {
+      var user = localStorage.getItem('user');
+
+      var source = _axios.default.CancelToken.source();
+
+      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        (0, _actions.setUserProf)(response.data); // Change 2 (not 'setState')
+      }).catch(function (e) {
+        console.log('User error: ' + e);
+      });
+
+      _axios.default.get("https://jsonplaceholder.typicode.com/todos", {
+        cancelToken: source.token
+      }).then(function (response) {
+        (0, _actions.cancelToken)(response.data); // Change 3 (not 'setState')
+      }).catch(function (e) {
+        console.log('Cancel Token error: ' + e);
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var accessToken = localStorage.getItem('token');
+      this.getUser(accessToken);
+    }
+  }, {
+    key: "addFavorite",
+    value: function addFavorite(movieId) {
+      var movie = this.props.movie;
+      var user = localStorage.getItem('user');
+
+      _axios.default.post("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem('token'))
+        }
+      }).then(function (response) {
+        alert('Movie successfully added to favorites');
+      }).catch(function (e) {
+        alert("".concat(movie.Title, " could not be added to your favorites ") + e);
+      });
+    }
+  }, {
+    key: "deleteFavorite",
+    value: function deleteFavorite(movieId) {
+      var user = localStorage.getItem('user');
+
+      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem('token'))
+        }
+      }).then(function (response) {
+        (0, _actions.setUserProf)(response.data);
+        alert('Movie successfully deleted from favorites');
+      }).catch(function (e) {
+        alert('Movie could not be deleted from favorites ' + e);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var movie = this.props.movie;
-      console.log(this.props);
+      var _this2 = this;
+
+      var _this$props = this.props,
+          movie = _this$props.movie,
+          userProfile = _this$props.userProfile; // console.log(this.props)
+
       if (!movie) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
+        style: {
+          width: '100%'
+        },
         className: "d-flex justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Card, {
         style: {
-          width: 'fit-content(80%)'
+          width: '100%'
         },
-        className: "m-3 h-160 text-center movie-card"
+        className: "px-0 m-1 h-160 text-center movie-card"
       }, _react.default.createElement(_reactBootstrap.Card.Body, {
         className: "cardBody p-1"
-      }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "p-2 justify-content-center"
-      }, _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Card.Img, {
-        variant: "left",
+      }, _react.default.createElement(_reactBootstrap.Card.Img, {
+        style: {
+          width: '30%'
+        },
+        variant: "top",
         className: "movie-poster",
         src: movie.ImagePath
-      })), _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Card.Title, {
+      }), _react.default.createElement(_reactBootstrap.Card.Title, {
         className: "titleh1 mt-3"
       }, movie.Title), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "text-left mt-3"
@@ -51959,10 +52039,10 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "label"
       }, "Title Song by:\xA0\xA0"), _react.default.createElement("span", {
         className: "value"
-      }, movie.SongArtist))))), _react.default.createElement(_reactBootstrap.Card.Footer, {
+      }, movie.SongArtist))), _react.default.createElement(_reactBootstrap.Card.Footer, {
         className: "cardFoot border-top-0"
       }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3 d-flex flex-md-row justify-content-center"
+        className: "mt-1 d-flex flex-md-row justify-content-center"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
@@ -51974,7 +52054,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "goFacts m-3",
         variant: "link"
       }, "James Bond"))), _react.default.createElement(_reactBootstrap.Row, {
-        className: "mt-3 d-flex flex-md-row justify-content-center"
+        className: "mt-1 d-flex flex-md-row justify-content-center"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/directors/".concat(movie.Title, "/").concat(movie.Director.Name)
       }, _react.default.createElement(_reactBootstrap.Button, {
@@ -51985,7 +52065,16 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goFacts m-3",
         variant: "link"
-      }, "Genre"))))));
+      }, "Genre")), _react.default.createElement(_reactBootstrap.Button, {
+        className: "goAdd m-3",
+        onClick: function onClick() {
+          return _this2.addFavorite(movie._id);
+        }
+      }, _react.default.createElement("span", {
+        className: "d-flex align-items-center"
+      }, _react.default.createElement("i", {
+        className: "material-icons star mr-3"
+      }, "grade"), "Add favorite"))))));
     }
   }]);
 
@@ -51995,20 +52084,32 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
 exports.MovieView = MovieView;
 MovieView.propTypes = {
   movie: _propTypes.default.shape({
+    _id: _propTypes.default.string.isRequired,
     Title: _propTypes.default.string.isRequired,
+    Year: _propTypes.default.string.isRequired,
     Description: _propTypes.default.string.isRequired,
+    Genre: _propTypes.default.shape({
+      _id: _propTypes.default.string.isRequired,
+      Name: _propTypes.default.string.isRequired
+    }).isRequired,
     BondActor: _propTypes.default.shape({
+      _id: _propTypes.default.string.isRequired,
       Name: _propTypes.default.string.isRequired
     }).isRequired,
     Director: _propTypes.default.shape({
+      _id: _propTypes.default.string.isRequired,
       Name: _propTypes.default.string.isRequired
     }).isRequired,
+    Actors: _propTypes.default.array.isRequired,
     Heroine: _propTypes.default.string.isRequired,
+    Villain: _propTypes.default.string.isRequired,
     ImagePath: _propTypes.default.string.isRequired,
-    ThumbNail: _propTypes.default.string.isRequired
+    ThumbNail: _propTypes.default.string.isRequired,
+    SongArtist: _propTypes.default.string.isRequired,
+    Featured: _propTypes.default.boolean
   }).isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-view.scss":"components/movie-view/movie-view.scss"}],"../node_modules/moment/moment.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../../actions/actions":"actions/actions.js","./movie-view.scss":"components/movie-view/movie-view.scss"}],"../node_modules/moment/moment.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 //! moment.js
@@ -57759,12 +57860,15 @@ var BondView = /*#__PURE__*/function (_React$Component) {
 
       if (!bondactor) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
+        style: {
+          width: '100%'
+        },
         className: "d-flex justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "p-2 justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Card, {
         style: {
-          width: 'fit-content(80%)'
+          width: '90%'
         },
         className: "m-3 h-160 text-center movie-card"
       }, _react.default.createElement(_reactBootstrap.Card.Body, {
@@ -57943,12 +58047,14 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
       console.log(this.props);
       if (!genre) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
-        className: "d-flex justify-content-center"
+        style: {
+          width: '100%'
+        }
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "p-2 justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Card, {
         style: {
-          width: 'fit-content(80%)'
+          width: '90%'
         },
         className: "m-3 h-160 text-center movie-card"
       }, _react.default.createElement(_reactBootstrap.Card.Body, {
@@ -58104,12 +58210,15 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
 
       if (!director) return null;
       return _react.default.createElement(_reactBootstrap.Container, {
+        style: {
+          width: '100%'
+        },
         className: "d-flex justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "p-2 justify-content-center"
       }, _react.default.createElement(_reactBootstrap.Card, {
         style: {
-          width: 'fit-content(80%)'
+          width: '90%'
         },
         className: "m-3 h-160 text-center movie-card"
       }, _react.default.createElement(_reactBootstrap.Card.Body, {
@@ -58333,8 +58442,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
       }).then(function (response) {
-        (0, _actions.setUserProf)(response.data); // Change 4 (not 'setState')
-
+        (0, _actions.setUserProf)(response.data);
         alert('Movie successfully deleted from favorites');
       }).catch(function (e) {
         alert('Movie could not be deleted from favorites ' + e);
@@ -58373,9 +58481,11 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           userProfile = _this$props.userProfile;
       if (!user) return _react.default.createElement("div", {
         className: "main-view"
-      }); // if (!user || !movies || movies.length === 0) return <div>Loading.......</div>;
-
+      });
       return _react.default.createElement(_reactBootstrap.Container, {
+        style: {
+          width: '90%'
+        },
         className: "formwrapper"
       }, _react.default.createElement(_reactBootstrap.Form, {
         className: "p-md-3"
@@ -58425,18 +58535,21 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         defaultValue: (0, _moment.default)(userProfile.Birthday).format('DD/MM/YYYY'),
         readOnly: true
       })))), _react.default.createElement(_reactBootstrap.Container, {
+        style: {
+          width: '90%'
+        },
         className: "flex-shrink-md"
       }, _react.default.createElement("h1", {
         className: "titleh1 mt-4"
       }, "Your favorite Bond Movies"), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("div", {
         className: "d-flex row m-2"
-      }, movies.map(function (movie) {
+      }, userProfile.FavoriteMovies ? movies.map(function (movie) {
         if (userProfile.FavoriteMovies.indexOf(movie._id) !== -1) {
           return _react.default.createElement("div", {
             key: movie._id
           }, _react.default.createElement(_reactBootstrap.Card, {
             style: {
-              width: '9em'
+              width: '10em'
             },
             className: "pt-3 m-1 p-2 text-center movie-card h-100"
           }, _react.default.createElement(_reactBootstrap.Card.Img, {
@@ -58468,7 +58581,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
             className: "m-1 goDetail6"
           }, "Delete"))))));
         }
-      }), ")"))), _react.default.createElement(_reactBootstrap.Row, {
+      }) : _react.default.createElement("div", {
+        className: "titleh1 mt-4"
+      }, " You have no favorites")))), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3 d-flex flex-md-row justify-content-center formPromise"
       }, "We will never share your details"), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-5"
@@ -58495,21 +58610,42 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return ProfileView;
-}(_react.default.Component); // let mapStateToProps = state => {
-//   return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }
-// }
-
+}(_react.default.Component);
 
 exports.ProfileView = ProfileView;
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
   setUserProf: _actions.setUserProf,
   cancelToken: _actions.cancelToken
-})(ProfileView); // mapDispatchTo Props?
-
+})(ProfileView);
 
 exports.default = _default;
 ProfileView.propTypes = {
+  movie: _propTypes.default.shape({
+    _id: _propTypes.default.string.isRequired,
+    Title: _propTypes.default.string.isRequired,
+    Year: _propTypes.default.string.isRequired,
+    Description: _propTypes.default.string.isRequired,
+    Genre: _propTypes.default.shape({
+      _id: _propTypes.default.string.isRequired,
+      Name: _propTypes.default.string.isRequired
+    }).isRequired,
+    BondActor: _propTypes.default.shape({
+      _id: _propTypes.default.string.isRequired,
+      Name: _propTypes.default.string.isRequired
+    }).isRequired,
+    Director: _propTypes.default.shape({
+      _id: _propTypes.default.string.isRequired,
+      Name: _propTypes.default.string.isRequired
+    }).isRequired,
+    Actors: _propTypes.default.array.isRequired,
+    Heroine: _propTypes.default.string.isRequired,
+    Villain: _propTypes.default.string.isRequired,
+    ImagePath: _propTypes.default.string.isRequired,
+    ThumbNail: _propTypes.default.string.isRequired,
+    SongArtist: _propTypes.default.string.isRequired,
+    Featured: _propTypes.default.boolean
+  }),
   userProfile: _propTypes.default.shape({
     _id: _propTypes.default.string,
     Username: _propTypes.default.string,
@@ -58645,6 +58781,9 @@ function UpdateView(props) {
   };
 
   return _react.default.createElement(_reactBootstrap.Container, {
+    tyle: {
+      width: 'fit-content(90%)'
+    },
     className: "formwrapper"
   }, _react.default.createElement(_reactBootstrap.Form, {
     className: "p-md-3"
@@ -59007,13 +59146,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     _this.logoutUser = function (e) {
       e.preventDefault();
 
-      _this.props.setUserProf({}); // this.setState({
-      //   user: null,
-      //   userProfile: null,
-      //   //selectedMovie: null,
-      //   isAuth: false
-      // });
-
+      _this.props.setUserProf({});
 
       localStorage.removeItem('token');
       localStorage.removeItem('user');
@@ -59134,20 +59267,36 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         className: "main-view"
       });
       return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
-        className: "d-flex p-2 justify-content-around"
+        className: "d-flex pt-2 justify-content-around"
+      }, _react.default.createElement(_reactBootstrap.Col, {
+        xs: 12,
+        md: 3,
+        className: "justify-content-center align-items-center"
       }, _react.default.createElement("span", {
         className: "label"
-      }, "Welcome to the Bond Movies Database"), _react.default.createElement(_reactRouterDom.NavLink, {
+      }, "Welcome to the Bond Movies Database")), _react.default.createElement(_reactBootstrap.Col, {
+        xs: 12,
+        md: 2,
+        className: "justify-content-center"
+      }, _react.default.createElement(_reactRouterDom.NavLink, {
         to: "/users/".concat(user)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goUserProf mx-3 mt-3",
         variant: "link"
-      }, "Logged in as: ", user)), _react.default.createElement(_reactRouterDom.Link, {
+      }, "User: ", user))), _react.default.createElement(_reactBootstrap.Col, {
+        xs: 12,
+        md: 2,
+        className: "justify-content-center"
+      }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/update/".concat(user)
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "goUserProf mx-3 mt-3",
         variant: "link"
-      }, "Update User")), _react.default.createElement(_reactRouterDom.Link, {
+      }, "Update User"))), _react.default.createElement(_reactBootstrap.Col, {
+        xs: 12,
+        md: 2,
+        className: "justify-content-center"
+      }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "logOutButton mx-3 mt-3",
@@ -59156,7 +59305,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         onClick: function onClick(user) {
           return _this4.logoutUser(user);
         }
-      }, "Logout"))), _react.default.createElement("div", {
+      }, "Logout")))), _react.default.createElement("div", {
         className: "main-view"
       }, _react.default.createElement(_reactBootstrap.Row, {
         className: "p-2 justify-content-center"
@@ -59323,6 +59472,7 @@ MainView.propTypes = {
       _id: _propTypes.default.string.isRequired,
       Name: _propTypes.default.string.isRequired
     }).isRequired,
+    Actors: _propTypes.default.array.isRequired,
     Heroine: _propTypes.default.string.isRequired,
     Villain: _propTypes.default.string.isRequired,
     ImagePath: _propTypes.default.string.isRequired,
@@ -59529,7 +59679,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35013" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34407" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
