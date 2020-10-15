@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 
 
 import { setMovies } from '../../actions/actions';
 import { cancelToken } from '../../actions/actions';
+import { setUserProf } from '../../actions/actions';
 import { setUser } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
@@ -38,8 +39,10 @@ export class MainView extends React.Component {
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
-
+    // let user = localStorage.getItem('user');
     if (accessToken !== null) {
+      //this.props.setUser(user)
+
       this.setState({
         user: localStorage.getItem('user')
       });
@@ -78,7 +81,7 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        this.props.setUser(response.data);
+        this.props.setUserProf(response.data);
         console.log('This is user: ' + response.data.Username);
       })
       .catch(e => {
@@ -270,10 +273,10 @@ export class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-  return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }
+  return { movies: state.movies, userProfile: state.userProfile, user: state.user, apiData: state.apiData }
 }
 
-export default connect(mapStateToProps, { setMovies, setUser, cancelToken })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser, setUserProf, cancelToken })(MainView);
 
 MainView.propTypes = {
   movie: PropTypes.shape({
