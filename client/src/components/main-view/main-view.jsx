@@ -8,7 +8,6 @@ import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 
 import { setMovies } from '../../actions/actions';
 import { cancelToken } from '../../actions/actions';
 import { setUserProf } from '../../actions/actions';
-import { setUser } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
 import { LoginView } from '../login-view/login-view';
@@ -41,7 +40,7 @@ export class MainView extends React.Component {
     let accessToken = localStorage.getItem('token');
     // let user = localStorage.getItem('user');
     if (accessToken !== null) {
-      //this.props.setUser(user)
+      //this.props.setUserProf(user)
 
       this.setState({
         user: localStorage.getItem('user')
@@ -111,14 +110,13 @@ export class MainView extends React.Component {
 
   logoutUser = (e) => {
     e.preventDefault();
-    console.log('Logged out');
-    this.setState({
-      user: null,
-      userProfile: null,
-      //selectedMovie: null,
-      isAuth: false
-
-    });
+    this.props.setUserProf({});
+    // this.setState({
+    //   user: null,
+    //   userProfile: null,
+    //   //selectedMovie: null,
+    //   isAuth: false
+    // });
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     window.open('/', '_self');
@@ -273,10 +271,10 @@ export class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-  return { movies: state.movies, userProfile: state.userProfile, user: state.user, apiData: state.apiData }
+  return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }
 }
 
-export default connect(mapStateToProps, { setMovies, setUser, setUserProf, cancelToken })(MainView);
+export default connect(mapStateToProps, { setMovies, setUserProf, cancelToken })(MainView);
 
 MainView.propTypes = {
   movie: PropTypes.shape({

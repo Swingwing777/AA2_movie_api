@@ -36419,9 +36419,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.setMovies = setMovies;
 exports.setFilter = setFilter;
 exports.setUserProf = setUserProf;
-exports.setUser = setUser;
 exports.cancelToken = cancelToken;
-exports.SET_API = exports.SET_USER = exports.SET_USERPROF = exports.SET_FILTER = exports.SET_MOVIES = void 0;
+exports.SET_API = exports.SET_USERPROF = exports.SET_FILTER = exports.SET_MOVIES = void 0;
 // src/actions/actions.js
 var SET_MOVIES = 'SET_MOVIES';
 exports.SET_MOVIES = SET_MOVIES;
@@ -36429,8 +36428,6 @@ var SET_FILTER = 'SET_FILTER';
 exports.SET_FILTER = SET_FILTER;
 var SET_USERPROF = 'SET_USERPROF';
 exports.SET_USERPROF = SET_USERPROF;
-var SET_USER = 'SET_USER';
-exports.SET_USER = SET_USER;
 var SET_API = 'SET_API'; // Note: The action function name is imported into components, not the reducers function name.
 
 exports.SET_API = SET_API;
@@ -36452,13 +36449,6 @@ function setFilter(value) {
 function setUserProf(value) {
   return {
     type: SET_USERPROF,
-    value: value
-  };
-}
-
-function setUser(value) {
-  return {
-    type: SET_USER,
     value: value
   };
 }
@@ -59018,12 +59008,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       e.preventDefault();
       console.log('Logged out');
 
-      _this.setState({
-        user: null,
-        userProfile: null,
-        //selectedMovie: null,
-        isAuth: false
-      });
+      _this.props.setUserProf({}); // this.setState({
+      //   user: null,
+      //   userProfile: null,
+      //   //selectedMovie: null,
+      //   isAuth: false
+      // });
+
 
       localStorage.removeItem('token');
       localStorage.removeItem('user');
@@ -59048,7 +59039,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var accessToken = localStorage.getItem('token'); // let user = localStorage.getItem('user');
 
       if (accessToken !== null) {
-        //this.props.setUser(user)
+        //this.props.setUserProf(user)
         this.setState({
           user: localStorage.getItem('user')
         }); // If user and access token are present, can call getMovies & getUser methods.
@@ -59304,14 +59295,12 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     movies: state.movies,
     userProfile: state.userProfile,
-    user: state.user,
     apiData: state.apiData
   };
 };
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
   setMovies: _actions.setMovies,
-  setUser: _actions.setUser,
   setUserProf: _actions.setUserProf,
   cancelToken: _actions.cancelToken
 })(MainView);
@@ -59404,21 +59393,15 @@ function userProfile() {
     default:
       return state;
   }
-}
+} // function userName(state = {}, action) {        // An object containing Username, Email etc
+//   switch (action.type) {
+//     case SET_USER:
+//       return action.value;
+//     default:
+//       return state;
+//   }
+// }
 
-function userName() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  // An object containing Username, Email etc
-  switch (action.type) {
-    case _actions.SET_USER:
-      return action.value;
-
-    default:
-      return state;
-  }
-}
 
 function cancelAxios() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -59438,7 +59421,6 @@ var moviesApp = (0, _redux.combineReducers)({
   visibilityFilter: visibilityFilter,
   movies: movies,
   userProfile: userProfile,
-  userName: userName,
   cancelAxios: cancelAxios
 });
 var _default = moviesApp; // This is imported into index.jsx
@@ -59548,7 +59530,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44005" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41753" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -2,7 +2,7 @@
 
 import { combineReducers } from 'redux';
 
-import { SET_FILTER, SET_MOVIES, SET_USERPROF, SET_USER, SET_API } from '../actions/actions';
+import { SET_FILTER, SET_MOVIES, SET_USERPROF, SET_API } from '../actions/actions';
 
 function visibilityFilter(state = '', action) {    // A string
   switch (action.type) {
@@ -33,14 +33,14 @@ function userProfile(state = {}, action) {        // An object containing Userna
   }
 }
 
-function userName(state = {}, action) {        // An object containing Username, Email etc
-  switch (action.type) {
-    case SET_USER:
-      return action.value;
-    default:
-      return state;
-  }
-}
+// function userName(state = {}, action) {        // An object containing Username, Email etc
+//   switch (action.type) {
+//     case SET_USER:
+//       return action.value;
+//     default:
+//       return state;
+//   }
+// }
 
 function cancelAxios(state = {}, action) {        // An object containing axios cancel token
   switch (action.type) {
@@ -55,7 +55,6 @@ const moviesApp = combineReducers({
   visibilityFilter,
   movies,
   userProfile,
-  userName,
   cancelAxios
 });
 
