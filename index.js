@@ -326,8 +326,8 @@ app.post('/users',
       });
   });
 
-// POST movie by ID to a user's list of favorites
-app.post('/users/:Username/movieID/:Id', passport.authenticate('jwt', { session: false }), (req, res) => {
+// POST movie by ID to a user's list of favorites  // passport.authenticate('jwt', { session: false }),
+app.post('/users/:Username/movieID/:Id', (req, res) => {
   Users.findOne({ Username: req.params.Username })       // Promise
     .then((user) => {
 
