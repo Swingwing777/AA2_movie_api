@@ -327,7 +327,7 @@ app.post('/users',
   });
 
 // POST movie by ID to a user's list of favorites  // passport.authenticate('jwt', { session: false }),
-app.post('/users/:Username/movieID/:Id', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.post('/users/:Username/movieID/:Id', (req, res) => {
   Users.findOne({ Username: req.params.Username })       // Promise
     .then((user) => {
 
@@ -341,7 +341,7 @@ app.post('/users/:Username/movieID/:Id', passport.authenticate('jwt', { session:
           { new: true })                          // To return updated document
           .then((updatedUser) => {
             updatedUser.Password = ""  // This blanks the user password in the JSON response.
-            res.json(updatedUser)
+            res.json(updatedUser.FavoriteMovies)
           })
           .catch((err) => {
             console.error(err);
