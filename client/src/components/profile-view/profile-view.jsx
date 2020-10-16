@@ -52,9 +52,7 @@ export class ProfileView extends React.Component {
 
   deleteFavorite(movieId) {
     let user = localStorage.getItem('user');
-
-    // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
-    axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+    axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
@@ -68,9 +66,7 @@ export class ProfileView extends React.Component {
 
   deleteProfile() {
     let user = localStorage.getItem('user')
-
-    // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`,
-    axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}`,
+    axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`,
       {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       })

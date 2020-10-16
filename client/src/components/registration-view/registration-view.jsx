@@ -5,7 +5,7 @@ import { LoginView } from '../login-view/login-view';
 import { Form, Container, Col, Button, Row } from 'react-bootstrap';
 import './registration-view.scss';
 
-import { BrowserRouter as Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom';
 
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
