@@ -59189,7 +59189,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
         this.getMovies(accessToken);
       }
-    } // new method to get movies
+    } // axios.get('https://bond-movie-api.herokuapp.com/movies', {
 
   }, {
     key: "getMovies",
@@ -59199,7 +59199,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var source = _axios.default.CancelToken.source();
 
       _axios.default.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
-        // axios.get('https://bond-movie-api.herokuapp.com/movies', {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -59694,7 +59693,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43901" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40465" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
