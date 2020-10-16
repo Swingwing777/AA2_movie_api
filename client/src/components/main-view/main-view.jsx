@@ -132,8 +132,8 @@ export class MainView extends React.Component {
 
 
     return (
-      // <Router> no baseline property for localhost testing
-      <Router basename="/client">
+      // <Router basename="/client"> for online hosting 
+      <Router>
         <Container>
           <Row className='d-flex pt-2 justify-content-around'>
             <Col xs={12} md={3} className='justify-content-center align-items-center'>

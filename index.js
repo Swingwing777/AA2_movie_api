@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const path = require('path');
+// const path = require('path');
 const mongoose = require('mongoose');
 const Models = require('./models.js');        // ie same directory as index.js
 
@@ -50,10 +50,10 @@ app.use(cors({
 app.use(morgan('common'));
 
 app.use(express.static('public'));
-app.use("/client", express.static(path.join(__dirname, "client", "dist")));
-app.get("/client/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
+// app.use("/client", express.static(path.join(__dirname, "client", "dist")));
+// app.get("/client/*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+// });
 
 // Welcome message
 app.get('/', (req, res) => {
