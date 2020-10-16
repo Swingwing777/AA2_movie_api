@@ -51814,10 +51814,10 @@ function LoginView(props) {
     onClick: handleSubmit
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.NavLink, {
+  }, _react.default.createElement(_reactRouterDom.NavLink, {
     to: "/register",
     className: "btn btn-primary formButton mt-3"
-  }, "Register User")))));
+  }, "Register User"))));
 }
 /* using .required for PropTypes before login is pointless,
 as it flags warnings for entries that have not 
@@ -51902,6 +51902,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       var source = _axios.default.CancelToken.source();
 
       _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+        // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -51969,7 +51970,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
           userProfile = _this$props.userProfile; // console.log(this.props)
 
       if (!movie) return null;
-      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Container, {
+      return _react.default.createElement(_reactBootstrap.Container, {
         style: {
           width: '100%'
         },
@@ -52077,7 +52078,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "d-flex align-items-center"
       }, _react.default.createElement("i", {
         className: "material-icons star mr-3"
-      }, "grade"), "Add favorite")))))));
+      }, "grade"), "Add favorite"))))));
     }
   }]);
 
@@ -58486,7 +58487,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       if (!user) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Container, {
+      return _react.default.createElement(_reactBootstrap.Container, {
         style: {
           width: '90%'
         },
@@ -58609,7 +58610,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactBootstrap.Button, {
         className: "m-2 formButton1",
         variant: "link"
-      }, "Delete Profile")))));
+      }, "Delete Profile"))));
     }
   }]);
 
@@ -59048,12 +59049,12 @@ function RegistrationView(props) {
     onClick: registerUser
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
+  }, _react.default.createElement(_reactRouterDom.BrowserRouter, {
     to: "/login"
   }, _react.default.createElement(_reactBootstrap.Button, {
     className: "formButton mt-3",
     variant: "link"
-  }, "Login"))))));
+  }, "Login")))));
 } // propTypes cannot be required as no props passed until after registration.
 
 
@@ -59276,7 +59277,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (!movies && !userProfile) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return (// <Router> no baseline property necessary for localhost testing
+      return (// <Router> no baseline property for localhost testing
         _react.default.createElement(_reactRouterDom.BrowserRouter, {
           basename: "/client"
         }, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
@@ -59322,8 +59323,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           className: "main-view"
         }, _react.default.createElement(_reactBootstrap.Row, {
           className: "p-2 justify-content-center"
-        }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
-          exact: true,
+        }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route // exact
+        , {
           path: "/",
           render: function render(props) {
             if (!user) {
@@ -59337,8 +59338,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
               movies: movies
             });
           }
-        }), _react.default.createElement(_reactRouterDom.Route, {
-          exact: true,
+        }), _react.default.createElement(_reactRouterDom.Route // exact
+        , {
           path: "/login",
           render: function render(props) {
             return _react.default.createElement(_loginView.LoginView, _extends({}, props, {
@@ -59693,7 +59694,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40965" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35381" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
