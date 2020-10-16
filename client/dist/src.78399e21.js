@@ -51814,10 +51814,10 @@ function LoginView(props) {
     onClick: handleSubmit
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.NavLink, {
+  }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.NavLink, {
     to: "/register",
     className: "btn btn-primary formButton mt-3"
-  }, "Register User"))));
+  }, "Register User")))));
 }
 /* using .required for PropTypes before login is pointless,
 as it flags warnings for entries that have not 
@@ -51929,9 +51929,10 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
     key: "addFavorite",
     value: function addFavorite(movieId) {
       var movie = this.props.movie;
-      var user = localStorage.getItem('user'); // axios.post(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+      var user = localStorage.getItem('user');
 
-      _axios.default.post("https://bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
+      _axios.default.post("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
+        // axios.post(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -51944,9 +51945,10 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteFavorite",
     value: function deleteFavorite(movieId) {
-      var user = localStorage.getItem('user'); // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+      var user = localStorage.getItem('user');
 
-      _axios.default.delete("https://bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
+      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
+        // axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -51967,7 +51969,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
           userProfile = _this$props.userProfile; // console.log(this.props)
 
       if (!movie) return null;
-      return _react.default.createElement(_reactBootstrap.Container, {
+      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Container, {
         style: {
           width: '100%'
         },
@@ -52075,7 +52077,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "d-flex align-items-center"
       }, _react.default.createElement("i", {
         className: "material-icons star mr-3"
-      }, "grade"), "Add favorite"))))));
+      }, "grade"), "Add favorite")))))));
     }
   }]);
 
@@ -58407,10 +58409,10 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     value: function getUser(token) {
       var user = localStorage.getItem('user');
 
-      var source = _axios.default.CancelToken.source(); // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+      var source = _axios.default.CancelToken.source();
 
-
-      _axios.default.get("https://bond-movie-api.herokuapp.com/users/".concat(user), {
+      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+        // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -58484,7 +58486,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       if (!user) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return _react.default.createElement(_reactBootstrap.Container, {
+      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Container, {
         style: {
           width: '90%'
         },
@@ -58591,7 +58593,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "mt-5"
       }), _react.default.createElement(_reactBootstrap.Row, {
         className: "mt-3 d-flex flex-md-row justify-content-center"
-      }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
+      }, _react.default.createElement(_reactRouterDom.Link, {
         to: "",
         onClick: function onClick() {
           return history.back();
@@ -59046,12 +59048,12 @@ function RegistrationView(props) {
     onClick: registerUser
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.BrowserRouter, {
+  }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Link, {
     to: "/login"
   }, _react.default.createElement(_reactBootstrap.Button, {
     className: "formButton mt-3",
     variant: "link"
-  }, "Login")))));
+  }, "Login"))))));
 } // propTypes cannot be required as no props passed until after registration.
 
 
@@ -59274,7 +59276,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (!movies && !userProfile) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return (// <Router> no baseline property for localhost testing
+      return (// <Router> no baseline property necessary for localhost testing
         _react.default.createElement(_reactRouterDom.BrowserRouter, {
           basename: "/client"
         }, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
@@ -59691,7 +59693,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42875" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40965" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
