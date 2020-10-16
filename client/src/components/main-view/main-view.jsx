@@ -55,8 +55,8 @@ export class MainView extends React.Component {
   // new method to get movies
   getMovies(token) {
     const source = axios.CancelToken.source();
-    // axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
-    axios.get('https://bond-movie-api.herokuapp.com/movies', {
+    axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
+      // axios.get('https://bond-movie-api.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
@@ -78,8 +78,8 @@ export class MainView extends React.Component {
   getUser(token) {
     let user = localStorage.getItem('user')
     const source = axios.CancelToken.source();
-    // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
-    axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
+    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+      // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
@@ -163,7 +163,7 @@ export class MainView extends React.Component {
               <Switch>
                 {/* This is the MainView default route */}
                 <Route
-                  // exact
+                  exact
                   path="/"
                   render={(props) => {
                     if (!user) {      /* If no user, go to LoginView via <Route path="/login" /> */
@@ -176,7 +176,7 @@ export class MainView extends React.Component {
                 />
 
                 <Route
-                  // exact
+                  exact
                   path="/login"
                   render={(props) => <LoginView {...props}
                     isAuth={isAuth}
