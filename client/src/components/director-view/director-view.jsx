@@ -30,7 +30,7 @@ export class DirectorView extends React.Component {
                 <span className='textMain'>{director.Bio}</span>
               </Card.Text>
               <Card.Text className='text-left mt-4 m-2'>
-                <span className='label'>{
+                <span className='textMain'>{
                   director.Birth.Date ?
                     'Born:\u00A0\u00A0' +
                     moment(director.Birth.Date).format('D MMM YYYY') +
@@ -39,8 +39,7 @@ export class DirectorView extends React.Component {
                 </span>
               </Card.Text>
               <Card.Text className='text-left m-2'>
-                {/* <span className='label'>{'Place:\u00A0\u00A0'}</span> */}
-                <span className='value'>{
+                <span className='textMain'>{
                   director.Death.Date ?
                     'Died:\u00A0\u00A0' +
                     moment(director.Death.Date).format('D MMM YYYY') +

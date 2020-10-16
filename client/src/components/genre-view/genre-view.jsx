@@ -26,7 +26,7 @@ export class GenreView extends React.Component {
           <Card style={{ width: '90%' }} className='m-3 h-160 text-center movie-card'>
             <Card.Body className='cardBody p-1'>
               <Card.Title className='titleh1 mt-3'>{genre.Name}</Card.Title>
-              <Card.Text className='value m-3'>
+              <Card.Text className='m-3'>
                 <span className='textMain'>{genre.Description}</span>
               </Card.Text>
             </Card.Body>
