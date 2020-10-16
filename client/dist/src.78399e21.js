@@ -58440,9 +58440,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteFavorite",
     value: function deleteFavorite(movieId) {
-      var user = localStorage.getItem('user'); // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+      var user = localStorage.getItem('user');
 
-      _axios.default.delete("https://bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
+      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -58456,9 +58456,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteProfile",
     value: function deleteProfile() {
-      var user = localStorage.getItem('user'); // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`,
+      var user = localStorage.getItem('user');
 
-      _axios.default.delete("https://bond-movie-api.herokuapp.com/users/".concat(user), {
+      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -58965,8 +58965,8 @@ function RegistrationView(props) {
     }).then(function (response) {
       var data = response.data;
       alert('Successful Registration.  Please login with your new details');
-      window.open('/client', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
-    }) // window.open('/', '_self') required for localhost testing
+      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+    }) // window.open('/client', '_self') required for online hosting
     .catch(function (e) {
       console.log('Please check and try again');
     });
@@ -59049,7 +59049,7 @@ function RegistrationView(props) {
     onClick: registerUser
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.BrowserRouter, {
+  }, _react.default.createElement(_reactRouterDom.Link, {
     to: "/login"
   }, _react.default.createElement(_reactBootstrap.Button, {
     className: "formButton mt-3",
@@ -59277,10 +59277,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (!movies && !userProfile) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return (// <Router> no baseline property for localhost testing
-        _react.default.createElement(_reactRouterDom.BrowserRouter, {
-          basename: "/client"
-        }, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
+      return (// <Router basename="/client"> for online hosting 
+        _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
           className: "d-flex pt-2 justify-content-around"
         }, _react.default.createElement(_reactBootstrap.Col, {
           xs: 12,
@@ -59694,7 +59692,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35381" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40213" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
