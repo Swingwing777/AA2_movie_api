@@ -58443,6 +58443,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       var user = localStorage.getItem('user');
 
       _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
+        // axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -58458,7 +58459,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     value: function deleteProfile() {
       var user = localStorage.getItem('user');
 
-      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), // axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}`,
+      {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -58788,7 +58790,7 @@ function UpdateView(props) {
   };
 
   return _react.default.createElement(_reactBootstrap.Container, {
-    tyle: {
+    style: {
       width: 'fit-content(90%)'
     },
     className: "formwrapper"
@@ -59321,8 +59323,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           className: "main-view"
         }, _react.default.createElement(_reactBootstrap.Row, {
           className: "p-2 justify-content-center"
-        }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route // exact
-        , {
+        }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+          exact: true,
           path: "/",
           render: function render(props) {
             if (!user) {
@@ -59336,8 +59338,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
               movies: movies
             });
           }
-        }), _react.default.createElement(_reactRouterDom.Route // exact
-        , {
+        }), _react.default.createElement(_reactRouterDom.Route, {
+          exact: true,
           path: "/login",
           render: function render(props) {
             return _react.default.createElement(_loginView.LoginView, _extends({}, props, {
@@ -59692,7 +59694,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40213" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43755" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
