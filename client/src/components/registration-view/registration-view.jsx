@@ -25,8 +25,8 @@ export function RegistrationView(props) {
       .then(response => {
         const data = response.data;
         alert('Successful Registration.  Please login with your new details');
-        window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
-      })
+        window.open('/client', '_self');              // the second argument '_self' is necessary so that the page will open in the current tab
+      })                                              // window.open('/', '_self') required for localhost testing
       .catch(e => {
         console.log('Please check and try again')
       });
