@@ -46,7 +46,9 @@ export class MovieView extends React.Component {
   addFavorite(movieId) {
     const { movie } = this.props;
     let user = localStorage.getItem('user');
-    axios.post(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+
+    // axios.post(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+    axios.post(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
@@ -59,7 +61,9 @@ export class MovieView extends React.Component {
 
   deleteFavorite(movieId) {
     let user = localStorage.getItem('user');
-    axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+
+    // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+    axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
@@ -144,12 +148,6 @@ export class MovieView extends React.Component {
               </span>
 
               </Button>
-              {/* <Link to="" onClick={() => this.addFavorite(movie._id)}>
-                <Button variant='link' className='m-3 goAdd'>Add Favorite</Button>
-              </Link>
-              <Link to="" onClick={() => this.deleteFavorite(movie._id)}>
-                <Button variant='link' className='m-3 goDelete'>Remove Favorite</Button>
-              </Link> */}
             </Row>
           </Card.Footer>
         </Card>
