@@ -163,7 +163,7 @@ export class MainView extends React.Component {
               <Switch>
                 {/* This is the MainView default route */}
                 <Route
-                  exact
+                  // exact
                   path="/"
                   render={(props) => {
                     if (!user) {      /* If no user, go to LoginView via <Route path="/login" /> */
@@ -176,7 +176,7 @@ export class MainView extends React.Component {
                 />
 
                 <Route
-                  exact
+                  // exact
                   path="/login"
                   render={(props) => <LoginView {...props}
                     isAuth={isAuth}

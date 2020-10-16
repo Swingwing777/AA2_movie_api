@@ -40,7 +40,7 @@ export function LoginView(props) {
   }
 
   if (props.isAuth) {
-    return <Redirect to="/" />
+    return <Redirect to="/client" />    // '/client'for online build, else '/'?
   }
   if (username === 'New') return <Redirect to="/register" />
 

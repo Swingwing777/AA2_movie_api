@@ -51737,8 +51737,9 @@ function LoginView(props) {
 
     e.preventDefault();
     /* Send a request to the server for authentication */
+    // axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
 
-    _axios.default.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
+    _axios.default.post('https://bond-movie-api.herokuapp.com/login', {
       Username: username,
       Password: password
     }).then(function (response) {
@@ -51928,9 +51929,9 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
     key: "addFavorite",
     value: function addFavorite(movieId) {
       var movie = this.props.movie;
-      var user = localStorage.getItem('user');
+      var user = localStorage.getItem('user'); // axios.post(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
 
-      _axios.default.post("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
+      _axios.default.post("https://bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -51943,9 +51944,9 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteFavorite",
     value: function deleteFavorite(movieId) {
-      var user = localStorage.getItem('user');
+      var user = localStorage.getItem('user'); // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
 
-      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
+      _axios.default.delete("https://bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -58406,9 +58407,10 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     value: function getUser(token) {
       var user = localStorage.getItem('user');
 
-      var source = _axios.default.CancelToken.source();
+      var source = _axios.default.CancelToken.source(); // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
 
-      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+
+      _axios.default.get("https://bond-movie-api.herokuapp.com/users/".concat(user), {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -58435,9 +58437,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteFavorite",
     value: function deleteFavorite(movieId) {
-      var user = localStorage.getItem('user');
+      var user = localStorage.getItem('user'); // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
 
-      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
+      _axios.default.delete("https://bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -58451,9 +58453,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteProfile",
     value: function deleteProfile() {
-      var user = localStorage.getItem('user');
+      var user = localStorage.getItem('user'); // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`,
 
-      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+      _axios.default.delete("https://bond-movie-api.herokuapp.com/users/".concat(user), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -58731,9 +58733,9 @@ function UpdateView(props) {
     var source = _axios.default.CancelToken.source();
 
     var user = localStorage.getItem('user');
-    e.preventDefault();
+    e.preventDefault(); // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
 
-    _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+    _axios.default.get("https://bond-movie-api.herokuapp.com/users/".concat(user), {
       headers: {
         Authorization: "Bearer ".concat(localStorage.getItem('token'))
       }
@@ -58758,9 +58760,9 @@ function UpdateView(props) {
 
   var updateUser = function updateUser(e) {
     var user = localStorage.getItem('user');
-    e.preventDefault();
+    e.preventDefault(); // axios.put(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
 
-    _axios.default.put("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+    _axios.default.put("https://bond-movie-api.herokuapp.com/users/".concat(user), {
       Username: username,
       Password: password,
       Email: email,
@@ -58947,9 +58949,9 @@ function RegistrationView(props) {
       setBirthday = _useState8[1];
 
   var registerUser = function registerUser(e) {
-    e.preventDefault();
+    e.preventDefault(); // axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
 
-    _axios.default.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
+    _axios.default.post('https://bond-movie-api.herokuapp.com/users', {
       Username: username,
       Password: password,
       Email: email,
@@ -58957,8 +58959,9 @@ function RegistrationView(props) {
     }).then(function (response) {
       var data = response.data;
       alert('Successful Registration.  Please login with your new details');
-      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
-    }).catch(function (e) {
+      window.open('/client', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+    }) // window.open('/', '_self') required for localhost testing
+    .catch(function (e) {
       console.log('Please check and try again');
     });
   };
@@ -59040,7 +59043,7 @@ function RegistrationView(props) {
     onClick: registerUser
   }, "Submit")), _react.default.createElement(_reactBootstrap.Form.Row, {
     className: "justify-content-center"
-  }, _react.default.createElement(_reactRouterDom.Link, {
+  }, _react.default.createElement(_reactRouterDom.BrowserRouter, {
     to: "/login"
   }, _react.default.createElement(_reactBootstrap.Button, {
     className: "formButton mt-3",
@@ -59185,9 +59188,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function getMovies(token) {
       var _this2 = this;
 
-      var source = _axios.default.CancelToken.source();
+      var source = _axios.default.CancelToken.source(); // axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
 
-      _axios.default.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
+
+      _axios.default.get('https://bond-movie-api.herokuapp.com/movies', {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -59214,9 +59218,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
       var user = localStorage.getItem('user');
 
-      var source = _axios.default.CancelToken.source();
+      var source = _axios.default.CancelToken.source(); // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
 
-      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+
+      _axios.default.get("https://bond-movie-api.herokuapp.com/users/".concat(user), {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -59266,171 +59271,175 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (!movies && !userProfile) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
-        className: "d-flex pt-2 justify-content-around"
-      }, _react.default.createElement(_reactBootstrap.Col, {
-        xs: 12,
-        md: 3,
-        className: "justify-content-center align-items-center"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Welcome to the Bond Movies Database")), _react.default.createElement(_reactBootstrap.Col, {
-        xs: 12,
-        md: 2,
-        className: "justify-content-center"
-      }, _react.default.createElement(_reactRouterDom.NavLink, {
-        to: "/users/".concat(user)
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goUserProf mx-3 mt-3",
-        variant: "link"
-      }, "User: ", user))), _react.default.createElement(_reactBootstrap.Col, {
-        xs: 12,
-        md: 2,
-        className: "justify-content-center"
-      }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/update/".concat(user)
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "goUserProf mx-3 mt-3",
-        variant: "link"
-      }, "Update User"))), _react.default.createElement(_reactBootstrap.Col, {
-        xs: 12,
-        md: 2,
-        className: "justify-content-center"
-      }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
-      }, _react.default.createElement(_reactBootstrap.Button, {
-        className: "logOutButton mx-3 mt-3",
-        variant: "link",
-        type: "submit",
-        onClick: function onClick(user) {
-          return _this4.logoutUser(user);
-        }
-      }, "Logout")))), _react.default.createElement("div", {
-        className: "main-view"
-      }, _react.default.createElement(_reactBootstrap.Row, {
-        className: "p-2 justify-content-center"
-      }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/",
-        render: function render(props) {
-          if (!user) {
-            /* If no user, go to LoginView via <Route path="/login" /> */
-            return _react.default.createElement(_reactRouterDom.Redirect, {
-              to: "/login"
-            });
+      return (// <Router> no baseline property for localhost testing
+        _react.default.createElement(_reactRouterDom.BrowserRouter, {
+          basename: "/client"
+        }, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
+          className: "d-flex pt-2 justify-content-around"
+        }, _react.default.createElement(_reactBootstrap.Col, {
+          xs: 12,
+          md: 3,
+          className: "justify-content-center align-items-center"
+        }, _react.default.createElement("span", {
+          className: "label"
+        }, "Welcome to the Bond Movies Database")), _react.default.createElement(_reactBootstrap.Col, {
+          xs: 12,
+          md: 2,
+          className: "justify-content-center"
+        }, _react.default.createElement(_reactRouterDom.NavLink, {
+          to: "/users/".concat(user)
+        }, _react.default.createElement(_reactBootstrap.Button, {
+          className: "goUserProf mx-3 mt-3",
+          variant: "link"
+        }, "User: ", user))), _react.default.createElement(_reactBootstrap.Col, {
+          xs: 12,
+          md: 2,
+          className: "justify-content-center"
+        }, _react.default.createElement(_reactRouterDom.Link, {
+          to: "/update/".concat(user)
+        }, _react.default.createElement(_reactBootstrap.Button, {
+          className: "goUserProf mx-3 mt-3",
+          variant: "link"
+        }, "Update User"))), _react.default.createElement(_reactBootstrap.Col, {
+          xs: 12,
+          md: 2,
+          className: "justify-content-center"
+        }, _react.default.createElement(_reactRouterDom.Link, {
+          to: "/"
+        }, _react.default.createElement(_reactBootstrap.Button, {
+          className: "logOutButton mx-3 mt-3",
+          variant: "link",
+          type: "submit",
+          onClick: function onClick(user) {
+            return _this4.logoutUser(user);
           }
-
-          return _react.default.createElement(_moviesList.default, {
-            movies: movies
-          });
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/login",
-        render: function render(props) {
-          return _react.default.createElement(_loginView.LoginView, _extends({}, props, {
-            isAuth: isAuth,
-            onLoggedIn: function onLoggedIn(user) {
-              return _this4.onLoggedIn(user);
+        }, "Logout")))), _react.default.createElement("div", {
+          className: "main-view"
+        }, _react.default.createElement(_reactBootstrap.Row, {
+          className: "p-2 justify-content-center"
+        }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
+          exact: true,
+          path: "/",
+          render: function render(props) {
+            if (!user) {
+              /* If no user, go to LoginView via <Route path="/login" /> */
+              return _react.default.createElement(_reactRouterDom.Redirect, {
+                to: "/login"
+              });
             }
-          }));
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/register",
-        render: function render() {
-          return _react.default.createElement(_registrationView.RegistrationView, null);
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/main",
-        render: function render(props) {
-          var user = localStorage.getItem('user');
 
-          if (!user) {
-            /* If no user, go to LoginView via <Route path="/login" /> */
-            return _react.default.createElement(_reactRouterDom.Redirect, {
-              to: "/login"
+            return _react.default.createElement(_moviesList.default, {
+              movies: movies
             });
           }
+        }), _react.default.createElement(_reactRouterDom.Route, {
+          exact: true,
+          path: "/login",
+          render: function render(props) {
+            return _react.default.createElement(_loginView.LoginView, _extends({}, props, {
+              isAuth: isAuth,
+              onLoggedIn: function onLoggedIn(user) {
+                return _this4.onLoggedIn(user);
+              }
+            }));
+          }
+        }), _react.default.createElement(_reactRouterDom.Route, {
+          path: "/register",
+          render: function render() {
+            return _react.default.createElement(_registrationView.RegistrationView, null);
+          }
+        }), _react.default.createElement(_reactRouterDom.Route, {
+          exact: true,
+          path: "/main",
+          render: function render(props) {
+            var user = localStorage.getItem('user');
 
-          return _react.default.createElement(_moviesList.default, {
-            movies: movies
-          });
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/movies/:movieId",
-        render: function render(_ref) {
-          var match = _ref.match;
-          return _react.default.createElement(_movieView.MovieView, {
-            movie: movies.find(function (m) {
-              return m._id === match.params.movieId;
-            })
-          });
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/actors/:movie/:name",
-        render: function render(_ref2) {
-          var match = _ref2.match;
-          if (!movies) return _react.default.createElement("div", {
-            className: "main-view"
-          });
-          return _react.default.createElement(_bondView.BondView, {
-            bondactor: movies.find(function (m) {
-              return m.BondActor.Name === match.params.name;
-            }).BondActor,
-            movies: movies
-          });
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/directors/:movie/:name",
-        render: function render(_ref3) {
-          var match = _ref3.match;
-          if (!movies) return _react.default.createElement("div", {
-            className: "main-view"
-          });
-          return _react.default.createElement(_directorView.DirectorView, {
-            director: movies.find(function (m) {
-              return m.Director.Name === match.params.name;
-            }).Director,
-            movies: movies
-          });
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/genres/:movie/:name",
-        render: function render(_ref4) {
-          var match = _ref4.match;
-          if (!movies) return _react.default.createElement("div", {
-            className: "main-view"
-          });
-          return _react.default.createElement(_genreView.GenreView, {
-            genre: movies.find(function (m) {
-              return m.Genre.Name === match.params.name;
-            }).Genre,
-            movies: movies
-          });
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        path: "/users/:Username",
-        render: function render() {
-          return _react.default.createElement(_profileView.ProfileView, {
-            userProfile: userProfile,
-            user: localStorage.getItem('user'),
-            movies: movies
-          });
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        path: "/update/:Username",
-        render: function render() {
-          return _react.default.createElement(_updateView.UpdateView, {
-            user: localStorage.getItem('user'),
-            userProfile: userProfile
-          });
-        }
-      }))))));
+            if (!user) {
+              /* If no user, go to LoginView via <Route path="/login" /> */
+              return _react.default.createElement(_reactRouterDom.Redirect, {
+                to: "/login"
+              });
+            }
+
+            return _react.default.createElement(_moviesList.default, {
+              movies: movies
+            });
+          }
+        }), _react.default.createElement(_reactRouterDom.Route, {
+          path: "/movies/:movieId",
+          render: function render(_ref) {
+            var match = _ref.match;
+            return _react.default.createElement(_movieView.MovieView, {
+              movie: movies.find(function (m) {
+                return m._id === match.params.movieId;
+              })
+            });
+          }
+        }), _react.default.createElement(_reactRouterDom.Route, {
+          exact: true,
+          path: "/actors/:movie/:name",
+          render: function render(_ref2) {
+            var match = _ref2.match;
+            if (!movies) return _react.default.createElement("div", {
+              className: "main-view"
+            });
+            return _react.default.createElement(_bondView.BondView, {
+              bondactor: movies.find(function (m) {
+                return m.BondActor.Name === match.params.name;
+              }).BondActor,
+              movies: movies
+            });
+          }
+        }), _react.default.createElement(_reactRouterDom.Route, {
+          exact: true,
+          path: "/directors/:movie/:name",
+          render: function render(_ref3) {
+            var match = _ref3.match;
+            if (!movies) return _react.default.createElement("div", {
+              className: "main-view"
+            });
+            return _react.default.createElement(_directorView.DirectorView, {
+              director: movies.find(function (m) {
+                return m.Director.Name === match.params.name;
+              }).Director,
+              movies: movies
+            });
+          }
+        }), _react.default.createElement(_reactRouterDom.Route, {
+          exact: true,
+          path: "/genres/:movie/:name",
+          render: function render(_ref4) {
+            var match = _ref4.match;
+            if (!movies) return _react.default.createElement("div", {
+              className: "main-view"
+            });
+            return _react.default.createElement(_genreView.GenreView, {
+              genre: movies.find(function (m) {
+                return m.Genre.Name === match.params.name;
+              }).Genre,
+              movies: movies
+            });
+          }
+        }), _react.default.createElement(_reactRouterDom.Route, {
+          path: "/users/:Username",
+          render: function render() {
+            return _react.default.createElement(_profileView.ProfileView, {
+              userProfile: userProfile,
+              user: localStorage.getItem('user'),
+              movies: movies
+            });
+          }
+        }), _react.default.createElement(_reactRouterDom.Route, {
+          exact: true,
+          path: "/update/:Username",
+          render: function render() {
+            return _react.default.createElement(_updateView.UpdateView, {
+              user: localStorage.getItem('user'),
+              userProfile: userProfile
+            });
+          }
+        }))))))
+      );
     }
   }]);
 
@@ -59679,7 +59688,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38823" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44383" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
