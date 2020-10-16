@@ -51737,9 +51737,9 @@ function LoginView(props) {
 
     e.preventDefault();
     /* Send a request to the server for authentication */
-    // axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
 
-    _axios.default.post('https://bond-movie-api.herokuapp.com/login', {
+    _axios.default.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
+      // axios.post('https://bond-movie-api.herokuapp.com/login', {
       Username: username,
       Password: password
     }).then(function (response) {
@@ -58733,9 +58733,10 @@ function UpdateView(props) {
     var source = _axios.default.CancelToken.source();
 
     var user = localStorage.getItem('user');
-    e.preventDefault(); // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+    e.preventDefault();
 
-    _axios.default.get("https://bond-movie-api.herokuapp.com/users/".concat(user), {
+    _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+      // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
       headers: {
         Authorization: "Bearer ".concat(localStorage.getItem('token'))
       }
@@ -58760,9 +58761,10 @@ function UpdateView(props) {
 
   var updateUser = function updateUser(e) {
     var user = localStorage.getItem('user');
-    e.preventDefault(); // axios.put(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+    e.preventDefault();
 
-    _axios.default.put("https://bond-movie-api.herokuapp.com/users/".concat(user), {
+    _axios.default.put("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+      // axios.put(`https://bond-movie-api.herokuapp.com/users/${user}`, {
       Username: username,
       Password: password,
       Email: email,
@@ -58949,9 +58951,10 @@ function RegistrationView(props) {
       setBirthday = _useState8[1];
 
   var registerUser = function registerUser(e) {
-    e.preventDefault(); // axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
+    e.preventDefault();
 
-    _axios.default.post('https://bond-movie-api.herokuapp.com/users', {
+    _axios.default.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
+      // axios.post('https://bond-movie-api.herokuapp.com/users', {
       Username: username,
       Password: password,
       Email: email,
@@ -59188,10 +59191,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function getMovies(token) {
       var _this2 = this;
 
-      var source = _axios.default.CancelToken.source(); // axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
+      var source = _axios.default.CancelToken.source();
 
-
-      _axios.default.get('https://bond-movie-api.herokuapp.com/movies', {
+      _axios.default.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
+        // axios.get('https://bond-movie-api.herokuapp.com/movies', {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -59218,10 +59221,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
       var user = localStorage.getItem('user');
 
-      var source = _axios.default.CancelToken.source(); // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+      var source = _axios.default.CancelToken.source();
 
-
-      _axios.default.get("https://bond-movie-api.herokuapp.com/users/".concat(user), {
+      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
+        // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -59688,7 +59691,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44383" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42875" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

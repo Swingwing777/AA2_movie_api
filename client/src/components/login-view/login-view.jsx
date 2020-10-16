@@ -82,11 +82,11 @@ export function LoginView(props) {
           </Button>
         </Form.Row>
         <Form.Row className='justify-content-center'>
-
-          <NavLink to={`/register`} className="btn btn-primary formButton mt-3">
-            Register User
+          <Router>
+            <NavLink to={`/register`} className="btn btn-primary formButton mt-3">
+              Register User
           </NavLink>
-
+          </Router>
         </Form.Row>
       </Form>
     </Container>

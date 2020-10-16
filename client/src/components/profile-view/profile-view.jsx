@@ -26,8 +26,8 @@ export class ProfileView extends React.Component {
     let user = localStorage.getItem('user')
     const source = axios.CancelToken.source();
 
-    // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
-    axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
+    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+      // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
@@ -95,102 +95,103 @@ export class ProfileView extends React.Component {
     if (!user) return <div className="main-view" />;
 
     return (
-      <Container style={{ width: '90%' }} className='formwrapper' >
-        <Form className='p-md-3'>
-          <Form.Row className='d-flex flex-md-row justify-content-center'>
-            <Form.Label size='lg' className='formTitle'>User Profile</Form.Label>
-          </Form.Row>
+      <Router>
+        <Container style={{ width: '90%' }} className='formwrapper' >
+          <Form className='p-md-3'>
+            <Form.Row className='d-flex flex-md-row justify-content-center'>
+              <Form.Label size='lg' className='formTitle'>User Profile</Form.Label>
+            </Form.Row>
 
-          <Form.Row className='justify-content-center mt-3'>
-            <Form.Group as={Col} controlId='formGridUsername'>
-              <Form.Label className='formLabel'>Username</Form.Label>
-              <Form.Control
-                className='entryField'
-                defaultValue={userProfile.Username}
-                readOnly
-              />
-            </Form.Group>
+            <Form.Row className='justify-content-center mt-3'>
+              <Form.Group as={Col} controlId='formGridUsername'>
+                <Form.Label className='formLabel'>Username</Form.Label>
+                <Form.Control
+                  className='entryField'
+                  defaultValue={userProfile.Username}
+                  readOnly
+                />
+              </Form.Group>
 
-            <Form.Group as={Col} controlId='formGridPassword'>
-              <Form.Label className='formLabel'>Password</Form.Label>
-              <Form.Control
-                className='entryField'
-                defaultValue='**************'
-                readOnly
-              />
-            </Form.Group>
-          </Form.Row>
+              <Form.Group as={Col} controlId='formGridPassword'>
+                <Form.Label className='formLabel'>Password</Form.Label>
+                <Form.Control
+                  className='entryField'
+                  defaultValue='**************'
+                  readOnly
+                />
+              </Form.Group>
+            </Form.Row>
 
-          <Form.Row className='d-flex flex-md-row justify-content-center'>
-            <Form.Group as={Col} controlId='formGridEmail'>
-              <Form.Label className='formLabel'>Email</Form.Label>
-              <Form.Control
-                className='entryField'
-                defaultValue={userProfile.Email}
-                readOnly
-              />
-            </Form.Group>
+            <Form.Row className='d-flex flex-md-row justify-content-center'>
+              <Form.Group as={Col} controlId='formGridEmail'>
+                <Form.Label className='formLabel'>Email</Form.Label>
+                <Form.Control
+                  className='entryField'
+                  defaultValue={userProfile.Email}
+                  readOnly
+                />
+              </Form.Group>
 
-            <Form.Group as={Col} controlId='formBirthday'>
-              <Form.Label className='formLabel'>Birthday</Form.Label>
-              <Form.Control
-                className='entryField'
-                defaultValue={moment(userProfile.Birthday).format('DD/MM/YYYY')}
-                readOnly />
-            </Form.Group>
-          </Form.Row>
-        </Form>
+              <Form.Group as={Col} controlId='formBirthday'>
+                <Form.Label className='formLabel'>Birthday</Form.Label>
+                <Form.Control
+                  className='entryField'
+                  defaultValue={moment(userProfile.Birthday).format('DD/MM/YYYY')}
+                  readOnly />
+              </Form.Group>
+            </Form.Row>
+          </Form>
 
-        <Container style={{ width: '90%' }} className='flex-shrink-md'>
+          <Container style={{ width: '90%' }} className='flex-shrink-md'>
 
-          <h1 className='titleh1 mt-4'>Your favorite Bond Movies</h1>
-          <Row>
-            <div className='d-flex row m-2'>
+            <h1 className='titleh1 mt-4'>Your favorite Bond Movies</h1>
+            <Row>
+              <div className='d-flex row m-2'>
 
-              {userProfile.FavoriteMovies ?
+                {userProfile.FavoriteMovies ?
 
-                movies.map(movie => {
+                  movies.map(movie => {
 
-                  if (userProfile.FavoriteMovies.indexOf(movie._id) !== -1) {
+                    if (userProfile.FavoriteMovies.indexOf(movie._id) !== -1) {
 
-                    return (
+                      return (
 
-                      <div key={movie._id}>
-                        <Card style={{ width: '10em' }} className="pt-3 m-1 p-2 text-center movie-card h-100">
-                          <Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
-                          <Card.Body className='cardBody p-0'>
-                            <Link to={`/movies/${movie._id}`}>
-                              <Card.Title className='titleh2 p-1'>{movie.Title}</Card.Title>
-                            </Link>
-                          </Card.Body>
-                          <Card.Footer className='cardFoot border-top-0 d-flex justify-content-center'>
-                            <Row className='d-flex flex-md-row justify-content-center'>
+                        <div key={movie._id}>
+                          <Card style={{ width: '10em' }} className="pt-3 m-1 p-2 text-center movie-card h-100">
+                            <Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
+                            <Card.Body className='cardBody p-0'>
                               <Link to={`/movies/${movie._id}`}>
-                                <Button variant='link' className='m-1 goDetail5'>Details</Button>
+                                <Card.Title className='titleh2 p-1'>{movie.Title}</Card.Title>
                               </Link>
-                              <Link to="" onClick={() => this.deleteFavorite(movie._id)}>
-                                <Button variant='link' className='m-1 goDetail6'>Delete</Button>
-                              </Link>
-                            </Row>
-                          </Card.Footer>
-                        </Card>
-                      </div>
-                    );
-                  }
-                })
-                :
-                <div className='titleh1 mt-4'> You have no favorites</div>
-              }
-            </div>
-          </Row>
-        </Container>
+                            </Card.Body>
+                            <Card.Footer className='cardFoot border-top-0 d-flex justify-content-center'>
+                              <Row className='d-flex flex-md-row justify-content-center'>
+                                <Link to={`/movies/${movie._id}`}>
+                                  <Button variant='link' className='m-1 goDetail5'>Details</Button>
+                                </Link>
+                                <Link to="" onClick={() => this.deleteFavorite(movie._id)}>
+                                  <Button variant='link' className='m-1 goDetail6'>Delete</Button>
+                                </Link>
+                              </Row>
+                            </Card.Footer>
+                          </Card>
+                        </div>
+                      );
+                    }
+                  })
+                  :
+                  <div className='titleh1 mt-4'> You have no favorites</div>
+                }
+              </div>
+            </Row>
+          </Container>
 
-        <Row className='mt-3 d-flex flex-md-row justify-content-center formPromise'>We will never share your details
+          <Row className='mt-3 d-flex flex-md-row justify-content-center formPromise'>We will never share your details
         </Row>
-        <Row className='mt-5'></Row>
+          <Row className='mt-5'></Row>
 
-        <Row className='mt-3 d-flex flex-md-row justify-content-center'>
-          <Router>
+          <Row className='mt-3 d-flex flex-md-row justify-content-center'>
+
             <Link to="" onClick={() => history.back()}>
               <Button className='m-2 formButton' variant="link">Back</Button>
             </Link>
@@ -202,9 +203,10 @@ export class ProfileView extends React.Component {
               <Button className='m-2 formButton' variant="link">Update Details</Button>
             </Link> */}
 
-          </Router>
-        </Row>
-      </Container >
+
+          </Row>
+        </Container >
+      </Router>
     )
   }
 }

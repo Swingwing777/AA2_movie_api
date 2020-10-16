@@ -47,8 +47,8 @@ export class MovieView extends React.Component {
     const { movie } = this.props;
     let user = localStorage.getItem('user');
 
-    // axios.post(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
-    axios.post(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+    axios.post(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+      // axios.post(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
@@ -62,8 +62,8 @@ export class MovieView extends React.Component {
   deleteFavorite(movieId) {
     let user = localStorage.getItem('user');
 
-    // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
-    axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+    axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+      // axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
@@ -81,78 +81,80 @@ export class MovieView extends React.Component {
     if (!movie) return null;
 
     return (
-      <Container style={{ width: '100%' }} className='d-flex justify-content-center' >
-        <Card style={{ width: '100%' }} className='px-0 m-1 h-160 text-center movie-card'>
-          <Card.Body className='cardBody p-1'>
-            <Card.Img style={{ width: '30%' }} variant="top" className='movie-poster' src={movie.ImagePath} />
-            <Card.Title className='titleh1 mt-3'>{movie.Title}</Card.Title>
-            <Card.Text className='text-left mt-3'>
-              <span className='label'>{'Director:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Director.Name}</span>
-            </Card.Text>
-            <Card.Text className='text-left mt-3'>
-              <span className='label'>{'Release Year:\u00A0\u00A0'} </span>
-              <span className='value'>{movie.Year}</span>
-            </Card.Text>
-            <Card.Text className='text-left mt-3'>
-              <span className='label'>{'Plot Summary:\u00A0\u00A0'}{movie.Description}</span>
-            </Card.Text>
-            <Card.Text className='text-left mt-3'>
-              <span className='label'>{'Genre:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Genre.Name}</span>
-            </Card.Text>
-            <Card.Text className='text-left mt-3'>
-              <span className='label'>{'Bond:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.BondActor.Name}</span>
-            </Card.Text>
-            <Card.Text className='text-left mt-3'>
-              <span className='label'>{'Heroine:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Heroine}</span>
-            </Card.Text>
-            <Card.Text className='text-left mt-3'>
-              <span className='label'>{'Villain:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Villain}</span>
-            </Card.Text>
-            <Card.Text className='text-left mt-3'>
-              <span className='label'>{'Supporting Cast:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.Actors.join(', ')}</span>
-            </Card.Text>
-            <Card.Text className='text-left mt-3'>
-              <span className='label'>{'Title Song by:\u00A0\u00A0'}</span>
-              <span className='value'>{movie.SongArtist}</span>
-            </Card.Text>
+      <Router>
+        <Container style={{ width: '100%' }} className='d-flex justify-content-center' >
+          <Card style={{ width: '100%' }} className='px-0 m-1 h-160 text-center movie-card'>
+            <Card.Body className='cardBody p-1'>
+              <Card.Img style={{ width: '30%' }} variant="top" className='movie-poster' src={movie.ImagePath} />
+              <Card.Title className='titleh1 mt-3'>{movie.Title}</Card.Title>
+              <Card.Text className='text-left mt-3'>
+                <span className='label'>{'Director:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.Director.Name}</span>
+              </Card.Text>
+              <Card.Text className='text-left mt-3'>
+                <span className='label'>{'Release Year:\u00A0\u00A0'} </span>
+                <span className='value'>{movie.Year}</span>
+              </Card.Text>
+              <Card.Text className='text-left mt-3'>
+                <span className='label'>{'Plot Summary:\u00A0\u00A0'}{movie.Description}</span>
+              </Card.Text>
+              <Card.Text className='text-left mt-3'>
+                <span className='label'>{'Genre:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.Genre.Name}</span>
+              </Card.Text>
+              <Card.Text className='text-left mt-3'>
+                <span className='label'>{'Bond:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.BondActor.Name}</span>
+              </Card.Text>
+              <Card.Text className='text-left mt-3'>
+                <span className='label'>{'Heroine:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.Heroine}</span>
+              </Card.Text>
+              <Card.Text className='text-left mt-3'>
+                <span className='label'>{'Villain:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.Villain}</span>
+              </Card.Text>
+              <Card.Text className='text-left mt-3'>
+                <span className='label'>{'Supporting Cast:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.Actors.join(', ')}</span>
+              </Card.Text>
+              <Card.Text className='text-left mt-3'>
+                <span className='label'>{'Title Song by:\u00A0\u00A0'}</span>
+                <span className='value'>{movie.SongArtist}</span>
+              </Card.Text>
 
 
-          </Card.Body>
+            </Card.Body>
 
-          <Card.Footer className="cardFoot border-top-0">
-            <Row className='mt-1 d-flex flex-md-row justify-content-center'>
-              <Link to={`/`}>
-                <Button className='goFacts m-3' variant="link">Main Menu</Button>
-              </Link>
-              <Link to={`/actors/${movie.Title}/${movie.BondActor.Name}`}>
-                <Button className='goFacts m-3' variant="link">James Bond</Button>
-              </Link>
-            </Row>
-            <Row className='mt-1 d-flex flex-md-row justify-content-center'>
-              <Link to={`/directors/${movie.Title}/${movie.Director.Name}`}>
-                <Button className='goFacts m-3' variant="link">Director</Button>
-              </Link>
-              <Link to={`/genres/${movie.Title}/${movie.Genre.Name}`}>
-                <Button className='goFacts m-3' variant="link">Genre</Button>
-              </Link>
-              <Button className="goAdd m-3" onClick={() => this.addFavorite(movie._id)}>
-                <span className="d-flex align-items-center">
-                  <i className="material-icons star mr-3">grade</i>
+            <Card.Footer className="cardFoot border-top-0">
+              <Row className='mt-1 d-flex flex-md-row justify-content-center'>
+                <Link to={`/`}>
+                  <Button className='goFacts m-3' variant="link">Main Menu</Button>
+                </Link>
+                <Link to={`/actors/${movie.Title}/${movie.BondActor.Name}`}>
+                  <Button className='goFacts m-3' variant="link">James Bond</Button>
+                </Link>
+              </Row>
+              <Row className='mt-1 d-flex flex-md-row justify-content-center'>
+                <Link to={`/directors/${movie.Title}/${movie.Director.Name}`}>
+                  <Button className='goFacts m-3' variant="link">Director</Button>
+                </Link>
+                <Link to={`/genres/${movie.Title}/${movie.Genre.Name}`}>
+                  <Button className='goFacts m-3' variant="link">Genre</Button>
+                </Link>
+                <Button className="goAdd m-3" onClick={() => this.addFavorite(movie._id)}>
+                  <span className="d-flex align-items-center">
+                    <i className="material-icons star mr-3">grade</i>
                   Add favorite
               </span>
 
-              </Button>
-            </Row>
-          </Card.Footer>
-        </Card>
+                </Button>
+              </Row>
+            </Card.Footer>
+          </Card>
 
-      </Container>
+        </Container>
+      </Router>
     )
   }
 }
