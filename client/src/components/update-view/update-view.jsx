@@ -71,7 +71,7 @@ export function UpdateView(props) {
 
   return (
 
-    < Container tyle={{ width: 'fit-content(90%)' }} className='formwrapper' >
+    < Container style={{ width: 'fit-content(90%)' }} className='formwrapper' >
       <Form className='p-md-3'>
         <Form.Row className='d-flex flex-md-row justify-content-center'>
           <Form.Label size='lg' className='formTitle'>Update Details</Form.Label>
