@@ -52,11 +52,11 @@ export class MainView extends React.Component {
     }
   }
 
-  // new method to get movies
+  // axios.get('https://bond-movie-api.herokuapp.com/movies', {
   getMovies(token) {
     const source = axios.CancelToken.source();
     axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
-      // axios.get('https://bond-movie-api.herokuapp.com/movies', {
+
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {

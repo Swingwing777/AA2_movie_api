@@ -199,10 +199,6 @@ export class ProfileView extends React.Component {
           <Link to="/login" onClick={() => this.deleteProfile()}>
             <Button className='m-2 formButton1' variant="link">Delete Profile</Button>
           </Link>
-          {/* <Link Link to={`/update/${userProfile.Username}`}>
-              <Button className='m-2 formButton' variant="link">Update Details</Button>
-            </Link> */}
-
 
         </Row>
       </Container >
