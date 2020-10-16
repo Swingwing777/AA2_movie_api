@@ -19,8 +19,8 @@ export function LoginView(props) {
     e.preventDefault();
     /* Send a request to the server for authentication */
 
-    axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
-      // axios.post('https://bond-movie-api.herokuapp.com/login', {
+    // axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
+    axios.post('/login', {
       Username: username,
       Password: password
     })

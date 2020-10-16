@@ -20,8 +20,8 @@ export function UpdateView(props) {
     const user = localStorage.getItem('user')
     e.preventDefault();
 
-    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
-      // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
+    // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+    axios.get(`/users/${user}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
@@ -48,8 +48,8 @@ export function UpdateView(props) {
     const user = localStorage.getItem('user')
     e.preventDefault();
 
-    axios.put(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
-      // axios.put(`https://bond-movie-api.herokuapp.com/users/${user}`, {
+    // axios.put(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+    axios.put(`/users/${user}`, {
       Username: username,
       Password: password,
       Email: email,

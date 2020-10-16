@@ -21,8 +21,8 @@ export class MovieView extends React.Component {
     let user = localStorage.getItem('user')
     const source = axios.CancelToken.source();
 
-    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
-      // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
+    // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+    axios.get(`/users/${user}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
@@ -49,8 +49,8 @@ export class MovieView extends React.Component {
     const { movie } = this.props;
     let user = localStorage.getItem('user');
 
-    axios.post(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
-      // axios.post(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+    // axios.post(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+    axios.post(`/users/${user}/movieID/${movieId} `, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {
@@ -64,8 +64,8 @@ export class MovieView extends React.Component {
   deleteFavorite(movieId) {
     let user = localStorage.getItem('user');
 
-    axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
-      // axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+    // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+    axios.delete(`/users/${user}/movieID/${movieId} `, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
       .then(response => {

@@ -50,10 +50,6 @@ app.use(cors({
 app.use(morgan('common'));
 
 app.use(express.static('public'));
-app.use(express.static(path.join(__dirname, "client", "dist")));    // not "/client"
-app.get("/client/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
 
 // Welcome message
 app.get('/', (req, res) => {
@@ -524,6 +520,11 @@ app.delete('/ident/:UserID', passport.authenticate('jwt', { session: false }), (
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
+});
+
+app.use("/client", express.static(path.join(__dirname, "client", "dist")));
+app.get("/client/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
 // Application error catch-all

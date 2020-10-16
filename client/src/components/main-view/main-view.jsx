@@ -27,10 +27,6 @@ export class MainView extends React.Component {
     super();
 
     this.state = {
-      // movies: [],
-      // selectedMovie: null,
-      // userProfile: null,
-      // apiData: null,
       user: null,
       isAuth: false      // Ties to isLoggedIn and isLoggedOut
     };
@@ -52,11 +48,12 @@ export class MainView extends React.Component {
     }
   }
 
-  // axios.get('https://bond-movie-api.herokuapp.com/movies', {
+
   getMovies(token) {
     const source = axios.CancelToken.source();
-    axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
 
+    // axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
+    axios.get('/movies', {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
@@ -78,8 +75,9 @@ export class MainView extends React.Component {
   getUser(token) {
     let user = localStorage.getItem('user')
     const source = axios.CancelToken.source();
-    axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
-      // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
+
+    // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+    axios.get(`/users/${user}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {

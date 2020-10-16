@@ -15,8 +15,9 @@ export function RegistrationView(props) {
 
   const registerUser = (e) => {
     e.preventDefault();
-    axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
-      // axios.post('https://bond-movie-api.herokuapp.com/users', {
+
+    // axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
+    axios.post('/users', {
       Username: username,
       Password: password,
       Email: email,
