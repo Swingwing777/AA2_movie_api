@@ -25,6 +25,7 @@ export function RegistrationView(props) {
     })
       .then(response => {
         const data = response.data;
+        // console.log(data);
         alert('Successful Registration.  Please login with your new details');
         window.open('/client', '_self');              // the second argument '_self' is necessary so that the page will open in the current tab
       })                                              // window.open('/client', '_self') required for online hosting
