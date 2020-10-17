@@ -28,12 +28,12 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
-const cors = require('cors');
+//const cors = require('cors');
 
 const { check, validationResult } = require('express-validator');
 
-let allowedOrigins = ['*', 'http://localhost:1234', 'http://localhost:8080'];   // This is ordinarily bad practise, and would better off be a specific domain (such as )
-
+//let allowedOrigins = ['*', 'http://localhost:1234', 'http://localhost:8080'];   // This is ordinarily bad practise, and would better off be a specific domain (such as )
+/*
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
@@ -46,7 +46,7 @@ app.use(cors({
     return callback(null, true);
   }
 }));
-
+*/
 app.use(morgan('common'));
 
 app.use(express.static('public'));
