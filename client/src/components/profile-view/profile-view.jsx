@@ -75,7 +75,7 @@ export class ProfileView extends React.Component {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       })
       .then(res => {
-        alert('Do you really want to delete your account?')
+        prompt('Type "Yes" to confirm deletion')
       })
       .then(res => {
         alert('Account was successfully deleted')
