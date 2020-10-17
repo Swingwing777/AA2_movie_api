@@ -32,7 +32,7 @@ const cors = require('cors');
 
 const { check, validationResult } = require('express-validator');
 
-let allowedOrigins = ['*', 'http://localhost:1234'];   // This is ordinarily bad practise, and would better off be a specific domain (such as )
+let allowedOrigins = ['*', 'http://localhost:1234', 'http://localhost:8080'];   // This is ordinarily bad practise, and would better off be a specific domain (such as )
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -50,6 +50,7 @@ app.use(cors({
 app.use(morgan('common'));
 
 app.use(express.static('public'));
+app.use("/client", express.static(path.join(__dirname, "client", "dist")));
 
 // Welcome message
 app.get('/', (req, res) => {
@@ -522,7 +523,7 @@ app.delete('/ident/:UserID', passport.authenticate('jwt', { session: false }), (
     });
 });
 
-app.use("/client", express.static(path.join(__dirname, "client", "dist")));
+// app.use("/client", express.static(path.join(__dirname, "client", "dist")));
 app.get("/client/*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
