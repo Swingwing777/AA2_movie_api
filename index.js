@@ -51,6 +51,9 @@ app.use(morgan('common'));
 
 app.use(express.static('public'));
 app.use("/client", express.static(path.join(__dirname, "client", "dist")));
+app.get("/client/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 // Welcome message
 app.get('/', (req, res) => {
@@ -524,9 +527,9 @@ app.delete('/ident/:UserID', passport.authenticate('jwt', { session: false }), (
 });
 
 // app.use("/client", express.static(path.join(__dirname, "client", "dist")));
-app.get("/client/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
+// app.get("/client/*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+// });
 
 // Application error catch-all
 app.use((err, req, res, next) => {
