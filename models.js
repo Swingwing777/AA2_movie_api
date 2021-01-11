@@ -25,10 +25,23 @@ let userSchema = mongoose.Schema({
   FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
 });
 
+/**
+ * ##### Purpose:
+ * - To hash user password.
+ * @function hashPassword
+ * @param {*} password 
+ * @returns {string} hashed password
+ */
 userSchema.statics.hashPassword = (password) => {
   return bcrypt.hashSync(password, 10);
 };
 
+/**
+ * ##### Purpose: 
+ * - To validate user passowrd.
+ * @function
+ * @param {*} password 
+ */
 userSchema.methods.validatePassword = function (password) {  // Do not use arrow funciton for 'instance methods'
   return bcrypt.compareSync(password, this.Password);
 };
