@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: login-view/login-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: login-view/login-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import { Form, Container, Button, Col } from 'react-bootstrap';
+import './login-view.scss';
+
+import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-dom';
+
+export function LoginView(props) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [apiData, setApiData] = useState(null);
+
+  /**
+   * ##### Purpose:
+   * - To login the user
+   * - Method: POST
+   * - Endpoint: /login
+   * @function handleSubmit
+   * @param {*} e (event) 
+   * @returns {Object}
+   * @returns User information
+   * >
+   * ***
+   * >
+   */
+  const handleSubmit = (e) => {
+    const source = axios.CancelToken.source();
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    //console.log(username, password);
+    e.preventDefault();
+    /* Send a request to the server for authentication */
+
+    // axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
+    axios.post('/login', {
+      Username: username,
+      Password: password
+    })
+      .then(response => {
+        const data = response.data;
+        props.onLoggedIn(data);
+      }).catch(e => {
+        alert('User or Password details do not match')
+      })
+    axios.get("https://jsonplaceholder.typicode.com/todos", {
+      cancelToken: source.token
+    }).then(response => {
+      setApiData(response.data);
+    }).catch(e => {
+      console.log('Cancel Token error: ' + e)            // Catch 2: for cancel token error
+    });
+  }
+
+  if (props.isAuth) {
+    return &lt;Redirect to="/" />
+  }
+  if (username === 'New') return &lt;Redirect to="/register" />
+
+  return (
+    &lt;Container className='formwrapper'>
+      &lt;Form className='p-md-3'>
+        &lt;Form.Row className='d-flex flex-md-row justify-content-center'>
+          &lt;Form.Label className='formTitle'>Please Login&lt;/Form.Label>
+        &lt;/Form.Row>
+
+        &lt;Form.Row className='justify-content-center mt-3'>
+          &lt;Form.Group as={Col} controlId='formUsername'>
+            &lt;Form.Label className='formLabel'>Username&lt;/Form.Label>
+            &lt;Form.Control
+              className='entryField'
+              type='text'
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              placeholder='Enter Username'
+              required
+            />
+          &lt;/Form.Group>
+
+          &lt;Form.Group as={Col} controlId='formPassword'>
+            &lt;Form.Label className='formLabel'>Password&lt;/Form.Label>
+            &lt;Form.Control
+              className='entryField'
+              type='password'
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder='Enter Password'
+              required />
+          &lt;/Form.Group>
+        &lt;/Form.Row>
+
+        &lt;Form.Row className='justify-content-center'>
+          &lt;Button className='formButton mt-3' variant='primary' type='submit' onClick={handleSubmit} >
+            Submit
+          &lt;/Button>
+        &lt;/Form.Row>
+        &lt;Form.Row className='justify-content-center'>
+
+          &lt;NavLink to={`/register`} className="btn btn-primary formButton mt-3">
+            Register User
+          &lt;/NavLink>
+
+        &lt;/Form.Row>
+      &lt;/Form>
+    &lt;/Container>
+  );
+}
+
+/* using .required for PropTypes before login is pointless,
+as it flags warnings for entries that have not 
+yet been made by the user */
+LoginView.propTypes = {
+  Username: PropTypes.string,
+  Password: PropTypes.string
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#deleteFavorite">deleteFavorite</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#getMovies">getMovies</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#getUserMovie-View">getUser </a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#logoutUser">logoutUser</a></li><li><a href="global.html#MoviesList">MoviesList</a></li><li><a href="global.html#onLoggedIn">onLoggedIn</a></li><li><a href="global.html#registerUser">registerUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Jan 11 2021 17:58:53 GMT+0400 (Gulf Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

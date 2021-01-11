@@ -9,6 +9,11 @@ let Users = Models.User,
   JWTStrategy = passportJWT.Strategy,
   ExtractJWT = passportJWT.ExtractJwt;
 
+/**
+ * ##### Purpose:
+ * - To allow user to login to app
+ * using username and password
+ */
 passport.use(new LocalStrategy({
   usernameField: 'Username',
   passwordField: 'Password'
@@ -35,6 +40,11 @@ passport.use(new LocalStrategy({
   });
 }));
 
+/**
+ * ##### Purpose:
+ * - To extract JWT from header
+ * using username and password 
+ */
 console.log("secret: ", process.env.MY_SECRET);
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),

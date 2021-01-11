@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: registration-view/registration-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: registration-view/registration-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import { LoginView } from '../login-view/login-view';
+import { Form, Container, Col, Button, Row } from 'react-bootstrap';
+import './registration-view.scss';
+
+import { BrowserRouter as Router, Route, Link, Switch, NavLink, Redirect } from 'react-router-dom';
+
+export function RegistrationView(props) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [birthday, setBirthday] = useState('');
+
+  /**
+   * ##### Purpose: 
+   * - To register new user
+   * - Method: POST
+   * - Endpoint: /users
+   * @async
+   * @function registerUser
+   * @param {*} e (event)
+   * @param {string} username
+   * @param {string} password
+   * @param {string} email
+   * @param {date} birthday
+   * @returns {string} 
+   * @returns Alert message or logged failure
+   * >
+   * ***
+   * >
+  */
+  const registerUser = (e) => {
+    e.preventDefault();
+
+    // axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
+    axios.post('/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    })
+      .then(response => {
+        const data = response.data;
+        // console.log(data);
+        alert('Successful Registration.  Please login with your new details');
+        window.open('/client', '_self');              // the second argument '_self' is necessary so that the page will open in the current tab
+      })                                              // window.open('/client', '_self') required for online hosting
+      .catch(e => {
+        console.log('Please check and try again')
+      });
+  };
+
+  if (username === 'Registered') return &lt;LoginView />;
+
+  return (
+    &lt;Container className='formwrapper' >
+      &lt;Form className='p-md-3'>
+        &lt;Form.Row className='d-flex flex-md-row justify-content-center'>
+          &lt;Form.Label size='lg' className='formTitle'>Please Register&lt;/Form.Label>
+        &lt;/Form.Row>
+
+        &lt;Form.Row className='justify-content-center mt-3'>
+          &lt;Form.Group as={Col} controlId='formGridUsername'>
+            &lt;Form.Label className='formLabel'>Username&lt;/Form.Label>
+            &lt;Form.Control
+              className='entryField'
+              type='text'
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              placeholder='Enter Username'
+            />
+          &lt;/Form.Group>
+
+          &lt;Form.Group as={Col} controlId='formGridPassword'>
+            &lt;Form.Label className='formLabel'>Password&lt;/Form.Label>
+            &lt;Form.Control
+              className='entryField'
+              type='password'
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder='Enter Password' />
+          &lt;/Form.Group>
+        &lt;/Form.Row>
+
+        &lt;Form.Row className='d-flex flex-md-row justify-content-center'>
+          &lt;Form.Group as={Col} controlId='formGridEmail'>
+            &lt;Form.Label className='formLabel'>Email&lt;/Form.Label>
+            &lt;Form.Control
+              className='entryField'
+              type='email'
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder='Enter Email' />
+
+          &lt;/Form.Group>
+
+          &lt;Form.Group as={Col} controlId='formBirthday'>
+            &lt;Form.Label className='formLabel'>Birthday&lt;/Form.Label>
+            &lt;Form.Control
+              className='entryField'
+              type='date'
+              value={birthday}
+              onChange={e => setBirthday(e.target.value)}
+              placeholder='Enter Birthday' />
+          &lt;/Form.Group>
+        &lt;/Form.Row>
+        &lt;Row className='mt-3 d-flex flex-md-row justify-content-center formPromise'>We will never share your details
+        &lt;/Row>
+
+        &lt;Form.Row className='mt-5 justify-content-center'>
+          &lt;Button className='formButton mt-3' variant='primary' type='submit' onClick={registerUser} >
+            Submit
+        &lt;/Button>
+        &lt;/Form.Row>
+
+        &lt;Form.Row className='justify-content-center'>
+
+          &lt;Link to={`/login`}>
+            &lt;Button className='formButton mt-3' variant="link">Login&lt;/Button>
+          &lt;/Link>
+
+        &lt;/Form.Row>
+      &lt;/Form >
+    &lt;/Container>
+  );
+}
+
+// propTypes cannot be required as no props passed until after registration.
+RegistrationView.propTypes = {
+  data: PropTypes.shape({
+    _id: PropTypes.string,
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Email: PropTypes.string,
+    Birthday: PropTypes.date
+  })
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#deleteFavorite">deleteFavorite</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#getMovies">getMovies</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#getUserMovie-View">getUser </a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#logoutUser">logoutUser</a></li><li><a href="global.html#MoviesList">MoviesList</a></li><li><a href="global.html#onLoggedIn">onLoggedIn</a></li><li><a href="global.html#registerUser">registerUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Jan 11 2021 17:58:53 GMT+0400 (Gulf Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: profile-view/profile-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: profile-view/profile-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import { Container, Card, Button, Row, Col, Form } from 'react-bootstrap';
+import './profile-view.scss';
+
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+
+import { setUserProf } from '../../actions/actions';
+import { cancelToken } from '../../actions/actions';
+
+const mapStateToProps = state => {
+  return { movies: state.movies, userProfile: state.userProfile, apiData: state.apiData }   // Change 1
+}
+
+export class ProfileView extends React.Component {
+
+  constructor() {
+    super();
+    // No state defined.  props, not state used directly by functions.
+  }
+
+
+  /**
+   * ##### Purpose:
+   * - To display current user
+   * - Method: GET
+   * - Endpoint: /users/*user*
+   * @function getUser
+   * @param {*} token 
+   * @async
+   * @returns {Object}
+   * @returns User data
+   * >
+   * ***
+   * >
+   */
+  getUser(token) {
+    let user = localStorage.getItem('user')
+    const source = axios.CancelToken.source();
+
+    // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
+    axios.get(`/users/${user}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        setUserProf(response.data);                                // Change 2 (not 'setState')
+      })
+      .catch(e => {
+        console.log('User error: ' + e);
+      })
+    axios.get("https://jsonplaceholder.typicode.com/todos", {
+      cancelToken: source.token
+    }).then(response => {
+      cancelToken(response.data);                             // Change 3 (not 'setState')
+    }).catch(e => {
+      console.log('Cancel Token error: ' + e)
+    });
+  }
+
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
+    this.getUser(accessToken);
+  }
+
+  /**
+   * ##### Purpose: 
+   * - For user to delete favorite movie
+   * - Method: DELETE
+   * - Endpoint: users/_user_/movieID/_movieID_
+   * @function deleteFavorite
+   * @async
+   * @param {*} movieId
+   * @returns Alert message 
+   * >
+   * ***
+   * >
+   */
+  deleteFavorite(movieId) {
+    let user = localStorage.getItem('user');
+
+    // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+    axios.delete(`/users/${user}/movieID/${movieId} `, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+      .then(response => {
+        setUserProf(response.data);
+        alert('Movie successfully deleted from favorites');
+      })
+      .catch(e => {
+        alert('Movie could not be deleted from favorites ' + e)
+      });
+  }
+
+  /**
+   * ##### Purpose: 
+   * - For user to delete profile
+   * - Method: DELETE
+   * - Endpoint: users/_user_
+   * @function deleteProfile
+   * @async
+   * @returns Alert message
+   * >
+   * ***
+   * > 
+  */
+  deleteProfile() {
+    let user = localStorage.getItem('user')
+
+    // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`,
+    axios.delete(`/users/${user}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      })
+      .then(res => {
+        prompt('Type "Yes" to confirm deletion')
+      })
+      .then(res => {
+        alert('Account was successfully deleted')
+        setUserProf({});                                         // Change 5 (not 'setState')
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.open('/', '_self');
+      })
+      .catch(e => {
+        alert('Account could not be deleted ' + e)
+      });
+  }
+
+  render() {
+    const { movies, user, userProfile } = this.props;
+
+    if (!user) return &lt;div className="main-view" />;
+
+    return (
+
+      &lt;Container style={{ width: '90%' }} className='formwrapper' >
+        &lt;Form className='p-md-3'>
+          &lt;Form.Row className='d-flex flex-md-row justify-content-center'>
+            &lt;Form.Label size='lg' className='formTitle'>User Profile&lt;/Form.Label>
+          &lt;/Form.Row>
+
+          &lt;Form.Row className='justify-content-center mt-3'>
+            &lt;Form.Group as={Col} controlId='formGridUsername'>
+              &lt;Form.Label className='formLabel'>Username&lt;/Form.Label>
+              &lt;Form.Control
+                className='entryField'
+                defaultValue={userProfile.Username}
+                readOnly
+              />
+            &lt;/Form.Group>
+
+            &lt;Form.Group as={Col} controlId='formGridPassword'>
+              &lt;Form.Label className='formLabel'>Password&lt;/Form.Label>
+              &lt;Form.Control
+                className='entryField'
+                defaultValue='**************'
+                readOnly
+              />
+            &lt;/Form.Group>
+          &lt;/Form.Row>
+
+          &lt;Form.Row className='d-flex flex-md-row justify-content-center'>
+            &lt;Form.Group as={Col} controlId='formGridEmail'>
+              &lt;Form.Label className='formLabel'>Email&lt;/Form.Label>
+              &lt;Form.Control
+                className='entryField'
+                defaultValue={userProfile.Email}
+                readOnly
+              />
+            &lt;/Form.Group>
+
+            &lt;Form.Group as={Col} controlId='formBirthday'>
+              &lt;Form.Label className='formLabel'>Birthday&lt;/Form.Label>
+              &lt;Form.Control
+                className='entryField'
+                defaultValue={moment(userProfile.Birthday).format('DD/MM/YYYY')}
+                readOnly />
+            &lt;/Form.Group>
+          &lt;/Form.Row>
+        &lt;/Form>
+
+        &lt;Container style={{ width: '90%' }} className='flex-shrink-md'>
+
+          &lt;h1 className='titleh1 mt-4'>Your favorite Bond Movies&lt;/h1>
+          &lt;Row>
+            &lt;div className='d-flex row m-2'>
+
+              {userProfile.FavoriteMovies ?
+
+                movies.map(movie => {
+
+                  if (userProfile.FavoriteMovies.indexOf(movie._id) !== -1) {
+
+                    return (
+
+                      &lt;div key={movie._id}>
+                        &lt;Card style={{ width: '10em' }} className="pt-3 m-1 p-2 text-center movie-card h-100">
+                          &lt;Card.Img variant='top' src={movie.ImagePath} className='thumbNail m-auto' />
+                          &lt;Card.Body className='cardBody p-0'>
+                            &lt;Link to={`/movies/${movie._id}`}>
+                              &lt;Card.Title className='titleh2 p-1'>{movie.Title}&lt;/Card.Title>
+                            &lt;/Link>
+                          &lt;/Card.Body>
+                          &lt;Card.Footer className='cardFoot border-top-0 d-flex justify-content-center'>
+                            &lt;Row className='d-flex flex-md-row justify-content-center'>
+                              &lt;Link to={`/movies/${movie._id}`}>
+                                &lt;Button variant='link' className='m-1 goDetail5'>Details&lt;/Button>
+                              &lt;/Link>
+                              &lt;Link to="" onClick={() => this.deleteFavorite(movie._id)}>
+                                &lt;Button variant='link' className='m-1 goDetail6'>Delete&lt;/Button>
+                              &lt;/Link>
+                            &lt;/Row>
+                          &lt;/Card.Footer>
+                        &lt;/Card>
+                      &lt;/div>
+                    );
+                  }
+                })
+                :
+                &lt;div className='titleh1 mt-4'> You have no favorites&lt;/div>
+              }
+            &lt;/div>
+          &lt;/Row>
+        &lt;/Container>
+
+        &lt;Row className='mt-3 d-flex flex-md-row justify-content-center formPromise'>We will never share your details
+        &lt;/Row>
+        &lt;Row className='mt-5'>&lt;/Row>
+
+        &lt;Row className='mt-3 d-flex flex-md-row justify-content-center'>
+
+          &lt;Link to="" onClick={() => history.back()}>
+            &lt;Button className='m-2 formButton' variant="link">Back&lt;/Button>
+          &lt;/Link>
+
+          &lt;Link to="/login" onClick={() => this.deleteProfile()}>
+            &lt;Button className='m-2 formButton1' variant="link">Delete Profile&lt;/Button>
+          &lt;/Link>
+
+        &lt;/Row>
+      &lt;/Container >
+
+    )
+  }
+}
+
+export default connect(mapStateToProps, { setUserProf, cancelToken })(ProfileView);
+
+ProfileView.propTypes = {
+  movie: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    Title: PropTypes.string.isRequired,
+    Year: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Name: PropTypes.string.isRequired
+    }).isRequired,
+    BondActor: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Name: PropTypes.string.isRequired,
+    }).isRequired,
+    Director: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      Name: PropTypes.string.isRequired,
+    }).isRequired,
+    Actors: PropTypes.array.isRequired,
+    Heroine: PropTypes.string.isRequired,
+    Villain: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string.isRequired,
+    ThumbNail: PropTypes.string.isRequired,
+    SongArtist: PropTypes.string.isRequired,
+    Featured: PropTypes.boolean
+  }),
+
+  userProfile: PropTypes.shape({
+    _id: PropTypes.string,
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Email: PropTypes.string,
+    Birthday: PropTypes.date
+  }).isRequired
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#deleteFavorite">deleteFavorite</a></li><li><a href="global.html#deleteProfile">deleteProfile</a></li><li><a href="global.html#getMovies">getMovies</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#getUserMovie-View">getUser </a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#logoutUser">logoutUser</a></li><li><a href="global.html#MoviesList">MoviesList</a></li><li><a href="global.html#onLoggedIn">onLoggedIn</a></li><li><a href="global.html#registerUser">registerUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Jan 11 2021 17:58:53 GMT+0400 (Gulf Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
