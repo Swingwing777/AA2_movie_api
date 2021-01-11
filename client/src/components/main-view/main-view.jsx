@@ -49,6 +49,19 @@ export class MainView extends React.Component {
   }
 
 
+  /**
+   * ##### Purpose:
+   * - To get all movies data
+   * - Method: GET
+   * - Endpoint: /movies
+   * @function getMovies
+   * @async
+   * @param {*} token
+   * @return JSON response 
+   * >
+   * ***
+   * > 
+   */
   getMovies(token) {
     const source = axios.CancelToken.source();
 
@@ -72,6 +85,20 @@ export class MainView extends React.Component {
     });
   }
 
+  /**
+   *  ##### Purpose:
+   * - To get user data
+   * - Method: GET
+   * - Endpoint: /users/_user_
+   * @function getUser
+   * @async
+   * @param {*} token
+   * @returns {Object}
+   * @returns JSON response 
+   * >
+   * ***
+   * > 
+   */
   getUser(token) {
     let user = localStorage.getItem('user')
     const source = axios.CancelToken.source();
@@ -96,6 +123,17 @@ export class MainView extends React.Component {
     });
   }
 
+  /**
+   * ##### Purpose:
+   * - To save user data to local storage
+   * @function onLoggedIn
+   * @param {Object} authData
+   * @returns {state}
+   * @returns Updates Username in state
+   * >
+   * ***
+   * >
+   */
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
@@ -109,6 +147,18 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
+  /**
+   * ##### Purpose:
+   * - To logout user
+   * - To delete local storage
+   * @function logoutUser
+   * @param {e} event
+   * @returns {LoginView}
+   * @returns To Login screen
+   * >
+   * ***
+   * >
+   */
   logoutUser = (e) => {
     e.preventDefault();
     this.props.setUserProf({});

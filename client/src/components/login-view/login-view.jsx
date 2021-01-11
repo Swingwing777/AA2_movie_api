@@ -11,6 +11,19 @@ export function LoginView(props) {
   const [password, setPassword] = useState('');
   const [apiData, setApiData] = useState(null);
 
+  /**
+   * ##### Purpose:
+   * - To login the user
+   * - Method: POST
+   * - Endpoint: /login
+   * @function handleSubmit
+   * @param {*} e (event) 
+   * @returns {Object}
+   * @returns User information
+   * >
+   * ***
+   * >
+   */
   const handleSubmit = (e) => {
     const source = axios.CancelToken.source();
     localStorage.removeItem('token');

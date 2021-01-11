@@ -13,6 +13,24 @@ export function RegistrationView(props) {
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
 
+  /**
+   * ##### Purpose: 
+   * - To register new user
+   * - Method: POST
+   * - Endpoint: /users
+   * @async
+   * @function registerUser
+   * @param {*} e (event)
+   * @param {string} username
+   * @param {string} password
+   * @param {string} email
+   * @param {date} birthday
+   * @returns {string} 
+   * @returns Alert message or logged failure
+   * >
+   * ***
+   * >
+  */
   const registerUser = (e) => {
     e.preventDefault();
 

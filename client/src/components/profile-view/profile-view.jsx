@@ -22,6 +22,21 @@ export class ProfileView extends React.Component {
     // No state defined.  props, not state used directly by functions.
   }
 
+
+  /**
+   * ##### Purpose:
+   * - To display current user
+   * - Method: GET
+   * - Endpoint: /users/*user*
+   * @function getUser
+   * @param {*} token 
+   * @async
+   * @returns {Object}
+   * @returns User data
+   * >
+   * ***
+   * >
+   */
   getUser(token) {
     let user = localStorage.getItem('user')
     const source = axios.CancelToken.source();
@@ -50,6 +65,19 @@ export class ProfileView extends React.Component {
     this.getUser(accessToken);
   }
 
+  /**
+   * ##### Purpose: 
+   * - For user to delete favorite movie
+   * - Method: DELETE
+   * - Endpoint: users/_user_/movieID/_movieID_
+   * @function deleteFavorite
+   * @async
+   * @param {*} movieId
+   * @returns Alert message 
+   * >
+   * ***
+   * >
+   */
   deleteFavorite(movieId) {
     let user = localStorage.getItem('user');
 
@@ -66,6 +94,18 @@ export class ProfileView extends React.Component {
       });
   }
 
+  /**
+   * ##### Purpose: 
+   * - For user to delete profile
+   * - Method: DELETE
+   * - Endpoint: users/_user_
+   * @function deleteProfile
+   * @async
+   * @returns Alert message
+   * >
+   * ***
+   * > 
+  */
   deleteProfile() {
     let user = localStorage.getItem('user')
 

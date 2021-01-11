@@ -13,6 +13,16 @@ const mapStateToProps = state => {
   return { visibilityFilter };
 };
 
+/**
+ * ##### Purpose:
+ * - To allow user to filter movies list by title
+ * @function MoviesList
+ * @param {*} props 
+ * @returns Filtered Movies
+ * >
+ * ***
+ * >
+ */
 function MoviesList(props) {
   const { movies, visibilityFilter } = props;
   let filteredMovies = movies;

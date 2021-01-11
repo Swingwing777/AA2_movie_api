@@ -17,6 +17,20 @@ export class MovieView extends React.Component {
     this.state = {}
   }
 
+  /**
+   *  ##### Purpose:
+   * - To refresh latest user data
+   * - Method: GET
+   * - Endpoint: /users/_user_
+   * @function getUser (Movie-View)
+   * @async
+   * @param {*} token
+   * @returns {Object}
+   * @return JSON response  
+   * >
+   * ***
+   * >
+   */
   getUser(token) {
     let user = localStorage.getItem('user')
     const source = axios.CancelToken.source();
@@ -45,6 +59,18 @@ export class MovieView extends React.Component {
     this.getUser(accessToken);
   }
 
+  /**
+   * ##### Purpose:
+   * - To add favorite to user's collection
+   * - Method: POST
+   * - Endpoint: /users/_user_/movieID/_movieID_
+   * @function addFavorite
+   * @param {*} movieId 
+   * @returns Alert - success or failure
+   * >
+   * ***
+   * >
+   */
   addFavorite(movieId) {
     const { movie } = this.props;
     let user = localStorage.getItem('user');
@@ -61,6 +87,18 @@ export class MovieView extends React.Component {
       });
   }
 
+  /**
+   * ##### Purpose:
+   * - To delete favorite from user's collection
+   * - Method: DELETE
+   * - Endpoint: /users/_user_/movieID/_movieID_
+   * @function deleteFavorite
+   * @param {*} movieId 
+   * @returns Alert - success or failure
+   * >
+   * ***
+   * >
+   */
   deleteFavorite(movieId) {
     let user = localStorage.getItem('user');
 
