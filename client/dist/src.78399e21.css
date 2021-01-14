@@ -215,16 +215,8 @@ body {
   box-shadow: 1px 0 1px black inset, 0px 2px 1px black inset, 2px 0 2px black inset, 0px 2px 2px black inset;
 }
 
-.label,
-.textMain,
-.value {
-  font-size: medium;
-  color: white;
-  text-shadow: 2px 2px 3px black;
-}
-
 .textMain {
-  font-size: large;
+  font-size: medium;
   color: white;
   text-shadow: 2px 2px 3px black;
 }
@@ -287,16 +279,8 @@ body {
   box-shadow: 1px 0 1px black inset, 0px 2px 1px black inset, 2px 0 2px black inset, 0px 2px 2px black inset;
 }
 
-.label,
-.textMain,
-.value {
-  font-size: medium;
-  color: white;
-  text-shadow: 2px 2px 3px black;
-}
-
 .textMain {
-  font-size: large;
+  font-size: medium;
   color: white;
   text-shadow: 2px 2px 3px black;
 }
@@ -365,16 +349,8 @@ body {
   box-shadow: 1px 0 1px black inset, 0px 2px 1px black inset, 2px 0 2px black inset, 0px 2px 2px black inset;
 }
 
-.label,
-.textMain,
-.value {
-  font-size: medium;
-  color: white;
-  text-shadow: 2px 2px 3px black;
-}
-
 .textMain {
-  font-size: large;
+  font-size: medium;
   color: white;
   text-shadow: 2px 2px 3px black;
 }

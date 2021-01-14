@@ -32543,19 +32543,12 @@ module.exports = function xhrAdapter(config) {
       delete requestHeaders['Content-Type']; // Let the browser set it
     }
 
-    if (
-      (utils.isBlob(requestData) || utils.isFile(requestData)) &&
-      requestData.type
-    ) {
-      delete requestHeaders['Content-Type']; // Let the browser set it
-    }
-
     var request = new XMLHttpRequest();
 
     // HTTP basic authentication
     if (config.auth) {
       var username = config.auth.username || '';
-      var password = unescape(encodeURIComponent(config.auth.password)) || '';
+      var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : '';
       requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
     }
 
@@ -32710,7 +32703,7 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-},{"./../utils":"../node_modules/axios/lib/utils.js","./../core/settle":"../node_modules/axios/lib/core/settle.js","./../helpers/cookies":"../node_modules/axios/lib/helpers/cookies.js","./../helpers/buildURL":"../node_modules/axios/lib/helpers/buildURL.js","../core/buildFullPath":"../node_modules/axios/lib/core/buildFullPath.js","./../helpers/parseHeaders":"../node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"../node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"../node_modules/axios/lib/core/createError.js"}],"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{"./../utils":"../node_modules/axios/lib/utils.js","./../core/settle":"../node_modules/axios/lib/core/settle.js","./../helpers/cookies":"../node_modules/axios/lib/helpers/cookies.js","./../helpers/buildURL":"../node_modules/axios/lib/helpers/buildURL.js","../core/buildFullPath":"../node_modules/axios/lib/core/buildFullPath.js","./../helpers/parseHeaders":"../node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"../node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"../node_modules/axios/lib/core/createError.js"}],"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -33020,7 +33013,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-},{"./utils":"../node_modules/axios/lib/utils.js","./helpers/normalizeHeaderName":"../node_modules/axios/lib/helpers/normalizeHeaderName.js","./adapters/xhr":"../node_modules/axios/lib/adapters/xhr.js","./adapters/http":"../node_modules/axios/lib/adapters/xhr.js","process":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/axios/lib/core/dispatchRequest.js":[function(require,module,exports) {
+},{"./utils":"../node_modules/axios/lib/utils.js","./helpers/normalizeHeaderName":"../node_modules/axios/lib/helpers/normalizeHeaderName.js","./adapters/xhr":"../node_modules/axios/lib/adapters/xhr.js","./adapters/http":"../node_modules/axios/lib/adapters/xhr.js","process":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/axios/lib/core/dispatchRequest.js":[function(require,module,exports) {
 'use strict';
 
 var utils = require('./../utils');
@@ -33268,7 +33261,8 @@ utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData
   Axios.prototype[method] = function(url, config) {
     return this.request(mergeConfig(config || {}, {
       method: method,
-      url: url
+      url: url,
+      data: (config || {}).data
     }));
   };
 });
@@ -33395,6 +33389,19 @@ module.exports = function spread(callback) {
   };
 };
 
+},{}],"../node_modules/axios/lib/helpers/isAxiosError.js":[function(require,module,exports) {
+'use strict';
+
+/**
+ * Determines whether the payload is an error thrown by Axios
+ *
+ * @param {*} payload The value to test
+ * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
+ */
+module.exports = function isAxiosError(payload) {
+  return (typeof payload === 'object') && (payload.isAxiosError === true);
+};
+
 },{}],"../node_modules/axios/lib/axios.js":[function(require,module,exports) {
 'use strict';
 
@@ -33445,12 +33452,15 @@ axios.all = function all(promises) {
 };
 axios.spread = require('./helpers/spread');
 
+// Expose isAxiosError
+axios.isAxiosError = require('./helpers/isAxiosError');
+
 module.exports = axios;
 
 // Allow use of default import syntax in TypeScript
 module.exports.default = axios;
 
-},{"./utils":"../node_modules/axios/lib/utils.js","./helpers/bind":"../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"../node_modules/axios/lib/core/mergeConfig.js","./defaults":"../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../node_modules/axios/lib/helpers/spread.js"}],"../node_modules/axios/index.js":[function(require,module,exports) {
+},{"./utils":"../node_modules/axios/lib/utils.js","./helpers/bind":"../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"../node_modules/axios/lib/core/mergeConfig.js","./defaults":"../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../node_modules/axios/lib/helpers/spread.js","./helpers/isAxiosError":"../node_modules/axios/lib/helpers/isAxiosError.js"}],"../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
 },{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
 "use strict";
@@ -51384,7 +51394,7 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Accordion":"../node_modules/react-bootstrap/esm/Accordion.js","./AccordionContext":"../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionCollapse":"../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionToggle":"../node_modules/react-bootstrap/esm/AccordionToggle.js","./Alert":"../node_modules/react-bootstrap/esm/Alert.js","./Badge":"../node_modules/react-bootstrap/esm/Badge.js","./Breadcrumb":"../node_modules/react-bootstrap/esm/Breadcrumb.js","./BreadcrumbItem":"../node_modules/react-bootstrap/esm/BreadcrumbItem.js","./Button":"../node_modules/react-bootstrap/esm/Button.js","./ButtonGroup":"../node_modules/react-bootstrap/esm/ButtonGroup.js","./ButtonToolbar":"../node_modules/react-bootstrap/esm/ButtonToolbar.js","./Card":"../node_modules/react-bootstrap/esm/Card.js","./CardColumns":"../node_modules/react-bootstrap/esm/CardColumns.js","./CardDeck":"../node_modules/react-bootstrap/esm/CardDeck.js","./CardImg":"../node_modules/react-bootstrap/esm/CardImg.js","./CardGroup":"../node_modules/react-bootstrap/esm/CardGroup.js","./Carousel":"../node_modules/react-bootstrap/esm/Carousel.js","./CarouselItem":"../node_modules/react-bootstrap/esm/CarouselItem.js","./CloseButton":"../node_modules/react-bootstrap/esm/CloseButton.js","./Col":"../node_modules/react-bootstrap/esm/Col.js","./Collapse":"../node_modules/react-bootstrap/esm/Collapse.js","./Dropdown":"../node_modules/react-bootstrap/esm/Dropdown.js","./DropdownButton":"../node_modules/react-bootstrap/esm/DropdownButton.js","./Fade":"../node_modules/react-bootstrap/esm/Fade.js","./Form":"../node_modules/react-bootstrap/esm/Form.js","./FormControl":"../node_modules/react-bootstrap/esm/FormControl.js","./FormCheck":"../node_modules/react-bootstrap/esm/FormCheck.js","./FormFile":"../node_modules/react-bootstrap/esm/FormFile.js","./FormGroup":"../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../node_modules/react-bootstrap/esm/FormLabel.js","./FormText":"../node_modules/react-bootstrap/esm/FormText.js","./Container":"../node_modules/react-bootstrap/esm/Container.js","./Image":"../node_modules/react-bootstrap/esm/Image.js","./Figure":"../node_modules/react-bootstrap/esm/Figure.js","./InputGroup":"../node_modules/react-bootstrap/esm/InputGroup.js","./Jumbotron":"../node_modules/react-bootstrap/esm/Jumbotron.js","./ListGroup":"../node_modules/react-bootstrap/esm/ListGroup.js","./ListGroupItem":"../node_modules/react-bootstrap/esm/ListGroupItem.js","./Media":"../node_modules/react-bootstrap/esm/Media.js","./Modal":"../node_modules/react-bootstrap/esm/Modal.js","./ModalBody":"../node_modules/react-bootstrap/esm/ModalBody.js","./ModalDialog":"../node_modules/react-bootstrap/esm/ModalDialog.js","./ModalFooter":"../node_modules/react-bootstrap/esm/ModalFooter.js","./ModalTitle":"../node_modules/react-bootstrap/esm/ModalTitle.js","./Nav":"../node_modules/react-bootstrap/esm/Nav.js","./Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","./NavbarBrand":"../node_modules/react-bootstrap/esm/NavbarBrand.js","./NavDropdown":"../node_modules/react-bootstrap/esm/NavDropdown.js","./NavItem":"../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../node_modules/react-bootstrap/esm/NavLink.js","./Overlay":"../node_modules/react-bootstrap/esm/Overlay.js","./OverlayTrigger":"../node_modules/react-bootstrap/esm/OverlayTrigger.js","./PageItem":"../node_modules/react-bootstrap/esm/PageItem.js","./Pagination":"../node_modules/react-bootstrap/esm/Pagination.js","./Popover":"../node_modules/react-bootstrap/esm/Popover.js","./PopoverTitle":"../node_modules/react-bootstrap/esm/PopoverTitle.js","./PopoverContent":"../node_modules/react-bootstrap/esm/PopoverContent.js","./ProgressBar":"../node_modules/react-bootstrap/esm/ProgressBar.js","./ResponsiveEmbed":"../node_modules/react-bootstrap/esm/ResponsiveEmbed.js","./Row":"../node_modules/react-bootstrap/esm/Row.js","./SafeAnchor":"../node_modules/react-bootstrap/esm/SafeAnchor.js","./Spinner":"../node_modules/react-bootstrap/esm/Spinner.js","./SplitButton":"../node_modules/react-bootstrap/esm/SplitButton.js","./Tab":"../node_modules/react-bootstrap/esm/Tab.js","./TabContainer":"../node_modules/react-bootstrap/esm/TabContainer.js","./TabContent":"../node_modules/react-bootstrap/esm/TabContent.js","./Table":"../node_modules/react-bootstrap/esm/Table.js","./TabPane":"../node_modules/react-bootstrap/esm/TabPane.js","./Tabs":"../node_modules/react-bootstrap/esm/Tabs.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js","./Toast":"../node_modules/react-bootstrap/esm/Toast.js","./ToastBody":"../node_modules/react-bootstrap/esm/ToastBody.js","./ToastHeader":"../node_modules/react-bootstrap/esm/ToastHeader.js","./ToggleButton":"../node_modules/react-bootstrap/esm/ToggleButton.js","./ToggleButtonGroup":"../node_modules/react-bootstrap/esm/ToggleButtonGroup.js","./Tooltip":"../node_modules/react-bootstrap/esm/Tooltip.js"}],"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"./Accordion":"../node_modules/react-bootstrap/esm/Accordion.js","./AccordionContext":"../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionCollapse":"../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionToggle":"../node_modules/react-bootstrap/esm/AccordionToggle.js","./Alert":"../node_modules/react-bootstrap/esm/Alert.js","./Badge":"../node_modules/react-bootstrap/esm/Badge.js","./Breadcrumb":"../node_modules/react-bootstrap/esm/Breadcrumb.js","./BreadcrumbItem":"../node_modules/react-bootstrap/esm/BreadcrumbItem.js","./Button":"../node_modules/react-bootstrap/esm/Button.js","./ButtonGroup":"../node_modules/react-bootstrap/esm/ButtonGroup.js","./ButtonToolbar":"../node_modules/react-bootstrap/esm/ButtonToolbar.js","./Card":"../node_modules/react-bootstrap/esm/Card.js","./CardColumns":"../node_modules/react-bootstrap/esm/CardColumns.js","./CardDeck":"../node_modules/react-bootstrap/esm/CardDeck.js","./CardImg":"../node_modules/react-bootstrap/esm/CardImg.js","./CardGroup":"../node_modules/react-bootstrap/esm/CardGroup.js","./Carousel":"../node_modules/react-bootstrap/esm/Carousel.js","./CarouselItem":"../node_modules/react-bootstrap/esm/CarouselItem.js","./CloseButton":"../node_modules/react-bootstrap/esm/CloseButton.js","./Col":"../node_modules/react-bootstrap/esm/Col.js","./Collapse":"../node_modules/react-bootstrap/esm/Collapse.js","./Dropdown":"../node_modules/react-bootstrap/esm/Dropdown.js","./DropdownButton":"../node_modules/react-bootstrap/esm/DropdownButton.js","./Fade":"../node_modules/react-bootstrap/esm/Fade.js","./Form":"../node_modules/react-bootstrap/esm/Form.js","./FormControl":"../node_modules/react-bootstrap/esm/FormControl.js","./FormCheck":"../node_modules/react-bootstrap/esm/FormCheck.js","./FormFile":"../node_modules/react-bootstrap/esm/FormFile.js","./FormGroup":"../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../node_modules/react-bootstrap/esm/FormLabel.js","./FormText":"../node_modules/react-bootstrap/esm/FormText.js","./Container":"../node_modules/react-bootstrap/esm/Container.js","./Image":"../node_modules/react-bootstrap/esm/Image.js","./Figure":"../node_modules/react-bootstrap/esm/Figure.js","./InputGroup":"../node_modules/react-bootstrap/esm/InputGroup.js","./Jumbotron":"../node_modules/react-bootstrap/esm/Jumbotron.js","./ListGroup":"../node_modules/react-bootstrap/esm/ListGroup.js","./ListGroupItem":"../node_modules/react-bootstrap/esm/ListGroupItem.js","./Media":"../node_modules/react-bootstrap/esm/Media.js","./Modal":"../node_modules/react-bootstrap/esm/Modal.js","./ModalBody":"../node_modules/react-bootstrap/esm/ModalBody.js","./ModalDialog":"../node_modules/react-bootstrap/esm/ModalDialog.js","./ModalFooter":"../node_modules/react-bootstrap/esm/ModalFooter.js","./ModalTitle":"../node_modules/react-bootstrap/esm/ModalTitle.js","./Nav":"../node_modules/react-bootstrap/esm/Nav.js","./Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","./NavbarBrand":"../node_modules/react-bootstrap/esm/NavbarBrand.js","./NavDropdown":"../node_modules/react-bootstrap/esm/NavDropdown.js","./NavItem":"../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../node_modules/react-bootstrap/esm/NavLink.js","./Overlay":"../node_modules/react-bootstrap/esm/Overlay.js","./OverlayTrigger":"../node_modules/react-bootstrap/esm/OverlayTrigger.js","./PageItem":"../node_modules/react-bootstrap/esm/PageItem.js","./Pagination":"../node_modules/react-bootstrap/esm/Pagination.js","./Popover":"../node_modules/react-bootstrap/esm/Popover.js","./PopoverTitle":"../node_modules/react-bootstrap/esm/PopoverTitle.js","./PopoverContent":"../node_modules/react-bootstrap/esm/PopoverContent.js","./ProgressBar":"../node_modules/react-bootstrap/esm/ProgressBar.js","./ResponsiveEmbed":"../node_modules/react-bootstrap/esm/ResponsiveEmbed.js","./Row":"../node_modules/react-bootstrap/esm/Row.js","./SafeAnchor":"../node_modules/react-bootstrap/esm/SafeAnchor.js","./Spinner":"../node_modules/react-bootstrap/esm/Spinner.js","./SplitButton":"../node_modules/react-bootstrap/esm/SplitButton.js","./Tab":"../node_modules/react-bootstrap/esm/Tab.js","./TabContainer":"../node_modules/react-bootstrap/esm/TabContainer.js","./TabContent":"../node_modules/react-bootstrap/esm/TabContent.js","./Table":"../node_modules/react-bootstrap/esm/Table.js","./TabPane":"../node_modules/react-bootstrap/esm/TabPane.js","./Tabs":"../node_modules/react-bootstrap/esm/Tabs.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js","./Toast":"../node_modules/react-bootstrap/esm/Toast.js","./ToastBody":"../node_modules/react-bootstrap/esm/ToastBody.js","./ToastHeader":"../node_modules/react-bootstrap/esm/ToastHeader.js","./ToggleButton":"../node_modules/react-bootstrap/esm/ToggleButton.js","./ToggleButtonGroup":"../node_modules/react-bootstrap/esm/ToggleButtonGroup.js","./Tooltip":"../node_modules/react-bootstrap/esm/Tooltip.js"}],"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -51416,7 +51426,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -51451,12 +51461,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/visibility-filter-input/visibility-filter-input.scss":[function(require,module,exports) {
+},{"./bundle-url":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/visibility-filter-input/visibility-filter-input.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/visibility-filter-input/visibility-filter-input.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/visibility-filter-input/visibility-filter-input.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51500,7 +51510,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
+},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51603,7 +51613,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movies-list/movies-list.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movies-list/movies-list.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51632,6 +51642,17 @@ var mapStateToProps = function mapStateToProps(state) {
     visibilityFilter: visibilityFilter
   };
 };
+/**
+ * ##### Purpose:
+ * - To allow user to filter movies list by title
+ * @function MoviesList
+ * @param {*} props 
+ * @returns Filtered Movies
+ * >
+ * ***
+ * >
+ */
+
 
 function MoviesList(props) {
   var movies = props.movies,
@@ -51675,7 +51696,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
+},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51728,6 +51749,20 @@ function LoginView(props) {
       _useState6 = _slicedToArray(_useState5, 2),
       apiData = _useState6[0],
       setApiData = _useState6[1];
+  /**
+   * ##### Purpose:
+   * - To login the user
+   * - Method: POST
+   * - Endpoint: /login
+   * @function handleSubmit
+   * @param {*} e (event) 
+   * @returns {Object}
+   * @returns User information
+   * >
+   * ***
+   * >
+   */
+
 
   var handleSubmit = function handleSubmit(e) {
     var source = _axios.default.CancelToken.source();
@@ -51737,9 +51772,9 @@ function LoginView(props) {
 
     e.preventDefault();
     /* Send a request to the server for authentication */
+    // axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
 
-    _axios.default.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/login', {
-      // axios.post('https://bond-movie-api.herokuapp.com/login', {
+    _axios.default.post('/login', {
       Username: username,
       Password: password
     }).then(function (response) {
@@ -51833,7 +51868,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movie-view/movie-view.jsx":[function(require,module,exports) {
+},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movie-view/movie-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51893,16 +51928,31 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
     _this.state = {};
     return _this;
   }
+  /**
+   *  ##### Purpose:
+   * - To refresh latest user data
+   * - Method: GET
+   * - Endpoint: /users/_user_
+   * @function getUser (Movie-View)
+   * @async
+   * @param {*} token
+   * @returns {Object}
+   * @return JSON response  
+   * >
+   * ***
+   * >
+   */
+
 
   _createClass(MovieView, [{
     key: "getUser",
     value: function getUser(token) {
       var user = localStorage.getItem('user');
 
-      var source = _axios.default.CancelToken.source();
+      var source = _axios.default.CancelToken.source(); // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
 
-      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
-        // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
+
+      _axios.default.get("/users/".concat(user), {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -51926,14 +51976,26 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       var accessToken = localStorage.getItem('token');
       this.getUser(accessToken);
     }
+    /**
+     * ##### Purpose:
+     * - To add favorite to user's collection
+     * - Method: POST
+     * - Endpoint: /users/_user_/movieID/_movieID_
+     * @function addFavorite
+     * @param {*} movieId 
+     * @returns Alert - success or failure
+     * >
+     * ***
+     * >
+     */
+
   }, {
     key: "addFavorite",
     value: function addFavorite(movieId) {
       var movie = this.props.movie;
-      var user = localStorage.getItem('user');
+      var user = localStorage.getItem('user'); // axios.post(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
 
-      _axios.default.post("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
-        // axios.post(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+      _axios.default.post("/users/".concat(user, "/movieID/").concat(movieId, " "), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -51943,13 +52005,25 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         alert("".concat(movie.Title, " could not be added to your favorites ") + e);
       });
     }
+    /**
+     * ##### Purpose:
+     * - To delete favorite from user's collection
+     * - Method: DELETE
+     * - Endpoint: /users/_user_/movieID/_movieID_
+     * @function deleteFavorite
+     * @param {*} movieId 
+     * @returns Alert - success or failure
+     * >
+     * ***
+     * >
+     */
+
   }, {
     key: "deleteFavorite",
     value: function deleteFavorite(movieId) {
-      var user = localStorage.getItem('user');
+      var user = localStorage.getItem('user'); // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
 
-      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
-        // axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+      _axios.default.delete("/users/".concat(user, "/movieID/").concat(movieId, " "), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -57792,7 +57866,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/bond-view/bond-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/bond-view/bond-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57890,11 +57964,11 @@ var BondView = /*#__PURE__*/function (_React$Component) {
       }, bondactor.Bio)), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
-        className: "label"
+        className: "textMain"
       }, "Born:\xA0\xA0" + (0, _moment.default)(bondactor.Birth.Date).format('D MMM YYYY') + ",\xA0\xA0" + bondactor.Birth.Place)), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "text-left m-2"
       }, _react.default.createElement("span", {
-        className: "value"
+        className: "textMain"
       }, bondactor.Death.Date ? "Died:\xA0\xA0" + (0, _moment.default)(bondactor.Death.Date).format('D MMM YYYY') + ",\xA0\xA0" + bondactor.Death.Place : '')), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
@@ -57981,7 +58055,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/genre-view/genre-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/genre-view/genre-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -58066,7 +58140,7 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_reactBootstrap.Card.Title, {
         className: "titleh1 mt-3"
       }, genre.Name), _react.default.createElement(_reactBootstrap.Card.Text, {
-        className: "value m-3"
+        className: "m-3"
       }, _react.default.createElement("span", {
         className: "textMain"
       }, genre.Description))), _react.default.createElement(_reactBootstrap.Card.Footer, {
@@ -58142,7 +58216,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -58240,11 +58314,11 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
       }, director.Bio)), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
-        className: "label"
+        className: "textMain"
       }, director.Birth.Date ? "Born:\xA0\xA0" + (0, _moment.default)(director.Birth.Date).format('D MMM YYYY') + ",\xA0\xA0" + director.Birth.Place : '')), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "text-left m-2"
       }, _react.default.createElement("span", {
-        className: "value"
+        className: "textMain"
       }, director.Death.Date ? "Died:\xA0\xA0" + (0, _moment.default)(director.Death.Date).format('D MMM YYYY') + ",\xA0\xA0" + director.Death.Place : '')), _react.default.createElement(_reactBootstrap.Card.Text, {
         className: "text-left mt-4 m-2"
       }, _react.default.createElement("span", {
@@ -58331,7 +58405,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/profile-view/profile-view.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/profile-view/profile-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -58404,16 +58478,31 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
     return _super.call(this); // No state defined.  props, not state used directly by functions.
   }
+  /**
+   * ##### Purpose:
+   * - To display current user
+   * - Method: GET
+   * - Endpoint: /users/*user*
+   * @function getUser
+   * @param {*} token 
+   * @async
+   * @returns {Object}
+   * @returns User data
+   * >
+   * ***
+   * >
+   */
+
 
   _createClass(ProfileView, [{
     key: "getUser",
     value: function getUser(token) {
       var user = localStorage.getItem('user');
 
-      var source = _axios.default.CancelToken.source();
+      var source = _axios.default.CancelToken.source(); // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
 
-      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
-        // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
+
+      _axios.default.get("/users/".concat(user), {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -58437,13 +58526,26 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       var accessToken = localStorage.getItem('token');
       this.getUser(accessToken);
     }
+    /**
+     * ##### Purpose: 
+     * - For user to delete favorite movie
+     * - Method: DELETE
+     * - Endpoint: users/_user_/movieID/_movieID_
+     * @function deleteFavorite
+     * @async
+     * @param {*} movieId
+     * @returns Alert message 
+     * >
+     * ***
+     * >
+     */
+
   }, {
     key: "deleteFavorite",
     value: function deleteFavorite(movieId) {
-      var user = localStorage.getItem('user');
+      var user = localStorage.getItem('user'); // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
 
-      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user, "/movieID/").concat(movieId, " "), {
-        // axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}/movieID/${movieId} `, {
+      _axios.default.delete("/users/".concat(user, "/movieID/").concat(movieId, " "), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -58454,18 +58556,30 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         alert('Movie could not be deleted from favorites ' + e);
       });
     }
+    /**
+     * ##### Purpose: 
+     * - For user to delete profile
+     * - Method: DELETE
+     * - Endpoint: users/_user_
+     * @function deleteProfile
+     * @async
+     * @returns Alert message
+     * >
+     * ***
+     * > 
+    */
+
   }, {
     key: "deleteProfile",
     value: function deleteProfile() {
-      var user = localStorage.getItem('user');
+      var user = localStorage.getItem('user'); // axios.delete(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`,
 
-      _axios.default.delete("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), // axios.delete(`https://bond-movie-api.herokuapp.com/users/${user}`,
-      {
+      _axios.default.delete("/users/".concat(user), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
       }).then(function (res) {
-        alert('Do you really want to delete your account?');
+        prompt('Type "Yes" to confirm deletion');
       }).then(function (res) {
         alert('Account was successfully deleted');
         (0, _actions.setUserProf)({}); // Change 5 (not 'setState')
@@ -58666,7 +58780,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/update-view/update-view.jsx":[function(require,module,exports) {
+},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/update-view/update-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -58738,10 +58852,9 @@ function UpdateView(props) {
     var source = _axios.default.CancelToken.source();
 
     var user = localStorage.getItem('user');
-    e.preventDefault();
+    e.preventDefault(); // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
 
-    _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
-      // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
+    _axios.default.get("/users/".concat(user), {
       headers: {
         Authorization: "Bearer ".concat(localStorage.getItem('token'))
       }
@@ -58766,10 +58879,9 @@ function UpdateView(props) {
 
   var updateUser = function updateUser(e) {
     var user = localStorage.getItem('user');
-    e.preventDefault();
+    e.preventDefault(); // axios.put(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
 
-    _axios.default.put("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
-      // axios.put(`https://bond-movie-api.herokuapp.com/users/${user}`, {
+    _axios.default.put("/users/".concat(user), {
       Username: username,
       Password: password,
       Email: email,
@@ -58894,7 +59006,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registration-view/registration-view.jsx":[function(require,module,exports) {
+},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registration-view/registration-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -58954,20 +59066,39 @@ function RegistrationView(props) {
       _useState8 = _slicedToArray(_useState7, 2),
       birthday = _useState8[0],
       setBirthday = _useState8[1];
+  /**
+   * ##### Purpose: 
+   * - To register new user
+   * - Method: POST
+   * - Endpoint: /users
+   * @async
+   * @function registerUser
+   * @param {*} e (event)
+   * @param {string} username
+   * @param {string} password
+   * @param {string} email
+   * @param {date} birthday
+   * @returns {string} 
+   * @returns Alert message or logged failure
+   * >
+   * ***
+   * >
+  */
+
 
   var registerUser = function registerUser(e) {
-    e.preventDefault();
+    e.preventDefault(); // axios.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
 
-    _axios.default.post('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users', {
-      // axios.post('https://bond-movie-api.herokuapp.com/users', {
+    _axios.default.post('/users', {
       Username: username,
       Password: password,
       Email: email,
       Birthday: birthday
     }).then(function (response) {
-      var data = response.data;
+      var data = response.data; // console.log(data);
+
       alert('Successful Registration.  Please login with your new details');
-      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+      window.open('/client', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
     }) // window.open('/client', '_self') required for online hosting
     .catch(function (e) {
       console.log('Please check and try again');
@@ -59074,7 +59205,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
+},{"./../../../../public/img/6BWTransFade.png":[["6BWTransFade.fd57f77e.png","../../public/img/6BWTransFade.png"],"../../public/img/6BWTransFade.png"],"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59161,14 +59292,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.open('/', '_self');
+      window.open('/client', '_self');
     };
 
     _this.state = {
-      // movies: [],
-      // selectedMovie: null,
-      // userProfile: null,
-      // apiData: null,
       user: null,
       isAuth: false // Ties to isLoggedIn and isLoggedOut
 
@@ -59189,16 +59316,30 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
         this.getMovies(accessToken);
       }
-    } // axios.get('https://bond-movie-api.herokuapp.com/movies', {
+    }
+    /**
+     * ##### Purpose:
+     * - To get all movies data
+     * - Method: GET
+     * - Endpoint: /movies
+     * @function getMovies
+     * @async
+     * @param {*} token
+     * @return JSON response 
+     * >
+     * ***
+     * > 
+     */
 
   }, {
     key: "getMovies",
     value: function getMovies(token) {
       var _this2 = this;
 
-      var source = _axios.default.CancelToken.source();
+      var source = _axios.default.CancelToken.source(); // axios.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
 
-      _axios.default.get('https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/movies', {
+
+      _axios.default.get('/movies', {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -59218,6 +59359,21 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
       });
     }
+    /**
+     *  ##### Purpose:
+     * - To get user data
+     * - Method: GET
+     * - Endpoint: /users/_user_
+     * @function getUser
+     * @async
+     * @param {*} token
+     * @returns {Object}
+     * @returns JSON response 
+     * >
+     * ***
+     * > 
+     */
+
   }, {
     key: "getUser",
     value: function getUser(token) {
@@ -59225,10 +59381,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
       var user = localStorage.getItem('user');
 
-      var source = _axios.default.CancelToken.source();
+      var source = _axios.default.CancelToken.source(); // axios.get(`https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/${user}`, {
 
-      _axios.default.get("https://cors-anywhere.herokuapp.com/bond-movie-api.herokuapp.com/users/".concat(user), {
-        // axios.get(`https://bond-movie-api.herokuapp.com/users/${user}`, {
+
+      _axios.default.get("/users/".concat(user), {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -59248,6 +59404,18 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         console.log('Cancel Token error: ' + e); // Catch 2: for cancel token error
       });
     }
+    /**
+     * ##### Purpose:
+     * - To save user data to local storage
+     * @function onLoggedIn
+     * @param {Object} authData
+     * @returns {state}
+     * @returns Updates Username in state
+     * >
+     * ***
+     * >
+     */
+
   }, {
     key: "onLoggedIn",
     value: function onLoggedIn(authData) {
@@ -59260,6 +59428,19 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
     }
+    /**
+     * ##### Purpose:
+     * - To logout user
+     * - To delete local storage
+     * @function logoutUser
+     * @param {e} event
+     * @returns {LoginView}
+     * @returns To Login screen
+     * >
+     * ***
+     * >
+     */
+
   }, {
     key: "render",
     value: function render() {
@@ -59279,7 +59460,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         className: "main-view"
       });
       return (// <Router basename="/client"> for online hosting 
-        _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
+        _react.default.createElement(_reactRouterDom.BrowserRouter, {
+          basename: "/client"
+        }, _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement(_reactBootstrap.Row, {
           className: "d-flex pt-2 justify-content-around"
         }, _react.default.createElement(_reactBootstrap.Col, {
           xs: 12,
@@ -59594,7 +59777,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -59665,7 +59848,7 @@ var BondMovieApp = /*#__PURE__*/function (_React$Component) {
 var container = document.getElementsByClassName('app-container')[0]; // Tell React to render our app in the root DOM element
 
 _reactDom.default.render(_react.default.createElement(BondMovieApp), container);
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","redux":"../node_modules/redux/es/redux.js","react-redux":"../node_modules/react-redux/es/index.js","./components/main-view/main-view":"components/main-view/main-view.jsx","./reducers/reducers":"reducers/reducers.js","./index.scss":"index.scss"}],"../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","redux":"../node_modules/redux/es/redux.js","react-redux":"../node_modules/react-redux/es/index.js","./components/main-view/main-view":"components/main-view/main-view.jsx","./reducers/reducers":"reducers/reducers.js","./index.scss":"index.scss"}],"../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -59693,7 +59876,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39577" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42533" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -59869,5 +60052,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../../../home/haldwlinux/.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
+},{}]},{},["../../../../../../../home/haldwlinux/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
 //# sourceMappingURL=/src.78399e21.js.map
