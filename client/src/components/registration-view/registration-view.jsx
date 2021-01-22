@@ -48,7 +48,7 @@ export function RegistrationView(props) {
         window.open('/client', '_self');              // the second argument '_self' is necessary so that the page will open in the current tab
       })                                              // window.open('/client', '_self') required for online hosting
       .catch(e => {
-        console.log('Please check and try again')
+        alert('Please check and try again');
       });
   };
 
@@ -69,7 +69,7 @@ export function RegistrationView(props) {
               type='text'
               value={username}
               onChange={e => setUsername(e.target.value)}
-              placeholder='Enter Username'
+              placeholder='Minimum 5, alphanumeric only'
             />
           </Form.Group>
 
