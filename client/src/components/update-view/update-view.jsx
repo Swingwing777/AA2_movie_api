@@ -62,10 +62,10 @@ export function UpdateView(props) {
         alert('Your profile changes were successful');
         localStorage.setItem('user', data.Username);
         console.log(response.data);
-        window.open(`/main`, '_self');
+        window.open(`/client`, '_self');
       })
       .catch(e => {
-        console.log('Please check and try again')
+        alert('Please check and try again');
       });
   };
 
